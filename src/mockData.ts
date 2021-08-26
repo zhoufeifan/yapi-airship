@@ -1,5 +1,6 @@
-import { ResponseParamsRowDataType } from './types'
-export const mockData: ResponseParamsRowDataType = {
+import { ResponseParamsRowDataType, RequestParamsRowDataType } from './types'
+
+export const responseParmasData: ResponseParamsRowDataType = {
   "type": "object",
   "properties": {
     "userNewId": {
@@ -551,3 +552,94 @@ export const mockData: ResponseParamsRowDataType = {
     "offShelfSeconds"
   ]
 }
+
+
+export const requestParmasData: RequestParamsRowDataType = {
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "description": "action"
+    },
+    "token": {
+      "type": "string",
+      "description": "登录时传"
+    },
+    "cityCode": {
+      "type": "string",
+      "description": "展示城市code，例如：0571"
+    },
+    "lng": {
+      "type": "number",
+      "description": "经度"
+    },
+    "lat": {
+      "type": "number",
+      "description": "纬度"
+    },
+    "adCode": {
+      "type": "string",
+      "description": "地址信息，例如：330184"
+    },
+    "platform": {
+      "type": "string"
+    },
+    "utmContent": {
+      "type": "string"
+    },
+    "utmCampaign": {
+      "type": "string"
+    },
+    "utmMedium": {
+      "type": "string"
+    },
+    "utmSource": {
+      "type": "string"
+    },
+    "utmTerm": {
+      "type": "string"
+    },
+    "tabId": {
+      "type": "string",
+      "description": "一级导航id，一级导航接口返回透传"
+    },
+    "pageNo": {
+      "type": "integer",
+      "description": "当前页数，从1开始"
+    },
+    "pageSize": {
+      "type": "integer",
+      "description": "每页条数"
+    },
+    "options": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "secondTabId": {
+            "type": "string",
+            "description": "二级导航tab编号"
+          },
+          "optionIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "二级导航tab下排序筛选optionId集合，【全部分类】选项为类目id，【区域】选项为adCode，二级导航接口返回透传"
+            }
+          }
+        },
+        "required": [
+          
+        ]
+      },
+      "description": "二级导航tab对象集合"
+    }
+  },
+  "required": [
+    "action",
+    "cityCode",
+    "tabId",
+    "options"
+  ]
+}
+

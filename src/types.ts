@@ -7,26 +7,20 @@
 export type FieldDataType = {
   name: string, // 数据字段名
   type: string, // 数据类型
-  description: string, // 数据含义
+  description?: string, // 数据含义
   required: boolean, // 是否必须
   isArray: boolean, // 是否是数组
 }
-// 请求参数 数据类型
-export type RequestParamsRowDataType = {
-  properties: {[index: string]: Pick<FieldDataType, "type" | "description">}, // 属性集合
-  required: string[], // 必填项列表
-}
-
 
 export type ObjectType = {
-  [index: string] : ResponseParamsRowDataType
+  [index: string] : ParamsRowDataType
 }
 // 返回数据 数据类型
-export type ResponseParamsRowDataType = {
+export type ParamsRowDataType = {
   type: string, // 类型名称
   description: string, //字段描述
   properties: ObjectType, // 如果是对象类型才有该字段
-  items: ResponseParamsRowDataType, // 如果是数组类型才有该字段
+  items: ParamsRowDataType, // 如果是数组类型才有该字段
   required: string[], // 必填项列表
 }
 

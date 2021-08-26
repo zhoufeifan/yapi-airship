@@ -1,10 +1,9 @@
-import { parse } from "@babel/parser";
 import { fetchData, getHeadCodeToUpperCase } from './utils'
-import { mockData } from './mockData'
-import { FieldDataType, RequestParamsRowDataType, TypeListItem, ResponseParamsRowDataType, ObjectType } from './types'
+import { responseParmasData, requestParmasData } from './mockData'
+import { FieldDataType, ParamsRowDataType, TypeListItem, ObjectType } from './types'
+import transform2code from './transform2code';
 
 let pageData: any = null;
-
 /*
 typeList: [{
   typeName: 'DetailType',
@@ -21,11 +20,11 @@ const typeList: TypeListItem[] = [];
 
 // 获取action
 function getAction() {
-  return pageData.title.replace(/(^[a-z.]+)(.+)/g, '$1')
+  return pageData.title.replace(/(^[a-z.0-9]+)(.+)/g, '$1')
 }
 
 // 获取入参信息
-function getRequestDataInfo(actionName: string): { typeName: string, paramsList: FieldDataType[] } {
+function getRequestType(actionName: string): string {
   // properties:
     // action: {type: "string", description: "action"}
     // cityCode: {type: "string", description: "展示城市code"}
@@ -35,34 +34,32 @@ function getRequestDataInfo(actionName: string): { typeName: string, paramsList:
   // required: (3) ["action", "cityCode", "tabId"]
   
   // todo 兼容params 有包含对象的场景
-  const { properties, required } = JSON.parse(pageData.req_body_other) as RequestParamsRowDataType
-  const paramsList: any = [];
-  Object.entries(properties).map(([key, data])=>{
+  // todo 处理无需token的场景
+  const { properties, required: requiredList } = JSON.parse(pageData.req_body_other) as ParamsRowDataType
+  const items: any = [];
+  Object.entries(properties).forEach(([key, data])=>{
     //过滤掉 token 和 action, 后面可以考虑走配置
-    if(key !== 'action' && key !== 'token') {
-      paramsList.push({
-        name: key,
-        ...data,
-        required: required.includes(key)
-      })
-    }
+    if(key === 'action' || key === 'token') return
+
+    const item = getTypeItem(data, key, requiredList)
+    items.push(item)
   })
-  return {
-    typeName: `${actionName}Req`,
-    paramsList,
-  }
+  const typeName = `${actionName}Req`
+  typeList.push({
+    typeName,
+    items,
+  })
+  return typeName
 }
 
 
 
-function getArrayType(items: ResponseParamsRowDataType, keyName: string) {
+function getArrayType(items: ParamsRowDataType, keyName: string) {
   if (items.type === 'array') {
     // 暂不处理二维数组的情况
     return ''
   } else if(items.type === 'object') {
-    const type = getObjectType(items.properties, keyName, items.required);
-    console.warn(type);
-    return type
+    return getObjectType(items.properties, keyName, items.required);
   } else {
     return items.type
   }
@@ -98,7 +95,7 @@ function getObjectType(data: ObjectType, keyName: string, requiedList = ['']) {
 
 
 // 获取字段属性
-function getTypeItem(data: ResponseParamsRowDataType, keyName: string, requiredList = ['']): FieldDataType{
+function getTypeItem(data: ParamsRowDataType, keyName: string, requiredList = ['']): FieldDataType{
   let type = ''
   let isArray = false
   if(data.type === 'object' ) {
@@ -120,9 +117,10 @@ function getTypeItem(data: ResponseParamsRowDataType, keyName: string, requiredL
 // 获取返回值的数据类型信息
 function getResponseDataInfo(actionName: string) {
   // console.warn(JSON.parse(pageData.res_body))
-  // const { properties: { data } } = JSON.parse(pageData.res_body);
+  const { properties } = JSON.parse(pageData.res_body);
+  const data = properties.data as ParamsRowDataType
   // console.warn(JSON.stringify(data))
-  const { type, isArray } = getTypeItem(mockData, `${actionName}ResponseType`, mockData.required)
+  const { type, isArray } = getTypeItem(data, `${actionName}ResponseType`, data.required)
   console.warn('--------')
   console.warn(type, isArray)
   return {
@@ -134,16 +132,19 @@ function getResponseDataInfo(actionName: string) {
 
 
 function sendMsg() {
-  // const action = getAction();
+  const action = getAction();
   // const actionName = getHeadCodeToUpperCase(action);
-  const actionName = 'NIMA'
-  const result = {
-    // action,
-    // requestDataInfo: getRequestDataInfo(actionName),
+  const actionName = 'AAA'
+  const resultData = {
+    action,
+    requestType: getRequestType(actionName),
     responseDataInfo: getResponseDataInfo(actionName),
+    typeList
   }
-  console.warn(JSON.stringify(result.responseDataInfo))
-  chrome.runtime.sendMessage(result);
+  console.warn(resultData)
+  const code = transform2code(resultData)
+  // console.warn(code)
+  // chrome.runtime.sendMessage(result);
 }
 
 
@@ -153,6 +154,17 @@ chrome.runtime.onMessage.addListener((request) => {
     // pageData && sendMsg();
   }
 });
+
+pageData = {
+  title: "home3.0.tab.goods.filter(首页导航tab商品筛选)",
+  res_body: JSON.stringify({
+    properties: {
+      data: responseParmasData
+    }
+  }),
+  req_body_other: JSON.stringify(requestParmasData),
+}
+
 sendMsg();
 console.warn(typeList)
 // fetchData('56666').then(({errcode, errmsg, data}) => {

@@ -5,9 +5,11 @@ export function fetchData(id: string) {
   })
 }
   
-  // 首字母转大写
+// 首字母转大写
 export function getHeadCodeToUpperCase(codes: string) {
   return codes.replace(/(^)([a-z])/g,(code)=>{
     return code.toUpperCase()
   })
 }
+
+
