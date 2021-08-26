@@ -4,10 +4,10 @@ import resolve from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json';
 // import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import babel from '@rollup/plugin-babel'
+// import babel from '@rollup/plugin-babel'
 import typescript from "@rollup/plugin-typescript";
 import sourceMaps from "rollup-plugin-sourcemaps";
-import replace from '@rollup/plugin-replace';
+// import replace from '@rollup/plugin-replace';
 import globals from 'rollup-plugin-node-globals';
 import builtins from 'rollup-plugin-node-builtins';
 
