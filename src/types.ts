@@ -29,6 +29,7 @@ export type ParamsRowDataType = {
 export type TypeListItem = {
   typeName: string, // 类型变量名称
   items: FieldDataType[],// 各字段的含义集合
+  description?: string,
 }
 
 // name: string; description: string; type: string; isArray: boolean; required: boolean;

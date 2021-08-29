@@ -38964,58 +38964,32 @@ function generate(ast, opts, code) {
   return gen.generate();
 }
 
-// 根据数据类型
-function getTSTypeByType(type) {
-    switch (type) {
-        case 'string':
-            return lib$1.tsStringKeyword();
-        case 'number':
-            return lib$1.tsNumberKeyword();
-        case 'boolean':
-            return lib$1.tsBooleanKeyword();
-        default:
-            return type ? lib$1.tsTypeReference(lib$1.identifier(type)) : lib$1.tsUnknownKeyword();
-    }
-    // TSAnyKeyword
-    // TSBigIntKeyword
-    // TSBooleanKeyword
-    // TSIntrinsicKeyword
-    // TSLiteralType
-    // TSNeverKeyword
-    // TSNullKeyword
-    // TSNumberKeyword
-    // TSObjectKeyword
-    // TSStringKeyword
-    // TSSymbolKeyword
-    // TSThisType
-    // TSUndefinedKeyword
-    // TSUnknownKeyword
-    // TSVoidKeyword
-}
-// 构造 export Type 的语法树
-function getExportDefaultDeclarationByType(typeItem) {
-    const { items, typeName, description } = typeItem;
-    // 取得类型成员，{定义： 类型}
-    const members = items.map(item => {
-        // 判断是否是数组类型
-        const tsTypeAnnotation = item.isArray ? lib$1.tsArrayType(getTSTypeByType(item.type)) : getTSTypeByType(item.type);
-        // 构造类型签名
-        const result = lib$1.tsPropertySignature(lib$1.identifier(item.name), lib$1.tsTypeAnnotation(tsTypeAnnotation));
-        // 修改可选值
-        item.required === false && (result.optional = true);
-        item.description && lib$1.addComment(result, 'trailing', item.description, true);
-        return result;
-    });
-    const typeAnnotation = lib$1.tsTypeLiteral(members);
-    // 定义类型名称，对应的类型明细
-    const declaration = lib$1.tsTypeAliasDeclaration(lib$1.identifier(typeName), null, typeAnnotation);
-    const node = lib$1.exportNamedDeclaration(declaration);
-    description && lib$1.addComment(node, 'leading', description, true);
-    return node;
+// 构造 给业务层调用的 export 方法
+function getExportFunc(apiData) {
+    const { action, functionName, requestType, responseDataInfo } = apiData;
+    const callExpression = lib$1.callExpression(lib$1.memberExpression(lib$1.identifier('Request'), lib$1.identifier('request')), [lib$1.stringLiteral(action), lib$1.identifier('params'), lib$1.booleanLiteral(false)]);
+    const tsType = lib$1.tsTypeReference(lib$1.identifier(responseDataInfo.typeName));
+    callExpression.typeParameters = lib$1.tsTypeParameterInstantiation([
+        responseDataInfo.isArray ? lib$1.tsArrayType(tsType) : tsType
+    ]);
+    const returnStatement = lib$1.returnStatement(callExpression);
+    const paramsIdentifier = lib$1.identifier('params');
+    // 给参数定义添加ts类型约束
+    paramsIdentifier.typeAnnotation = lib$1.tsTypeAnnotation(lib$1.tsTypeReference(lib$1.identifier(requestType)));
+    const functionDelaration = lib$1.functionDeclaration(lib$1.identifier(functionName), [paramsIdentifier], lib$1.blockStatement([returnStatement]));
+    return lib$1.exportNamedDeclaration(functionDelaration);
+    // `
+    //   export function getNewcomerGoodsList (params: GetNewcomerGoodsListReq) {
+    //     return Request.request<AA>(action, params, false)
+    //   }
+    // `
 }
 function transform2code (apiData) {
-    const { action, requestType, responseDataInfo, typeList } = apiData;
-    const code = ``;
+    const code = `
+  export function getNewcomerGoodsList (params: GetNewcomerGoodsListReq) {
+    return Request.request<AA>('action', params, false)
+   }
+  `;
     // console.log(typeList)
     // console.log(JSON.stringify(exportTypeDeclaration))
     const ast = parse_1(code, {
@@ -39025,13 +38999,21 @@ function transform2code (apiData) {
         ],
     });
     const body = ast.program.body;
+    // 创建import语句导入请求方法
+    const functionImport = lib$1.importDeclaration([lib$1.importDefaultSpecifier(lib$1.identifier('Request'))], lib$1.stringLiteral('@/network'));
+    body.push(functionImport);
     // 遍历类型列表，创建依赖的类型，并以模块形式导出
-    typeList.forEach(item => {
-        const exportDefaultDeclaration = getExportDefaultDeclarationByType(item);
-        body.push(exportDefaultDeclaration);
-    });
+    // typeList.forEach(item => {
+    //   const exportDefaultDeclaration =  getExportDefaultDeclarationByType(item)
+    //   body.push(exportDefaultDeclaration);
+    // })
+    // 创建入口函数并导出给
+    const exportFunc = getExportFunc(apiData);
+    body.push(exportFunc);
+    console.warn(JSON.stringify(ast.program.body));
     const output = _default(ast);
-    console.warn(output);
+    return output.code;
+    // console.warn(output)
     // 构造请求方法调用代码
 }
 
@@ -39127,6 +39109,9 @@ function getTypeItem(data, keyName, requiredList = ['']) {
         type = getArrayType(data.items, keyName);
         isArray = true;
     }
+    else {
+        type = data.type;
+    }
     return {
         name: keyName,
         description: data.description,
@@ -39137,13 +39122,9 @@ function getTypeItem(data, keyName, requiredList = ['']) {
 }
 // 获取返回值的数据类型信息
 function getResponseDataInfo(actionName) {
-    // console.warn(JSON.parse(pageData.res_body))
     const { properties } = JSON.parse(pageData.res_body);
     const data = properties.data;
-    // console.warn(JSON.stringify(data))
-    const { type, isArray } = getTypeItem(data, `${actionName}ResponseType`, data.required);
-    console.warn('--------');
-    console.warn(type, isArray);
+    const { type, isArray } = getTypeItem(data, `${actionName}Response`, data.required);
     return {
         typeName: type,
         isArray,
@@ -39155,13 +39136,14 @@ function sendMsg() {
     const actionName = 'AAA';
     const resultData = {
         action,
+        functionName: `${actionName}API`,
         requestType: getRequestType(actionName),
         responseDataInfo: getResponseDataInfo(actionName),
         typeList
     };
     console.warn(resultData);
-    transform2code(resultData);
-    // console.warn(code)
+    const code = transform2code(resultData);
+    console.warn(code);
     // chrome.runtime.sendMessage(result);
 }
 chrome.runtime.onMessage.addListener((request) => {
@@ -39180,7 +39162,7 @@ pageData = {
     req_body_other: JSON.stringify(requestParmasData),
 };
 sendMsg();
-console.warn(typeList);
+// console.warn(typeList)
 // fetchData('56666').then(({errcode, errmsg, data}) => {
 //   if(errcode !== 0) throw errmsg
 //   pageData = data;

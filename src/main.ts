@@ -103,6 +103,8 @@ function getTypeItem(data: ParamsRowDataType, keyName: string, requiredList = ['
   } else if(data.type === 'array') {
     type = getArrayType(data.items, keyName);
     isArray = true;
+  } else {
+    type = data.type
   }
   return {
     name: keyName,
@@ -116,20 +118,14 @@ function getTypeItem(data: ParamsRowDataType, keyName: string, requiredList = ['
 
 // 获取返回值的数据类型信息
 function getResponseDataInfo(actionName: string) {
-  // console.warn(JSON.parse(pageData.res_body))
   const { properties } = JSON.parse(pageData.res_body);
   const data = properties.data as ParamsRowDataType
-  // console.warn(JSON.stringify(data))
-  const { type, isArray } = getTypeItem(data, `${actionName}ResponseType`, data.required)
-  console.warn('--------')
-  console.warn(type, isArray)
+  const { type, isArray } = getTypeItem(data, `${actionName}Response`, data.required)
   return {
     typeName: type,
     isArray,
   }
 }
-
-
 
 function sendMsg() {
   const action = getAction();
@@ -137,13 +133,14 @@ function sendMsg() {
   const actionName = 'AAA'
   const resultData = {
     action,
+    functionName: `${actionName}API`,
     requestType: getRequestType(actionName),
     responseDataInfo: getResponseDataInfo(actionName),
     typeList
   }
   console.warn(resultData)
   const code = transform2code(resultData)
-  // console.warn(code)
+  console.warn(code)
   // chrome.runtime.sendMessage(result);
 }
 
@@ -166,7 +163,7 @@ pageData = {
 }
 
 sendMsg();
-console.warn(typeList)
+// console.warn(typeList)
 // fetchData('56666').then(({errcode, errmsg, data}) => {
 //   if(errcode !== 0) throw errmsg
 //   pageData = data;

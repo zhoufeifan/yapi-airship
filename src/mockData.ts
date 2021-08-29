@@ -1,6 +1,5 @@
-import { ResponseParamsRowDataType, RequestParamsRowDataType } from './types'
 
-export const responseParmasData: ResponseParamsRowDataType = {
+export const responseParmasData = {
   "type": "object",
   "properties": {
     "userNewId": {
@@ -554,7 +553,7 @@ export const responseParmasData: ResponseParamsRowDataType = {
 }
 
 
-export const requestParmasData: RequestParamsRowDataType = {
+export const requestParmasData = {
   "type": "object",
   "properties": {
     "action": {
