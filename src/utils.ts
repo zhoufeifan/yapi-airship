@@ -12,4 +12,12 @@ export function getHeadCodeToUpperCase(codes: string) {
   })
 }
 
+// 获取url上的参数
+export function getApiId (url: string) {
+  const result = url.match(/\/api\/(\d+)/)
+  if (result) {
+    return result[1]
+  }
+  return ''
+}
 

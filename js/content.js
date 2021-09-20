@@ -1,644 +1,23 @@
+function fetchData(id) {
+    return fetch(`https://yapi.hellobike.cn/api/interface/get?id=${id}`)
+        .then(function (response) {
+        return response.json();
+    });
+}
 // 首字母转大写
 function getHeadCodeToUpperCase(codes) {
     return codes.replace(/(^)([a-z])/g, (code) => {
         return code.toUpperCase();
     });
 }
-
-const responseParmasData = {
-    "type": "object",
-    "properties": {
-        "userNewId": {
-            "type": "number",
-            "description": "用户id"
-        },
-        "orderDetail": {
-            "type": "object",
-            "properties": {
-                "aa": {
-                    "type": "string",
-                    "description": "今日必推（好物必买）111",
-                    "required": []
-                },
-                "bb": {
-                    "type": "string",
-                    "description": "今日必推（好物必买）222",
-                    "required": []
-                },
-            },
-            "description": "订单详情",
-            "required": [
-                "aa"
-            ]
-        },
-        "floorGoodsMap": {
-            "type": "object",
-            "properties": {
-                "secKill": {
-                    "type": "object",
-                    "properties": {
-                        "floorGoodsInfoDTOList": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "goodsName": {
-                                        "type": "string",
-                                        "description": "商品名称"
-                                    },
-                                    "skuId": {
-                                        "type": "string",
-                                        "description": "skuId"
-                                    },
-                                    "spuId": {
-                                        "type": "string",
-                                        "description": "spuId"
-                                    },
-                                    "shopInfoDTO": {
-                                        "type": "object",
-                                        "properties": {
-                                            "shopId": {
-                                                "type": "string",
-                                                "description": "门店编号"
-                                            },
-                                            "shopName": {
-                                                "type": "string",
-                                                "description": "门店名称"
-                                            },
-                                            "adCode": {
-                                                "type": "string",
-                                                "description": "区县code"
-                                            },
-                                            "adName": {
-                                                "type": "string",
-                                                "description": "区县名称"
-                                            },
-                                            "distance": {
-                                                "type": "string",
-                                                "description": "距离"
-                                            }
-                                        },
-                                        "description": "门店的信息",
-                                        "required": [
-                                            "shopId"
-                                        ]
-                                    },
-                                    "brandName": {
-                                        "type": "string",
-                                        "description": "品牌名称"
-                                    },
-                                    "packageDesc": {
-                                        "type": "string",
-                                        "description": "套餐标题"
-                                    },
-                                    "goodsPic": {
-                                        "type": "string",
-                                        "description": "商品头图"
-                                    },
-                                    "rewardAmount": {
-                                        "type": "number",
-                                        "description": "佣金（团长有）"
-                                    },
-                                    "salePrice": {
-                                        "type": "number",
-                                        "description": "售价"
-                                    },
-                                    "originalPrice": {
-                                        "type": "number",
-                                        "description": "原价(门市价)"
-                                    },
-                                    "userNewPrice": {
-                                        "type": "number",
-                                        "description": "新人价"
-                                    },
-                                    "discount": {
-                                        "type": "number",
-                                        "description": "折扣"
-                                    },
-                                    "soldStartTime": {
-                                        "type": "string",
-                                        "description": "上架时间"
-                                    },
-                                    "soldEndTime": {
-                                        "type": "string",
-                                        "description": "下架时间"
-                                    },
-                                    "subscriptName": {
-                                        "type": "string",
-                                        "description": "角标名称"
-                                    },
-                                    "floorBuyerInfoDTOList": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "object",
-                                            "properties": {
-                                                "userNewId": {
-                                                    "type": "number",
-                                                    "description": "用户id"
-                                                },
-                                                "headImgUrl": {
-                                                    "type": "string",
-                                                    "description": "用户头图"
-                                                },
-                                                "nickName": {
-                                                    "type": "string",
-                                                    "description": "用户昵称"
-                                                },
-                                                "reward": {
-                                                    "type": "string",
-                                                    "description": "佣金(团长有)"
-                                                }
-                                            },
-                                            "description": "购买人信息对象",
-                                            "required": [
-                                                "userNewId",
-                                                "headImgUrl",
-                                                "nickName"
-                                            ]
-                                        },
-                                        "description": "购买人信息列表"
-                                    }
-                                },
-                                "description": "商品信息对象",
-                                "required": [
-                                    "goodsName",
-                                    "packageDesc",
-                                    "goodsPic",
-                                    "salePrice",
-                                    "originalPrice",
-                                    "discount",
-                                    "soldStartTime",
-                                    "soldEndTime",
-                                    "subscriptName",
-                                    "floorBuyerInfoDTOList",
-                                    "brandName",
-                                    "skuId",
-                                    "spuId",
-                                    "shopInfoDTO"
-                                ]
-                            },
-                            "description": "楼层商品列表"
-                        }
-                    },
-                    "description": "今日必推（好物必买）",
-                    "required": []
-                },
-                "newAndPresale": {
-                    "type": "object",
-                    "properties": {
-                        "floorGoodsInfoDTOList": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "goodsName": {
-                                        "type": "string",
-                                        "description": "商品名称"
-                                    },
-                                    "skuId": {
-                                        "type": "string",
-                                        "description": "skuId"
-                                    },
-                                    "spuId": {
-                                        "type": "string",
-                                        "description": "spuId"
-                                    },
-                                    "shopInfoDTO": {
-                                        "type": "object",
-                                        "properties": {
-                                            "shopId": {
-                                                "type": "string",
-                                                "description": "门店编号"
-                                            },
-                                            "shopName": {
-                                                "type": "string",
-                                                "description": "门店名称"
-                                            },
-                                            "adCode": {
-                                                "type": "string",
-                                                "description": "区县code"
-                                            },
-                                            "adName": {
-                                                "type": "string",
-                                                "description": "区县名称"
-                                            },
-                                            "distance": {
-                                                "type": "string",
-                                                "description": "区县名称"
-                                            }
-                                        },
-                                        "description": "门店的信息",
-                                        "required": [
-                                            "shopId"
-                                        ]
-                                    },
-                                    "brandName": {
-                                        "type": "string",
-                                        "description": "品牌名称"
-                                    },
-                                    "packageDesc": {
-                                        "type": "string",
-                                        "description": "套餐标题"
-                                    },
-                                    "goodsPic": {
-                                        "type": "string",
-                                        "description": "商品头图"
-                                    },
-                                    "salePrice": {
-                                        "type": "number",
-                                        "description": "售价"
-                                    },
-                                    "originalPrice": {
-                                        "type": "number",
-                                        "description": "原价(门市价)"
-                                    },
-                                    "rewardAmount": {
-                                        "type": "number",
-                                        "description": "佣金（团长有）"
-                                    },
-                                    "soldStartTime": {
-                                        "type": "string",
-                                        "description": "上架时间"
-                                    },
-                                    "soldEndTime": {
-                                        "type": "string",
-                                        "description": "下架时间"
-                                    },
-                                    "floorGoodsLabelName": {
-                                        "type": "number",
-                                        "description": "标签名称"
-                                    }
-                                },
-                                "description": "商品信息对象",
-                                "required": [
-                                    "goodsName",
-                                    "packageDesc",
-                                    "goodsPic",
-                                    "salePrice",
-                                    "originalPrice",
-                                    "soldStartTime",
-                                    "soldEndTime",
-                                    "brandName",
-                                    "skuId",
-                                    "spuId",
-                                    "shopInfoDTO",
-                                    "floorGoodsLabelName"
-                                ]
-                            },
-                            "description": "楼层商品列表"
-                        }
-                    },
-                    "description": "新品/待上架",
-                    "required": []
-                },
-                "aboutToOffShelf": {
-                    "type": "object",
-                    "properties": {
-                        "floorGoodsInfoDTOList": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "goodsName": {
-                                        "type": "string",
-                                        "description": "商品名称"
-                                    },
-                                    "skuId": {
-                                        "type": "string",
-                                        "description": "skuId"
-                                    },
-                                    "spuId": {
-                                        "type": "string",
-                                        "description": "spuId"
-                                    },
-                                    "shopInfoDTO": {
-                                        "type": "object",
-                                        "properties": {
-                                            "shopId": {
-                                                "type": "string",
-                                                "description": "门店编号"
-                                            },
-                                            "shopName": {
-                                                "type": "string",
-                                                "description": "门店名称"
-                                            },
-                                            "adCode": {
-                                                "type": "string",
-                                                "description": "区县code"
-                                            },
-                                            "adName": {
-                                                "type": "string",
-                                                "description": "区县名称"
-                                            },
-                                            "distance": {
-                                                "type": "string",
-                                                "description": "距离"
-                                            }
-                                        },
-                                        "description": "门店的信息",
-                                        "required": [
-                                            "shopId"
-                                        ]
-                                    },
-                                    "brandName": {
-                                        "type": "string",
-                                        "description": "品牌名称"
-                                    },
-                                    "packageDesc": {
-                                        "type": "string",
-                                        "description": "套餐标题"
-                                    },
-                                    "goodsPic": {
-                                        "type": "string",
-                                        "description": "商品头图"
-                                    },
-                                    "originalPrice": {
-                                        "type": "number",
-                                        "description": "原价(门市价)"
-                                    },
-                                    "salePrice": {
-                                        "type": "number",
-                                        "description": "售价"
-                                    },
-                                    "rewardAmount": {
-                                        "type": "string",
-                                        "description": "佣金（团长有）"
-                                    },
-                                    "soldStartTime": {
-                                        "type": "string",
-                                        "description": "上架时间"
-                                    },
-                                    "soldEndTime": {
-                                        "type": "string",
-                                        "description": "下架时间"
-                                    }
-                                },
-                                "description": "商品信息对象",
-                                "required": [
-                                    "goodsName",
-                                    "packageDesc",
-                                    "goodsPic",
-                                    "originalPrice",
-                                    "salePrice",
-                                    "soldStartTime",
-                                    "soldEndTime",
-                                    "brandName",
-                                    "skuId",
-                                    "spuId",
-                                    "shopInfoDTO"
-                                ]
-                            },
-                            "description": "楼层商品列表"
-                        }
-                    },
-                    "description": "即将下架",
-                    "required": [
-                        "floorGoodsInfoDTOList"
-                    ]
-                },
-                "newUser": {
-                    "type": "object",
-                    "properties": {
-                        "floorGoodsInfoDTOList": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "goodsName": {
-                                        "type": "string",
-                                        "description": "商品名称"
-                                    },
-                                    "skuId": {
-                                        "type": "string",
-                                        "description": "skuId"
-                                    },
-                                    "spuId": {
-                                        "type": "string",
-                                        "description": "spuId"
-                                    },
-                                    "shopInfoDTO": {
-                                        "type": "object",
-                                        "properties": {
-                                            "shopId": {
-                                                "type": "string",
-                                                "description": "门店编号"
-                                            },
-                                            "shopName": {
-                                                "type": "string",
-                                                "description": "门店名称"
-                                            },
-                                            "adCode": {
-                                                "type": "string",
-                                                "description": "区县code"
-                                            },
-                                            "adName": {
-                                                "type": "string",
-                                                "description": "区县名称"
-                                            },
-                                            "distance": {
-                                                "type": "string",
-                                                "description": "距离"
-                                            }
-                                        },
-                                        "description": "门店的信息",
-                                        "required": [
-                                            "shopId"
-                                        ]
-                                    },
-                                    "brandName": {
-                                        "type": "string",
-                                        "description": "品牌名称"
-                                    },
-                                    "packageDesc": {
-                                        "type": "string",
-                                        "description": "套餐标题"
-                                    },
-                                    "goodsPic": {
-                                        "type": "string",
-                                        "description": "商品头图"
-                                    },
-                                    "salePrice": {
-                                        "type": "number",
-                                        "description": "售价"
-                                    },
-                                    "originalPrice": {
-                                        "type": "number",
-                                        "description": "原价(门市价)"
-                                    },
-                                    "userNewPrice": {
-                                        "type": "number",
-                                        "description": "新人价"
-                                    },
-                                    "discount": {
-                                        "type": "number",
-                                        "description": "折扣"
-                                    },
-                                    "soldStartTime": {
-                                        "type": "string",
-                                        "description": "上架时间"
-                                    },
-                                    "soldEndTime": {
-                                        "type": "string",
-                                        "description": "下架时间"
-                                    },
-                                    "subscriptName": {
-                                        "type": "string",
-                                        "description": "角标名"
-                                    }
-                                },
-                                "description": "楼层商品列表",
-                                "required": [
-                                    "goodsName",
-                                    "packageDesc",
-                                    "goodsPic",
-                                    "salePrice",
-                                    "originalPrice",
-                                    "userNewPrice",
-                                    "discount",
-                                    "soldStartTime",
-                                    "soldEndTime",
-                                    "subscriptName",
-                                    "brandName",
-                                    "skuId",
-                                    "spuId",
-                                    "shopInfoDTO"
-                                ]
-                            },
-                            "description": "楼层商品列表"
-                        }
-                    },
-                    "description": "新人专享",
-                    "required": [
-                        "floorGoodsInfoDTOList"
-                    ]
-                }
-            },
-            "description": "楼层商品map",
-            "required": [
-                "secKill"
-            ]
-        },
-        "floorGoodsList": {
-            "type": "array",
-            "items": {
-                "properties": {
-                    "skuId": {
-                        "type": "number",
-                        "description": "skuId"
-                    },
-                    "spuId": {
-                        "type": "number",
-                        "description": "spuId"
-                    },
-                },
-                "required": [],
-                "type": "object"
-            },
-            "description": "楼层商品List",
-        },
-        "tags": {
-            "description": "商品标签列表",
-            "items": {
-                "description": "商品标签",
-                "type": "string"
-            },
-            "type": "array"
-        }
-        // 暂不考虑数组里套数组的情况
-    },
-    "description": "返回数据",
-    "required": [
-        "userNewId",
-        "userType",
-        "offShelfSeconds"
-    ]
-};
-const requestParmasData = {
-    "type": "object",
-    "properties": {
-        "action": {
-            "type": "string",
-            "description": "action"
-        },
-        "token": {
-            "type": "string",
-            "description": "登录时传"
-        },
-        "cityCode": {
-            "type": "string",
-            "description": "展示城市code，例如：0571"
-        },
-        "lng": {
-            "type": "number",
-            "description": "经度"
-        },
-        "lat": {
-            "type": "number",
-            "description": "纬度"
-        },
-        "adCode": {
-            "type": "string",
-            "description": "地址信息，例如：330184"
-        },
-        "platform": {
-            "type": "string"
-        },
-        "utmContent": {
-            "type": "string"
-        },
-        "utmCampaign": {
-            "type": "string"
-        },
-        "utmMedium": {
-            "type": "string"
-        },
-        "utmSource": {
-            "type": "string"
-        },
-        "utmTerm": {
-            "type": "string"
-        },
-        "tabId": {
-            "type": "string",
-            "description": "一级导航id，一级导航接口返回透传"
-        },
-        "pageNo": {
-            "type": "integer",
-            "description": "当前页数，从1开始"
-        },
-        "pageSize": {
-            "type": "integer",
-            "description": "每页条数"
-        },
-        "options": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "secondTabId": {
-                        "type": "string",
-                        "description": "二级导航tab编号"
-                    },
-                    "optionIds": {
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "description": "二级导航tab下排序筛选optionId集合，【全部分类】选项为类目id，【区域】选项为adCode，二级导航接口返回透传"
-                        }
-                    }
-                },
-                "required": []
-            },
-            "description": "二级导航tab对象集合"
-        }
-    },
-    "required": [
-        "action",
-        "cityCode",
-        "tabId",
-        "options"
-    ]
-};
+// 获取url上的参数
+function getApiId(url) {
+    const result = url.match(/\/api\/(\d+)/);
+    if (result) {
+        return result[1];
+    }
+    return '';
+}
 
 function getAugmentedNamespace(n) {
 	if (n.__esModule) return n;
@@ -38964,10 +38343,62 @@ function generate(ast, opts, code) {
   return gen.generate();
 }
 
+// 根据数据类型
+function getTSTypeByType(type) {
+    switch (type) {
+        case 'string':
+            return lib$1.tsStringKeyword();
+        case 'number':
+        case 'integer':
+            return lib$1.tsNumberKeyword();
+        case 'boolean':
+            return lib$1.tsBooleanKeyword();
+        default:
+            return type ? lib$1.tsTypeReference(lib$1.identifier(type)) : lib$1.tsUnknownKeyword();
+    }
+    // TSAnyKeyword
+    // TSBigIntKeyword
+    // TSBooleanKeyword
+    // TSIntrinsicKeyword
+    // TSLiteralType
+    // TSNeverKeyword
+    // TSNullKeyword
+    // TSNumberKeyword
+    // TSObjectKeyword
+    // TSStringKeyword
+    // TSSymbolKeyword
+    // TSThisType
+    // TSUndefinedKeyword
+    // TSUnknownKeyword
+    // TSVoidKeyword
+}
+// 构造 export Type 的语法树
+function getExportDefaultDeclarationByType(typeItem) {
+    const { items, typeName, description } = typeItem;
+    // 取得类型成员，{定义： 类型}
+    const members = items.map(item => {
+        // 判断是否是数组类型
+        const tsTypeAnnotation = item.isArray ? lib$1.tsArrayType(getTSTypeByType(item.type)) : getTSTypeByType(item.type);
+        // 构造类型签名
+        const result = lib$1.tsPropertySignature(lib$1.identifier(item.name), lib$1.tsTypeAnnotation(tsTypeAnnotation));
+        // 修改可选值
+        item.required === false && (result.optional = true);
+        // 添加属性成员的注释
+        item.description && lib$1.addComment(result, 'trailing', item.description, true);
+        return result;
+    });
+    const typeAnnotation = lib$1.tsTypeLiteral(members);
+    // 定义类型名称，对应的类型明细
+    const declaration = lib$1.tsTypeAliasDeclaration(lib$1.identifier(typeName), null, typeAnnotation);
+    const node = lib$1.exportNamedDeclaration(declaration);
+    // 添加类型的注释
+    description && lib$1.addComment(node, 'leading', description, true);
+    return node;
+}
 // 构造 给业务层调用的 export 方法
 function getExportFunc(apiData) {
-    const { action, functionName, requestType, responseDataInfo } = apiData;
-    const callExpression = lib$1.callExpression(lib$1.memberExpression(lib$1.identifier('Request'), lib$1.identifier('request')), [lib$1.stringLiteral(action), lib$1.identifier('params'), lib$1.booleanLiteral(false)]);
+    const { action, functionName, requestType, responseDataInfo, isNeedToken, isSkipLogin } = apiData;
+    const callExpression = lib$1.callExpression(lib$1.memberExpression(lib$1.identifier('Request'), lib$1.identifier('request')), [lib$1.stringLiteral(action), lib$1.identifier('params'), lib$1.booleanLiteral(isNeedToken), lib$1.booleanLiteral(isSkipLogin)]);
     const tsType = lib$1.tsTypeReference(lib$1.identifier(responseDataInfo.typeName));
     callExpression.typeParameters = lib$1.tsTypeParameterInstantiation([
         responseDataInfo.isArray ? lib$1.tsArrayType(tsType) : tsType
@@ -38985,32 +38416,28 @@ function getExportFunc(apiData) {
     // `
 }
 function transform2code (apiData) {
-    const code = `
-  export function getNewcomerGoodsList (params: GetNewcomerGoodsListReq) {
-    return Request.request<AA>('action', params, false)
-   }
-  `;
+    const { typeList } = apiData;
     // console.log(typeList)
     // console.log(JSON.stringify(exportTypeDeclaration))
-    const ast = parse_1(code, {
+    const ast = parse_1(``, {
         sourceType: "module",
         plugins: [
             "typescript",
         ],
     });
     const body = ast.program.body;
+    console.warn(JSON.stringify(body));
     // 创建import语句导入请求方法
     const functionImport = lib$1.importDeclaration([lib$1.importDefaultSpecifier(lib$1.identifier('Request'))], lib$1.stringLiteral('@/network'));
     body.push(functionImport);
     // 遍历类型列表，创建依赖的类型，并以模块形式导出
-    // typeList.forEach(item => {
-    //   const exportDefaultDeclaration =  getExportDefaultDeclarationByType(item)
-    //   body.push(exportDefaultDeclaration);
-    // })
-    // 创建入口函数并导出给
+    typeList.forEach(item => {
+        const exportDefaultDeclaration = getExportDefaultDeclarationByType(item);
+        body.push(exportDefaultDeclaration);
+    });
+    // 创建入口函数并导出
     const exportFunc = getExportFunc(apiData);
     body.push(exportFunc);
-    console.warn(JSON.stringify(ast.program.body));
     const output = _default(ast);
     return output.code;
     // console.warn(output)
@@ -39018,12 +38445,13 @@ function transform2code (apiData) {
 }
 
 let pageData = null;
+let isNeedToken = false;
 /*
 typeList: [{
   typeName: 'DetailType',
   items: [{
     name: 'name',
-    desc: '名字',
+    description: '名字',
     type: string,
     required: true
   }]
@@ -39044,9 +38472,10 @@ function getRequestType(actionName) {
     // token: {type: "string", description: "登录时传"}
     // required: (3) ["action", "cityCode", "tabId"]
     // todo 兼容params 有包含对象的场景
-    // todo 处理无需token的场景
     const { properties, required: requiredList } = JSON.parse(pageData.req_body_other);
     const items = [];
+    // 判断这个接口是否需要token
+    isNeedToken = requiredList.includes('token');
     Object.entries(properties).forEach(([key, data]) => {
         //过滤掉 token 和 action, 后面可以考虑走配置
         if (key === 'action' || key === 'token')
@@ -39061,19 +38490,19 @@ function getRequestType(actionName) {
     });
     return typeName;
 }
-function getArrayType(items, keyName) {
+function getArrayType(items, keyName, description = '') {
     if (items.type === 'array') {
         // 暂不处理二维数组的情况
         return '';
     }
     else if (items.type === 'object') {
-        return getObjectType(items.properties, keyName, items.required);
+        return getObjectType(items.properties, keyName, items.required, description);
     }
     else {
         return items.type;
     }
 }
-function getObjectType(data, keyName, requiedList = ['']) {
+function getObjectType(data, keyName, requiedList = [''], description = '') {
     // 处理复杂数据，生成类型项，push到typeList
     // {
     //   "aa": {
@@ -39095,18 +38524,19 @@ function getObjectType(data, keyName, requiedList = ['']) {
     typeList.push({
         typeName,
         items,
+        description,
     });
     return typeName;
 }
-// 获取字段属性
+// 获取字段类型属性
 function getTypeItem(data, keyName, requiredList = ['']) {
     let type = '';
     let isArray = false;
     if (data.type === 'object') {
-        type = getObjectType(data.properties, keyName, data.required);
+        type = getObjectType(data.properties, keyName, data.required, data.description);
     }
     else if (data.type === 'array') {
-        type = getArrayType(data.items, keyName);
+        type = getArrayType(data.items, keyName, data.description);
         isArray = true;
     }
     else {
@@ -39114,7 +38544,7 @@ function getTypeItem(data, keyName, requiredList = ['']) {
     }
     return {
         name: keyName,
-        description: data.description,
+        description: data.description?.replace(/\t|\n|\s/g, ''),
         type,
         isArray,
         required: requiredList.includes(keyName)
@@ -39130,12 +38560,15 @@ function getResponseDataInfo(actionName) {
         isArray,
     };
 }
-function sendMsg() {
+function generateCode() {
     const action = getAction();
     // const actionName = getHeadCodeToUpperCase(action);
     const actionName = 'AAA';
+    const isSkipLogin = false;
     const resultData = {
         action,
+        isNeedToken,
+        isSkipLogin,
         functionName: `${actionName}API`,
         requestType: getRequestType(actionName),
         responseDataInfo: getResponseDataInfo(actionName),
@@ -39146,27 +38579,28 @@ function sendMsg() {
     console.warn(code);
     // chrome.runtime.sendMessage(result);
 }
-chrome.runtime.onMessage.addListener((request) => {
-    if (request.cmd == 'sendMsg') {
-        console.log(pageData);
-        // pageData && sendMsg();
-    }
-});
-pageData = {
-    title: "home3.0.tab.goods.filter(首页导航tab商品筛选)",
-    res_body: JSON.stringify({
-        properties: {
-            data: responseParmasData
-        }
-    }),
-    req_body_other: JSON.stringify(requestParmasData),
-};
-sendMsg();
+// chrome.runtime.onMessage.addListener((request) => {
+// 	if(request.cmd == 'sendMsg') {
+//     console.log(pageData);
+//     // pageData && sendMsg();
+//   }
+// });
+// pageData = {
+//   title: "home3.0.tab.goods.filter(首页导航tab商品筛选)",
+//   res_body: JSON.stringify({
+//     properties: {
+//       data: responseParmasData
+//     }
+//   }),
+//   req_body_other: JSON.stringify(requestParmasData),
+// }
+const apiId = getApiId(window.location.href);
 // console.warn(typeList)
-// fetchData('56666').then(({errcode, errmsg, data}) => {
-//   if(errcode !== 0) throw errmsg
-//   pageData = data;
-//   sendMsg();
-// }).catch((msg) => {
-//   alert(msg)
-// })
+apiId && fetchData(apiId).then(({ errcode, errmsg, data }) => {
+    if (errcode !== 0)
+        throw errmsg;
+    pageData = data;
+    generateCode();
+}).catch((msg) => {
+    alert(msg);
+});

@@ -8,7 +8,8 @@
   "content_scripts": [
     {
       "matches": [
-        "<all_urls>"
+        "https://yapi.hellobike.cn/*",
+        "http://yapi.hellobike.cn/*"
       ],
       "js": [
         "js/content.js"
@@ -25,8 +26,7 @@
     ],
     "persistent": false
   },
-  "browser_action":
-  {
+  "page_action": {
     "default_title": "测试工具",
     "default_icon": "asserts/icon.png",
     "default_popup": "popup.html"

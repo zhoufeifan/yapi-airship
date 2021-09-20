@@ -16,16 +16,16 @@ var post = function (url, body) {
   });
 };
 
-// chrome.runtime.onInstalled.addListener(function(){
-// 	chrome.declarativeContent.onPageChanged.removeRules(undefined, function(){
-// 		chrome.declarativeContent.onPageChanged.addRules([
-// 			{
-// 				conditions: [
-// 					// 只有yapi才显示工具
-// 					new chrome.declarativeContent.PageStateMatcher({pageUrl: {urlContains: 'www.ruanyifeng.com'}})
-// 				],
-// 				actions: [new chrome.declarativeContent.ShowPageAction()]
-// 			}
-// 		]);
-// 	});
-// });
+chrome.runtime.onInstalled.addListener(function(){
+	chrome.declarativeContent.onPageChanged.removeRules(undefined, function(){
+		chrome.declarativeContent.onPageChanged.addRules([
+			{
+				conditions: [
+					// 只有yapi才显示工具
+					new chrome.declarativeContent.PageStateMatcher({pageUrl: {urlContains: 'yapi.hellobike.cn'}})
+				],
+				actions: [new chrome.declarativeContent.ShowPageAction()]
+			}
+		]);
+	});
+});

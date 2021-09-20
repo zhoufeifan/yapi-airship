@@ -48,6 +48,7 @@ function getExportDefaultDeclarationByType(typeItem: TypeListItem) {
     )
     // 修改可选值
     item.required === false && (result.optional = true);
+    // 添加属性成员的注释
     item.description && t.addComment(result, 'trailing', item.description, true);
     return result;
   })
@@ -57,13 +58,15 @@ function getExportDefaultDeclarationByType(typeItem: TypeListItem) {
   // 定义类型名称，对应的类型明细
   const declaration = t.tsTypeAliasDeclaration(t.identifier(typeName),null,typeAnnotation)
   const node = t.exportNamedDeclaration(declaration);
-  // 添加相应的注释
+  // 添加类型的注释
   description && t.addComment(node, 'leading', description, true);
   return node;
 }
 
 interface ApiDataType {
   action: string,
+  isNeedToken: boolean,
+  isSkipLogin: boolean,
   requestType: any,
   typeList: TypeListItem[],
   responseDataInfo: any,
@@ -72,10 +75,10 @@ interface ApiDataType {
 
 // 构造 给业务层调用的 export 方法
 function getExportFunc(apiData: ApiDataType) {
-  const { action, functionName, requestType, responseDataInfo } = apiData
+  const { action, functionName, requestType, responseDataInfo, isNeedToken, isSkipLogin } = apiData
   const callExpression = t.callExpression(
     t.memberExpression(t.identifier('Request'), t.identifier('request')),
-    [t.stringLiteral(action), t.identifier('params'), t.booleanLiteral(false)]
+    [t.stringLiteral(action), t.identifier('params'), t.booleanLiteral(isNeedToken), t.booleanLiteral(isSkipLogin)]
   )
   const tsType = t.tsTypeReference(t.identifier(responseDataInfo.typeName))
 
@@ -102,32 +105,27 @@ function getExportFunc(apiData: ApiDataType) {
 
 export default function(apiData: ApiDataType) {
   const { typeList } = apiData
-  const code = `
-  export function getNewcomerGoodsList (params: GetNewcomerGoodsListReq) {
-    return Request.request<AA>('action', params, false)
-   }
-  `;
   // console.log(typeList)
   // console.log(JSON.stringify(exportTypeDeclaration))
-  const ast = parse(code, {
+  const ast = parse(``, {
     sourceType: "module",
     plugins: [
       "typescript",
     ],
   });
   const body = ast.program.body;
+  console.warn(JSON.stringify(body))
   // 创建import语句导入请求方法
   const functionImport = t.importDeclaration([t.importDefaultSpecifier(t.identifier('Request'))], t.stringLiteral('@/network'))
   body.push(functionImport);
   // 遍历类型列表，创建依赖的类型，并以模块形式导出
-  // typeList.forEach(item => {
-  //   const exportDefaultDeclaration =  getExportDefaultDeclarationByType(item)
-  //   body.push(exportDefaultDeclaration);
-  // })
-  // 创建入口函数并导出给
+  typeList.forEach(item => {
+    const exportDefaultDeclaration = getExportDefaultDeclarationByType(item)
+    body.push(exportDefaultDeclaration);
+  })
+  // 创建入口函数并导出
   const exportFunc = getExportFunc(apiData)
   body.push(exportFunc);
-  console.warn(JSON.stringify(ast.program.body))
   const output = generate(
     ast
   );

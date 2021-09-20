@@ -1,15 +1,16 @@
-import { fetchData, getHeadCodeToUpperCase } from './utils'
+import { fetchData, getHeadCodeToUpperCase, getApiId } from './utils'
 import { responseParmasData, requestParmasData } from './mockData'
 import { FieldDataType, ParamsRowDataType, TypeListItem, ObjectType } from './types'
 import transform2code from './transform2code';
 
 let pageData: any = null;
+let isNeedToken = false;
 /*
 typeList: [{
   typeName: 'DetailType',
   items: [{
     name: 'name',
-    desc: '名字',
+    description: '名字',
     type: string, 
     required: true
   }]
@@ -34,10 +35,15 @@ function getRequestType(actionName: string): string {
   // required: (3) ["action", "cityCode", "tabId"]
   
   // todo 兼容params 有包含对象的场景
-  // todo 处理无需token的场景
+
   const { properties, required: requiredList } = JSON.parse(pageData.req_body_other) as ParamsRowDataType
   const items: any = [];
+  
+  // 判断这个接口是否需要token
+  isNeedToken = requiredList.includes('token');
+  
   Object.entries(properties).forEach(([key, data])=>{
+
     //过滤掉 token 和 action, 后面可以考虑走配置
     if(key === 'action' || key === 'token') return
 
@@ -54,18 +60,18 @@ function getRequestType(actionName: string): string {
 
 
 
-function getArrayType(items: ParamsRowDataType, keyName: string) {
+function getArrayType(items: ParamsRowDataType, keyName: string, description = '') {
   if (items.type === 'array') {
     // 暂不处理二维数组的情况
     return ''
   } else if(items.type === 'object') {
-    return getObjectType(items.properties, keyName, items.required);
+    return getObjectType(items.properties, keyName, items.required, description);
   } else {
     return items.type
   }
 }
 
-function getObjectType(data: ObjectType, keyName: string, requiedList = ['']) {
+function getObjectType(data: ObjectType, keyName: string, requiedList = [''], description = '') {
   // 处理复杂数据，生成类型项，push到typeList
   // {
   //   "aa": {
@@ -88,27 +94,28 @@ function getObjectType(data: ObjectType, keyName: string, requiedList = ['']) {
     {
       typeName,
       items,
+      description,
     }
   );
   return typeName
 }
 
 
-// 获取字段属性
+// 获取字段类型属性
 function getTypeItem(data: ParamsRowDataType, keyName: string, requiredList = ['']): FieldDataType{
   let type = ''
   let isArray = false
-  if(data.type === 'object' ) {
-    type = getObjectType(data.properties, keyName, data.required);
+  if(data.type === 'object') {
+    type = getObjectType(data.properties, keyName, data.required, data.description);
   } else if(data.type === 'array') {
-    type = getArrayType(data.items, keyName);
+    type = getArrayType(data.items, keyName, data.description);
     isArray = true;
   } else {
     type = data.type
   }
   return {
     name: keyName,
-    description: data.description,
+    description: data.description?.replace(/\t|\n|\s/g, ''),
     type,
     isArray,
     required: requiredList.includes(keyName)
@@ -127,12 +134,15 @@ function getResponseDataInfo(actionName: string) {
   }
 }
 
-function sendMsg() {
+function generateCode() {
   const action = getAction();
   // const actionName = getHeadCodeToUpperCase(action);
-  const actionName = 'AAA'
+  const actionName = 'AAA';
+  const isSkipLogin = false;
   const resultData = {
     action,
+    isNeedToken,
+    isSkipLogin,
     functionName: `${actionName}API`,
     requestType: getRequestType(actionName),
     responseDataInfo: getResponseDataInfo(actionName),
@@ -145,29 +155,29 @@ function sendMsg() {
 }
 
 
-chrome.runtime.onMessage.addListener((request) => {
-	if(request.cmd == 'sendMsg') {
-    console.log(pageData);
-    // pageData && sendMsg();
-  }
-});
+// chrome.runtime.onMessage.addListener((request) => {
+// 	if(request.cmd == 'sendMsg') {
+//     console.log(pageData);
+//     // pageData && sendMsg();
+//   }
+// });
 
-pageData = {
-  title: "home3.0.tab.goods.filter(首页导航tab商品筛选)",
-  res_body: JSON.stringify({
-    properties: {
-      data: responseParmasData
-    }
-  }),
-  req_body_other: JSON.stringify(requestParmasData),
-}
+// pageData = {
+//   title: "home3.0.tab.goods.filter(首页导航tab商品筛选)",
+//   res_body: JSON.stringify({
+//     properties: {
+//       data: responseParmasData
+//     }
+//   }),
+//   req_body_other: JSON.stringify(requestParmasData),
+// }
 
-sendMsg();
+const apiId = getApiId(window.location.href)
 // console.warn(typeList)
-// fetchData('56666').then(({errcode, errmsg, data}) => {
-//   if(errcode !== 0) throw errmsg
-//   pageData = data;
-//   sendMsg();
-// }).catch((msg) => {
-//   alert(msg)
-// })
+apiId && fetchData(apiId).then(({errcode, errmsg, data}) => {
+  if(errcode !== 0) throw errmsg
+  pageData = data;
+  generateCode();
+}).catch((msg) => {
+  alert(msg)
+})
