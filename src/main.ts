@@ -1,10 +1,13 @@
 import { fetchData, getHeadCodeToUpperCase, getApiId } from './utils'
-import { responseParmasData, requestParmasData } from './mockData'
+// import { responseParmasData, requestParmasData } from './mockData'
 import { FieldDataType, ParamsRowDataType, TypeListItem, ObjectType } from './types'
 import transform2code from './transform2code';
+import { insertGenerateButton, insertSetParamsButton } from './element';
 
 let pageData: any = null;
 let isNeedToken = false;
+let actionName = ''
+let isSkipLogin = false;
 /*
 typeList: [{
   typeName: 'DetailType',
@@ -57,7 +60,6 @@ function getRequestType(actionName: string): string {
   })
   return typeName
 }
-
 
 
 function getArrayType(items: ParamsRowDataType, keyName: string, description = '') {
@@ -127,6 +129,7 @@ function getTypeItem(data: ParamsRowDataType, keyName: string, requiredList = ['
 function getResponseDataInfo(actionName: string) {
   const { properties } = JSON.parse(pageData.res_body);
   const data = properties.data as ParamsRowDataType
+  console.warn(data);
   const { type, isArray } = getTypeItem(data, `${actionName}Response`, data.required)
   return {
     typeName: type,
@@ -137,8 +140,9 @@ function getResponseDataInfo(actionName: string) {
 function generateCode() {
   const action = getAction();
   // const actionName = getHeadCodeToUpperCase(action);
-  const actionName = 'AAA';
-  const isSkipLogin = false;
+  // 这个两个参数需要用户输入
+  // const actionName = 'AAA';
+  // const isSkipLogin = false;
   const resultData = {
     action,
     isNeedToken,
@@ -148,36 +152,45 @@ function generateCode() {
     responseDataInfo: getResponseDataInfo(actionName),
     typeList
   }
-  console.warn(resultData)
-  const code = transform2code(resultData)
-  console.warn(code)
-  // chrome.runtime.sendMessage(result);
+  console.warn(resultData);
+  const code = transform2code(resultData);
+  return code;
+  // console.warn(code)
 }
 
 
-// chrome.runtime.onMessage.addListener((request) => {
-// 	if(request.cmd == 'sendMsg') {
-//     console.log(pageData);
-//     // pageData && sendMsg();
-//   }
-// });
-
-// pageData = {
-//   title: "home3.0.tab.goods.filter(首页导航tab商品筛选)",
-//   res_body: JSON.stringify({
-//     properties: {
-//       data: responseParmasData
-//     }
-//   }),
-//   req_body_other: JSON.stringify(requestParmasData),
-// }
-
+// 从url上拿取apiId
 const apiId = getApiId(window.location.href)
-// console.warn(typeList)
+
 apiId && fetchData(apiId).then(({errcode, errmsg, data}) => {
   if(errcode !== 0) throw errmsg
   pageData = data;
-  generateCode();
+
+  setTimeout(()=>{
+    const generateButton = insertGenerateButton();
+    generateButton.addEventListener('click', ()=>{
+      if (!actionName) {
+        alert('请先设置参数');
+        return
+      }
+      const code = generateCode();
+      navigator.clipboard.writeText(code).then(()=>{
+        alert('代码已经复制到粘贴板上')
+      }).catch(e=>{
+        alert(e)
+      })
+    });
+
+    const setParamsButton = insertSetParamsButton();
+    setParamsButton.addEventListener('click', () => {
+      actionName = prompt("请输入接口名称（英文）") || '';
+      isSkipLogin = !confirm("token失效是否需要跳转登录页？是，请点击确定，否则点击取消！");
+      alert('参数设置成功，可以生成API代码了~')
+    })
+  }, 1000)
+
 }).catch((msg) => {
   alert(msg)
 })
+
+

@@ -38444,8 +38444,50 @@ function transform2code (apiData) {
     // 构造请求方法调用代码
 }
 
+function insertGenerateButton() {
+    const button = document.createElement('button');
+    button.className = 'ant-btn ant-btn-primary generate-api-code-btn';
+    button.innerText = '生成api代码';
+    document.getElementById('yapi')?.appendChild(button);
+    return button;
+}
+function insertSetParamsButton() {
+    const button = document.createElement('button');
+    button.className = 'ant-btn set-params-btn';
+    button.innerText = '设置参数';
+    document.getElementById('yapi')?.appendChild(button);
+    return button;
+}
+// export function insertForm() {
+//   const formContainer = document.createElement('div');
+//   formContainer.className = 'generate-form';
+//   formContainer.innerHTML = `
+//     <div class="form-row">
+//       <label>接口名称：</label>
+//       <input placeholder="请输入接口名称（英文）" type="text" class="ant-input" />
+//     </div>
+//     <div class="form-row">
+//       <label class="ant-checkbox-wrapper">
+//         <span class="ant-checkbox">
+//           <input type="checkbox" class="ant-checkbox-input" value="">
+//           <span class="ant-checkbox-inner"></span>
+//         </span>
+//         <span>Checkbox</span>
+//       </label>
+//     </div>
+//     <div class="button-container">
+//       <button class="ant-btn" id="cancelBtn">取消</button>
+//       <button class="ant-btn ant-btn-primary" id="submitBtn">确认</button>
+//     </div>
+//   `
+//   document.body.appendChild(formContainer);
+//   return formContainer
+// }
+
 let pageData = null;
 let isNeedToken = false;
+let actionName = '';
+let isSkipLogin = false;
 /*
 typeList: [{
   typeName: 'DetailType',
@@ -38554,6 +38596,7 @@ function getTypeItem(data, keyName, requiredList = ['']) {
 function getResponseDataInfo(actionName) {
     const { properties } = JSON.parse(pageData.res_body);
     const data = properties.data;
+    console.warn(data);
     const { type, isArray } = getTypeItem(data, `${actionName}Response`, data.required);
     return {
         typeName: type,
@@ -38563,8 +38606,9 @@ function getResponseDataInfo(actionName) {
 function generateCode() {
     const action = getAction();
     // const actionName = getHeadCodeToUpperCase(action);
-    const actionName = 'AAA';
-    const isSkipLogin = false;
+    // 这个两个参数需要用户输入
+    // const actionName = 'AAA';
+    // const isSkipLogin = false;
     const resultData = {
         action,
         isNeedToken,
@@ -38576,31 +38620,36 @@ function generateCode() {
     };
     console.warn(resultData);
     const code = transform2code(resultData);
-    console.warn(code);
-    // chrome.runtime.sendMessage(result);
+    return code;
+    // console.warn(code)
 }
-// chrome.runtime.onMessage.addListener((request) => {
-// 	if(request.cmd == 'sendMsg') {
-//     console.log(pageData);
-//     // pageData && sendMsg();
-//   }
-// });
-// pageData = {
-//   title: "home3.0.tab.goods.filter(首页导航tab商品筛选)",
-//   res_body: JSON.stringify({
-//     properties: {
-//       data: responseParmasData
-//     }
-//   }),
-//   req_body_other: JSON.stringify(requestParmasData),
-// }
+// 从url上拿取apiId
 const apiId = getApiId(window.location.href);
-// console.warn(typeList)
 apiId && fetchData(apiId).then(({ errcode, errmsg, data }) => {
     if (errcode !== 0)
         throw errmsg;
     pageData = data;
-    generateCode();
+    setTimeout(() => {
+        const generateButton = insertGenerateButton();
+        generateButton.addEventListener('click', () => {
+            if (!actionName) {
+                alert('请先设置参数');
+                return;
+            }
+            const code = generateCode();
+            navigator.clipboard.writeText(code).then(() => {
+                alert('代码已经复制到粘贴板上');
+            }).catch(e => {
+                alert(e);
+            });
+        });
+        const setParamsButton = insertSetParamsButton();
+        setParamsButton.addEventListener('click', () => {
+            actionName = prompt("请输入接口名称（英文）") || '';
+            isSkipLogin = !confirm("token失效是否需要跳转登录页？是，请点击确定，否则点击取消！");
+            alert('参数设置成功，可以生成API代码了~');
+        });
+    }, 1000);
 }).catch((msg) => {
     alert(msg);
 });

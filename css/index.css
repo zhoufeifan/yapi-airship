@@ -1,0 +1,25 @@
+.generate-api-code-btn {
+  position: absolute !important;
+  top: 67px;
+  right: 24px;
+}
+.set-params-btn {
+  position: absolute !important;
+  top: 67px;
+  right: 150px;
+}
+/* .generate-form {
+  width: 300px;
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.generate-form >.form-row {
+  display: flex;
+  align-items: center;
+} */
+
+
+
