@@ -71,6 +71,8 @@ interface ApiDataType {
   typeList: TypeListItem[],
   responseDataInfo: any,
   functionName: string,
+  apiDesc: string,
+  apiLocation: string,
 }
 
 // 构造 给业务层调用的 export 方法
@@ -104,7 +106,7 @@ function getExportFunc(apiData: ApiDataType) {
 
 
 export default function(apiData: ApiDataType) {
-  const { typeList } = apiData
+  const { typeList, apiDesc, apiLocation } = apiData
   // console.log(typeList)
   // console.log(JSON.stringify(exportTypeDeclaration))
   const ast = parse(``, {
@@ -117,6 +119,11 @@ export default function(apiData: ApiDataType) {
   console.warn(JSON.stringify(body))
   // 创建import语句导入请求方法
   const functionImport = t.importDeclaration([t.importDefaultSpecifier(t.identifier('Request'))], t.stringLiteral('@/network'))
+  const apiComment = `
+    * ${apiDesc}
+    * yapi: ${apiLocation}
+  `
+  t.addComment(functionImport, 'leading', apiComment, false);
   body.push(functionImport);
   // 遍历类型列表，创建依赖的类型，并以模块形式导出
   typeList.forEach(item => {

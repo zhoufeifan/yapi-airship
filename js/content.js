@@ -38416,7 +38416,7 @@ function getExportFunc(apiData) {
     // `
 }
 function transform2code (apiData) {
-    const { typeList } = apiData;
+    const { typeList, apiDesc, apiLocation } = apiData;
     // console.log(typeList)
     // console.log(JSON.stringify(exportTypeDeclaration))
     const ast = parse_1(``, {
@@ -38429,6 +38429,11 @@ function transform2code (apiData) {
     console.warn(JSON.stringify(body));
     // 创建import语句导入请求方法
     const functionImport = lib$1.importDeclaration([lib$1.importDefaultSpecifier(lib$1.identifier('Request'))], lib$1.stringLiteral('@/network'));
+    const apiComment = `
+    * ${apiDesc}
+    * yapi: ${apiLocation}
+  `;
+    lib$1.addComment(functionImport, 'leading', apiComment, false);
     body.push(functionImport);
     // 遍历类型列表，创建依赖的类型，并以模块形式导出
     typeList.forEach(item => {
@@ -38488,6 +38493,7 @@ let pageData = null;
 let isNeedToken = false;
 let actionName = '';
 let isSkipLogin = false;
+let typeList = [];
 /*
 typeList: [{
   typeName: 'DetailType',
@@ -38499,10 +38505,18 @@ typeList: [{
   }]
 }]
 */
-const typeList = [];
 // 获取action
-function getAction() {
-    return pageData.title.replace(/(^[a-z.0-9]+)(.+)/g, '$1');
+function getActionInfo() {
+    const result = {
+        action: '',
+        apiDesc: ''
+    };
+    pageData.title.replace(/(^[a-z.0-9]+)\((.+)\)/g, function (_, action, apiDesc) {
+        debugger;
+        result.action = action;
+        result.apiDesc = apiDesc;
+    });
+    return result;
 }
 // 获取入参信息
 function getRequestType(actionName) {
@@ -38604,13 +38618,15 @@ function getResponseDataInfo(actionName) {
     };
 }
 function generateCode() {
-    const action = getAction();
+    const { action, apiDesc } = getActionInfo();
     // const actionName = getHeadCodeToUpperCase(action);
     // 这个两个参数需要用户输入
     // const actionName = 'AAA';
     // const isSkipLogin = false;
     const resultData = {
         action,
+        apiDesc,
+        apiLocation: window.location.href,
         isNeedToken,
         isSkipLogin,
         functionName: `${actionName}API`,
@@ -38623,33 +38639,35 @@ function generateCode() {
     return code;
     // console.warn(code)
 }
-// 从url上拿取apiId
-const apiId = getApiId(window.location.href);
-apiId && fetchData(apiId).then(({ errcode, errmsg, data }) => {
-    if (errcode !== 0)
-        throw errmsg;
-    pageData = data;
-    setTimeout(() => {
-        const generateButton = insertGenerateButton();
-        generateButton.addEventListener('click', () => {
-            if (!actionName) {
-                alert('请先设置参数');
-                return;
-            }
+// todo 页面挂载后再执行
+setTimeout(() => {
+    const generateButton = insertGenerateButton();
+    generateButton.addEventListener('click', () => {
+        if (!actionName) {
+            alert('请先设置参数');
+            return;
+        }
+        // 从url上拿取apiId
+        const apiId = getApiId(window.location.href);
+        apiId && fetchData(apiId).then(({ errcode, errmsg, data }) => {
+            if (errcode !== 0)
+                throw errmsg;
+            pageData = data;
+            typeList = [];
             const code = generateCode();
             navigator.clipboard.writeText(code).then(() => {
                 alert('代码已经复制到粘贴板上');
             }).catch(e => {
                 alert(e);
             });
+        }).catch((msg) => {
+            alert(msg);
         });
-        const setParamsButton = insertSetParamsButton();
-        setParamsButton.addEventListener('click', () => {
-            actionName = prompt("请输入接口名称（英文）") || '';
-            isSkipLogin = !confirm("token失效是否需要跳转登录页？是，请点击确定，否则点击取消！");
-            alert('参数设置成功，可以生成API代码了~');
-        });
-    }, 1000);
-}).catch((msg) => {
-    alert(msg);
-});
+    });
+    const setParamsButton = insertSetParamsButton();
+    setParamsButton.addEventListener('click', () => {
+        actionName = prompt("请输入接口名称（英文）") || '';
+        isSkipLogin = !confirm("token失效是否需要跳转登录页？是，请点击确定，否则点击取消！");
+        alert('参数设置成功，可以生成API代码了~');
+    });
+}, 1000);

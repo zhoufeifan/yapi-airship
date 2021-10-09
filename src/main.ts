@@ -8,6 +8,9 @@ let pageData: any = null;
 let isNeedToken = false;
 let actionName = ''
 let isSkipLogin = false;
+
+let typeList: TypeListItem[] = [];
+
 /*
 typeList: [{
   typeName: 'DetailType',
@@ -20,11 +23,19 @@ typeList: [{
 }]
 */
 
-const typeList: TypeListItem[] = [];
 
 // 获取action
-function getAction() {
-  return pageData.title.replace(/(^[a-z.0-9]+)(.+)/g, '$1')
+function getActionInfo() {
+  const result = {
+    action: '',
+    apiDesc: ''
+  }
+  pageData.title.replace(/(^[a-z.0-9]+)\((.+)\)/g, function (_: never, action: string, apiDesc: string) {
+    debugger    
+    result.action = action;
+    result.apiDesc = apiDesc;
+  });
+  return result
 }
 
 // 获取入参信息
@@ -138,13 +149,15 @@ function getResponseDataInfo(actionName: string) {
 }
 
 function generateCode() {
-  const action = getAction();
+  const { action, apiDesc } = getActionInfo();
   // const actionName = getHeadCodeToUpperCase(action);
   // 这个两个参数需要用户输入
   // const actionName = 'AAA';
   // const isSkipLogin = false;
   const resultData = {
     action,
+    apiDesc,
+    apiLocation: window.location.href,
     isNeedToken,
     isSkipLogin,
     functionName: `${actionName}API`,
@@ -159,38 +172,38 @@ function generateCode() {
 }
 
 
-// 从url上拿取apiId
-const apiId = getApiId(window.location.href)
+// todo 页面挂载后再执行
+setTimeout(()=>{
+  const generateButton = insertGenerateButton();
+  generateButton.addEventListener('click', ()=>{
+    if (!actionName) {
+      alert('请先设置参数');
+      return
+    }
+    // 从url上拿取apiId
+    const apiId = getApiId(window.location.href)
 
-apiId && fetchData(apiId).then(({errcode, errmsg, data}) => {
-  if(errcode !== 0) throw errmsg
-  pageData = data;
-
-  setTimeout(()=>{
-    const generateButton = insertGenerateButton();
-    generateButton.addEventListener('click', ()=>{
-      if (!actionName) {
-        alert('请先设置参数');
-        return
-      }
+    apiId && fetchData(apiId).then(({errcode, errmsg, data}) => {
+      if(errcode !== 0) throw errmsg
+      pageData = data;
+      typeList = [];
       const code = generateCode();
       navigator.clipboard.writeText(code).then(()=>{
         alert('代码已经复制到粘贴板上')
       }).catch(e=>{
         alert(e)
       })
-    });
-
-    const setParamsButton = insertSetParamsButton();
-    setParamsButton.addEventListener('click', () => {
-      actionName = prompt("请输入接口名称（英文）") || '';
-      isSkipLogin = !confirm("token失效是否需要跳转登录页？是，请点击确定，否则点击取消！");
-      alert('参数设置成功，可以生成API代码了~')
+    }).catch((msg) => {
+      alert(msg)
     })
-  }, 1000)
+  });
 
-}).catch((msg) => {
-  alert(msg)
-})
+  const setParamsButton = insertSetParamsButton();
+  setParamsButton.addEventListener('click', () => {
+    actionName = prompt("请输入接口名称（英文）") || '';
+    isSkipLogin = !confirm("token失效是否需要跳转登录页？是，请点击确定，否则点击取消！");
+    alert('参数设置成功，可以生成API代码了~')
+  })
+}, 1000)
 
 
