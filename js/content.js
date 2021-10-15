@@ -38512,7 +38512,6 @@ function getActionInfo() {
         apiDesc: ''
     };
     pageData.title.replace(/(^[a-z.0-9]+)\((.+)\)/g, function (_, action, apiDesc) {
-        debugger;
         result.action = action;
         result.apiDesc = apiDesc;
     });
@@ -38539,6 +38538,7 @@ function getRequestType(actionName) {
         const item = getTypeItem(data, key, requiredList);
         items.push(item);
     });
+    console.warn(JSON.stringify(items));
     const typeName = `${actionName}Req`;
     typeList.push({
         typeName,

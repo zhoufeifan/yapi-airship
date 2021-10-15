@@ -31,7 +31,6 @@ function getActionInfo() {
     apiDesc: ''
   }
   pageData.title.replace(/(^[a-z.0-9]+)\((.+)\)/g, function (_: never, action: string, apiDesc: string) {
-    debugger    
     result.action = action;
     result.apiDesc = apiDesc;
   });
@@ -64,6 +63,7 @@ function getRequestType(actionName: string): string {
     const item = getTypeItem(data, key, requiredList)
     items.push(item)
   })
+  console.warn(JSON.stringify(items))
   const typeName = `${actionName}Req`
   typeList.push({
     typeName,
@@ -103,6 +103,7 @@ function getObjectType(data: ObjectType, keyName: string, requiedList = [''], de
   })
   const typeName = `${getHeadCodeToUpperCase(keyName)}Type`;
   // 生成类型列表项
+  // todo 重名处理
   typeList.push(
     {
       typeName,
@@ -172,7 +173,8 @@ function generateCode() {
 }
 
 
-// todo 页面挂载后再执行
+// todo 页面挂载后再执行,尝试在onload里
+
 setTimeout(()=>{
   const generateButton = insertGenerateButton();
   generateButton.addEventListener('click', ()=>{
