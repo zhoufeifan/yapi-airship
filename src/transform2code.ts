@@ -1,7 +1,7 @@
 import { parse } from "@babel/parser";
 import generate from "@babel/generator";
 import * as t from "@babel/types";
-import { FieldDataType, ParamsRowDataType, TypeListItem, ObjectType } from './types'
+import { FieldDataType, ParamsRowDataType, TypeListItem, ObjectType, EnumTypeItem } from './types'
 
 // 根据数据类型
 function getTSTypeByType(type: string) {
@@ -34,8 +34,21 @@ function getTSTypeByType(type: string) {
 // TSVoidKeyword
 }
 
+// 构造 export Enum 的语法树
+
+function getExportEnumDeclaration(enumItem: EnumTypeItem) {
+  const {items, typeName, description } = enumItem;
+  const members = items.map(enumName=>{
+    return t.tsEnumMember(t.identifier(enumName), t.stringLiteral(enumName));
+  })
+  const declaration = t.tsEnumDeclaration(t.identifier(typeName), members)
+  const node = t.exportNamedDeclaration(declaration);
+  description && t.addComment(node, 'leading', description, true);
+  return node
+}
+
 // 构造 export Type 的语法树
-function getExportDefaultDeclarationByType(typeItem: TypeListItem) {
+function getExportTypeDeclarationByType(typeItem: TypeListItem) {
   const {items, typeName, description } = typeItem;
   // 取得类型成员，{定义： 类型}
   const members = items.map(item => {
@@ -65,10 +78,12 @@ function getExportDefaultDeclarationByType(typeItem: TypeListItem) {
 
 interface ApiDataType {
   action: string,
+  actionName: string,
   isNeedToken: boolean,
   isSkipLogin: boolean,
   requestType: any,
   typeList: TypeListItem[],
+  enumTypeList: EnumTypeItem[],
   responseDataInfo: any,
   functionName: string,
   apiDesc: string,
@@ -106,7 +121,7 @@ function getExportFunc(apiData: ApiDataType) {
 
 
 export default function(apiData: ApiDataType) {
-  const { typeList, apiDesc, apiLocation } = apiData
+  const { typeList, apiDesc, apiLocation, actionName, enumTypeList } = apiData
   // console.log(typeList)
   // console.log(JSON.stringify(exportTypeDeclaration))
   const ast = parse(``, {
@@ -122,13 +137,19 @@ export default function(apiData: ApiDataType) {
   const apiComment = `
     * ${apiDesc}
     * yapi: ${apiLocation}
+    * actionName: ${actionName}
   `
   t.addComment(functionImport, 'leading', apiComment, false);
   body.push(functionImport);
+  // 遍历枚举类列表，创建枚举类代码
+  enumTypeList.forEach(item => {
+    const exportEnumDeclaration = getExportEnumDeclaration(item)
+    body.push(exportEnumDeclaration);
+  })
   // 遍历类型列表，创建依赖的类型，并以模块形式导出
   typeList.forEach(item => {
-    const exportDefaultDeclaration = getExportDefaultDeclarationByType(item)
-    body.push(exportDefaultDeclaration);
+    const exportTypeDeclaration = getExportTypeDeclarationByType(item)
+    body.push(exportTypeDeclaration);
   })
   // 创建入口函数并导出
   const exportFunc = getExportFunc(apiData)

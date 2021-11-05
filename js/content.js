@@ -38372,8 +38372,19 @@ function getTSTypeByType(type) {
     // TSUnknownKeyword
     // TSVoidKeyword
 }
+// 构造 export Enum 的语法树
+function getExportEnumDeclaration(enumItem) {
+    const { items, typeName, description } = enumItem;
+    const members = items.map(enumName => {
+        return lib$1.tsEnumMember(lib$1.identifier(enumName), lib$1.stringLiteral(enumName));
+    });
+    const declaration = lib$1.tsEnumDeclaration(lib$1.identifier(typeName), members);
+    const node = lib$1.exportNamedDeclaration(declaration);
+    description && lib$1.addComment(node, 'leading', description, true);
+    return node;
+}
 // 构造 export Type 的语法树
-function getExportDefaultDeclarationByType(typeItem) {
+function getExportTypeDeclarationByType(typeItem) {
     const { items, typeName, description } = typeItem;
     // 取得类型成员，{定义： 类型}
     const members = items.map(item => {
@@ -38416,7 +38427,7 @@ function getExportFunc(apiData) {
     // `
 }
 function transform2code (apiData) {
-    const { typeList, apiDesc, apiLocation } = apiData;
+    const { typeList, apiDesc, apiLocation, actionName, enumTypeList } = apiData;
     // console.log(typeList)
     // console.log(JSON.stringify(exportTypeDeclaration))
     const ast = parse_1(``, {
@@ -38432,13 +38443,19 @@ function transform2code (apiData) {
     const apiComment = `
     * ${apiDesc}
     * yapi: ${apiLocation}
+    * actionName: ${actionName}
   `;
     lib$1.addComment(functionImport, 'leading', apiComment, false);
     body.push(functionImport);
+    // 遍历枚举类列表，创建枚举类代码
+    enumTypeList.forEach(item => {
+        const exportEnumDeclaration = getExportEnumDeclaration(item);
+        body.push(exportEnumDeclaration);
+    });
     // 遍历类型列表，创建依赖的类型，并以模块形式导出
     typeList.forEach(item => {
-        const exportDefaultDeclaration = getExportDefaultDeclarationByType(item);
-        body.push(exportDefaultDeclaration);
+        const exportTypeDeclaration = getExportTypeDeclarationByType(item);
+        body.push(exportTypeDeclaration);
     });
     // 创建入口函数并导出
     const exportFunc = getExportFunc(apiData);
@@ -38490,10 +38507,12 @@ function insertSetParamsButton() {
 // }
 
 let pageData = null;
-let isNeedToken = false;
-let actionName = '';
+let isNeedToken = false; // 是否需要带上token字段
+let actionName = 'AA';
+// token失效时是否无需跳登录页
 let isSkipLogin = false;
 let typeList = [];
+let enumTypeList = [];
 /*
 typeList: [{
   typeName: 'DetailType',
@@ -38529,8 +38548,9 @@ function getRequestType(actionName) {
     // todo 兼容params 有包含对象的场景
     const { properties, required: requiredList } = JSON.parse(pageData.req_body_other);
     const items = [];
-    // 判断这个接口是否需要token
-    isNeedToken = requiredList.includes('token');
+    // 判断这个接口是否包含token字段
+    isNeedToken = !!properties['token'];
+    isSkipLogin = !requiredList.includes('token');
     Object.entries(properties).forEach(([key, data]) => {
         //过滤掉 token 和 action, 后面可以考虑走配置
         if (key === 'action' || key === 'token')
@@ -38577,6 +38597,7 @@ function getObjectType(data, keyName, requiedList = [''], description = '') {
     });
     const typeName = `${getHeadCodeToUpperCase(keyName)}Type`;
     // 生成类型列表项
+    // todo 重名处理
     typeList.push({
         typeName,
         items,
@@ -38598,13 +38619,26 @@ function getTypeItem(data, keyName, requiredList = ['']) {
     else {
         type = data.type;
     }
-    return {
+    const result = {
         name: keyName,
         description: data.description?.replace(/\t|\n|\s/g, ''),
         type,
         isArray,
         required: requiredList.includes(keyName)
     };
+    if (type === 'string' && data.enum && data.enum.length) {
+        // result.enum = data.enum
+        // result.type = 'enum'
+        const enumType = `${getHeadCodeToUpperCase(keyName)}EnumType`;
+        // 生成类型列表项
+        enumTypeList.push({
+            typeName: enumType,
+            items: data.enum,
+            description: `${result.description}枚举类`
+        });
+        result.type = enumType;
+    }
+    return result;
 }
 // 获取返回值的数据类型信息
 function getResponseDataInfo(actionName) {
@@ -38625,6 +38659,7 @@ function generateCode() {
     // const isSkipLogin = false;
     const resultData = {
         action,
+        actionName,
         apiDesc,
         apiLocation: window.location.href,
         isNeedToken,
@@ -38632,14 +38667,15 @@ function generateCode() {
         functionName: `${actionName}API`,
         requestType: getRequestType(actionName),
         responseDataInfo: getResponseDataInfo(actionName),
-        typeList
+        typeList,
+        enumTypeList
     };
     console.warn(resultData);
     const code = transform2code(resultData);
     return code;
     // console.warn(code)
 }
-// todo 页面挂载后再执行
+// todo 页面挂载后再执行,尝试在onload里
 setTimeout(() => {
     const generateButton = insertGenerateButton();
     generateButton.addEventListener('click', () => {
@@ -38667,7 +38703,7 @@ setTimeout(() => {
     const setParamsButton = insertSetParamsButton();
     setParamsButton.addEventListener('click', () => {
         actionName = prompt("请输入接口名称（英文）") || '';
-        isSkipLogin = !confirm("token失效是否需要跳转登录页？是，请点击确定，否则点击取消！");
+        // isSkipLogin = !confirm("token失效是否需要跳转登录页？是，请点击确定，否则点击取消！");
         alert('参数设置成功，可以生成API代码了~');
     });
 }, 1000);

@@ -1,16 +1,17 @@
 import { fetchData, getHeadCodeToUpperCase, getApiId } from './utils'
 // import { responseParmasData, requestParmasData } from './mockData'
-import { FieldDataType, ParamsRowDataType, TypeListItem, ObjectType } from './types'
+import { FieldDataType, ParamsRowDataType, TypeListItem, ObjectType, EnumTypeItem } from './types'
 import transform2code from './transform2code';
 import { insertGenerateButton, insertSetParamsButton } from './element';
 
 let pageData: any = null;
-let isNeedToken = false;
-let actionName = ''
+let isNeedToken = false; // 是否需要带上token字段
+let actionName = 'AA'
+// token失效时是否无需跳登录页
 let isSkipLogin = false;
 
 let typeList: TypeListItem[] = [];
-
+let enumTypeList: EnumTypeItem[] = []
 /*
 typeList: [{
   typeName: 'DetailType',
@@ -52,9 +53,9 @@ function getRequestType(actionName: string): string {
   const { properties, required: requiredList } = JSON.parse(pageData.req_body_other) as ParamsRowDataType
   const items: any = [];
   
-  // 判断这个接口是否需要token
-  isNeedToken = requiredList.includes('token');
-  
+  // 判断这个接口是否包含token字段
+  isNeedToken = !!properties['token'];
+  isSkipLogin = !requiredList.includes('token');
   Object.entries(properties).forEach(([key, data])=>{
 
     //过滤掉 token 和 action, 后面可以考虑走配置
@@ -127,13 +128,26 @@ function getTypeItem(data: ParamsRowDataType, keyName: string, requiredList = ['
   } else {
     type = data.type
   }
-  return {
+  const result: FieldDataType = {
     name: keyName,
     description: data.description?.replace(/\t|\n|\s/g, ''),
     type,
     isArray,
     required: requiredList.includes(keyName)
   }
+  if (type === 'string' && data.enum && data.enum.length) {
+    // result.enum = data.enum
+    // result.type = 'enum'
+    const enumType = `${getHeadCodeToUpperCase(keyName)}EnumType`;
+    // 生成类型列表项
+    enumTypeList.push({
+      typeName: enumType,
+      items: data.enum,
+      description: `${result.description}枚举类`
+    });
+    result.type = enumType;
+  } 
+  return result
 }
 
 
@@ -157,6 +171,7 @@ function generateCode() {
   // const isSkipLogin = false;
   const resultData = {
     action,
+    actionName,
     apiDesc,
     apiLocation: window.location.href,
     isNeedToken,
@@ -164,7 +179,8 @@ function generateCode() {
     functionName: `${actionName}API`,
     requestType: getRequestType(actionName),
     responseDataInfo: getResponseDataInfo(actionName),
-    typeList
+    typeList,
+    enumTypeList
   }
   console.warn(resultData);
   const code = transform2code(resultData);
@@ -203,7 +219,7 @@ setTimeout(()=>{
   const setParamsButton = insertSetParamsButton();
   setParamsButton.addEventListener('click', () => {
     actionName = prompt("请输入接口名称（英文）") || '';
-    isSkipLogin = !confirm("token失效是否需要跳转登录页？是，请点击确定，否则点击取消！");
+    // isSkipLogin = !confirm("token失效是否需要跳转登录页？是，请点击确定，否则点击取消！");
     alert('参数设置成功，可以生成API代码了~')
   })
 }, 1000)
