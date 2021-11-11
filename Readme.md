@@ -1,6 +1,6 @@
 ## 安装说明：
 ------
-1、git clone 再切换到release分支
+1、git clone 或者下载项目zip包解压
 
 2、打开chrome扩展程序页面或直接在地址栏输入chrome://extensions并回车。
 
