@@ -1,6 +1,6 @@
 {
-  "name": "M-API-CODE",
-  "description": "接口代码自动化生成工具",
+  "name": "yapi-airship",
+  "description": "基于yapi的接口代码自动化生成工具",
   "version": "0.0.0",
   "permissions": [
     "declarativeContent"
