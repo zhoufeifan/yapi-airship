@@ -6,7 +6,7 @@ import { insertGenerateButton, insertSetParamsButton } from './element';
 
 let pageData: any = null;
 let isNeedToken = false; // 是否需要带上token字段
-let actionName = 'AA'
+let actionName = ''
 // token失效时是否无需跳登录页
 let isSkipLogin = false;
 
