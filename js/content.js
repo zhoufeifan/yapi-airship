@@ -38508,7 +38508,7 @@ function insertSetParamsButton() {
 
 let pageData = null;
 let isNeedToken = false; // 是否需要带上token字段
-let actionName = 'AA';
+let actionName = '';
 // token失效时是否无需跳登录页
 let isSkipLogin = false;
 let typeList = [];
@@ -38671,9 +38671,14 @@ function generateCode() {
         enumTypeList
     };
     console.warn(resultData);
-    const code = transform2code(resultData);
+    const code = lintCode(transform2code(resultData));
     return code;
     // console.warn(code)
+}
+function lintCode(code) {
+    return code.replace(/(?<=[^:]\/\/)(.+)/g, (_, res) => {
+        return ` ${res}`;
+    });
 }
 // todo 页面挂载后再执行,尝试在onload里
 setTimeout(() => {

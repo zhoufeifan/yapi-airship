@@ -183,11 +183,16 @@ function generateCode() {
     enumTypeList
   }
   console.warn(resultData);
-  const code = transform2code(resultData);
+  const code = lintCode(transform2code(resultData));
   return code;
   // console.warn(code)
 }
 
+function lintCode (code: string) {
+  return code.replace(/(?<=[^:]\/\/)(.+)/g,(_,res)=>{
+    return ` ${res}`
+  })
+}
 
 // todo 页面挂载后再执行,尝试在onload里
 
