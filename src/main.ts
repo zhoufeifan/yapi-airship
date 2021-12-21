@@ -65,6 +65,7 @@ function getRequestType(actionName: string): string {
     items.push(item)
   })
   console.warn(JSON.stringify(items))
+  if (!items.length) return ''
   const typeName = `${actionName}Req`
   typeList.push({
     typeName,
@@ -169,6 +170,7 @@ function generateCode() {
   // 这个两个参数需要用户输入
   // const actionName = 'AAA';
   // const isSkipLogin = false;
+  const requestType = getRequestType(actionName)
   const resultData = {
     action,
     actionName,
@@ -177,7 +179,7 @@ function generateCode() {
     isNeedToken,
     isSkipLogin,
     functionName: `${actionName}API`,
-    requestType: getRequestType(actionName),
+    requestType,
     responseDataInfo: getResponseDataInfo(actionName),
     typeList,
     enumTypeList

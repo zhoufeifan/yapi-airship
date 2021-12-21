@@ -1,3 +1,5 @@
+import '@/network';
+
 function fetchData(id) {
     return fetch(`https://yapi.hellobike.cn/api/interface/get?id=${id}`)
         .then(function (response) {
@@ -38409,16 +38411,20 @@ function getExportTypeDeclarationByType(typeItem) {
 // 构造 给业务层调用的 export 方法
 function getExportFunc(apiData) {
     const { action, functionName, requestType, responseDataInfo, isNeedToken, isSkipLogin } = apiData;
-    const callExpression = lib$1.callExpression(lib$1.memberExpression(lib$1.identifier('Request'), lib$1.identifier('request')), [lib$1.stringLiteral(action), lib$1.identifier('params'), lib$1.booleanLiteral(isNeedToken), lib$1.booleanLiteral(isSkipLogin)]);
+    const callExpression = lib$1.callExpression(lib$1.memberExpression(lib$1.identifier('Request'), lib$1.identifier('request')), [lib$1.stringLiteral(action), requestType ? lib$1.identifier('params') : lib$1.objectExpression([]), lib$1.booleanLiteral(isNeedToken), lib$1.booleanLiteral(isSkipLogin)]);
     const tsType = lib$1.tsTypeReference(lib$1.identifier(responseDataInfo.typeName));
     callExpression.typeParameters = lib$1.tsTypeParameterInstantiation([
         responseDataInfo.isArray ? lib$1.tsArrayType(tsType) : tsType
     ]);
     const returnStatement = lib$1.returnStatement(callExpression);
-    const paramsIdentifier = lib$1.identifier('params');
-    // 给参数定义添加ts类型约束
-    paramsIdentifier.typeAnnotation = lib$1.tsTypeAnnotation(lib$1.tsTypeReference(lib$1.identifier(requestType)));
-    const functionDelaration = lib$1.functionDeclaration(lib$1.identifier(functionName), [paramsIdentifier], lib$1.blockStatement([returnStatement]));
+    const args = [];
+    if (requestType) {
+        const paramsIdentifier = lib$1.identifier('params');
+        // 给参数定义添加ts类型约束
+        paramsIdentifier.typeAnnotation = lib$1.tsTypeAnnotation(lib$1.tsTypeReference(lib$1.identifier(requestType)));
+        args.push(paramsIdentifier);
+    }
+    const functionDelaration = lib$1.functionDeclaration(lib$1.identifier(functionName), args, lib$1.blockStatement([returnStatement]));
     return lib$1.exportNamedDeclaration(functionDelaration);
     // `
     //   export function getNewcomerGoodsList (params: GetNewcomerGoodsListReq) {
@@ -38559,6 +38565,8 @@ function getRequestType(actionName) {
         items.push(item);
     });
     console.warn(JSON.stringify(items));
+    if (!items.length)
+        return '';
     const typeName = `${actionName}Req`;
     typeList.push({
         typeName,
@@ -38657,6 +38665,7 @@ function generateCode() {
     // 这个两个参数需要用户输入
     // const actionName = 'AAA';
     // const isSkipLogin = false;
+    const requestType = getRequestType(actionName);
     const resultData = {
         action,
         actionName,
@@ -38665,7 +38674,7 @@ function generateCode() {
         isNeedToken,
         isSkipLogin,
         functionName: `${actionName}API`,
-        requestType: getRequestType(actionName),
+        requestType,
         responseDataInfo: getResponseDataInfo(actionName),
         typeList,
         enumTypeList
