@@ -31,7 +31,7 @@ function getActionInfo() {
     action: '',
     apiDesc: ''
   }
-  pageData.title.replace(/(^[a-z.0-9]+)\((.+)\)/g, function (_: never, action: string, apiDesc: string) {
+  pageData.title.replace(/(^[a-zA-Z.0-9]+)\((.+)\)/g, function (_: never, action: string, apiDesc: string) {
     result.action = action;
     result.apiDesc = apiDesc;
   });
@@ -212,6 +212,7 @@ setTimeout(()=>{
       if(errcode !== 0) throw errmsg
       pageData = data;
       typeList = [];
+      enumTypeList = [];
       const code = generateCode();
       navigator.clipboard.writeText(code).then(()=>{
         alert('代码已经复制到粘贴板上')

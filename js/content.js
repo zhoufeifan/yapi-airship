@@ -1,5 +1,3 @@
-import '@/network';
-
 function fetchData(id) {
     return fetch(`https://yapi.hellobike.cn/api/interface/get?id=${id}`)
         .then(function (response) {
@@ -38536,7 +38534,7 @@ function getActionInfo() {
         action: '',
         apiDesc: ''
     };
-    pageData.title.replace(/(^[a-z.0-9]+)\((.+)\)/g, function (_, action, apiDesc) {
+    pageData.title.replace(/(^[a-zA-Z.0-9]+)\((.+)\)/g, function (_, action, apiDesc) {
         result.action = action;
         result.apiDesc = apiDesc;
     });
@@ -38704,6 +38702,7 @@ setTimeout(() => {
                 throw errmsg;
             pageData = data;
             typeList = [];
+            enumTypeList = [];
             const code = generateCode();
             navigator.clipboard.writeText(code).then(() => {
                 alert('代码已经复制到粘贴板上');
