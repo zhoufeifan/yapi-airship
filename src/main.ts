@@ -1,5 +1,5 @@
 import { fetchData, getHeadCodeToUpperCase, getApiId } from './utils'
-// import { responseParmasData, requestParmasData } from './mockData'
+import mockData from './mockData'
 import { FieldDataType, ParamsRowDataType, TypeListItem, ObjectType, EnumTypeItem } from './types'
 import transform2code from './transform2code';
 import { insertGenerateButton, insertSetParamsButton } from './element';
@@ -205,23 +205,34 @@ setTimeout(()=>{
       alert('请先设置参数');
       return
     }
-    // 从url上拿取apiId
-    const apiId = getApiId(window.location.href)
-
-    apiId && fetchData(apiId).then(({errcode, errmsg, data}) => {
-      if(errcode !== 0) throw errmsg
-      pageData = data;
-      typeList = [];
-      enumTypeList = [];
-      const code = generateCode();
-      navigator.clipboard.writeText(code).then(()=>{
-        alert('代码已经复制到粘贴板上')
-      }).catch(e=>{
-        alert(e)
-      })
-    }).catch((msg) => {
-      alert(msg)
+    // mockData
+    pageData = mockData;
+    typeList = [];
+    enumTypeList = [];
+    const code = generateCode();
+    navigator.clipboard.writeText(code).then(()=>{
+      alert('代码已经复制到粘贴板上')
+    }).catch(e=>{
+      alert(e)
     })
+
+    // 从url上拿取apiId
+    // const apiId = getApiId(window.location.href)
+
+    // apiId && fetchData(apiId).then(({errcode, errmsg, data}) => {
+    //   if(errcode !== 0) throw errmsg
+    //   pageData = data;
+    //   typeList = [];
+    //   enumTypeList = [];
+    //   const code = generateCode();
+    //   navigator.clipboard.writeText(code).then(()=>{
+    //     alert('代码已经复制到粘贴板上')
+    //   }).catch(e=>{
+    //     alert(e)
+    //   })
+    // }).catch((msg) => {
+    //   alert(msg)
+    // })
   });
 
   const setParamsButton = insertSetParamsButton();

@@ -28,8 +28,7 @@
   },
   "page_action": {
     "default_title": "测试工具",
-    "default_icon": "asserts/icon.png",
-    "default_popup": "popup.html"
+    "default_icon": "asserts/icon.png"
   },
   "manifest_version": 2
 }
