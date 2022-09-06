@@ -1,66 +1,44 @@
+function fetchData(id) {
+    return fetch(`${window.location.origin}/api/interface/get?id=${id}`)
+        .then(function (response) {
+        return response.json();
+    });
+}
 // 首字母转大写
 function getHeadCodeToUpperCase(codes) {
     return codes.replace(/(^)([a-z])/g, (code) => {
         return code.toUpperCase();
     });
 }
-
-var mockData = {
-    "__v": 0,
-    "_id": 107463,
-    "add_time": 1598845659,
-    "catid": 24141,
-    "desc": "<p>locallife.goods.new.detail.basic(新商品详情页-商品基本信息)</p>\n",
-    "markdown": "locallife.goods.new.detail.basic(新商品详情页-商品基本信息)",
-    "method": "POST",
-    "path": "/api",
-    "project_id": 3271,
-    "req_body_other": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"token\":{\"type\":\"string\",\"description\":\"token\"},\"action\":{\"type\":\"string\",\"description\":\"action\"},\"skuId\":{\"type\":\"string\",\"description\":\"商品skuId\"},\"spuId\":{\"type\":\"string\",\"description\":\"spuId\"},\"cityCode\":{\"type\":\"string\",\"description\":\"城市编码\"},\"referrerId\":{\"type\":\"integer\",\"description\":\"推客id\"},\"firstSkuId\":{\"type\":\"string\",\"description\":\"排序后首个商品\"},\"fromMyIntegration\":{\"type\":\"boolean\",\"description\":\"是否来自我的积分页（默认false）\"}},\"required\":[\"action\",\"cityCode\"]}",
-    "req_body_type": "json",
-    "res_body": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"code\":{\"type\":\"string\"},\"msg\":{\"type\":\"string\"},\"data\":{\"type\":\"object\",\"properties\":{\"goodsName\":{\"type\":\"string\",\"description\":\"商品名称\"},\"goodsType\":{\"type\":\"integer\",\"description\":\"商品类型：1-普通商品 2-通兑卡\"},\"goodStatus\":{\"type\":\"integer\",\"description\":\"商品状态：1-预售 2-在售 3-售罄\"},\"extendType\":{\"type\":\"integer\",\"description\":\"推广类型：1-直购 2-分销\"},\"salePrice\":{\"type\":\"string\",\"description\":\"售价\"},\"originalPrice\":{\"type\":\"string\",\"description\":\"原价\"},\"directPrice\":{\"type\":\"string\",\"description\":\"赚取金额\"},\"couponPrice\":{\"type\":\"string\",\"description\":\"券后价\"},\"tags\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"标签\"},\"goodsMediaList\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"mediaUrl\":{\"type\":\"string\",\"description\":\"图片URL\"},\"mediaPlace\":{\"type\":\"integer\",\"description\":\"图片展示位置 1:主图 2:详情页封面图 3:其他图\"}},\"required\":[]},\"description\":\"商品图片列表\"},\"canRefund\":{\"type\":\"boolean\",\"description\":\"是否可退款\"},\"saleInfo\":{\"type\":\"object\",\"properties\":{\"subscribeNum\":{\"type\":\"number\",\"description\":\"预售商品关注人数\"},\"payNum\":{\"type\":\"number\",\"description\":\"下单人数\"},\"refererNum\":{\"type\":\"number\",\"description\":\"推广人数\"}},\"description\":\"售卖信息（下单人数、推广人数、预约人数等）\",\"required\":[]},\"posterUrl\":{\"type\":\"string\",\"description\":\"分销海报url，非分销商品时=null\"},\"systemTime\":{\"type\":\"number\",\"description\":\"系统当前时间戳\"},\"startSaleTime\":{\"type\":\"number\",\"description\":\"开售时间\"},\"exchangeStartTime\":{\"type\":\"number\",\"description\":\"兑换开始时间\"},\"exchangeEndTime\":{\"type\":\"number\",\"description\":\"兑换结束时间\"},\"createTime\":{\"type\":\"number\",\"description\":\"项目新增时间\"},\"newUserFlag\":{\"type\":\"number\",\"description\":\"是否新人专享商品，1-是，0-否\"},\"newUserPrice\":{\"type\":\"number\",\"description\":\"新人价\"},\"effectDate\":{\"type\":\"string\",\"description\":\"有效期\"},\"times\":{\"type\":\"integer\",\"description\":\"兑换次数\"},\"waistNumber\":{\"type\":\"integer\",\"description\":\"腰封人数：第一版替换下单人数与推广人数\"},\"waistNumberType\":{\"type\":\"integer\",\"description\":\"腰封文案：1-xxx人已下单，2-xx人推广\"},\"referrerName\":{\"type\":\"string\",\"description\":\"推客昵称\"},\"referrerHeadPortrait\":{\"type\":\"string\",\"description\":\"推客头像\"},\"referrerText\":{\"type\":\"string\",\"description\":\"推客推广文案\"},\"referrerLevelEquityTips\":{\"type\":\"string\",\"description\":\"推客等级权益Tips\\t\"},\"openCityActivity\":{\"type\":\"string\",\"description\":\"开城活动\"},\"labels\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"labelName\":{\"type\":\"string\",\"description\":\"标签名称\"},\"guid\":{\"type\":\"string\",\"description\":\"标签id\"},\"picUrl\":{\"type\":\"string\",\"description\":\"图片链接\"},\"jumpUrl\":{\"type\":\"string\",\"description\":\"跳转链接\"}},\"description\":\"标签对象\",\"required\":[]},\"description\":\"特殊标签列表\"},\"sameGroupGoodsList\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"skuId\":{\"type\":\"string\",\"description\":\"商品Id\"},\"title\":{\"type\":\"string\",\"description\":\"标题\"}},\"required\":[]}},\"integralValue\":{\"type\":\"number\",\"description\":\"积分值\"},\"fromMyIntegration\":{\"type\":\"boolean\",\"description\":\"是否来自我的积分页(是-true 否-false)\"},\"promotionText\":{\"type\":\"string\",\"description\":\"优惠文案\"},\"hasCoupon\":{\"type\":\"string\",\"description\":\" 是否有优惠券\"},\"promoInfo\":{\"type\":\"object\",\"properties\":{\"activityId\":{\"type\":\"string\",\"description\":\"活动id\"},\"activityType\":{\"type\":\"number\",\"description\":\"活动类型，1-立减活动，2-一口价，3-新人活动\"},\"finalDiscountsPrice\":{\"type\":\"string\",\"description\":\"最终优惠价格(用户实际支付价格)\"},\"activityDeductionAmount\":{\"type\":\"string\",\"description\":\"活动扣减价格\"},\"couponDeductionAmount\":{\"type\":\"string\",\"description\":\"优惠券扣减价格\"},\"frontendActivityName\":{\"type\":\"string\",\"description\":\"C端活动名称\"},\"activityPictUrl\":{\"type\":\"string\",\"description\":\"活动展示图\"},\"activityIconPictUrl\":{\"type\":\"string\",\"description\":\"活动icon展示图\"},\"activityPageUrl\":{\"type\":\"string\",\"description\":\"活动落地页URL\"},\"activityFloatingLayerIconUrl\":{\"type\":\"string\",\"description\":\"活动浮层图\"},\"couponBizType\":{\"type\":\"number\",\"description\":\"1-普通优惠券，2-积分兑换优惠券\"},\"hasCoupon\":{\"type\":\"boolean\",\"description\":\"是否有券，Boolean\"},\"userGoodsLimitNum\":{\"type\":\"number\",\"description\":\"用户商品限购数量\"}},\"description\":\"优惠信息\",\"required\":[\"activityId\",\"activityType\",\"finalDiscountsPrice\",\"activityDeductionAmount\",\"frontendActivityName\",\"activityIconPictUrl\",\"hasCoupon\"]},\"finalGoodsPrice\":{\"type\":\"string\",\"description\":\"商品最终价\"},\"bannerInfo\":{\"type\":\"object\",\"properties\":{\"carouselTime\":{\"type\":\"integer\",\"description\":\"轮播时间（单位毫秒）\"},\"autoCarousel\":{\"type\":\"boolean\",\"description\":\"自动轮播\"},\"enableCarousel\":{\"type\":\"boolean\",\"description\":\"支持轮播\"},\"specialType\":{\"type\":\"integer\",\"description\":\"1: 左右 2: 上下 3: 3D1 4: 3D2\"},\"picList\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"jumpUrl\":{\"type\":\"string\",\"description\":\"跳转链接\"},\"imgUrl\":{\"type\":\"string\",\"description\":\"图片地址\"}},\"required\":[]},\"description\":\"图片\"}},\"required\":[]}},\"required\":[\"finalGoodsPrice\"]}},\"required\":[]}",
-    "res_body_type": "json",
-    "service": "AppLocalGoodsService",
-    "title": "locallife.goods.new.detail.basic(商品基本信息-无登录态)",
-    "uid": 8661,
-    "up_time": 1648450846,
-    "index": 0,
-    "api_opened": false,
-    "res_body_is_json_schema": true,
-    "req_body_form": [],
-    "req_body_is_json_schema": true,
-    "req_params": [],
-    "req_headers": [
-        {
-            "_id": "62415d1edcc61908ef41a8a0",
-            "value": "application/json",
-            "name": "Content-Type",
-            "required": "1"
-        }
-    ],
-    "req_query": [],
-    "query_path": {
-        "path": "/api",
-        "params": []
-    },
-    "type": "static",
-    "status": "undone",
-    "edit_uid": 0,
-    "username": "闵晓龙"
-};
-
-function getAugmentedNamespace(n) {
-	if (n.__esModule) return n;
-	var a = Object.defineProperty({}, '__esModule', {value: true});
-	Object.keys(n).forEach(function (k) {
-		var d = Object.getOwnPropertyDescriptor(n, k);
-		Object.defineProperty(a, k, d.get ? d : {
-			enumerable: true,
-			get: function () {
-				return n[k];
-			}
-		});
-	});
-	return a;
+// 获取url上的参数
+function getApiId(url) {
+    const result = url.match(/\/api\/(\d+)/);
+    if (result) {
+        return result[1];
+    }
+    return '';
+}
+// pageData.title.replace(/(^[a-zA-Z.0-9]+)\((.+)\)/g, function (_: never, action: string, apiDesc: string) {
+//   result.action = action;
+//   result.apiDesc = apiDesc;
+// });
+function convertPathToActionName(path) {
+    let result = path.replace(/\/([a-zA-Z.0-9])/g, (_, code, index) => {
+        return index ? code.toUpperCase() : code;
+    });
+    return result;
+}
+// 获取接口请求的基础字段
+function getApiBasicInfo(pageData) {
+    const { title, path, method = "" } = pageData;
+    const result = {
+        actionName: convertPathToActionName(path),
+        apiDesc: title,
+        method: method.toLowerCase(),
+    };
+    console.log(pageData);
+    console.log(result);
+    return result;
 }
 
 var lib$3 = {};
@@ -3710,7 +3688,7 @@ function partition(list, test) {
 }
 
 const FLOW_PRAGMA_REGEX = /\*?\s*@((?:no)?flow)\b/;
-var flow$1 = (superClass => class extends superClass {
+var flow$2 = (superClass => class extends superClass {
   constructor(...args) {
     super(...args);
     this.flowPragma = undefined;
@@ -6837,7 +6815,7 @@ function getQualifiedJSXName(object) {
   throw new Error("Node had unexpected type: " + object.type);
 }
 
-var jsx$1 = (superClass => class extends superClass {
+var jsx$2 = (superClass => class extends superClass {
   jsxReadToken() {
     let out = "";
     let chunkStart = this.state.pos;
@@ -7478,7 +7456,7 @@ function tsIsAccessModifier(modifier) {
   return modifier === "private" || modifier === "public" || modifier === "protected";
 }
 
-var typescript$1 = (superClass => class extends superClass {
+var typescript$2 = (superClass => class extends superClass {
   getScopeHandler() {
     return TypeScriptScopeHandler;
   }
@@ -10327,9 +10305,9 @@ function validatePlugins(plugins) {
 }
 const mixinPlugins = {
   estree,
-  jsx: jsx$1,
-  flow: flow$1,
-  typescript: typescript$1,
+  jsx: jsx$2,
+  flow: flow$2,
+  typescript: typescript$2,
   v8intrinsic,
   placeholders: placeholders$1
 };
@@ -14839,423 +14817,423 @@ var util$5 = {};
 /* -*- Mode: js; js-indent-level: 2; -*- */
 
 (function (exports) {
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
+	/*
+	 * Copyright 2011 Mozilla Foundation and contributors
+	 * Licensed under the New BSD license. See LICENSE or:
+	 * http://opensource.org/licenses/BSD-3-Clause
+	 */
 
-/**
- * This is a helper function for getting values from parameter/options
- * objects.
- *
- * @param args The object we are extracting values from
- * @param name The name of the property we are getting.
- * @param defaultValue An optional value to return if the property is missing
- * from the object. If this is not specified and the property is missing, an
- * error will be thrown.
- */
-function getArg(aArgs, aName, aDefaultValue) {
-  if (aName in aArgs) {
-    return aArgs[aName];
-  } else if (arguments.length === 3) {
-    return aDefaultValue;
-  } else {
-    throw new Error('"' + aName + '" is a required argument.');
-  }
-}
-exports.getArg = getArg;
+	/**
+	 * This is a helper function for getting values from parameter/options
+	 * objects.
+	 *
+	 * @param args The object we are extracting values from
+	 * @param name The name of the property we are getting.
+	 * @param defaultValue An optional value to return if the property is missing
+	 * from the object. If this is not specified and the property is missing, an
+	 * error will be thrown.
+	 */
+	function getArg(aArgs, aName, aDefaultValue) {
+	  if (aName in aArgs) {
+	    return aArgs[aName];
+	  } else if (arguments.length === 3) {
+	    return aDefaultValue;
+	  } else {
+	    throw new Error('"' + aName + '" is a required argument.');
+	  }
+	}
+	exports.getArg = getArg;
 
-var urlRegexp = /^(?:([\w+\-.]+):)?\/\/(?:(\w+:\w+)@)?([\w.]*)(?::(\d+))?(\S*)$/;
-var dataUrlRegexp = /^data:.+\,.+$/;
+	var urlRegexp = /^(?:([\w+\-.]+):)?\/\/(?:(\w+:\w+)@)?([\w.]*)(?::(\d+))?(\S*)$/;
+	var dataUrlRegexp = /^data:.+\,.+$/;
 
-function urlParse(aUrl) {
-  var match = aUrl.match(urlRegexp);
-  if (!match) {
-    return null;
-  }
-  return {
-    scheme: match[1],
-    auth: match[2],
-    host: match[3],
-    port: match[4],
-    path: match[5]
-  };
-}
-exports.urlParse = urlParse;
+	function urlParse(aUrl) {
+	  var match = aUrl.match(urlRegexp);
+	  if (!match) {
+	    return null;
+	  }
+	  return {
+	    scheme: match[1],
+	    auth: match[2],
+	    host: match[3],
+	    port: match[4],
+	    path: match[5]
+	  };
+	}
+	exports.urlParse = urlParse;
 
-function urlGenerate(aParsedUrl) {
-  var url = '';
-  if (aParsedUrl.scheme) {
-    url += aParsedUrl.scheme + ':';
-  }
-  url += '//';
-  if (aParsedUrl.auth) {
-    url += aParsedUrl.auth + '@';
-  }
-  if (aParsedUrl.host) {
-    url += aParsedUrl.host;
-  }
-  if (aParsedUrl.port) {
-    url += ":" + aParsedUrl.port;
-  }
-  if (aParsedUrl.path) {
-    url += aParsedUrl.path;
-  }
-  return url;
-}
-exports.urlGenerate = urlGenerate;
+	function urlGenerate(aParsedUrl) {
+	  var url = '';
+	  if (aParsedUrl.scheme) {
+	    url += aParsedUrl.scheme + ':';
+	  }
+	  url += '//';
+	  if (aParsedUrl.auth) {
+	    url += aParsedUrl.auth + '@';
+	  }
+	  if (aParsedUrl.host) {
+	    url += aParsedUrl.host;
+	  }
+	  if (aParsedUrl.port) {
+	    url += ":" + aParsedUrl.port;
+	  }
+	  if (aParsedUrl.path) {
+	    url += aParsedUrl.path;
+	  }
+	  return url;
+	}
+	exports.urlGenerate = urlGenerate;
 
-/**
- * Normalizes a path, or the path portion of a URL:
- *
- * - Replaces consecutive slashes with one slash.
- * - Removes unnecessary '.' parts.
- * - Removes unnecessary '<dir>/..' parts.
- *
- * Based on code in the Node.js 'path' core module.
- *
- * @param aPath The path or url to normalize.
- */
-function normalize(aPath) {
-  var path = aPath;
-  var url = urlParse(aPath);
-  if (url) {
-    if (!url.path) {
-      return aPath;
-    }
-    path = url.path;
-  }
-  var isAbsolute = exports.isAbsolute(path);
+	/**
+	 * Normalizes a path, or the path portion of a URL:
+	 *
+	 * - Replaces consecutive slashes with one slash.
+	 * - Removes unnecessary '.' parts.
+	 * - Removes unnecessary '<dir>/..' parts.
+	 *
+	 * Based on code in the Node.js 'path' core module.
+	 *
+	 * @param aPath The path or url to normalize.
+	 */
+	function normalize(aPath) {
+	  var path = aPath;
+	  var url = urlParse(aPath);
+	  if (url) {
+	    if (!url.path) {
+	      return aPath;
+	    }
+	    path = url.path;
+	  }
+	  var isAbsolute = exports.isAbsolute(path);
 
-  var parts = path.split(/\/+/);
-  for (var part, up = 0, i = parts.length - 1; i >= 0; i--) {
-    part = parts[i];
-    if (part === '.') {
-      parts.splice(i, 1);
-    } else if (part === '..') {
-      up++;
-    } else if (up > 0) {
-      if (part === '') {
-        // The first part is blank if the path is absolute. Trying to go
-        // above the root is a no-op. Therefore we can remove all '..' parts
-        // directly after the root.
-        parts.splice(i + 1, up);
-        up = 0;
-      } else {
-        parts.splice(i, 2);
-        up--;
-      }
-    }
-  }
-  path = parts.join('/');
+	  var parts = path.split(/\/+/);
+	  for (var part, up = 0, i = parts.length - 1; i >= 0; i--) {
+	    part = parts[i];
+	    if (part === '.') {
+	      parts.splice(i, 1);
+	    } else if (part === '..') {
+	      up++;
+	    } else if (up > 0) {
+	      if (part === '') {
+	        // The first part is blank if the path is absolute. Trying to go
+	        // above the root is a no-op. Therefore we can remove all '..' parts
+	        // directly after the root.
+	        parts.splice(i + 1, up);
+	        up = 0;
+	      } else {
+	        parts.splice(i, 2);
+	        up--;
+	      }
+	    }
+	  }
+	  path = parts.join('/');
 
-  if (path === '') {
-    path = isAbsolute ? '/' : '.';
-  }
+	  if (path === '') {
+	    path = isAbsolute ? '/' : '.';
+	  }
 
-  if (url) {
-    url.path = path;
-    return urlGenerate(url);
-  }
-  return path;
-}
-exports.normalize = normalize;
+	  if (url) {
+	    url.path = path;
+	    return urlGenerate(url);
+	  }
+	  return path;
+	}
+	exports.normalize = normalize;
 
-/**
- * Joins two paths/URLs.
- *
- * @param aRoot The root path or URL.
- * @param aPath The path or URL to be joined with the root.
- *
- * - If aPath is a URL or a data URI, aPath is returned, unless aPath is a
- *   scheme-relative URL: Then the scheme of aRoot, if any, is prepended
- *   first.
- * - Otherwise aPath is a path. If aRoot is a URL, then its path portion
- *   is updated with the result and aRoot is returned. Otherwise the result
- *   is returned.
- *   - If aPath is absolute, the result is aPath.
- *   - Otherwise the two paths are joined with a slash.
- * - Joining for example 'http://' and 'www.example.com' is also supported.
- */
-function join(aRoot, aPath) {
-  if (aRoot === "") {
-    aRoot = ".";
-  }
-  if (aPath === "") {
-    aPath = ".";
-  }
-  var aPathUrl = urlParse(aPath);
-  var aRootUrl = urlParse(aRoot);
-  if (aRootUrl) {
-    aRoot = aRootUrl.path || '/';
-  }
+	/**
+	 * Joins two paths/URLs.
+	 *
+	 * @param aRoot The root path or URL.
+	 * @param aPath The path or URL to be joined with the root.
+	 *
+	 * - If aPath is a URL or a data URI, aPath is returned, unless aPath is a
+	 *   scheme-relative URL: Then the scheme of aRoot, if any, is prepended
+	 *   first.
+	 * - Otherwise aPath is a path. If aRoot is a URL, then its path portion
+	 *   is updated with the result and aRoot is returned. Otherwise the result
+	 *   is returned.
+	 *   - If aPath is absolute, the result is aPath.
+	 *   - Otherwise the two paths are joined with a slash.
+	 * - Joining for example 'http://' and 'www.example.com' is also supported.
+	 */
+	function join(aRoot, aPath) {
+	  if (aRoot === "") {
+	    aRoot = ".";
+	  }
+	  if (aPath === "") {
+	    aPath = ".";
+	  }
+	  var aPathUrl = urlParse(aPath);
+	  var aRootUrl = urlParse(aRoot);
+	  if (aRootUrl) {
+	    aRoot = aRootUrl.path || '/';
+	  }
 
-  // `join(foo, '//www.example.org')`
-  if (aPathUrl && !aPathUrl.scheme) {
-    if (aRootUrl) {
-      aPathUrl.scheme = aRootUrl.scheme;
-    }
-    return urlGenerate(aPathUrl);
-  }
+	  // `join(foo, '//www.example.org')`
+	  if (aPathUrl && !aPathUrl.scheme) {
+	    if (aRootUrl) {
+	      aPathUrl.scheme = aRootUrl.scheme;
+	    }
+	    return urlGenerate(aPathUrl);
+	  }
 
-  if (aPathUrl || aPath.match(dataUrlRegexp)) {
-    return aPath;
-  }
+	  if (aPathUrl || aPath.match(dataUrlRegexp)) {
+	    return aPath;
+	  }
 
-  // `join('http://', 'www.example.com')`
-  if (aRootUrl && !aRootUrl.host && !aRootUrl.path) {
-    aRootUrl.host = aPath;
-    return urlGenerate(aRootUrl);
-  }
+	  // `join('http://', 'www.example.com')`
+	  if (aRootUrl && !aRootUrl.host && !aRootUrl.path) {
+	    aRootUrl.host = aPath;
+	    return urlGenerate(aRootUrl);
+	  }
 
-  var joined = aPath.charAt(0) === '/'
-    ? aPath
-    : normalize(aRoot.replace(/\/+$/, '') + '/' + aPath);
+	  var joined = aPath.charAt(0) === '/'
+	    ? aPath
+	    : normalize(aRoot.replace(/\/+$/, '') + '/' + aPath);
 
-  if (aRootUrl) {
-    aRootUrl.path = joined;
-    return urlGenerate(aRootUrl);
-  }
-  return joined;
-}
-exports.join = join;
+	  if (aRootUrl) {
+	    aRootUrl.path = joined;
+	    return urlGenerate(aRootUrl);
+	  }
+	  return joined;
+	}
+	exports.join = join;
 
-exports.isAbsolute = function (aPath) {
-  return aPath.charAt(0) === '/' || !!aPath.match(urlRegexp);
-};
+	exports.isAbsolute = function (aPath) {
+	  return aPath.charAt(0) === '/' || !!aPath.match(urlRegexp);
+	};
 
-/**
- * Make a path relative to a URL or another path.
- *
- * @param aRoot The root path or URL.
- * @param aPath The path or URL to be made relative to aRoot.
- */
-function relative(aRoot, aPath) {
-  if (aRoot === "") {
-    aRoot = ".";
-  }
+	/**
+	 * Make a path relative to a URL or another path.
+	 *
+	 * @param aRoot The root path or URL.
+	 * @param aPath The path or URL to be made relative to aRoot.
+	 */
+	function relative(aRoot, aPath) {
+	  if (aRoot === "") {
+	    aRoot = ".";
+	  }
 
-  aRoot = aRoot.replace(/\/$/, '');
+	  aRoot = aRoot.replace(/\/$/, '');
 
-  // It is possible for the path to be above the root. In this case, simply
-  // checking whether the root is a prefix of the path won't work. Instead, we
-  // need to remove components from the root one by one, until either we find
-  // a prefix that fits, or we run out of components to remove.
-  var level = 0;
-  while (aPath.indexOf(aRoot + '/') !== 0) {
-    var index = aRoot.lastIndexOf("/");
-    if (index < 0) {
-      return aPath;
-    }
+	  // It is possible for the path to be above the root. In this case, simply
+	  // checking whether the root is a prefix of the path won't work. Instead, we
+	  // need to remove components from the root one by one, until either we find
+	  // a prefix that fits, or we run out of components to remove.
+	  var level = 0;
+	  while (aPath.indexOf(aRoot + '/') !== 0) {
+	    var index = aRoot.lastIndexOf("/");
+	    if (index < 0) {
+	      return aPath;
+	    }
 
-    // If the only part of the root that is left is the scheme (i.e. http://,
-    // file:///, etc.), one or more slashes (/), or simply nothing at all, we
-    // have exhausted all components, so the path is not relative to the root.
-    aRoot = aRoot.slice(0, index);
-    if (aRoot.match(/^([^\/]+:\/)?\/*$/)) {
-      return aPath;
-    }
+	    // If the only part of the root that is left is the scheme (i.e. http://,
+	    // file:///, etc.), one or more slashes (/), or simply nothing at all, we
+	    // have exhausted all components, so the path is not relative to the root.
+	    aRoot = aRoot.slice(0, index);
+	    if (aRoot.match(/^([^\/]+:\/)?\/*$/)) {
+	      return aPath;
+	    }
 
-    ++level;
-  }
+	    ++level;
+	  }
 
-  // Make sure we add a "../" for each component we removed from the root.
-  return Array(level + 1).join("../") + aPath.substr(aRoot.length + 1);
-}
-exports.relative = relative;
+	  // Make sure we add a "../" for each component we removed from the root.
+	  return Array(level + 1).join("../") + aPath.substr(aRoot.length + 1);
+	}
+	exports.relative = relative;
 
-var supportsNullProto = (function () {
-  var obj = Object.create(null);
-  return !('__proto__' in obj);
-}());
+	var supportsNullProto = (function () {
+	  var obj = Object.create(null);
+	  return !('__proto__' in obj);
+	}());
 
-function identity (s) {
-  return s;
-}
+	function identity (s) {
+	  return s;
+	}
 
-/**
- * Because behavior goes wacky when you set `__proto__` on objects, we
- * have to prefix all the strings in our set with an arbitrary character.
- *
- * See https://github.com/mozilla/source-map/pull/31 and
- * https://github.com/mozilla/source-map/issues/30
- *
- * @param String aStr
- */
-function toSetString(aStr) {
-  if (isProtoString(aStr)) {
-    return '$' + aStr;
-  }
+	/**
+	 * Because behavior goes wacky when you set `__proto__` on objects, we
+	 * have to prefix all the strings in our set with an arbitrary character.
+	 *
+	 * See https://github.com/mozilla/source-map/pull/31 and
+	 * https://github.com/mozilla/source-map/issues/30
+	 *
+	 * @param String aStr
+	 */
+	function toSetString(aStr) {
+	  if (isProtoString(aStr)) {
+	    return '$' + aStr;
+	  }
 
-  return aStr;
-}
-exports.toSetString = supportsNullProto ? identity : toSetString;
+	  return aStr;
+	}
+	exports.toSetString = supportsNullProto ? identity : toSetString;
 
-function fromSetString(aStr) {
-  if (isProtoString(aStr)) {
-    return aStr.slice(1);
-  }
+	function fromSetString(aStr) {
+	  if (isProtoString(aStr)) {
+	    return aStr.slice(1);
+	  }
 
-  return aStr;
-}
-exports.fromSetString = supportsNullProto ? identity : fromSetString;
+	  return aStr;
+	}
+	exports.fromSetString = supportsNullProto ? identity : fromSetString;
 
-function isProtoString(s) {
-  if (!s) {
-    return false;
-  }
+	function isProtoString(s) {
+	  if (!s) {
+	    return false;
+	  }
 
-  var length = s.length;
+	  var length = s.length;
 
-  if (length < 9 /* "__proto__".length */) {
-    return false;
-  }
+	  if (length < 9 /* "__proto__".length */) {
+	    return false;
+	  }
 
-  if (s.charCodeAt(length - 1) !== 95  /* '_' */ ||
-      s.charCodeAt(length - 2) !== 95  /* '_' */ ||
-      s.charCodeAt(length - 3) !== 111 /* 'o' */ ||
-      s.charCodeAt(length - 4) !== 116 /* 't' */ ||
-      s.charCodeAt(length - 5) !== 111 /* 'o' */ ||
-      s.charCodeAt(length - 6) !== 114 /* 'r' */ ||
-      s.charCodeAt(length - 7) !== 112 /* 'p' */ ||
-      s.charCodeAt(length - 8) !== 95  /* '_' */ ||
-      s.charCodeAt(length - 9) !== 95  /* '_' */) {
-    return false;
-  }
+	  if (s.charCodeAt(length - 1) !== 95  /* '_' */ ||
+	      s.charCodeAt(length - 2) !== 95  /* '_' */ ||
+	      s.charCodeAt(length - 3) !== 111 /* 'o' */ ||
+	      s.charCodeAt(length - 4) !== 116 /* 't' */ ||
+	      s.charCodeAt(length - 5) !== 111 /* 'o' */ ||
+	      s.charCodeAt(length - 6) !== 114 /* 'r' */ ||
+	      s.charCodeAt(length - 7) !== 112 /* 'p' */ ||
+	      s.charCodeAt(length - 8) !== 95  /* '_' */ ||
+	      s.charCodeAt(length - 9) !== 95  /* '_' */) {
+	    return false;
+	  }
 
-  for (var i = length - 10; i >= 0; i--) {
-    if (s.charCodeAt(i) !== 36 /* '$' */) {
-      return false;
-    }
-  }
+	  for (var i = length - 10; i >= 0; i--) {
+	    if (s.charCodeAt(i) !== 36 /* '$' */) {
+	      return false;
+	    }
+	  }
 
-  return true;
-}
+	  return true;
+	}
 
-/**
- * Comparator between two mappings where the original positions are compared.
- *
- * Optionally pass in `true` as `onlyCompareGenerated` to consider two
- * mappings with the same original source/line/column, but different generated
- * line and column the same. Useful when searching for a mapping with a
- * stubbed out mapping.
- */
-function compareByOriginalPositions(mappingA, mappingB, onlyCompareOriginal) {
-  var cmp = mappingA.source - mappingB.source;
-  if (cmp !== 0) {
-    return cmp;
-  }
+	/**
+	 * Comparator between two mappings where the original positions are compared.
+	 *
+	 * Optionally pass in `true` as `onlyCompareGenerated` to consider two
+	 * mappings with the same original source/line/column, but different generated
+	 * line and column the same. Useful when searching for a mapping with a
+	 * stubbed out mapping.
+	 */
+	function compareByOriginalPositions(mappingA, mappingB, onlyCompareOriginal) {
+	  var cmp = mappingA.source - mappingB.source;
+	  if (cmp !== 0) {
+	    return cmp;
+	  }
 
-  cmp = mappingA.originalLine - mappingB.originalLine;
-  if (cmp !== 0) {
-    return cmp;
-  }
+	  cmp = mappingA.originalLine - mappingB.originalLine;
+	  if (cmp !== 0) {
+	    return cmp;
+	  }
 
-  cmp = mappingA.originalColumn - mappingB.originalColumn;
-  if (cmp !== 0 || onlyCompareOriginal) {
-    return cmp;
-  }
+	  cmp = mappingA.originalColumn - mappingB.originalColumn;
+	  if (cmp !== 0 || onlyCompareOriginal) {
+	    return cmp;
+	  }
 
-  cmp = mappingA.generatedColumn - mappingB.generatedColumn;
-  if (cmp !== 0) {
-    return cmp;
-  }
+	  cmp = mappingA.generatedColumn - mappingB.generatedColumn;
+	  if (cmp !== 0) {
+	    return cmp;
+	  }
 
-  cmp = mappingA.generatedLine - mappingB.generatedLine;
-  if (cmp !== 0) {
-    return cmp;
-  }
+	  cmp = mappingA.generatedLine - mappingB.generatedLine;
+	  if (cmp !== 0) {
+	    return cmp;
+	  }
 
-  return mappingA.name - mappingB.name;
-}
-exports.compareByOriginalPositions = compareByOriginalPositions;
+	  return mappingA.name - mappingB.name;
+	}
+	exports.compareByOriginalPositions = compareByOriginalPositions;
 
-/**
- * Comparator between two mappings with deflated source and name indices where
- * the generated positions are compared.
- *
- * Optionally pass in `true` as `onlyCompareGenerated` to consider two
- * mappings with the same generated line and column, but different
- * source/name/original line and column the same. Useful when searching for a
- * mapping with a stubbed out mapping.
- */
-function compareByGeneratedPositionsDeflated(mappingA, mappingB, onlyCompareGenerated) {
-  var cmp = mappingA.generatedLine - mappingB.generatedLine;
-  if (cmp !== 0) {
-    return cmp;
-  }
+	/**
+	 * Comparator between two mappings with deflated source and name indices where
+	 * the generated positions are compared.
+	 *
+	 * Optionally pass in `true` as `onlyCompareGenerated` to consider two
+	 * mappings with the same generated line and column, but different
+	 * source/name/original line and column the same. Useful when searching for a
+	 * mapping with a stubbed out mapping.
+	 */
+	function compareByGeneratedPositionsDeflated(mappingA, mappingB, onlyCompareGenerated) {
+	  var cmp = mappingA.generatedLine - mappingB.generatedLine;
+	  if (cmp !== 0) {
+	    return cmp;
+	  }
 
-  cmp = mappingA.generatedColumn - mappingB.generatedColumn;
-  if (cmp !== 0 || onlyCompareGenerated) {
-    return cmp;
-  }
+	  cmp = mappingA.generatedColumn - mappingB.generatedColumn;
+	  if (cmp !== 0 || onlyCompareGenerated) {
+	    return cmp;
+	  }
 
-  cmp = mappingA.source - mappingB.source;
-  if (cmp !== 0) {
-    return cmp;
-  }
+	  cmp = mappingA.source - mappingB.source;
+	  if (cmp !== 0) {
+	    return cmp;
+	  }
 
-  cmp = mappingA.originalLine - mappingB.originalLine;
-  if (cmp !== 0) {
-    return cmp;
-  }
+	  cmp = mappingA.originalLine - mappingB.originalLine;
+	  if (cmp !== 0) {
+	    return cmp;
+	  }
 
-  cmp = mappingA.originalColumn - mappingB.originalColumn;
-  if (cmp !== 0) {
-    return cmp;
-  }
+	  cmp = mappingA.originalColumn - mappingB.originalColumn;
+	  if (cmp !== 0) {
+	    return cmp;
+	  }
 
-  return mappingA.name - mappingB.name;
-}
-exports.compareByGeneratedPositionsDeflated = compareByGeneratedPositionsDeflated;
+	  return mappingA.name - mappingB.name;
+	}
+	exports.compareByGeneratedPositionsDeflated = compareByGeneratedPositionsDeflated;
 
-function strcmp(aStr1, aStr2) {
-  if (aStr1 === aStr2) {
-    return 0;
-  }
+	function strcmp(aStr1, aStr2) {
+	  if (aStr1 === aStr2) {
+	    return 0;
+	  }
 
-  if (aStr1 > aStr2) {
-    return 1;
-  }
+	  if (aStr1 > aStr2) {
+	    return 1;
+	  }
 
-  return -1;
-}
+	  return -1;
+	}
 
-/**
- * Comparator between two mappings with inflated source and name strings where
- * the generated positions are compared.
- */
-function compareByGeneratedPositionsInflated(mappingA, mappingB) {
-  var cmp = mappingA.generatedLine - mappingB.generatedLine;
-  if (cmp !== 0) {
-    return cmp;
-  }
+	/**
+	 * Comparator between two mappings with inflated source and name strings where
+	 * the generated positions are compared.
+	 */
+	function compareByGeneratedPositionsInflated(mappingA, mappingB) {
+	  var cmp = mappingA.generatedLine - mappingB.generatedLine;
+	  if (cmp !== 0) {
+	    return cmp;
+	  }
 
-  cmp = mappingA.generatedColumn - mappingB.generatedColumn;
-  if (cmp !== 0) {
-    return cmp;
-  }
+	  cmp = mappingA.generatedColumn - mappingB.generatedColumn;
+	  if (cmp !== 0) {
+	    return cmp;
+	  }
 
-  cmp = strcmp(mappingA.source, mappingB.source);
-  if (cmp !== 0) {
-    return cmp;
-  }
+	  cmp = strcmp(mappingA.source, mappingB.source);
+	  if (cmp !== 0) {
+	    return cmp;
+	  }
 
-  cmp = mappingA.originalLine - mappingB.originalLine;
-  if (cmp !== 0) {
-    return cmp;
-  }
+	  cmp = mappingA.originalLine - mappingB.originalLine;
+	  if (cmp !== 0) {
+	    return cmp;
+	  }
 
-  cmp = mappingA.originalColumn - mappingB.originalColumn;
-  if (cmp !== 0) {
-    return cmp;
-  }
+	  cmp = mappingA.originalColumn - mappingB.originalColumn;
+	  if (cmp !== 0) {
+	    return cmp;
+	  }
 
-  return strcmp(mappingA.name, mappingB.name);
-}
-exports.compareByGeneratedPositionsInflated = compareByGeneratedPositionsInflated;
-}(util$5));
+	  return strcmp(mappingA.name, mappingB.name);
+	}
+	exports.compareByGeneratedPositionsInflated = compareByGeneratedPositionsInflated;
+} (util$5));
 
 var arraySet = {};
 
@@ -15890,117 +15868,117 @@ var binarySearch$1 = {};
 /* -*- Mode: js; js-indent-level: 2; -*- */
 
 (function (exports) {
-/*
- * Copyright 2011 Mozilla Foundation and contributors
- * Licensed under the New BSD license. See LICENSE or:
- * http://opensource.org/licenses/BSD-3-Clause
- */
+	/*
+	 * Copyright 2011 Mozilla Foundation and contributors
+	 * Licensed under the New BSD license. See LICENSE or:
+	 * http://opensource.org/licenses/BSD-3-Clause
+	 */
 
-exports.GREATEST_LOWER_BOUND = 1;
-exports.LEAST_UPPER_BOUND = 2;
+	exports.GREATEST_LOWER_BOUND = 1;
+	exports.LEAST_UPPER_BOUND = 2;
 
-/**
- * Recursive implementation of binary search.
- *
- * @param aLow Indices here and lower do not contain the needle.
- * @param aHigh Indices here and higher do not contain the needle.
- * @param aNeedle The element being searched for.
- * @param aHaystack The non-empty array being searched.
- * @param aCompare Function which takes two elements and returns -1, 0, or 1.
- * @param aBias Either 'binarySearch.GREATEST_LOWER_BOUND' or
- *     'binarySearch.LEAST_UPPER_BOUND'. Specifies whether to return the
- *     closest element that is smaller than or greater than the one we are
- *     searching for, respectively, if the exact element cannot be found.
- */
-function recursiveSearch(aLow, aHigh, aNeedle, aHaystack, aCompare, aBias) {
-  // This function terminates when one of the following is true:
-  //
-  //   1. We find the exact element we are looking for.
-  //
-  //   2. We did not find the exact element, but we can return the index of
-  //      the next-closest element.
-  //
-  //   3. We did not find the exact element, and there is no next-closest
-  //      element than the one we are searching for, so we return -1.
-  var mid = Math.floor((aHigh - aLow) / 2) + aLow;
-  var cmp = aCompare(aNeedle, aHaystack[mid], true);
-  if (cmp === 0) {
-    // Found the element we are looking for.
-    return mid;
-  }
-  else if (cmp > 0) {
-    // Our needle is greater than aHaystack[mid].
-    if (aHigh - mid > 1) {
-      // The element is in the upper half.
-      return recursiveSearch(mid, aHigh, aNeedle, aHaystack, aCompare, aBias);
-    }
+	/**
+	 * Recursive implementation of binary search.
+	 *
+	 * @param aLow Indices here and lower do not contain the needle.
+	 * @param aHigh Indices here and higher do not contain the needle.
+	 * @param aNeedle The element being searched for.
+	 * @param aHaystack The non-empty array being searched.
+	 * @param aCompare Function which takes two elements and returns -1, 0, or 1.
+	 * @param aBias Either 'binarySearch.GREATEST_LOWER_BOUND' or
+	 *     'binarySearch.LEAST_UPPER_BOUND'. Specifies whether to return the
+	 *     closest element that is smaller than or greater than the one we are
+	 *     searching for, respectively, if the exact element cannot be found.
+	 */
+	function recursiveSearch(aLow, aHigh, aNeedle, aHaystack, aCompare, aBias) {
+	  // This function terminates when one of the following is true:
+	  //
+	  //   1. We find the exact element we are looking for.
+	  //
+	  //   2. We did not find the exact element, but we can return the index of
+	  //      the next-closest element.
+	  //
+	  //   3. We did not find the exact element, and there is no next-closest
+	  //      element than the one we are searching for, so we return -1.
+	  var mid = Math.floor((aHigh - aLow) / 2) + aLow;
+	  var cmp = aCompare(aNeedle, aHaystack[mid], true);
+	  if (cmp === 0) {
+	    // Found the element we are looking for.
+	    return mid;
+	  }
+	  else if (cmp > 0) {
+	    // Our needle is greater than aHaystack[mid].
+	    if (aHigh - mid > 1) {
+	      // The element is in the upper half.
+	      return recursiveSearch(mid, aHigh, aNeedle, aHaystack, aCompare, aBias);
+	    }
 
-    // The exact needle element was not found in this haystack. Determine if
-    // we are in termination case (3) or (2) and return the appropriate thing.
-    if (aBias == exports.LEAST_UPPER_BOUND) {
-      return aHigh < aHaystack.length ? aHigh : -1;
-    } else {
-      return mid;
-    }
-  }
-  else {
-    // Our needle is less than aHaystack[mid].
-    if (mid - aLow > 1) {
-      // The element is in the lower half.
-      return recursiveSearch(aLow, mid, aNeedle, aHaystack, aCompare, aBias);
-    }
+	    // The exact needle element was not found in this haystack. Determine if
+	    // we are in termination case (3) or (2) and return the appropriate thing.
+	    if (aBias == exports.LEAST_UPPER_BOUND) {
+	      return aHigh < aHaystack.length ? aHigh : -1;
+	    } else {
+	      return mid;
+	    }
+	  }
+	  else {
+	    // Our needle is less than aHaystack[mid].
+	    if (mid - aLow > 1) {
+	      // The element is in the lower half.
+	      return recursiveSearch(aLow, mid, aNeedle, aHaystack, aCompare, aBias);
+	    }
 
-    // we are in termination case (3) or (2) and return the appropriate thing.
-    if (aBias == exports.LEAST_UPPER_BOUND) {
-      return mid;
-    } else {
-      return aLow < 0 ? -1 : aLow;
-    }
-  }
-}
+	    // we are in termination case (3) or (2) and return the appropriate thing.
+	    if (aBias == exports.LEAST_UPPER_BOUND) {
+	      return mid;
+	    } else {
+	      return aLow < 0 ? -1 : aLow;
+	    }
+	  }
+	}
 
-/**
- * This is an implementation of binary search which will always try and return
- * the index of the closest element if there is no exact hit. This is because
- * mappings between original and generated line/col pairs are single points,
- * and there is an implicit region between each of them, so a miss just means
- * that you aren't on the very start of a region.
- *
- * @param aNeedle The element you are looking for.
- * @param aHaystack The array that is being searched.
- * @param aCompare A function which takes the needle and an element in the
- *     array and returns -1, 0, or 1 depending on whether the needle is less
- *     than, equal to, or greater than the element, respectively.
- * @param aBias Either 'binarySearch.GREATEST_LOWER_BOUND' or
- *     'binarySearch.LEAST_UPPER_BOUND'. Specifies whether to return the
- *     closest element that is smaller than or greater than the one we are
- *     searching for, respectively, if the exact element cannot be found.
- *     Defaults to 'binarySearch.GREATEST_LOWER_BOUND'.
- */
-exports.search = function search(aNeedle, aHaystack, aCompare, aBias) {
-  if (aHaystack.length === 0) {
-    return -1;
-  }
+	/**
+	 * This is an implementation of binary search which will always try and return
+	 * the index of the closest element if there is no exact hit. This is because
+	 * mappings between original and generated line/col pairs are single points,
+	 * and there is an implicit region between each of them, so a miss just means
+	 * that you aren't on the very start of a region.
+	 *
+	 * @param aNeedle The element you are looking for.
+	 * @param aHaystack The array that is being searched.
+	 * @param aCompare A function which takes the needle and an element in the
+	 *     array and returns -1, 0, or 1 depending on whether the needle is less
+	 *     than, equal to, or greater than the element, respectively.
+	 * @param aBias Either 'binarySearch.GREATEST_LOWER_BOUND' or
+	 *     'binarySearch.LEAST_UPPER_BOUND'. Specifies whether to return the
+	 *     closest element that is smaller than or greater than the one we are
+	 *     searching for, respectively, if the exact element cannot be found.
+	 *     Defaults to 'binarySearch.GREATEST_LOWER_BOUND'.
+	 */
+	exports.search = function search(aNeedle, aHaystack, aCompare, aBias) {
+	  if (aHaystack.length === 0) {
+	    return -1;
+	  }
 
-  var index = recursiveSearch(-1, aHaystack.length, aNeedle, aHaystack,
-                              aCompare, aBias || exports.GREATEST_LOWER_BOUND);
-  if (index < 0) {
-    return -1;
-  }
+	  var index = recursiveSearch(-1, aHaystack.length, aNeedle, aHaystack,
+	                              aCompare, aBias || exports.GREATEST_LOWER_BOUND);
+	  if (index < 0) {
+	    return -1;
+	  }
 
-  // We have found either the exact element, or the next-closest element than
-  // the one we are searching for. However, there may be more than one such
-  // element. Make sure we always return the smallest of these.
-  while (index - 1 >= 0) {
-    if (aCompare(aHaystack[index], aHaystack[index - 1], true) !== 0) {
-      break;
-    }
-    --index;
-  }
+	  // We have found either the exact element, or the next-closest element than
+	  // the one we are searching for. However, there may be more than one such
+	  // element. Make sure we always return the smallest of these.
+	  while (index - 1 >= 0) {
+	    if (aCompare(aHaystack[index], aHaystack[index - 1], true) !== 0) {
+	      break;
+	    }
+	    --index;
+	  }
 
-  return index;
-};
-}(binarySearch$1));
+	  return index;
+	};
+} (binarySearch$1));
 
 var quickSort$1 = {};
 
@@ -16032,7 +16010,7 @@ var quickSort$1 = {};
  * @param {Number} y
  *        The index of the second item.
  */
-function swap(ary, x, y) {
+function swap$1(ary, x, y) {
   var temp = ary[x];
   ary[x] = ary[y];
   ary[y] = temp;
@@ -16082,7 +16060,7 @@ function doQuickSort(ary, comparator, p, r) {
     var pivotIndex = randomIntInRange(p, r);
     var i = p - 1;
 
-    swap(ary, pivotIndex, r);
+    swap$1(ary, pivotIndex, r);
     var pivot = ary[r];
 
     // Immediately after `j` is incremented in this loop, the following hold
@@ -16094,11 +16072,11 @@ function doQuickSort(ary, comparator, p, r) {
     for (var j = p; j < r; j++) {
       if (comparator(ary[j], pivot) <= 0) {
         i += 1;
-        swap(ary, i, j);
+        swap$1(ary, i, j);
       }
     }
 
-    swap(ary, i + 1, j);
+    swap$1(ary, i + 1, j);
     var q = i + 1;
 
     // (2) Recurse on each half.
@@ -17718,7 +17696,7 @@ Object.defineProperty(buffer, "__esModule", {
 buffer.default = void 0;
 const SPACES_RE = /^[ \t]+$/;
 
-class Buffer {
+class Buffer$1 {
   constructor(map) {
     this._map = null;
     this._buf = "";
@@ -17974,7 +17952,7 @@ class Buffer {
 
 }
 
-buffer.default = Buffer;
+buffer.default = Buffer$1;
 
 var node = {};
 
@@ -18308,7 +18286,7 @@ generated$4.isRegexLiteral = isRegexLiteral;
 generated$4.isRestProperty = isRestProperty;
 generated$4.isSpreadProperty = isSpreadProperty;
 
-var _shallowEqual$1 = shallowEqual$1;
+var _shallowEqual = shallowEqual$1;
 
 function isArrayExpression$1(node, opts) {
   if (!node) return false;
@@ -18318,7 +18296,7 @@ function isArrayExpression$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18333,7 +18311,7 @@ function isAssignmentExpression$2(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18348,7 +18326,7 @@ function isBinaryExpression$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18363,7 +18341,7 @@ function isInterpreterDirective(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18378,7 +18356,7 @@ function isDirective(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18393,7 +18371,7 @@ function isDirectiveLiteral(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18408,7 +18386,7 @@ function isBlockStatement$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18423,7 +18401,7 @@ function isBreakStatement(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18438,7 +18416,7 @@ function isCallExpression$4(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18453,7 +18431,7 @@ function isCatchClause(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18468,7 +18446,7 @@ function isConditionalExpression$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18483,7 +18461,7 @@ function isContinueStatement(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18498,7 +18476,7 @@ function isDebuggerStatement(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18513,7 +18491,7 @@ function isDoWhileStatement(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18528,7 +18506,7 @@ function isEmptyStatement$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18543,7 +18521,7 @@ function isExpressionStatement$2(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18558,7 +18536,7 @@ function isFile$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18573,7 +18551,7 @@ function isForInStatement$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18588,7 +18566,7 @@ function isForStatement$2(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18603,7 +18581,7 @@ function isFunctionDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18618,7 +18596,7 @@ function isFunctionExpression(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18633,7 +18611,7 @@ function isIdentifier$3(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18648,7 +18626,7 @@ function isIfStatement$2(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18663,7 +18641,7 @@ function isLabeledStatement(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18678,7 +18656,7 @@ function isStringLiteral$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18693,7 +18671,7 @@ function isNumericLiteral(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18708,7 +18686,7 @@ function isNullLiteral(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18723,7 +18701,7 @@ function isBooleanLiteral(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18738,7 +18716,7 @@ function isRegExpLiteral(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18753,7 +18731,7 @@ function isLogicalExpression$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18768,7 +18746,7 @@ function isMemberExpression$4(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18783,7 +18761,7 @@ function isNewExpression$3(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18798,7 +18776,7 @@ function isProgram$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18813,7 +18791,7 @@ function isObjectExpression$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18828,7 +18806,7 @@ function isObjectMethod(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18843,7 +18821,7 @@ function isObjectProperty(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18858,7 +18836,7 @@ function isRestElement(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18873,7 +18851,7 @@ function isReturnStatement$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18888,7 +18866,7 @@ function isSequenceExpression$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18903,7 +18881,7 @@ function isParenthesizedExpression(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18918,7 +18896,7 @@ function isSwitchCase(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18933,7 +18911,7 @@ function isSwitchStatement$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18948,7 +18926,7 @@ function isThisExpression(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18963,7 +18941,7 @@ function isThrowStatement$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18978,7 +18956,7 @@ function isTryStatement(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -18993,7 +18971,7 @@ function isUnaryExpression(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19008,7 +18986,7 @@ function isUpdateExpression(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19023,7 +19001,7 @@ function isVariableDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19038,7 +19016,7 @@ function isVariableDeclarator$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19053,7 +19031,7 @@ function isWhileStatement$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19068,7 +19046,7 @@ function isWithStatement(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19083,7 +19061,7 @@ function isAssignmentPattern$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19098,7 +19076,7 @@ function isArrayPattern(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19113,7 +19091,7 @@ function isArrowFunctionExpression$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19128,7 +19106,7 @@ function isClassBody(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19143,7 +19121,7 @@ function isClassExpression$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19158,7 +19136,7 @@ function isClassDeclaration$2(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19173,7 +19151,7 @@ function isExportAllDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19188,7 +19166,7 @@ function isExportDefaultDeclaration$2(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19203,7 +19181,7 @@ function isExportNamedDeclaration$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19218,7 +19196,7 @@ function isExportSpecifier(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19233,7 +19211,7 @@ function isForOfStatement$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19248,7 +19226,7 @@ function isImportDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19263,7 +19241,7 @@ function isImportDefaultSpecifier$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19278,7 +19256,7 @@ function isImportNamespaceSpecifier$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19293,7 +19271,7 @@ function isImportSpecifier(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19308,7 +19286,7 @@ function isMetaProperty(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19323,7 +19301,7 @@ function isClassMethod(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19338,7 +19316,7 @@ function isObjectPattern$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19353,7 +19331,7 @@ function isSpreadElement(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19368,7 +19346,7 @@ function isSuper(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19383,7 +19361,7 @@ function isTaggedTemplateExpression$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19398,7 +19376,7 @@ function isTemplateElement(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19413,7 +19391,7 @@ function isTemplateLiteral(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19428,7 +19406,7 @@ function isYieldExpression$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19443,7 +19421,7 @@ function isAwaitExpression$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19458,7 +19436,7 @@ function isImport(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19473,7 +19451,7 @@ function isBigIntLiteral(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19488,7 +19466,7 @@ function isExportNamespaceSpecifier$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19503,7 +19481,7 @@ function isOptionalMemberExpression$2(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19518,7 +19496,7 @@ function isOptionalCallExpression$2(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19533,7 +19511,7 @@ function isClassProperty(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19548,7 +19526,7 @@ function isClassPrivateProperty(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19563,7 +19541,7 @@ function isClassPrivateMethod(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19578,7 +19556,7 @@ function isPrivateName(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19593,7 +19571,7 @@ function isAnyTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19608,7 +19586,7 @@ function isArrayTypeAnnotation$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19623,7 +19601,7 @@ function isBooleanTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19638,7 +19616,7 @@ function isBooleanLiteralTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19653,7 +19631,7 @@ function isNullLiteralTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19668,7 +19646,7 @@ function isClassImplements(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19683,7 +19661,7 @@ function isDeclareClass(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19698,7 +19676,7 @@ function isDeclareFunction(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19713,7 +19691,7 @@ function isDeclareInterface(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19728,7 +19706,7 @@ function isDeclareModule(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19743,7 +19721,7 @@ function isDeclareModuleExports(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19758,7 +19736,7 @@ function isDeclareTypeAlias(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19773,7 +19751,7 @@ function isDeclareOpaqueType(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19788,7 +19766,7 @@ function isDeclareVariable(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19803,7 +19781,7 @@ function isDeclareExportDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19818,7 +19796,7 @@ function isDeclareExportAllDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19833,7 +19811,7 @@ function isDeclaredPredicate(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19848,7 +19826,7 @@ function isExistsTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19863,7 +19841,7 @@ function isFunctionTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19878,7 +19856,7 @@ function isFunctionTypeParam(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19893,7 +19871,7 @@ function isGenericTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19908,7 +19886,7 @@ function isInferredPredicate(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19923,7 +19901,7 @@ function isInterfaceExtends(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19938,7 +19916,7 @@ function isInterfaceDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19953,7 +19931,7 @@ function isInterfaceTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19968,7 +19946,7 @@ function isIntersectionTypeAnnotation$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19983,7 +19961,7 @@ function isMixedTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -19998,7 +19976,7 @@ function isEmptyTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20013,7 +19991,7 @@ function isNullableTypeAnnotation$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20028,7 +20006,7 @@ function isNumberLiteralTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20043,7 +20021,7 @@ function isNumberTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20058,7 +20036,7 @@ function isObjectTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20073,7 +20051,7 @@ function isObjectTypeInternalSlot(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20088,7 +20066,7 @@ function isObjectTypeCallProperty(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20103,7 +20081,7 @@ function isObjectTypeIndexer(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20118,7 +20096,7 @@ function isObjectTypeProperty(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20133,7 +20111,7 @@ function isObjectTypeSpreadProperty(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20148,7 +20126,7 @@ function isOpaqueType(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20163,7 +20141,7 @@ function isQualifiedTypeIdentifier(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20178,7 +20156,7 @@ function isStringLiteralTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20193,7 +20171,7 @@ function isStringTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20208,7 +20186,7 @@ function isSymbolTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20223,7 +20201,7 @@ function isThisTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20238,7 +20216,7 @@ function isTupleTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20253,7 +20231,7 @@ function isTypeofTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20268,7 +20246,7 @@ function isTypeAlias(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20283,7 +20261,7 @@ function isTypeAnnotation$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20298,7 +20276,7 @@ function isTypeCastExpression(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20313,7 +20291,7 @@ function isTypeParameter(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20328,7 +20306,7 @@ function isTypeParameterDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20343,7 +20321,7 @@ function isTypeParameterInstantiation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20358,7 +20336,7 @@ function isUnionTypeAnnotation$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20373,7 +20351,7 @@ function isVariance(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20388,7 +20366,7 @@ function isVoidTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20403,7 +20381,7 @@ function isEnumDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20418,7 +20396,7 @@ function isEnumBooleanBody(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20433,7 +20411,7 @@ function isEnumNumberBody(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20448,7 +20426,7 @@ function isEnumStringBody(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20463,7 +20441,7 @@ function isEnumSymbolBody(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20478,7 +20456,7 @@ function isEnumBooleanMember(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20493,7 +20471,7 @@ function isEnumNumberMember(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20508,7 +20486,7 @@ function isEnumStringMember(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20523,7 +20501,7 @@ function isEnumDefaultedMember(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20538,7 +20516,7 @@ function isIndexedAccessType$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20553,7 +20531,7 @@ function isOptionalIndexedAccessType(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20568,7 +20546,7 @@ function isJSXAttribute(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20583,7 +20561,7 @@ function isJSXClosingElement(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20598,7 +20576,7 @@ function isJSXElement(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20613,7 +20591,7 @@ function isJSXEmptyExpression(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20628,7 +20606,7 @@ function isJSXExpressionContainer(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20643,7 +20621,7 @@ function isJSXSpreadChild(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20658,7 +20636,7 @@ function isJSXIdentifier(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20673,7 +20651,7 @@ function isJSXMemberExpression(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20688,7 +20666,7 @@ function isJSXNamespacedName(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20703,7 +20681,7 @@ function isJSXOpeningElement(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20718,7 +20696,7 @@ function isJSXSpreadAttribute(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20733,7 +20711,7 @@ function isJSXText(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20748,7 +20726,7 @@ function isJSXFragment(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20763,7 +20741,7 @@ function isJSXOpeningFragment(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20778,7 +20756,7 @@ function isJSXClosingFragment(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20793,7 +20771,7 @@ function isNoop(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20808,7 +20786,7 @@ function isPlaceholder(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20823,7 +20801,7 @@ function isV8IntrinsicIdentifier(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20838,7 +20816,7 @@ function isArgumentPlaceholder(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20853,7 +20831,7 @@ function isBindExpression(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20868,7 +20846,7 @@ function isImportAttribute(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20883,7 +20861,7 @@ function isDecorator(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20898,7 +20876,7 @@ function isDoExpression(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20913,7 +20891,7 @@ function isExportDefaultSpecifier$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20928,7 +20906,7 @@ function isRecordExpression(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20943,7 +20921,7 @@ function isTupleExpression(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20958,7 +20936,7 @@ function isDecimalLiteral(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20973,7 +20951,7 @@ function isStaticBlock(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -20988,7 +20966,7 @@ function isModuleExpression(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21003,7 +20981,7 @@ function isTopicReference(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21018,7 +20996,7 @@ function isPipelineTopicExpression(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21033,7 +21011,7 @@ function isPipelineBareFunction(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21048,7 +21026,7 @@ function isPipelinePrimaryTopicReference(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21063,7 +21041,7 @@ function isTSParameterProperty(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21078,7 +21056,7 @@ function isTSDeclareFunction(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21093,7 +21071,7 @@ function isTSDeclareMethod(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21108,7 +21086,7 @@ function isTSQualifiedName(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21123,7 +21101,7 @@ function isTSCallSignatureDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21138,7 +21116,7 @@ function isTSConstructSignatureDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21153,7 +21131,7 @@ function isTSPropertySignature(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21168,7 +21146,7 @@ function isTSMethodSignature(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21183,7 +21161,7 @@ function isTSIndexSignature(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21198,7 +21176,7 @@ function isTSAnyKeyword(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21213,7 +21191,7 @@ function isTSBooleanKeyword(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21228,7 +21206,7 @@ function isTSBigIntKeyword(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21243,7 +21221,7 @@ function isTSIntrinsicKeyword(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21258,7 +21236,7 @@ function isTSNeverKeyword(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21273,7 +21251,7 @@ function isTSNullKeyword(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21288,7 +21266,7 @@ function isTSNumberKeyword(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21303,7 +21281,7 @@ function isTSObjectKeyword(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21318,7 +21296,7 @@ function isTSStringKeyword(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21333,7 +21311,7 @@ function isTSSymbolKeyword(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21348,7 +21326,7 @@ function isTSUndefinedKeyword(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21363,7 +21341,7 @@ function isTSUnknownKeyword(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21378,7 +21356,7 @@ function isTSVoidKeyword(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21393,7 +21371,7 @@ function isTSThisType(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21408,7 +21386,7 @@ function isTSFunctionType(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21423,7 +21401,7 @@ function isTSConstructorType(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21438,7 +21416,7 @@ function isTSTypeReference(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21453,7 +21431,7 @@ function isTSTypePredicate(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21468,7 +21446,7 @@ function isTSTypeQuery(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21483,7 +21461,7 @@ function isTSTypeLiteral(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21498,7 +21476,7 @@ function isTSArrayType$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21513,7 +21491,7 @@ function isTSTupleType(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21528,7 +21506,7 @@ function isTSOptionalType$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21543,7 +21521,7 @@ function isTSRestType$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21558,7 +21536,7 @@ function isTSNamedTupleMember(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21573,7 +21551,7 @@ function isTSUnionType$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21588,7 +21566,7 @@ function isTSIntersectionType$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21603,7 +21581,7 @@ function isTSConditionalType(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21618,7 +21596,7 @@ function isTSInferType(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21633,7 +21611,7 @@ function isTSParenthesizedType(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21648,7 +21626,7 @@ function isTSTypeOperator(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21663,7 +21641,7 @@ function isTSIndexedAccessType(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21678,7 +21656,7 @@ function isTSMappedType(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21693,7 +21671,7 @@ function isTSLiteralType(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21708,7 +21686,7 @@ function isTSExpressionWithTypeArguments(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21723,7 +21701,7 @@ function isTSInterfaceDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21738,7 +21716,7 @@ function isTSInterfaceBody(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21753,7 +21731,7 @@ function isTSTypeAliasDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21768,7 +21746,7 @@ function isTSAsExpression$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21783,7 +21761,7 @@ function isTSTypeAssertion$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21798,7 +21776,7 @@ function isTSEnumDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21813,7 +21791,7 @@ function isTSEnumMember(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21828,7 +21806,7 @@ function isTSModuleDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21843,7 +21821,7 @@ function isTSModuleBlock(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21858,7 +21836,7 @@ function isTSImportType(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21873,7 +21851,7 @@ function isTSImportEqualsDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21888,7 +21866,7 @@ function isTSExternalModuleReference(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21903,7 +21881,7 @@ function isTSNonNullExpression$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21918,7 +21896,7 @@ function isTSExportAssignment(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21933,7 +21911,7 @@ function isTSNamespaceExportDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21948,7 +21926,7 @@ function isTSTypeAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21963,7 +21941,7 @@ function isTSTypeParameterInstantiation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21978,7 +21956,7 @@ function isTSTypeParameterDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -21993,7 +21971,7 @@ function isTSTypeParameter(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22008,7 +21986,7 @@ function isExpression(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22023,7 +22001,7 @@ function isBinary$2(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22038,7 +22016,7 @@ function isScopable(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22053,7 +22031,7 @@ function isBlockParent(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22068,7 +22046,7 @@ function isBlock(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22083,7 +22061,7 @@ function isStatement$2(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22098,7 +22076,7 @@ function isTerminatorless(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22113,7 +22091,7 @@ function isCompletionStatement(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22128,7 +22106,7 @@ function isConditional$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22143,7 +22121,7 @@ function isLoop(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22158,7 +22136,7 @@ function isWhile(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22173,7 +22151,7 @@ function isExpressionWrapper(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22188,7 +22166,7 @@ function isFor$2(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22203,7 +22181,7 @@ function isForXStatement(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22218,7 +22196,7 @@ function isFunction$2(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22233,7 +22211,7 @@ function isFunctionParent(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22248,7 +22226,7 @@ function isPureish(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22263,7 +22241,7 @@ function isDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22278,7 +22256,7 @@ function isPatternLike(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22293,7 +22271,7 @@ function isLVal(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22308,7 +22286,7 @@ function isTSEntityName(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22323,7 +22301,7 @@ function isLiteral$2(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22338,7 +22316,7 @@ function isImmutable$2(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22353,7 +22331,7 @@ function isUserWhitespacable(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22368,7 +22346,7 @@ function isMethod(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22383,7 +22361,7 @@ function isObjectMember(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22398,7 +22376,7 @@ function isProperty(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22413,7 +22391,7 @@ function isUnaryLike$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22428,7 +22406,7 @@ function isPattern(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22443,7 +22421,7 @@ function isClass(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22458,7 +22436,7 @@ function isModuleDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22473,7 +22451,7 @@ function isExportDeclaration$1(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22488,7 +22466,7 @@ function isModuleSpecifier(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22503,7 +22481,7 @@ function isPrivate(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22518,7 +22496,7 @@ function isFlow(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22533,7 +22511,7 @@ function isFlowType(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22548,7 +22526,7 @@ function isFlowBaseAnnotation(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22563,7 +22541,7 @@ function isFlowDeclaration(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22578,7 +22556,7 @@ function isFlowPredicate(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22593,7 +22571,7 @@ function isEnumBody(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22608,7 +22586,7 @@ function isEnumMember(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22623,7 +22601,7 @@ function isJSX(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22638,7 +22616,7 @@ function isTSTypeElement(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22653,7 +22631,7 @@ function isTSType(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22668,7 +22646,7 @@ function isTSBaseType(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22684,7 +22662,7 @@ function isNumberLiteral(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22700,7 +22678,7 @@ function isRegexLiteral(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22716,7 +22694,7 @@ function isRestProperty(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22732,7 +22710,7 @@ function isSpreadProperty(node, opts) {
     if (typeof opts === "undefined") {
       return true;
     } else {
-      return (0, _shallowEqual$1.default)(node, opts);
+      return (0, _shallowEqual.default)(node, opts);
     }
   }
 
@@ -22854,99 +22832,333 @@ var global$1 = (typeof global !== "undefined" ? global :
             typeof self !== "undefined" ? self :
             typeof window !== "undefined" ? window : {});
 
-if (typeof global$1.setTimeout === 'function') ;
-if (typeof global$1.clearTimeout === 'function') ;
+// shim for using process in browser
+// based off https://github.com/defunctzombie/node-process/blob/master/browser.js
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+var cachedSetTimeout = defaultSetTimout;
+var cachedClearTimeout = defaultClearTimeout;
+if (typeof global$1.setTimeout === 'function') {
+    cachedSetTimeout = setTimeout;
+}
+if (typeof global$1.clearTimeout === 'function') {
+    cachedClearTimeout = clearTimeout;
+}
+
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+function nextTick(fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+}
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+var title = 'browser';
+var platform = 'browser';
+var browser = true;
+var env = {};
+var argv = [];
+var version = ''; // empty string to avoid regexp issues
+var versions = {};
+var release = {};
+var config = {};
+
+function noop$1() {}
+
+var on = noop$1;
+var addListener = noop$1;
+var once = noop$1;
+var off = noop$1;
+var removeListener = noop$1;
+var removeAllListeners = noop$1;
+var emit = noop$1;
+
+function binding(name) {
+    throw new Error('process.binding is not supported');
+}
+
+function cwd () { return '/' }
+function chdir (dir) {
+    throw new Error('process.chdir is not supported');
+}function umask() { return 0; }
 
 // from https://github.com/kumavis/browser-process-hrtime/blob/master/index.js
 var performance = global$1.performance || {};
-performance.now        ||
+var performanceNow =
+  performance.now        ||
   performance.mozNow     ||
   performance.msNow      ||
   performance.oNow       ||
   performance.webkitNow  ||
   function(){ return (new Date()).getTime() };
 
+// generate timestamp or delta
+// see http://nodejs.org/api/process.html#process_process_hrtime
+function hrtime(previousTimestamp){
+  var clocktime = performanceNow.call(performance)*1e-3;
+  var seconds = Math.floor(clocktime);
+  var nanoseconds = Math.floor((clocktime%1)*1e9);
+  if (previousTimestamp) {
+    seconds = seconds - previousTimestamp[0];
+    nanoseconds = nanoseconds - previousTimestamp[1];
+    if (nanoseconds<0) {
+      seconds--;
+      nanoseconds += 1e9;
+    }
+  }
+  return [seconds,nanoseconds]
+}
+
+var startTime = new Date();
+function uptime() {
+  var currentTime = new Date();
+  var dif = currentTime - startTime;
+  return dif / 1000;
+}
+
+var process = {
+  nextTick: nextTick,
+  title: title,
+  browser: browser,
+  env: env,
+  argv: argv,
+  version: version,
+  versions: versions,
+  on: on,
+  addListener: addListener,
+  once: once,
+  off: off,
+  removeListener: removeListener,
+  removeAllListeners: removeAllListeners,
+  emit: emit,
+  binding: binding,
+  cwd: cwd,
+  chdir: chdir,
+  umask: umask,
+  hrtime: hrtime,
+  platform: platform,
+  release: release,
+  config: config,
+  uptime: uptime
+};
+
 var core = {};
 
-var is$1 = {};
+var is = {};
 
-var isType$2 = {};
+var isType$1 = {};
 
-Object.defineProperty(isType$2, "__esModule", {
-  value: true
-});
-isType$2.default = isType$1;
+var hasRequiredIsType;
 
-var _definitions$a = definitions;
+function requireIsType () {
+	if (hasRequiredIsType) return isType$1;
+	hasRequiredIsType = 1;
 
-function isType$1(nodeType, targetType) {
-  if (nodeType === targetType) return true;
-  if (_definitions$a.ALIAS_KEYS[targetType]) return false;
-  const aliases = _definitions$a.FLIPPED_ALIAS_KEYS[targetType];
+	Object.defineProperty(isType$1, "__esModule", {
+	  value: true
+	});
+	isType$1.default = isType;
 
-  if (aliases) {
-    if (aliases[0] === nodeType) return true;
+	var _definitions = requireDefinitions();
 
-    for (const alias of aliases) {
-      if (nodeType === alias) return true;
-    }
-  }
+	function isType(nodeType, targetType) {
+	  if (nodeType === targetType) return true;
+	  if (_definitions.ALIAS_KEYS[targetType]) return false;
+	  const aliases = _definitions.FLIPPED_ALIAS_KEYS[targetType];
 
-  return false;
+	  if (aliases) {
+	    if (aliases[0] === nodeType) return true;
+
+	    for (const alias of aliases) {
+	      if (nodeType === alias) return true;
+	    }
+	  }
+
+	  return false;
+	}
+	return isType$1;
 }
 
-var isPlaceholderType$1 = {};
+var isPlaceholderType = {};
 
-Object.defineProperty(isPlaceholderType$1, "__esModule", {
-  value: true
-});
-isPlaceholderType$1.default = isPlaceholderType;
+var hasRequiredIsPlaceholderType;
 
-var _definitions$9 = definitions;
+function requireIsPlaceholderType () {
+	if (hasRequiredIsPlaceholderType) return isPlaceholderType;
+	hasRequiredIsPlaceholderType = 1;
 
-function isPlaceholderType(placeholderType, targetType) {
-  if (placeholderType === targetType) return true;
-  const aliases = _definitions$9.PLACEHOLDERS_ALIAS[placeholderType];
+	Object.defineProperty(isPlaceholderType, "__esModule", {
+	  value: true
+	});
+	isPlaceholderType.default = isPlaceholderType$1;
 
-  if (aliases) {
-    for (const alias of aliases) {
-      if (targetType === alias) return true;
-    }
-  }
+	var _definitions = requireDefinitions();
 
-  return false;
+	function isPlaceholderType$1(placeholderType, targetType) {
+	  if (placeholderType === targetType) return true;
+	  const aliases = _definitions.PLACEHOLDERS_ALIAS[placeholderType];
+
+	  if (aliases) {
+	    for (const alias of aliases) {
+	      if (targetType === alias) return true;
+	    }
+	  }
+
+	  return false;
+	}
+	return isPlaceholderType;
 }
 
-Object.defineProperty(is$1, "__esModule", {
-  value: true
-});
-is$1.default = is;
+var hasRequiredIs;
 
-var _shallowEqual = shallowEqual$1;
+function requireIs () {
+	if (hasRequiredIs) return is;
+	hasRequiredIs = 1;
 
-var _isType$1 = isType$2;
+	Object.defineProperty(is, "__esModule", {
+	  value: true
+	});
+	is.default = is$1;
 
-var _isPlaceholderType = isPlaceholderType$1;
+	var _shallowEqual = shallowEqual$1;
 
-var _definitions$8 = definitions;
+	var _isType = requireIsType();
 
-function is(type, node, opts) {
-  if (!node) return false;
-  const matches = (0, _isType$1.default)(node.type, type);
+	var _isPlaceholderType = requireIsPlaceholderType();
 
-  if (!matches) {
-    if (!opts && node.type === "Placeholder" && type in _definitions$8.FLIPPED_ALIAS_KEYS) {
-      return (0, _isPlaceholderType.default)(node.expectedNode, type);
-    }
+	var _definitions = requireDefinitions();
 
-    return false;
-  }
+	function is$1(type, node, opts) {
+	  if (!node) return false;
+	  const matches = (0, _isType.default)(node.type, type);
 
-  if (typeof opts === "undefined") {
-    return true;
-  } else {
-    return (0, _shallowEqual.default)(node, opts);
-  }
+	  if (!matches) {
+	    if (!opts && node.type === "Placeholder" && type in _definitions.FLIPPED_ALIAS_KEYS) {
+	      return (0, _isPlaceholderType.default)(node.expectedNode, type);
+	    }
+
+	    return false;
+	  }
+
+	  if (typeof opts === "undefined") {
+	    return true;
+	  } else {
+	    return (0, _shallowEqual.default)(node, opts);
+	  }
+	}
+	return is;
 }
 
 var isValidIdentifier$1 = {};
@@ -23079,62 +23291,62 @@ function isKeyword(word) {
 
 (function (exports) {
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "isIdentifierName", {
-  enumerable: true,
-  get: function () {
-    return _identifier.isIdentifierName;
-  }
-});
-Object.defineProperty(exports, "isIdentifierChar", {
-  enumerable: true,
-  get: function () {
-    return _identifier.isIdentifierChar;
-  }
-});
-Object.defineProperty(exports, "isIdentifierStart", {
-  enumerable: true,
-  get: function () {
-    return _identifier.isIdentifierStart;
-  }
-});
-Object.defineProperty(exports, "isReservedWord", {
-  enumerable: true,
-  get: function () {
-    return _keyword.isReservedWord;
-  }
-});
-Object.defineProperty(exports, "isStrictBindOnlyReservedWord", {
-  enumerable: true,
-  get: function () {
-    return _keyword.isStrictBindOnlyReservedWord;
-  }
-});
-Object.defineProperty(exports, "isStrictBindReservedWord", {
-  enumerable: true,
-  get: function () {
-    return _keyword.isStrictBindReservedWord;
-  }
-});
-Object.defineProperty(exports, "isStrictReservedWord", {
-  enumerable: true,
-  get: function () {
-    return _keyword.isStrictReservedWord;
-  }
-});
-Object.defineProperty(exports, "isKeyword", {
-  enumerable: true,
-  get: function () {
-    return _keyword.isKeyword;
-  }
-});
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	Object.defineProperty(exports, "isIdentifierName", {
+	  enumerable: true,
+	  get: function () {
+	    return _identifier.isIdentifierName;
+	  }
+	});
+	Object.defineProperty(exports, "isIdentifierChar", {
+	  enumerable: true,
+	  get: function () {
+	    return _identifier.isIdentifierChar;
+	  }
+	});
+	Object.defineProperty(exports, "isIdentifierStart", {
+	  enumerable: true,
+	  get: function () {
+	    return _identifier.isIdentifierStart;
+	  }
+	});
+	Object.defineProperty(exports, "isReservedWord", {
+	  enumerable: true,
+	  get: function () {
+	    return _keyword.isReservedWord;
+	  }
+	});
+	Object.defineProperty(exports, "isStrictBindOnlyReservedWord", {
+	  enumerable: true,
+	  get: function () {
+	    return _keyword.isStrictBindOnlyReservedWord;
+	  }
+	});
+	Object.defineProperty(exports, "isStrictBindReservedWord", {
+	  enumerable: true,
+	  get: function () {
+	    return _keyword.isStrictBindReservedWord;
+	  }
+	});
+	Object.defineProperty(exports, "isStrictReservedWord", {
+	  enumerable: true,
+	  get: function () {
+	    return _keyword.isStrictReservedWord;
+	  }
+	});
+	Object.defineProperty(exports, "isKeyword", {
+	  enumerable: true,
+	  get: function () {
+	    return _keyword.isKeyword;
+	  }
+	});
 
-var _identifier = identifier$1;
+	var _identifier = identifier$1;
 
-var _keyword = keyword;
-}(lib));
+	var _keyword = keyword;
+} (lib));
 
 Object.defineProperty(isValidIdentifier$1, "__esModule", {
   value: true
@@ -23207,3227 +23419,3466 @@ constants.NOT_LOCAL_BINDING = NOT_LOCAL_BINDING;
 
 var utils = {};
 
-var validate$2 = {};
+var validate = {};
 
-Object.defineProperty(validate$2, "__esModule", {
-  value: true
-});
-validate$2.default = validate$1;
-validate$2.validateField = validateField;
-validate$2.validateChild = validateChild;
+var hasRequiredValidate;
 
-var _definitions$7 = definitions;
+function requireValidate () {
+	if (hasRequiredValidate) return validate;
+	hasRequiredValidate = 1;
 
-function validate$1(node, key, val) {
-  if (!node) return;
-  const fields = _definitions$7.NODE_FIELDS[node.type];
-  if (!fields) return;
-  const field = fields[key];
-  validateField(node, key, val, field);
-  validateChild(node, key, val);
+	Object.defineProperty(validate, "__esModule", {
+	  value: true
+	});
+	validate.default = validate$1;
+	validate.validateField = validateField;
+	validate.validateChild = validateChild;
+
+	var _definitions = requireDefinitions();
+
+	function validate$1(node, key, val) {
+	  if (!node) return;
+	  const fields = _definitions.NODE_FIELDS[node.type];
+	  if (!fields) return;
+	  const field = fields[key];
+	  validateField(node, key, val, field);
+	  validateChild(node, key, val);
+	}
+
+	function validateField(node, key, val, field) {
+	  if (!(field != null && field.validate)) return;
+	  if (field.optional && val == null) return;
+	  field.validate(node, key, val);
+	}
+
+	function validateChild(node, key, val) {
+	  if (val == null) return;
+	  const validate = _definitions.NODE_PARENT_VALIDATIONS[val.type];
+	  if (!validate) return;
+	  validate(node, key, val);
+	}
+	return validate;
 }
 
-function validateField(node, key, val, field) {
-  if (!(field != null && field.validate)) return;
-  if (field.optional && val == null) return;
-  field.validate(node, key, val);
+var hasRequiredUtils;
+
+function requireUtils () {
+	if (hasRequiredUtils) return utils;
+	hasRequiredUtils = 1;
+
+	Object.defineProperty(utils, "__esModule", {
+	  value: true
+	});
+	utils.validate = validate;
+	utils.typeIs = typeIs;
+	utils.validateType = validateType;
+	utils.validateOptional = validateOptional;
+	utils.validateOptionalType = validateOptionalType;
+	utils.arrayOf = arrayOf;
+	utils.arrayOfType = arrayOfType;
+	utils.validateArrayOfType = validateArrayOfType;
+	utils.assertEach = assertEach;
+	utils.assertOneOf = assertOneOf;
+	utils.assertNodeType = assertNodeType;
+	utils.assertNodeOrValueType = assertNodeOrValueType;
+	utils.assertValueType = assertValueType;
+	utils.assertShape = assertShape;
+	utils.assertOptionalChainStart = assertOptionalChainStart;
+	utils.chain = chain;
+	utils.default = defineType;
+	utils.NODE_PARENT_VALIDATIONS = utils.DEPRECATED_KEYS = utils.BUILDER_KEYS = utils.NODE_FIELDS = utils.FLIPPED_ALIAS_KEYS = utils.ALIAS_KEYS = utils.VISITOR_KEYS = void 0;
+
+	var _is = requireIs();
+
+	var _validate = requireValidate();
+
+	const VISITOR_KEYS = {};
+	utils.VISITOR_KEYS = VISITOR_KEYS;
+	const ALIAS_KEYS = {};
+	utils.ALIAS_KEYS = ALIAS_KEYS;
+	const FLIPPED_ALIAS_KEYS = {};
+	utils.FLIPPED_ALIAS_KEYS = FLIPPED_ALIAS_KEYS;
+	const NODE_FIELDS = {};
+	utils.NODE_FIELDS = NODE_FIELDS;
+	const BUILDER_KEYS = {};
+	utils.BUILDER_KEYS = BUILDER_KEYS;
+	const DEPRECATED_KEYS = {};
+	utils.DEPRECATED_KEYS = DEPRECATED_KEYS;
+	const NODE_PARENT_VALIDATIONS = {};
+	utils.NODE_PARENT_VALIDATIONS = NODE_PARENT_VALIDATIONS;
+
+	function getType(val) {
+	  if (Array.isArray(val)) {
+	    return "array";
+	  } else if (val === null) {
+	    return "null";
+	  } else {
+	    return typeof val;
+	  }
+	}
+
+	function validate(validate) {
+	  return {
+	    validate
+	  };
+	}
+
+	function typeIs(typeName) {
+	  return typeof typeName === "string" ? assertNodeType(typeName) : assertNodeType(...typeName);
+	}
+
+	function validateType(typeName) {
+	  return validate(typeIs(typeName));
+	}
+
+	function validateOptional(validate) {
+	  return {
+	    validate,
+	    optional: true
+	  };
+	}
+
+	function validateOptionalType(typeName) {
+	  return {
+	    validate: typeIs(typeName),
+	    optional: true
+	  };
+	}
+
+	function arrayOf(elementType) {
+	  return chain(assertValueType("array"), assertEach(elementType));
+	}
+
+	function arrayOfType(typeName) {
+	  return arrayOf(typeIs(typeName));
+	}
+
+	function validateArrayOfType(typeName) {
+	  return validate(arrayOfType(typeName));
+	}
+
+	function assertEach(callback) {
+	  function validator(node, key, val) {
+	    if (!Array.isArray(val)) return;
+
+	    for (let i = 0; i < val.length; i++) {
+	      const subkey = `${key}[${i}]`;
+	      const v = val[i];
+	      callback(node, subkey, v);
+	      if (process.env.BABEL_TYPES_8_BREAKING) (0, _validate.validateChild)(node, subkey, v);
+	    }
+	  }
+
+	  validator.each = callback;
+	  return validator;
+	}
+
+	function assertOneOf(...values) {
+	  function validate(node, key, val) {
+	    if (values.indexOf(val) < 0) {
+	      throw new TypeError(`Property ${key} expected value to be one of ${JSON.stringify(values)} but got ${JSON.stringify(val)}`);
+	    }
+	  }
+
+	  validate.oneOf = values;
+	  return validate;
+	}
+
+	function assertNodeType(...types) {
+	  function validate(node, key, val) {
+	    for (const type of types) {
+	      if ((0, _is.default)(type, val)) {
+	        (0, _validate.validateChild)(node, key, val);
+	        return;
+	      }
+	    }
+
+	    throw new TypeError(`Property ${key} of ${node.type} expected node to be of a type ${JSON.stringify(types)} but instead got ${JSON.stringify(val == null ? void 0 : val.type)}`);
+	  }
+
+	  validate.oneOfNodeTypes = types;
+	  return validate;
+	}
+
+	function assertNodeOrValueType(...types) {
+	  function validate(node, key, val) {
+	    for (const type of types) {
+	      if (getType(val) === type || (0, _is.default)(type, val)) {
+	        (0, _validate.validateChild)(node, key, val);
+	        return;
+	      }
+	    }
+
+	    throw new TypeError(`Property ${key} of ${node.type} expected node to be of a type ${JSON.stringify(types)} but instead got ${JSON.stringify(val == null ? void 0 : val.type)}`);
+	  }
+
+	  validate.oneOfNodeOrValueTypes = types;
+	  return validate;
+	}
+
+	function assertValueType(type) {
+	  function validate(node, key, val) {
+	    const valid = getType(val) === type;
+
+	    if (!valid) {
+	      throw new TypeError(`Property ${key} expected type of ${type} but got ${getType(val)}`);
+	    }
+	  }
+
+	  validate.type = type;
+	  return validate;
+	}
+
+	function assertShape(shape) {
+	  function validate(node, key, val) {
+	    const errors = [];
+
+	    for (const property of Object.keys(shape)) {
+	      try {
+	        (0, _validate.validateField)(node, property, val[property], shape[property]);
+	      } catch (error) {
+	        if (error instanceof TypeError) {
+	          errors.push(error.message);
+	          continue;
+	        }
+
+	        throw error;
+	      }
+	    }
+
+	    if (errors.length) {
+	      throw new TypeError(`Property ${key} of ${node.type} expected to have the following:\n${errors.join("\n")}`);
+	    }
+	  }
+
+	  validate.shapeOf = shape;
+	  return validate;
+	}
+
+	function assertOptionalChainStart() {
+	  function validate(node) {
+	    var _current;
+
+	    let current = node;
+
+	    while (node) {
+	      const {
+	        type
+	      } = current;
+
+	      if (type === "OptionalCallExpression") {
+	        if (current.optional) return;
+	        current = current.callee;
+	        continue;
+	      }
+
+	      if (type === "OptionalMemberExpression") {
+	        if (current.optional) return;
+	        current = current.object;
+	        continue;
+	      }
+
+	      break;
+	    }
+
+	    throw new TypeError(`Non-optional ${node.type} must chain from an optional OptionalMemberExpression or OptionalCallExpression. Found chain from ${(_current = current) == null ? void 0 : _current.type}`);
+	  }
+
+	  return validate;
+	}
+
+	function chain(...fns) {
+	  function validate(...args) {
+	    for (const fn of fns) {
+	      fn(...args);
+	    }
+	  }
+
+	  validate.chainOf = fns;
+
+	  if (fns.length >= 2 && "type" in fns[0] && fns[0].type === "array" && !("each" in fns[1])) {
+	    throw new Error(`An assertValueType("array") validator can only be followed by an assertEach(...) validator.`);
+	  }
+
+	  return validate;
+	}
+
+	const validTypeOpts = ["aliases", "builder", "deprecatedAlias", "fields", "inherits", "visitor", "validate"];
+	const validFieldKeys = ["default", "optional", "validate"];
+
+	function defineType(type, opts = {}) {
+	  const inherits = opts.inherits && store[opts.inherits] || {};
+	  let fields = opts.fields;
+
+	  if (!fields) {
+	    fields = {};
+
+	    if (inherits.fields) {
+	      const keys = Object.getOwnPropertyNames(inherits.fields);
+
+	      for (const key of keys) {
+	        const field = inherits.fields[key];
+	        const def = field.default;
+
+	        if (Array.isArray(def) ? def.length > 0 : def && typeof def === "object") {
+	          throw new Error("field defaults can only be primitives or empty arrays currently");
+	        }
+
+	        fields[key] = {
+	          default: Array.isArray(def) ? [] : def,
+	          optional: field.optional,
+	          validate: field.validate
+	        };
+	      }
+	    }
+	  }
+
+	  const visitor = opts.visitor || inherits.visitor || [];
+	  const aliases = opts.aliases || inherits.aliases || [];
+	  const builder = opts.builder || inherits.builder || opts.visitor || [];
+
+	  for (const k of Object.keys(opts)) {
+	    if (validTypeOpts.indexOf(k) === -1) {
+	      throw new Error(`Unknown type option "${k}" on ${type}`);
+	    }
+	  }
+
+	  if (opts.deprecatedAlias) {
+	    DEPRECATED_KEYS[opts.deprecatedAlias] = type;
+	  }
+
+	  for (const key of visitor.concat(builder)) {
+	    fields[key] = fields[key] || {};
+	  }
+
+	  for (const key of Object.keys(fields)) {
+	    const field = fields[key];
+
+	    if (field.default !== undefined && builder.indexOf(key) === -1) {
+	      field.optional = true;
+	    }
+
+	    if (field.default === undefined) {
+	      field.default = null;
+	    } else if (!field.validate && field.default != null) {
+	      field.validate = assertValueType(getType(field.default));
+	    }
+
+	    for (const k of Object.keys(field)) {
+	      if (validFieldKeys.indexOf(k) === -1) {
+	        throw new Error(`Unknown field key "${k}" on ${type}.${key}`);
+	      }
+	    }
+	  }
+
+	  VISITOR_KEYS[type] = opts.visitor = visitor;
+	  BUILDER_KEYS[type] = opts.builder = builder;
+	  NODE_FIELDS[type] = opts.fields = fields;
+	  ALIAS_KEYS[type] = opts.aliases = aliases;
+	  aliases.forEach(alias => {
+	    FLIPPED_ALIAS_KEYS[alias] = FLIPPED_ALIAS_KEYS[alias] || [];
+	    FLIPPED_ALIAS_KEYS[alias].push(type);
+	  });
+
+	  if (opts.validate) {
+	    NODE_PARENT_VALIDATIONS[type] = opts.validate;
+	  }
+
+	  store[type] = opts;
+	}
+
+	const store = {};
+	return utils;
 }
 
-function validateChild(node, key, val) {
-  if (val == null) return;
-  const validate = _definitions$7.NODE_PARENT_VALIDATIONS[val.type];
-  if (!validate) return;
-  validate(node, key, val);
+var hasRequiredCore;
+
+function requireCore () {
+	if (hasRequiredCore) return core;
+	hasRequiredCore = 1;
+
+	Object.defineProperty(core, "__esModule", {
+	  value: true
+	});
+	core.classMethodOrDeclareMethodCommon = core.classMethodOrPropertyCommon = core.patternLikeCommon = core.functionDeclarationCommon = core.functionTypeAnnotationCommon = core.functionCommon = void 0;
+
+	var _is = requireIs();
+
+	var _isValidIdentifier = isValidIdentifier$1;
+
+	var _helperValidatorIdentifier = lib;
+
+	var _constants = constants;
+
+	var _utils = requireUtils();
+
+	(0, _utils.default)("ArrayExpression", {
+	  fields: {
+	    elements: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeOrValueType)("null", "Expression", "SpreadElement"))),
+	      default: !process.env.BABEL_TYPES_8_BREAKING ? [] : undefined
+	    }
+	  },
+	  visitor: ["elements"],
+	  aliases: ["Expression"]
+	});
+	(0, _utils.default)("AssignmentExpression", {
+	  fields: {
+	    operator: {
+	      validate: function () {
+	        if (!process.env.BABEL_TYPES_8_BREAKING) {
+	          return (0, _utils.assertValueType)("string");
+	        }
+
+	        const identifier = (0, _utils.assertOneOf)(..._constants.ASSIGNMENT_OPERATORS);
+	        const pattern = (0, _utils.assertOneOf)("=");
+	        return function (node, key, val) {
+	          const validator = (0, _is.default)("Pattern", node.left) ? pattern : identifier;
+	          validator(node, key, val);
+	        };
+	      }()
+	    },
+	    left: {
+	      validate: !process.env.BABEL_TYPES_8_BREAKING ? (0, _utils.assertNodeType)("LVal") : (0, _utils.assertNodeType)("Identifier", "MemberExpression", "ArrayPattern", "ObjectPattern")
+	    },
+	    right: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    }
+	  },
+	  builder: ["operator", "left", "right"],
+	  visitor: ["left", "right"],
+	  aliases: ["Expression"]
+	});
+	(0, _utils.default)("BinaryExpression", {
+	  builder: ["operator", "left", "right"],
+	  fields: {
+	    operator: {
+	      validate: (0, _utils.assertOneOf)(..._constants.BINARY_OPERATORS)
+	    },
+	    left: {
+	      validate: function () {
+	        const expression = (0, _utils.assertNodeType)("Expression");
+	        const inOp = (0, _utils.assertNodeType)("Expression", "PrivateName");
+
+	        const validator = function (node, key, val) {
+	          const validator = node.operator === "in" ? inOp : expression;
+	          validator(node, key, val);
+	        };
+
+	        validator.oneOfNodeTypes = ["Expression", "PrivateName"];
+	        return validator;
+	      }()
+	    },
+	    right: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    }
+	  },
+	  visitor: ["left", "right"],
+	  aliases: ["Binary", "Expression"]
+	});
+	(0, _utils.default)("InterpreterDirective", {
+	  builder: ["value"],
+	  fields: {
+	    value: {
+	      validate: (0, _utils.assertValueType)("string")
+	    }
+	  }
+	});
+	(0, _utils.default)("Directive", {
+	  visitor: ["value"],
+	  fields: {
+	    value: {
+	      validate: (0, _utils.assertNodeType)("DirectiveLiteral")
+	    }
+	  }
+	});
+	(0, _utils.default)("DirectiveLiteral", {
+	  builder: ["value"],
+	  fields: {
+	    value: {
+	      validate: (0, _utils.assertValueType)("string")
+	    }
+	  }
+	});
+	(0, _utils.default)("BlockStatement", {
+	  builder: ["body", "directives"],
+	  visitor: ["directives", "body"],
+	  fields: {
+	    directives: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Directive"))),
+	      default: []
+	    },
+	    body: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Statement")))
+	    }
+	  },
+	  aliases: ["Scopable", "BlockParent", "Block", "Statement"]
+	});
+	(0, _utils.default)("BreakStatement", {
+	  visitor: ["label"],
+	  fields: {
+	    label: {
+	      validate: (0, _utils.assertNodeType)("Identifier"),
+	      optional: true
+	    }
+	  },
+	  aliases: ["Statement", "Terminatorless", "CompletionStatement"]
+	});
+	(0, _utils.default)("CallExpression", {
+	  visitor: ["callee", "arguments", "typeParameters", "typeArguments"],
+	  builder: ["callee", "arguments"],
+	  aliases: ["Expression"],
+	  fields: Object.assign({
+	    callee: {
+	      validate: (0, _utils.assertNodeType)("Expression", "V8IntrinsicIdentifier")
+	    },
+	    arguments: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Expression", "SpreadElement", "JSXNamespacedName", "ArgumentPlaceholder")))
+	    }
+	  }, !process.env.BABEL_TYPES_8_BREAKING ? {
+	    optional: {
+	      validate: (0, _utils.assertOneOf)(true, false),
+	      optional: true
+	    }
+	  } : {}, {
+	    typeArguments: {
+	      validate: (0, _utils.assertNodeType)("TypeParameterInstantiation"),
+	      optional: true
+	    },
+	    typeParameters: {
+	      validate: (0, _utils.assertNodeType)("TSTypeParameterInstantiation"),
+	      optional: true
+	    }
+	  })
+	});
+	(0, _utils.default)("CatchClause", {
+	  visitor: ["param", "body"],
+	  fields: {
+	    param: {
+	      validate: (0, _utils.assertNodeType)("Identifier", "ArrayPattern", "ObjectPattern"),
+	      optional: true
+	    },
+	    body: {
+	      validate: (0, _utils.assertNodeType)("BlockStatement")
+	    }
+	  },
+	  aliases: ["Scopable", "BlockParent"]
+	});
+	(0, _utils.default)("ConditionalExpression", {
+	  visitor: ["test", "consequent", "alternate"],
+	  fields: {
+	    test: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    consequent: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    alternate: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    }
+	  },
+	  aliases: ["Expression", "Conditional"]
+	});
+	(0, _utils.default)("ContinueStatement", {
+	  visitor: ["label"],
+	  fields: {
+	    label: {
+	      validate: (0, _utils.assertNodeType)("Identifier"),
+	      optional: true
+	    }
+	  },
+	  aliases: ["Statement", "Terminatorless", "CompletionStatement"]
+	});
+	(0, _utils.default)("DebuggerStatement", {
+	  aliases: ["Statement"]
+	});
+	(0, _utils.default)("DoWhileStatement", {
+	  visitor: ["test", "body"],
+	  fields: {
+	    test: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    body: {
+	      validate: (0, _utils.assertNodeType)("Statement")
+	    }
+	  },
+	  aliases: ["Statement", "BlockParent", "Loop", "While", "Scopable"]
+	});
+	(0, _utils.default)("EmptyStatement", {
+	  aliases: ["Statement"]
+	});
+	(0, _utils.default)("ExpressionStatement", {
+	  visitor: ["expression"],
+	  fields: {
+	    expression: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    }
+	  },
+	  aliases: ["Statement", "ExpressionWrapper"]
+	});
+	(0, _utils.default)("File", {
+	  builder: ["program", "comments", "tokens"],
+	  visitor: ["program"],
+	  fields: {
+	    program: {
+	      validate: (0, _utils.assertNodeType)("Program")
+	    },
+	    comments: {
+	      validate: !process.env.BABEL_TYPES_8_BREAKING ? Object.assign(() => {}, {
+	        each: {
+	          oneOfNodeTypes: ["CommentBlock", "CommentLine"]
+	        }
+	      }) : (0, _utils.assertEach)((0, _utils.assertNodeType)("CommentBlock", "CommentLine")),
+	      optional: true
+	    },
+	    tokens: {
+	      validate: (0, _utils.assertEach)(Object.assign(() => {}, {
+	        type: "any"
+	      })),
+	      optional: true
+	    }
+	  }
+	});
+	(0, _utils.default)("ForInStatement", {
+	  visitor: ["left", "right", "body"],
+	  aliases: ["Scopable", "Statement", "For", "BlockParent", "Loop", "ForXStatement"],
+	  fields: {
+	    left: {
+	      validate: !process.env.BABEL_TYPES_8_BREAKING ? (0, _utils.assertNodeType)("VariableDeclaration", "LVal") : (0, _utils.assertNodeType)("VariableDeclaration", "Identifier", "MemberExpression", "ArrayPattern", "ObjectPattern")
+	    },
+	    right: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    body: {
+	      validate: (0, _utils.assertNodeType)("Statement")
+	    }
+	  }
+	});
+	(0, _utils.default)("ForStatement", {
+	  visitor: ["init", "test", "update", "body"],
+	  aliases: ["Scopable", "Statement", "For", "BlockParent", "Loop"],
+	  fields: {
+	    init: {
+	      validate: (0, _utils.assertNodeType)("VariableDeclaration", "Expression"),
+	      optional: true
+	    },
+	    test: {
+	      validate: (0, _utils.assertNodeType)("Expression"),
+	      optional: true
+	    },
+	    update: {
+	      validate: (0, _utils.assertNodeType)("Expression"),
+	      optional: true
+	    },
+	    body: {
+	      validate: (0, _utils.assertNodeType)("Statement")
+	    }
+	  }
+	});
+	const functionCommon = {
+	  params: {
+	    validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Identifier", "Pattern", "RestElement")))
+	  },
+	  generator: {
+	    default: false
+	  },
+	  async: {
+	    default: false
+	  }
+	};
+	core.functionCommon = functionCommon;
+	const functionTypeAnnotationCommon = {
+	  returnType: {
+	    validate: (0, _utils.assertNodeType)("TypeAnnotation", "TSTypeAnnotation", "Noop"),
+	    optional: true
+	  },
+	  typeParameters: {
+	    validate: (0, _utils.assertNodeType)("TypeParameterDeclaration", "TSTypeParameterDeclaration", "Noop"),
+	    optional: true
+	  }
+	};
+	core.functionTypeAnnotationCommon = functionTypeAnnotationCommon;
+	const functionDeclarationCommon = Object.assign({}, functionCommon, {
+	  declare: {
+	    validate: (0, _utils.assertValueType)("boolean"),
+	    optional: true
+	  },
+	  id: {
+	    validate: (0, _utils.assertNodeType)("Identifier"),
+	    optional: true
+	  }
+	});
+	core.functionDeclarationCommon = functionDeclarationCommon;
+	(0, _utils.default)("FunctionDeclaration", {
+	  builder: ["id", "params", "body", "generator", "async"],
+	  visitor: ["id", "params", "body", "returnType", "typeParameters"],
+	  fields: Object.assign({}, functionDeclarationCommon, functionTypeAnnotationCommon, {
+	    body: {
+	      validate: (0, _utils.assertNodeType)("BlockStatement")
+	    }
+	  }),
+	  aliases: ["Scopable", "Function", "BlockParent", "FunctionParent", "Statement", "Pureish", "Declaration"],
+	  validate: function () {
+	    if (!process.env.BABEL_TYPES_8_BREAKING) return () => {};
+	    const identifier = (0, _utils.assertNodeType)("Identifier");
+	    return function (parent, key, node) {
+	      if (!(0, _is.default)("ExportDefaultDeclaration", parent)) {
+	        identifier(node, "id", node.id);
+	      }
+	    };
+	  }()
+	});
+	(0, _utils.default)("FunctionExpression", {
+	  inherits: "FunctionDeclaration",
+	  aliases: ["Scopable", "Function", "BlockParent", "FunctionParent", "Expression", "Pureish"],
+	  fields: Object.assign({}, functionCommon, functionTypeAnnotationCommon, {
+	    id: {
+	      validate: (0, _utils.assertNodeType)("Identifier"),
+	      optional: true
+	    },
+	    body: {
+	      validate: (0, _utils.assertNodeType)("BlockStatement")
+	    }
+	  })
+	});
+	const patternLikeCommon = {
+	  typeAnnotation: {
+	    validate: (0, _utils.assertNodeType)("TypeAnnotation", "TSTypeAnnotation", "Noop"),
+	    optional: true
+	  },
+	  decorators: {
+	    validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Decorator")))
+	  }
+	};
+	core.patternLikeCommon = patternLikeCommon;
+	(0, _utils.default)("Identifier", {
+	  builder: ["name"],
+	  visitor: ["typeAnnotation", "decorators"],
+	  aliases: ["Expression", "PatternLike", "LVal", "TSEntityName"],
+	  fields: Object.assign({}, patternLikeCommon, {
+	    name: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("string"), Object.assign(function (node, key, val) {
+	        if (!process.env.BABEL_TYPES_8_BREAKING) return;
+
+	        if (!(0, _isValidIdentifier.default)(val, false)) {
+	          throw new TypeError(`"${val}" is not a valid identifier name`);
+	        }
+	      }, {
+	        type: "string"
+	      }))
+	    },
+	    optional: {
+	      validate: (0, _utils.assertValueType)("boolean"),
+	      optional: true
+	    }
+	  }),
+
+	  validate(parent, key, node) {
+	    if (!process.env.BABEL_TYPES_8_BREAKING) return;
+	    const match = /\.(\w+)$/.exec(key);
+	    if (!match) return;
+	    const [, parentKey] = match;
+	    const nonComp = {
+	      computed: false
+	    };
+
+	    if (parentKey === "property") {
+	      if ((0, _is.default)("MemberExpression", parent, nonComp)) return;
+	      if ((0, _is.default)("OptionalMemberExpression", parent, nonComp)) return;
+	    } else if (parentKey === "key") {
+	      if ((0, _is.default)("Property", parent, nonComp)) return;
+	      if ((0, _is.default)("Method", parent, nonComp)) return;
+	    } else if (parentKey === "exported") {
+	      if ((0, _is.default)("ExportSpecifier", parent)) return;
+	    } else if (parentKey === "imported") {
+	      if ((0, _is.default)("ImportSpecifier", parent, {
+	        imported: node
+	      })) return;
+	    } else if (parentKey === "meta") {
+	      if ((0, _is.default)("MetaProperty", parent, {
+	        meta: node
+	      })) return;
+	    }
+
+	    if (((0, _helperValidatorIdentifier.isKeyword)(node.name) || (0, _helperValidatorIdentifier.isReservedWord)(node.name, false)) && node.name !== "this") {
+	      throw new TypeError(`"${node.name}" is not a valid identifier`);
+	    }
+	  }
+
+	});
+	(0, _utils.default)("IfStatement", {
+	  visitor: ["test", "consequent", "alternate"],
+	  aliases: ["Statement", "Conditional"],
+	  fields: {
+	    test: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    consequent: {
+	      validate: (0, _utils.assertNodeType)("Statement")
+	    },
+	    alternate: {
+	      optional: true,
+	      validate: (0, _utils.assertNodeType)("Statement")
+	    }
+	  }
+	});
+	(0, _utils.default)("LabeledStatement", {
+	  visitor: ["label", "body"],
+	  aliases: ["Statement"],
+	  fields: {
+	    label: {
+	      validate: (0, _utils.assertNodeType)("Identifier")
+	    },
+	    body: {
+	      validate: (0, _utils.assertNodeType)("Statement")
+	    }
+	  }
+	});
+	(0, _utils.default)("StringLiteral", {
+	  builder: ["value"],
+	  fields: {
+	    value: {
+	      validate: (0, _utils.assertValueType)("string")
+	    }
+	  },
+	  aliases: ["Expression", "Pureish", "Literal", "Immutable"]
+	});
+	(0, _utils.default)("NumericLiteral", {
+	  builder: ["value"],
+	  deprecatedAlias: "NumberLiteral",
+	  fields: {
+	    value: {
+	      validate: (0, _utils.assertValueType)("number")
+	    }
+	  },
+	  aliases: ["Expression", "Pureish", "Literal", "Immutable"]
+	});
+	(0, _utils.default)("NullLiteral", {
+	  aliases: ["Expression", "Pureish", "Literal", "Immutable"]
+	});
+	(0, _utils.default)("BooleanLiteral", {
+	  builder: ["value"],
+	  fields: {
+	    value: {
+	      validate: (0, _utils.assertValueType)("boolean")
+	    }
+	  },
+	  aliases: ["Expression", "Pureish", "Literal", "Immutable"]
+	});
+	(0, _utils.default)("RegExpLiteral", {
+	  builder: ["pattern", "flags"],
+	  deprecatedAlias: "RegexLiteral",
+	  aliases: ["Expression", "Pureish", "Literal"],
+	  fields: {
+	    pattern: {
+	      validate: (0, _utils.assertValueType)("string")
+	    },
+	    flags: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("string"), Object.assign(function (node, key, val) {
+	        if (!process.env.BABEL_TYPES_8_BREAKING) return;
+	        const invalid = /[^gimsuy]/.exec(val);
+
+	        if (invalid) {
+	          throw new TypeError(`"${invalid[0]}" is not a valid RegExp flag`);
+	        }
+	      }, {
+	        type: "string"
+	      })),
+	      default: ""
+	    }
+	  }
+	});
+	(0, _utils.default)("LogicalExpression", {
+	  builder: ["operator", "left", "right"],
+	  visitor: ["left", "right"],
+	  aliases: ["Binary", "Expression"],
+	  fields: {
+	    operator: {
+	      validate: (0, _utils.assertOneOf)(..._constants.LOGICAL_OPERATORS)
+	    },
+	    left: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    right: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    }
+	  }
+	});
+	(0, _utils.default)("MemberExpression", {
+	  builder: ["object", "property", "computed", ...(!process.env.BABEL_TYPES_8_BREAKING ? ["optional"] : [])],
+	  visitor: ["object", "property"],
+	  aliases: ["Expression", "LVal"],
+	  fields: Object.assign({
+	    object: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    property: {
+	      validate: function () {
+	        const normal = (0, _utils.assertNodeType)("Identifier", "PrivateName");
+	        const computed = (0, _utils.assertNodeType)("Expression");
+
+	        const validator = function (node, key, val) {
+	          const validator = node.computed ? computed : normal;
+	          validator(node, key, val);
+	        };
+
+	        validator.oneOfNodeTypes = ["Expression", "Identifier", "PrivateName"];
+	        return validator;
+	      }()
+	    },
+	    computed: {
+	      default: false
+	    }
+	  }, !process.env.BABEL_TYPES_8_BREAKING ? {
+	    optional: {
+	      validate: (0, _utils.assertOneOf)(true, false),
+	      optional: true
+	    }
+	  } : {})
+	});
+	(0, _utils.default)("NewExpression", {
+	  inherits: "CallExpression"
+	});
+	(0, _utils.default)("Program", {
+	  visitor: ["directives", "body"],
+	  builder: ["body", "directives", "sourceType", "interpreter"],
+	  fields: {
+	    sourceFile: {
+	      validate: (0, _utils.assertValueType)("string")
+	    },
+	    sourceType: {
+	      validate: (0, _utils.assertOneOf)("script", "module"),
+	      default: "script"
+	    },
+	    interpreter: {
+	      validate: (0, _utils.assertNodeType)("InterpreterDirective"),
+	      default: null,
+	      optional: true
+	    },
+	    directives: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Directive"))),
+	      default: []
+	    },
+	    body: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Statement")))
+	    }
+	  },
+	  aliases: ["Scopable", "BlockParent", "Block"]
+	});
+	(0, _utils.default)("ObjectExpression", {
+	  visitor: ["properties"],
+	  aliases: ["Expression"],
+	  fields: {
+	    properties: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("ObjectMethod", "ObjectProperty", "SpreadElement")))
+	    }
+	  }
+	});
+	(0, _utils.default)("ObjectMethod", {
+	  builder: ["kind", "key", "params", "body", "computed", "generator", "async"],
+	  fields: Object.assign({}, functionCommon, functionTypeAnnotationCommon, {
+	    kind: Object.assign({
+	      validate: (0, _utils.assertOneOf)("method", "get", "set")
+	    }, !process.env.BABEL_TYPES_8_BREAKING ? {
+	      default: "method"
+	    } : {}),
+	    computed: {
+	      default: false
+	    },
+	    key: {
+	      validate: function () {
+	        const normal = (0, _utils.assertNodeType)("Identifier", "StringLiteral", "NumericLiteral");
+	        const computed = (0, _utils.assertNodeType)("Expression");
+
+	        const validator = function (node, key, val) {
+	          const validator = node.computed ? computed : normal;
+	          validator(node, key, val);
+	        };
+
+	        validator.oneOfNodeTypes = ["Expression", "Identifier", "StringLiteral", "NumericLiteral"];
+	        return validator;
+	      }()
+	    },
+	    decorators: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Decorator"))),
+	      optional: true
+	    },
+	    body: {
+	      validate: (0, _utils.assertNodeType)("BlockStatement")
+	    }
+	  }),
+	  visitor: ["key", "params", "body", "decorators", "returnType", "typeParameters"],
+	  aliases: ["UserWhitespacable", "Function", "Scopable", "BlockParent", "FunctionParent", "Method", "ObjectMember"]
+	});
+	(0, _utils.default)("ObjectProperty", {
+	  builder: ["key", "value", "computed", "shorthand", ...(!process.env.BABEL_TYPES_8_BREAKING ? ["decorators"] : [])],
+	  fields: {
+	    computed: {
+	      default: false
+	    },
+	    key: {
+	      validate: function () {
+	        const normal = (0, _utils.assertNodeType)("Identifier", "StringLiteral", "NumericLiteral");
+	        const computed = (0, _utils.assertNodeType)("Expression");
+
+	        const validator = function (node, key, val) {
+	          const validator = node.computed ? computed : normal;
+	          validator(node, key, val);
+	        };
+
+	        validator.oneOfNodeTypes = ["Expression", "Identifier", "StringLiteral", "NumericLiteral"];
+	        return validator;
+	      }()
+	    },
+	    value: {
+	      validate: (0, _utils.assertNodeType)("Expression", "PatternLike")
+	    },
+	    shorthand: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("boolean"), Object.assign(function (node, key, val) {
+	        if (!process.env.BABEL_TYPES_8_BREAKING) return;
+
+	        if (val && node.computed) {
+	          throw new TypeError("Property shorthand of ObjectProperty cannot be true if computed is true");
+	        }
+	      }, {
+	        type: "boolean"
+	      }), function (node, key, val) {
+	        if (!process.env.BABEL_TYPES_8_BREAKING) return;
+
+	        if (val && !(0, _is.default)("Identifier", node.key)) {
+	          throw new TypeError("Property shorthand of ObjectProperty cannot be true if key is not an Identifier");
+	        }
+	      }),
+	      default: false
+	    },
+	    decorators: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Decorator"))),
+	      optional: true
+	    }
+	  },
+	  visitor: ["key", "value", "decorators"],
+	  aliases: ["UserWhitespacable", "Property", "ObjectMember"],
+	  validate: function () {
+	    const pattern = (0, _utils.assertNodeType)("Identifier", "Pattern");
+	    const expression = (0, _utils.assertNodeType)("Expression");
+	    return function (parent, key, node) {
+	      if (!process.env.BABEL_TYPES_8_BREAKING) return;
+	      const validator = (0, _is.default)("ObjectPattern", parent) ? pattern : expression;
+	      validator(node, "value", node.value);
+	    };
+	  }()
+	});
+	(0, _utils.default)("RestElement", {
+	  visitor: ["argument", "typeAnnotation"],
+	  builder: ["argument"],
+	  aliases: ["LVal", "PatternLike"],
+	  deprecatedAlias: "RestProperty",
+	  fields: Object.assign({}, patternLikeCommon, {
+	    argument: {
+	      validate: !process.env.BABEL_TYPES_8_BREAKING ? (0, _utils.assertNodeType)("LVal") : (0, _utils.assertNodeType)("Identifier", "Pattern", "MemberExpression")
+	    },
+	    optional: {
+	      validate: (0, _utils.assertValueType)("boolean"),
+	      optional: true
+	    }
+	  }),
+
+	  validate(parent, key) {
+	    if (!process.env.BABEL_TYPES_8_BREAKING) return;
+	    const match = /(\w+)\[(\d+)\]/.exec(key);
+	    if (!match) throw new Error("Internal Babel error: malformed key.");
+	    const [, listKey, index] = match;
+
+	    if (parent[listKey].length > index + 1) {
+	      throw new TypeError(`RestElement must be last element of ${listKey}`);
+	    }
+	  }
+
+	});
+	(0, _utils.default)("ReturnStatement", {
+	  visitor: ["argument"],
+	  aliases: ["Statement", "Terminatorless", "CompletionStatement"],
+	  fields: {
+	    argument: {
+	      validate: (0, _utils.assertNodeType)("Expression"),
+	      optional: true
+	    }
+	  }
+	});
+	(0, _utils.default)("SequenceExpression", {
+	  visitor: ["expressions"],
+	  fields: {
+	    expressions: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Expression")))
+	    }
+	  },
+	  aliases: ["Expression"]
+	});
+	(0, _utils.default)("ParenthesizedExpression", {
+	  visitor: ["expression"],
+	  aliases: ["Expression", "ExpressionWrapper"],
+	  fields: {
+	    expression: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    }
+	  }
+	});
+	(0, _utils.default)("SwitchCase", {
+	  visitor: ["test", "consequent"],
+	  fields: {
+	    test: {
+	      validate: (0, _utils.assertNodeType)("Expression"),
+	      optional: true
+	    },
+	    consequent: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Statement")))
+	    }
+	  }
+	});
+	(0, _utils.default)("SwitchStatement", {
+	  visitor: ["discriminant", "cases"],
+	  aliases: ["Statement", "BlockParent", "Scopable"],
+	  fields: {
+	    discriminant: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    cases: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("SwitchCase")))
+	    }
+	  }
+	});
+	(0, _utils.default)("ThisExpression", {
+	  aliases: ["Expression"]
+	});
+	(0, _utils.default)("ThrowStatement", {
+	  visitor: ["argument"],
+	  aliases: ["Statement", "Terminatorless", "CompletionStatement"],
+	  fields: {
+	    argument: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    }
+	  }
+	});
+	(0, _utils.default)("TryStatement", {
+	  visitor: ["block", "handler", "finalizer"],
+	  aliases: ["Statement"],
+	  fields: {
+	    block: {
+	      validate: (0, _utils.chain)((0, _utils.assertNodeType)("BlockStatement"), Object.assign(function (node) {
+	        if (!process.env.BABEL_TYPES_8_BREAKING) return;
+
+	        if (!node.handler && !node.finalizer) {
+	          throw new TypeError("TryStatement expects either a handler or finalizer, or both");
+	        }
+	      }, {
+	        oneOfNodeTypes: ["BlockStatement"]
+	      }))
+	    },
+	    handler: {
+	      optional: true,
+	      validate: (0, _utils.assertNodeType)("CatchClause")
+	    },
+	    finalizer: {
+	      optional: true,
+	      validate: (0, _utils.assertNodeType)("BlockStatement")
+	    }
+	  }
+	});
+	(0, _utils.default)("UnaryExpression", {
+	  builder: ["operator", "argument", "prefix"],
+	  fields: {
+	    prefix: {
+	      default: true
+	    },
+	    argument: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    operator: {
+	      validate: (0, _utils.assertOneOf)(..._constants.UNARY_OPERATORS)
+	    }
+	  },
+	  visitor: ["argument"],
+	  aliases: ["UnaryLike", "Expression"]
+	});
+	(0, _utils.default)("UpdateExpression", {
+	  builder: ["operator", "argument", "prefix"],
+	  fields: {
+	    prefix: {
+	      default: false
+	    },
+	    argument: {
+	      validate: !process.env.BABEL_TYPES_8_BREAKING ? (0, _utils.assertNodeType)("Expression") : (0, _utils.assertNodeType)("Identifier", "MemberExpression")
+	    },
+	    operator: {
+	      validate: (0, _utils.assertOneOf)(..._constants.UPDATE_OPERATORS)
+	    }
+	  },
+	  visitor: ["argument"],
+	  aliases: ["Expression"]
+	});
+	(0, _utils.default)("VariableDeclaration", {
+	  builder: ["kind", "declarations"],
+	  visitor: ["declarations"],
+	  aliases: ["Statement", "Declaration"],
+	  fields: {
+	    declare: {
+	      validate: (0, _utils.assertValueType)("boolean"),
+	      optional: true
+	    },
+	    kind: {
+	      validate: (0, _utils.assertOneOf)("var", "let", "const")
+	    },
+	    declarations: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("VariableDeclarator")))
+	    }
+	  },
+
+	  validate(parent, key, node) {
+	    if (!process.env.BABEL_TYPES_8_BREAKING) return;
+	    if (!(0, _is.default)("ForXStatement", parent, {
+	      left: node
+	    })) return;
+
+	    if (node.declarations.length !== 1) {
+	      throw new TypeError(`Exactly one VariableDeclarator is required in the VariableDeclaration of a ${parent.type}`);
+	    }
+	  }
+
+	});
+	(0, _utils.default)("VariableDeclarator", {
+	  visitor: ["id", "init"],
+	  fields: {
+	    id: {
+	      validate: function () {
+	        if (!process.env.BABEL_TYPES_8_BREAKING) {
+	          return (0, _utils.assertNodeType)("LVal");
+	        }
+
+	        const normal = (0, _utils.assertNodeType)("Identifier", "ArrayPattern", "ObjectPattern");
+	        const without = (0, _utils.assertNodeType)("Identifier");
+	        return function (node, key, val) {
+	          const validator = node.init ? normal : without;
+	          validator(node, key, val);
+	        };
+	      }()
+	    },
+	    definite: {
+	      optional: true,
+	      validate: (0, _utils.assertValueType)("boolean")
+	    },
+	    init: {
+	      optional: true,
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    }
+	  }
+	});
+	(0, _utils.default)("WhileStatement", {
+	  visitor: ["test", "body"],
+	  aliases: ["Statement", "BlockParent", "Loop", "While", "Scopable"],
+	  fields: {
+	    test: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    body: {
+	      validate: (0, _utils.assertNodeType)("Statement")
+	    }
+	  }
+	});
+	(0, _utils.default)("WithStatement", {
+	  visitor: ["object", "body"],
+	  aliases: ["Statement"],
+	  fields: {
+	    object: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    body: {
+	      validate: (0, _utils.assertNodeType)("Statement")
+	    }
+	  }
+	});
+	(0, _utils.default)("AssignmentPattern", {
+	  visitor: ["left", "right", "decorators"],
+	  builder: ["left", "right"],
+	  aliases: ["Pattern", "PatternLike", "LVal"],
+	  fields: Object.assign({}, patternLikeCommon, {
+	    left: {
+	      validate: (0, _utils.assertNodeType)("Identifier", "ObjectPattern", "ArrayPattern", "MemberExpression")
+	    },
+	    right: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    decorators: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Decorator"))),
+	      optional: true
+	    }
+	  })
+	});
+	(0, _utils.default)("ArrayPattern", {
+	  visitor: ["elements", "typeAnnotation"],
+	  builder: ["elements"],
+	  aliases: ["Pattern", "PatternLike", "LVal"],
+	  fields: Object.assign({}, patternLikeCommon, {
+	    elements: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeOrValueType)("null", "PatternLike")))
+	    },
+	    decorators: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Decorator"))),
+	      optional: true
+	    },
+	    optional: {
+	      validate: (0, _utils.assertValueType)("boolean"),
+	      optional: true
+	    }
+	  })
+	});
+	(0, _utils.default)("ArrowFunctionExpression", {
+	  builder: ["params", "body", "async"],
+	  visitor: ["params", "body", "returnType", "typeParameters"],
+	  aliases: ["Scopable", "Function", "BlockParent", "FunctionParent", "Expression", "Pureish"],
+	  fields: Object.assign({}, functionCommon, functionTypeAnnotationCommon, {
+	    expression: {
+	      validate: (0, _utils.assertValueType)("boolean")
+	    },
+	    body: {
+	      validate: (0, _utils.assertNodeType)("BlockStatement", "Expression")
+	    }
+	  })
+	});
+	(0, _utils.default)("ClassBody", {
+	  visitor: ["body"],
+	  fields: {
+	    body: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("ClassMethod", "ClassPrivateMethod", "ClassProperty", "ClassPrivateProperty", "TSDeclareMethod", "TSIndexSignature")))
+	    }
+	  }
+	});
+	(0, _utils.default)("ClassExpression", {
+	  builder: ["id", "superClass", "body", "decorators"],
+	  visitor: ["id", "body", "superClass", "mixins", "typeParameters", "superTypeParameters", "implements", "decorators"],
+	  aliases: ["Scopable", "Class", "Expression"],
+	  fields: {
+	    id: {
+	      validate: (0, _utils.assertNodeType)("Identifier"),
+	      optional: true
+	    },
+	    typeParameters: {
+	      validate: (0, _utils.assertNodeType)("TypeParameterDeclaration", "TSTypeParameterDeclaration", "Noop"),
+	      optional: true
+	    },
+	    body: {
+	      validate: (0, _utils.assertNodeType)("ClassBody")
+	    },
+	    superClass: {
+	      optional: true,
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    superTypeParameters: {
+	      validate: (0, _utils.assertNodeType)("TypeParameterInstantiation", "TSTypeParameterInstantiation"),
+	      optional: true
+	    },
+	    implements: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("TSExpressionWithTypeArguments", "ClassImplements"))),
+	      optional: true
+	    },
+	    decorators: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Decorator"))),
+	      optional: true
+	    },
+	    mixins: {
+	      validate: (0, _utils.assertNodeType)("InterfaceExtends"),
+	      optional: true
+	    }
+	  }
+	});
+	(0, _utils.default)("ClassDeclaration", {
+	  inherits: "ClassExpression",
+	  aliases: ["Scopable", "Class", "Statement", "Declaration"],
+	  fields: {
+	    id: {
+	      validate: (0, _utils.assertNodeType)("Identifier")
+	    },
+	    typeParameters: {
+	      validate: (0, _utils.assertNodeType)("TypeParameterDeclaration", "TSTypeParameterDeclaration", "Noop"),
+	      optional: true
+	    },
+	    body: {
+	      validate: (0, _utils.assertNodeType)("ClassBody")
+	    },
+	    superClass: {
+	      optional: true,
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    superTypeParameters: {
+	      validate: (0, _utils.assertNodeType)("TypeParameterInstantiation", "TSTypeParameterInstantiation"),
+	      optional: true
+	    },
+	    implements: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("TSExpressionWithTypeArguments", "ClassImplements"))),
+	      optional: true
+	    },
+	    decorators: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Decorator"))),
+	      optional: true
+	    },
+	    mixins: {
+	      validate: (0, _utils.assertNodeType)("InterfaceExtends"),
+	      optional: true
+	    },
+	    declare: {
+	      validate: (0, _utils.assertValueType)("boolean"),
+	      optional: true
+	    },
+	    abstract: {
+	      validate: (0, _utils.assertValueType)("boolean"),
+	      optional: true
+	    }
+	  },
+	  validate: function () {
+	    const identifier = (0, _utils.assertNodeType)("Identifier");
+	    return function (parent, key, node) {
+	      if (!process.env.BABEL_TYPES_8_BREAKING) return;
+
+	      if (!(0, _is.default)("ExportDefaultDeclaration", parent)) {
+	        identifier(node, "id", node.id);
+	      }
+	    };
+	  }()
+	});
+	(0, _utils.default)("ExportAllDeclaration", {
+	  visitor: ["source"],
+	  aliases: ["Statement", "Declaration", "ModuleDeclaration", "ExportDeclaration"],
+	  fields: {
+	    source: {
+	      validate: (0, _utils.assertNodeType)("StringLiteral")
+	    },
+	    exportKind: (0, _utils.validateOptional)((0, _utils.assertOneOf)("type", "value")),
+	    assertions: {
+	      optional: true,
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("ImportAttribute")))
+	    }
+	  }
+	});
+	(0, _utils.default)("ExportDefaultDeclaration", {
+	  visitor: ["declaration"],
+	  aliases: ["Statement", "Declaration", "ModuleDeclaration", "ExportDeclaration"],
+	  fields: {
+	    declaration: {
+	      validate: (0, _utils.assertNodeType)("FunctionDeclaration", "TSDeclareFunction", "ClassDeclaration", "Expression")
+	    },
+	    exportKind: (0, _utils.validateOptional)((0, _utils.assertOneOf)("value"))
+	  }
+	});
+	(0, _utils.default)("ExportNamedDeclaration", {
+	  visitor: ["declaration", "specifiers", "source"],
+	  aliases: ["Statement", "Declaration", "ModuleDeclaration", "ExportDeclaration"],
+	  fields: {
+	    declaration: {
+	      optional: true,
+	      validate: (0, _utils.chain)((0, _utils.assertNodeType)("Declaration"), Object.assign(function (node, key, val) {
+	        if (!process.env.BABEL_TYPES_8_BREAKING) return;
+
+	        if (val && node.specifiers.length) {
+	          throw new TypeError("Only declaration or specifiers is allowed on ExportNamedDeclaration");
+	        }
+	      }, {
+	        oneOfNodeTypes: ["Declaration"]
+	      }), function (node, key, val) {
+	        if (!process.env.BABEL_TYPES_8_BREAKING) return;
+
+	        if (val && node.source) {
+	          throw new TypeError("Cannot export a declaration from a source");
+	        }
+	      })
+	    },
+	    assertions: {
+	      optional: true,
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("ImportAttribute")))
+	    },
+	    specifiers: {
+	      default: [],
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)(function () {
+	        const sourced = (0, _utils.assertNodeType)("ExportSpecifier", "ExportDefaultSpecifier", "ExportNamespaceSpecifier");
+	        const sourceless = (0, _utils.assertNodeType)("ExportSpecifier");
+	        if (!process.env.BABEL_TYPES_8_BREAKING) return sourced;
+	        return function (node, key, val) {
+	          const validator = node.source ? sourced : sourceless;
+	          validator(node, key, val);
+	        };
+	      }()))
+	    },
+	    source: {
+	      validate: (0, _utils.assertNodeType)("StringLiteral"),
+	      optional: true
+	    },
+	    exportKind: (0, _utils.validateOptional)((0, _utils.assertOneOf)("type", "value"))
+	  }
+	});
+	(0, _utils.default)("ExportSpecifier", {
+	  visitor: ["local", "exported"],
+	  aliases: ["ModuleSpecifier"],
+	  fields: {
+	    local: {
+	      validate: (0, _utils.assertNodeType)("Identifier")
+	    },
+	    exported: {
+	      validate: (0, _utils.assertNodeType)("Identifier", "StringLiteral")
+	    }
+	  }
+	});
+	(0, _utils.default)("ForOfStatement", {
+	  visitor: ["left", "right", "body"],
+	  builder: ["left", "right", "body", "await"],
+	  aliases: ["Scopable", "Statement", "For", "BlockParent", "Loop", "ForXStatement"],
+	  fields: {
+	    left: {
+	      validate: function () {
+	        if (!process.env.BABEL_TYPES_8_BREAKING) {
+	          return (0, _utils.assertNodeType)("VariableDeclaration", "LVal");
+	        }
+
+	        const declaration = (0, _utils.assertNodeType)("VariableDeclaration");
+	        const lval = (0, _utils.assertNodeType)("Identifier", "MemberExpression", "ArrayPattern", "ObjectPattern");
+	        return function (node, key, val) {
+	          if ((0, _is.default)("VariableDeclaration", val)) {
+	            declaration(node, key, val);
+	          } else {
+	            lval(node, key, val);
+	          }
+	        };
+	      }()
+	    },
+	    right: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    body: {
+	      validate: (0, _utils.assertNodeType)("Statement")
+	    },
+	    await: {
+	      default: false
+	    }
+	  }
+	});
+	(0, _utils.default)("ImportDeclaration", {
+	  visitor: ["specifiers", "source"],
+	  aliases: ["Statement", "Declaration", "ModuleDeclaration"],
+	  fields: {
+	    assertions: {
+	      optional: true,
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("ImportAttribute")))
+	    },
+	    specifiers: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("ImportSpecifier", "ImportDefaultSpecifier", "ImportNamespaceSpecifier")))
+	    },
+	    source: {
+	      validate: (0, _utils.assertNodeType)("StringLiteral")
+	    },
+	    importKind: {
+	      validate: (0, _utils.assertOneOf)("type", "typeof", "value"),
+	      optional: true
+	    }
+	  }
+	});
+	(0, _utils.default)("ImportDefaultSpecifier", {
+	  visitor: ["local"],
+	  aliases: ["ModuleSpecifier"],
+	  fields: {
+	    local: {
+	      validate: (0, _utils.assertNodeType)("Identifier")
+	    }
+	  }
+	});
+	(0, _utils.default)("ImportNamespaceSpecifier", {
+	  visitor: ["local"],
+	  aliases: ["ModuleSpecifier"],
+	  fields: {
+	    local: {
+	      validate: (0, _utils.assertNodeType)("Identifier")
+	    }
+	  }
+	});
+	(0, _utils.default)("ImportSpecifier", {
+	  visitor: ["local", "imported"],
+	  aliases: ["ModuleSpecifier"],
+	  fields: {
+	    local: {
+	      validate: (0, _utils.assertNodeType)("Identifier")
+	    },
+	    imported: {
+	      validate: (0, _utils.assertNodeType)("Identifier", "StringLiteral")
+	    },
+	    importKind: {
+	      validate: (0, _utils.assertOneOf)("type", "typeof"),
+	      optional: true
+	    }
+	  }
+	});
+	(0, _utils.default)("MetaProperty", {
+	  visitor: ["meta", "property"],
+	  aliases: ["Expression"],
+	  fields: {
+	    meta: {
+	      validate: (0, _utils.chain)((0, _utils.assertNodeType)("Identifier"), Object.assign(function (node, key, val) {
+	        if (!process.env.BABEL_TYPES_8_BREAKING) return;
+	        let property;
+
+	        switch (val.name) {
+	          case "function":
+	            property = "sent";
+	            break;
+
+	          case "new":
+	            property = "target";
+	            break;
+
+	          case "import":
+	            property = "meta";
+	            break;
+	        }
+
+	        if (!(0, _is.default)("Identifier", node.property, {
+	          name: property
+	        })) {
+	          throw new TypeError("Unrecognised MetaProperty");
+	        }
+	      }, {
+	        oneOfNodeTypes: ["Identifier"]
+	      }))
+	    },
+	    property: {
+	      validate: (0, _utils.assertNodeType)("Identifier")
+	    }
+	  }
+	});
+	const classMethodOrPropertyCommon = {
+	  abstract: {
+	    validate: (0, _utils.assertValueType)("boolean"),
+	    optional: true
+	  },
+	  accessibility: {
+	    validate: (0, _utils.assertOneOf)("public", "private", "protected"),
+	    optional: true
+	  },
+	  static: {
+	    default: false
+	  },
+	  override: {
+	    default: false
+	  },
+	  computed: {
+	    default: false
+	  },
+	  optional: {
+	    validate: (0, _utils.assertValueType)("boolean"),
+	    optional: true
+	  },
+	  key: {
+	    validate: (0, _utils.chain)(function () {
+	      const normal = (0, _utils.assertNodeType)("Identifier", "StringLiteral", "NumericLiteral");
+	      const computed = (0, _utils.assertNodeType)("Expression");
+	      return function (node, key, val) {
+	        const validator = node.computed ? computed : normal;
+	        validator(node, key, val);
+	      };
+	    }(), (0, _utils.assertNodeType)("Identifier", "StringLiteral", "NumericLiteral", "Expression"))
+	  }
+	};
+	core.classMethodOrPropertyCommon = classMethodOrPropertyCommon;
+	const classMethodOrDeclareMethodCommon = Object.assign({}, functionCommon, classMethodOrPropertyCommon, {
+	  params: {
+	    validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Identifier", "Pattern", "RestElement", "TSParameterProperty")))
+	  },
+	  kind: {
+	    validate: (0, _utils.assertOneOf)("get", "set", "method", "constructor"),
+	    default: "method"
+	  },
+	  access: {
+	    validate: (0, _utils.chain)((0, _utils.assertValueType)("string"), (0, _utils.assertOneOf)("public", "private", "protected")),
+	    optional: true
+	  },
+	  decorators: {
+	    validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Decorator"))),
+	    optional: true
+	  }
+	});
+	core.classMethodOrDeclareMethodCommon = classMethodOrDeclareMethodCommon;
+	(0, _utils.default)("ClassMethod", {
+	  aliases: ["Function", "Scopable", "BlockParent", "FunctionParent", "Method"],
+	  builder: ["kind", "key", "params", "body", "computed", "static", "generator", "async"],
+	  visitor: ["key", "params", "body", "decorators", "returnType", "typeParameters"],
+	  fields: Object.assign({}, classMethodOrDeclareMethodCommon, functionTypeAnnotationCommon, {
+	    body: {
+	      validate: (0, _utils.assertNodeType)("BlockStatement")
+	    }
+	  })
+	});
+	(0, _utils.default)("ObjectPattern", {
+	  visitor: ["properties", "typeAnnotation", "decorators"],
+	  builder: ["properties"],
+	  aliases: ["Pattern", "PatternLike", "LVal"],
+	  fields: Object.assign({}, patternLikeCommon, {
+	    properties: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("RestElement", "ObjectProperty")))
+	    }
+	  })
+	});
+	(0, _utils.default)("SpreadElement", {
+	  visitor: ["argument"],
+	  aliases: ["UnaryLike"],
+	  deprecatedAlias: "SpreadProperty",
+	  fields: {
+	    argument: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    }
+	  }
+	});
+	(0, _utils.default)("Super", {
+	  aliases: ["Expression"]
+	});
+	(0, _utils.default)("TaggedTemplateExpression", {
+	  visitor: ["tag", "quasi", "typeParameters"],
+	  builder: ["tag", "quasi"],
+	  aliases: ["Expression"],
+	  fields: {
+	    tag: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    quasi: {
+	      validate: (0, _utils.assertNodeType)("TemplateLiteral")
+	    },
+	    typeParameters: {
+	      validate: (0, _utils.assertNodeType)("TypeParameterInstantiation", "TSTypeParameterInstantiation"),
+	      optional: true
+	    }
+	  }
+	});
+	(0, _utils.default)("TemplateElement", {
+	  builder: ["value", "tail"],
+	  fields: {
+	    value: {
+	      validate: (0, _utils.assertShape)({
+	        raw: {
+	          validate: (0, _utils.assertValueType)("string")
+	        },
+	        cooked: {
+	          validate: (0, _utils.assertValueType)("string"),
+	          optional: true
+	        }
+	      })
+	    },
+	    tail: {
+	      default: false
+	    }
+	  }
+	});
+	(0, _utils.default)("TemplateLiteral", {
+	  visitor: ["quasis", "expressions"],
+	  aliases: ["Expression", "Literal"],
+	  fields: {
+	    quasis: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("TemplateElement")))
+	    },
+	    expressions: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Expression", "TSType")), function (node, key, val) {
+	        if (node.quasis.length !== val.length + 1) {
+	          throw new TypeError(`Number of ${node.type} quasis should be exactly one more than the number of expressions.\nExpected ${val.length + 1} quasis but got ${node.quasis.length}`);
+	        }
+	      })
+	    }
+	  }
+	});
+	(0, _utils.default)("YieldExpression", {
+	  builder: ["argument", "delegate"],
+	  visitor: ["argument"],
+	  aliases: ["Expression", "Terminatorless"],
+	  fields: {
+	    delegate: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("boolean"), Object.assign(function (node, key, val) {
+	        if (!process.env.BABEL_TYPES_8_BREAKING) return;
+
+	        if (val && !node.argument) {
+	          throw new TypeError("Property delegate of YieldExpression cannot be true if there is no argument");
+	        }
+	      }, {
+	        type: "boolean"
+	      })),
+	      default: false
+	    },
+	    argument: {
+	      optional: true,
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    }
+	  }
+	});
+	(0, _utils.default)("AwaitExpression", {
+	  builder: ["argument"],
+	  visitor: ["argument"],
+	  aliases: ["Expression", "Terminatorless"],
+	  fields: {
+	    argument: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    }
+	  }
+	});
+	(0, _utils.default)("Import", {
+	  aliases: ["Expression"]
+	});
+	(0, _utils.default)("BigIntLiteral", {
+	  builder: ["value"],
+	  fields: {
+	    value: {
+	      validate: (0, _utils.assertValueType)("string")
+	    }
+	  },
+	  aliases: ["Expression", "Pureish", "Literal", "Immutable"]
+	});
+	(0, _utils.default)("ExportNamespaceSpecifier", {
+	  visitor: ["exported"],
+	  aliases: ["ModuleSpecifier"],
+	  fields: {
+	    exported: {
+	      validate: (0, _utils.assertNodeType)("Identifier")
+	    }
+	  }
+	});
+	(0, _utils.default)("OptionalMemberExpression", {
+	  builder: ["object", "property", "computed", "optional"],
+	  visitor: ["object", "property"],
+	  aliases: ["Expression"],
+	  fields: {
+	    object: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    property: {
+	      validate: function () {
+	        const normal = (0, _utils.assertNodeType)("Identifier");
+	        const computed = (0, _utils.assertNodeType)("Expression");
+
+	        const validator = function (node, key, val) {
+	          const validator = node.computed ? computed : normal;
+	          validator(node, key, val);
+	        };
+
+	        validator.oneOfNodeTypes = ["Expression", "Identifier"];
+	        return validator;
+	      }()
+	    },
+	    computed: {
+	      default: false
+	    },
+	    optional: {
+	      validate: !process.env.BABEL_TYPES_8_BREAKING ? (0, _utils.assertValueType)("boolean") : (0, _utils.chain)((0, _utils.assertValueType)("boolean"), (0, _utils.assertOptionalChainStart)())
+	    }
+	  }
+	});
+	(0, _utils.default)("OptionalCallExpression", {
+	  visitor: ["callee", "arguments", "typeParameters", "typeArguments"],
+	  builder: ["callee", "arguments", "optional"],
+	  aliases: ["Expression"],
+	  fields: {
+	    callee: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    arguments: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Expression", "SpreadElement", "JSXNamespacedName", "ArgumentPlaceholder")))
+	    },
+	    optional: {
+	      validate: !process.env.BABEL_TYPES_8_BREAKING ? (0, _utils.assertValueType)("boolean") : (0, _utils.chain)((0, _utils.assertValueType)("boolean"), (0, _utils.assertOptionalChainStart)())
+	    },
+	    typeArguments: {
+	      validate: (0, _utils.assertNodeType)("TypeParameterInstantiation"),
+	      optional: true
+	    },
+	    typeParameters: {
+	      validate: (0, _utils.assertNodeType)("TSTypeParameterInstantiation"),
+	      optional: true
+	    }
+	  }
+	});
+	(0, _utils.default)("ClassProperty", {
+	  visitor: ["key", "value", "typeAnnotation", "decorators"],
+	  builder: ["key", "value", "typeAnnotation", "decorators", "computed", "static"],
+	  aliases: ["Property"],
+	  fields: Object.assign({}, classMethodOrPropertyCommon, {
+	    value: {
+	      validate: (0, _utils.assertNodeType)("Expression"),
+	      optional: true
+	    },
+	    definite: {
+	      validate: (0, _utils.assertValueType)("boolean"),
+	      optional: true
+	    },
+	    typeAnnotation: {
+	      validate: (0, _utils.assertNodeType)("TypeAnnotation", "TSTypeAnnotation", "Noop"),
+	      optional: true
+	    },
+	    decorators: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Decorator"))),
+	      optional: true
+	    },
+	    readonly: {
+	      validate: (0, _utils.assertValueType)("boolean"),
+	      optional: true
+	    },
+	    declare: {
+	      validate: (0, _utils.assertValueType)("boolean"),
+	      optional: true
+	    },
+	    variance: {
+	      validate: (0, _utils.assertNodeType)("Variance"),
+	      optional: true
+	    }
+	  })
+	});
+	(0, _utils.default)("ClassPrivateProperty", {
+	  visitor: ["key", "value", "decorators", "typeAnnotation"],
+	  builder: ["key", "value", "decorators", "static"],
+	  aliases: ["Property", "Private"],
+	  fields: {
+	    key: {
+	      validate: (0, _utils.assertNodeType)("PrivateName")
+	    },
+	    value: {
+	      validate: (0, _utils.assertNodeType)("Expression"),
+	      optional: true
+	    },
+	    typeAnnotation: {
+	      validate: (0, _utils.assertNodeType)("TypeAnnotation", "TSTypeAnnotation", "Noop"),
+	      optional: true
+	    },
+	    decorators: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Decorator"))),
+	      optional: true
+	    },
+	    readonly: {
+	      validate: (0, _utils.assertValueType)("boolean"),
+	      optional: true
+	    },
+	    definite: {
+	      validate: (0, _utils.assertValueType)("boolean"),
+	      optional: true
+	    },
+	    variance: {
+	      validate: (0, _utils.assertNodeType)("Variance"),
+	      optional: true
+	    }
+	  }
+	});
+	(0, _utils.default)("ClassPrivateMethod", {
+	  builder: ["kind", "key", "params", "body", "static"],
+	  visitor: ["key", "params", "body", "decorators", "returnType", "typeParameters"],
+	  aliases: ["Function", "Scopable", "BlockParent", "FunctionParent", "Method", "Private"],
+	  fields: Object.assign({}, classMethodOrDeclareMethodCommon, functionTypeAnnotationCommon, {
+	    key: {
+	      validate: (0, _utils.assertNodeType)("PrivateName")
+	    },
+	    body: {
+	      validate: (0, _utils.assertNodeType)("BlockStatement")
+	    }
+	  })
+	});
+	(0, _utils.default)("PrivateName", {
+	  visitor: ["id"],
+	  aliases: ["Private"],
+	  fields: {
+	    id: {
+	      validate: (0, _utils.assertNodeType)("Identifier")
+	    }
+	  }
+	});
+	return core;
 }
 
-Object.defineProperty(utils, "__esModule", {
-  value: true
-});
-utils.validate = validate;
-utils.typeIs = typeIs;
-utils.validateType = validateType;
-utils.validateOptional = validateOptional;
-utils.validateOptionalType = validateOptionalType;
-utils.arrayOf = arrayOf;
-utils.arrayOfType = arrayOfType;
-utils.validateArrayOfType = validateArrayOfType;
-utils.assertEach = assertEach;
-utils.assertOneOf = assertOneOf;
-utils.assertNodeType = assertNodeType;
-utils.assertNodeOrValueType = assertNodeOrValueType;
-utils.assertValueType = assertValueType;
-utils.assertShape = assertShape;
-utils.assertOptionalChainStart = assertOptionalChainStart;
-utils.chain = chain;
-utils.default = defineType;
-utils.NODE_PARENT_VALIDATIONS = utils.DEPRECATED_KEYS = utils.BUILDER_KEYS = utils.NODE_FIELDS = utils.FLIPPED_ALIAS_KEYS = utils.ALIAS_KEYS = utils.VISITOR_KEYS = void 0;
+var flow$1 = {};
 
-var _is$2 = is$1;
+var hasRequiredFlow;
 
-var _validate$1 = validate$2;
+function requireFlow () {
+	if (hasRequiredFlow) return flow$1;
+	hasRequiredFlow = 1;
 
-const VISITOR_KEYS = {};
-utils.VISITOR_KEYS = VISITOR_KEYS;
-const ALIAS_KEYS = {};
-utils.ALIAS_KEYS = ALIAS_KEYS;
-const FLIPPED_ALIAS_KEYS = {};
-utils.FLIPPED_ALIAS_KEYS = FLIPPED_ALIAS_KEYS;
-const NODE_FIELDS = {};
-utils.NODE_FIELDS = NODE_FIELDS;
-const BUILDER_KEYS = {};
-utils.BUILDER_KEYS = BUILDER_KEYS;
-const DEPRECATED_KEYS = {};
-utils.DEPRECATED_KEYS = DEPRECATED_KEYS;
-const NODE_PARENT_VALIDATIONS = {};
-utils.NODE_PARENT_VALIDATIONS = NODE_PARENT_VALIDATIONS;
+	var _utils = requireUtils();
 
-function getType(val) {
-  if (Array.isArray(val)) {
-    return "array";
-  } else if (val === null) {
-    return "null";
-  } else {
-    return typeof val;
-  }
+	const defineInterfaceishType = (name, typeParameterType = "TypeParameterDeclaration") => {
+	  (0, _utils.default)(name, {
+	    builder: ["id", "typeParameters", "extends", "body"],
+	    visitor: ["id", "typeParameters", "extends", "mixins", "implements", "body"],
+	    aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
+	    fields: {
+	      id: (0, _utils.validateType)("Identifier"),
+	      typeParameters: (0, _utils.validateOptionalType)(typeParameterType),
+	      extends: (0, _utils.validateOptional)((0, _utils.arrayOfType)("InterfaceExtends")),
+	      mixins: (0, _utils.validateOptional)((0, _utils.arrayOfType)("InterfaceExtends")),
+	      implements: (0, _utils.validateOptional)((0, _utils.arrayOfType)("ClassImplements")),
+	      body: (0, _utils.validateType)("ObjectTypeAnnotation")
+	    }
+	  });
+	};
+
+	(0, _utils.default)("AnyTypeAnnotation", {
+	  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
+	});
+	(0, _utils.default)("ArrayTypeAnnotation", {
+	  visitor: ["elementType"],
+	  aliases: ["Flow", "FlowType"],
+	  fields: {
+	    elementType: (0, _utils.validateType)("FlowType")
+	  }
+	});
+	(0, _utils.default)("BooleanTypeAnnotation", {
+	  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
+	});
+	(0, _utils.default)("BooleanLiteralTypeAnnotation", {
+	  builder: ["value"],
+	  aliases: ["Flow", "FlowType"],
+	  fields: {
+	    value: (0, _utils.validate)((0, _utils.assertValueType)("boolean"))
+	  }
+	});
+	(0, _utils.default)("NullLiteralTypeAnnotation", {
+	  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
+	});
+	(0, _utils.default)("ClassImplements", {
+	  visitor: ["id", "typeParameters"],
+	  aliases: ["Flow"],
+	  fields: {
+	    id: (0, _utils.validateType)("Identifier"),
+	    typeParameters: (0, _utils.validateOptionalType)("TypeParameterInstantiation")
+	  }
+	});
+	defineInterfaceishType("DeclareClass");
+	(0, _utils.default)("DeclareFunction", {
+	  visitor: ["id"],
+	  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
+	  fields: {
+	    id: (0, _utils.validateType)("Identifier"),
+	    predicate: (0, _utils.validateOptionalType)("DeclaredPredicate")
+	  }
+	});
+	defineInterfaceishType("DeclareInterface");
+	(0, _utils.default)("DeclareModule", {
+	  builder: ["id", "body", "kind"],
+	  visitor: ["id", "body"],
+	  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
+	  fields: {
+	    id: (0, _utils.validateType)(["Identifier", "StringLiteral"]),
+	    body: (0, _utils.validateType)("BlockStatement"),
+	    kind: (0, _utils.validateOptional)((0, _utils.assertOneOf)("CommonJS", "ES"))
+	  }
+	});
+	(0, _utils.default)("DeclareModuleExports", {
+	  visitor: ["typeAnnotation"],
+	  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
+	  fields: {
+	    typeAnnotation: (0, _utils.validateType)("TypeAnnotation")
+	  }
+	});
+	(0, _utils.default)("DeclareTypeAlias", {
+	  visitor: ["id", "typeParameters", "right"],
+	  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
+	  fields: {
+	    id: (0, _utils.validateType)("Identifier"),
+	    typeParameters: (0, _utils.validateOptionalType)("TypeParameterDeclaration"),
+	    right: (0, _utils.validateType)("FlowType")
+	  }
+	});
+	(0, _utils.default)("DeclareOpaqueType", {
+	  visitor: ["id", "typeParameters", "supertype"],
+	  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
+	  fields: {
+	    id: (0, _utils.validateType)("Identifier"),
+	    typeParameters: (0, _utils.validateOptionalType)("TypeParameterDeclaration"),
+	    supertype: (0, _utils.validateOptionalType)("FlowType"),
+	    impltype: (0, _utils.validateOptionalType)("FlowType")
+	  }
+	});
+	(0, _utils.default)("DeclareVariable", {
+	  visitor: ["id"],
+	  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
+	  fields: {
+	    id: (0, _utils.validateType)("Identifier")
+	  }
+	});
+	(0, _utils.default)("DeclareExportDeclaration", {
+	  visitor: ["declaration", "specifiers", "source"],
+	  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
+	  fields: {
+	    declaration: (0, _utils.validateOptionalType)("Flow"),
+	    specifiers: (0, _utils.validateOptional)((0, _utils.arrayOfType)(["ExportSpecifier", "ExportNamespaceSpecifier"])),
+	    source: (0, _utils.validateOptionalType)("StringLiteral"),
+	    default: (0, _utils.validateOptional)((0, _utils.assertValueType)("boolean"))
+	  }
+	});
+	(0, _utils.default)("DeclareExportAllDeclaration", {
+	  visitor: ["source"],
+	  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
+	  fields: {
+	    source: (0, _utils.validateType)("StringLiteral"),
+	    exportKind: (0, _utils.validateOptional)((0, _utils.assertOneOf)("type", "value"))
+	  }
+	});
+	(0, _utils.default)("DeclaredPredicate", {
+	  visitor: ["value"],
+	  aliases: ["Flow", "FlowPredicate"],
+	  fields: {
+	    value: (0, _utils.validateType)("Flow")
+	  }
+	});
+	(0, _utils.default)("ExistsTypeAnnotation", {
+	  aliases: ["Flow", "FlowType"]
+	});
+	(0, _utils.default)("FunctionTypeAnnotation", {
+	  visitor: ["typeParameters", "params", "rest", "returnType"],
+	  aliases: ["Flow", "FlowType"],
+	  fields: {
+	    typeParameters: (0, _utils.validateOptionalType)("TypeParameterDeclaration"),
+	    params: (0, _utils.validate)((0, _utils.arrayOfType)("FunctionTypeParam")),
+	    rest: (0, _utils.validateOptionalType)("FunctionTypeParam"),
+	    this: (0, _utils.validateOptionalType)("FunctionTypeParam"),
+	    returnType: (0, _utils.validateType)("FlowType")
+	  }
+	});
+	(0, _utils.default)("FunctionTypeParam", {
+	  visitor: ["name", "typeAnnotation"],
+	  aliases: ["Flow"],
+	  fields: {
+	    name: (0, _utils.validateOptionalType)("Identifier"),
+	    typeAnnotation: (0, _utils.validateType)("FlowType"),
+	    optional: (0, _utils.validateOptional)((0, _utils.assertValueType)("boolean"))
+	  }
+	});
+	(0, _utils.default)("GenericTypeAnnotation", {
+	  visitor: ["id", "typeParameters"],
+	  aliases: ["Flow", "FlowType"],
+	  fields: {
+	    id: (0, _utils.validateType)(["Identifier", "QualifiedTypeIdentifier"]),
+	    typeParameters: (0, _utils.validateOptionalType)("TypeParameterInstantiation")
+	  }
+	});
+	(0, _utils.default)("InferredPredicate", {
+	  aliases: ["Flow", "FlowPredicate"]
+	});
+	(0, _utils.default)("InterfaceExtends", {
+	  visitor: ["id", "typeParameters"],
+	  aliases: ["Flow"],
+	  fields: {
+	    id: (0, _utils.validateType)(["Identifier", "QualifiedTypeIdentifier"]),
+	    typeParameters: (0, _utils.validateOptionalType)("TypeParameterInstantiation")
+	  }
+	});
+	defineInterfaceishType("InterfaceDeclaration");
+	(0, _utils.default)("InterfaceTypeAnnotation", {
+	  visitor: ["extends", "body"],
+	  aliases: ["Flow", "FlowType"],
+	  fields: {
+	    extends: (0, _utils.validateOptional)((0, _utils.arrayOfType)("InterfaceExtends")),
+	    body: (0, _utils.validateType)("ObjectTypeAnnotation")
+	  }
+	});
+	(0, _utils.default)("IntersectionTypeAnnotation", {
+	  visitor: ["types"],
+	  aliases: ["Flow", "FlowType"],
+	  fields: {
+	    types: (0, _utils.validate)((0, _utils.arrayOfType)("FlowType"))
+	  }
+	});
+	(0, _utils.default)("MixedTypeAnnotation", {
+	  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
+	});
+	(0, _utils.default)("EmptyTypeAnnotation", {
+	  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
+	});
+	(0, _utils.default)("NullableTypeAnnotation", {
+	  visitor: ["typeAnnotation"],
+	  aliases: ["Flow", "FlowType"],
+	  fields: {
+	    typeAnnotation: (0, _utils.validateType)("FlowType")
+	  }
+	});
+	(0, _utils.default)("NumberLiteralTypeAnnotation", {
+	  builder: ["value"],
+	  aliases: ["Flow", "FlowType"],
+	  fields: {
+	    value: (0, _utils.validate)((0, _utils.assertValueType)("number"))
+	  }
+	});
+	(0, _utils.default)("NumberTypeAnnotation", {
+	  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
+	});
+	(0, _utils.default)("ObjectTypeAnnotation", {
+	  visitor: ["properties", "indexers", "callProperties", "internalSlots"],
+	  aliases: ["Flow", "FlowType"],
+	  builder: ["properties", "indexers", "callProperties", "internalSlots", "exact"],
+	  fields: {
+	    properties: (0, _utils.validate)((0, _utils.arrayOfType)(["ObjectTypeProperty", "ObjectTypeSpreadProperty"])),
+	    indexers: (0, _utils.validateOptional)((0, _utils.arrayOfType)("ObjectTypeIndexer")),
+	    callProperties: (0, _utils.validateOptional)((0, _utils.arrayOfType)("ObjectTypeCallProperty")),
+	    internalSlots: (0, _utils.validateOptional)((0, _utils.arrayOfType)("ObjectTypeInternalSlot")),
+	    exact: {
+	      validate: (0, _utils.assertValueType)("boolean"),
+	      default: false
+	    },
+	    inexact: (0, _utils.validateOptional)((0, _utils.assertValueType)("boolean"))
+	  }
+	});
+	(0, _utils.default)("ObjectTypeInternalSlot", {
+	  visitor: ["id", "value", "optional", "static", "method"],
+	  aliases: ["Flow", "UserWhitespacable"],
+	  fields: {
+	    id: (0, _utils.validateType)("Identifier"),
+	    value: (0, _utils.validateType)("FlowType"),
+	    optional: (0, _utils.validate)((0, _utils.assertValueType)("boolean")),
+	    static: (0, _utils.validate)((0, _utils.assertValueType)("boolean")),
+	    method: (0, _utils.validate)((0, _utils.assertValueType)("boolean"))
+	  }
+	});
+	(0, _utils.default)("ObjectTypeCallProperty", {
+	  visitor: ["value"],
+	  aliases: ["Flow", "UserWhitespacable"],
+	  fields: {
+	    value: (0, _utils.validateType)("FlowType"),
+	    static: (0, _utils.validate)((0, _utils.assertValueType)("boolean"))
+	  }
+	});
+	(0, _utils.default)("ObjectTypeIndexer", {
+	  visitor: ["id", "key", "value", "variance"],
+	  aliases: ["Flow", "UserWhitespacable"],
+	  fields: {
+	    id: (0, _utils.validateOptionalType)("Identifier"),
+	    key: (0, _utils.validateType)("FlowType"),
+	    value: (0, _utils.validateType)("FlowType"),
+	    static: (0, _utils.validate)((0, _utils.assertValueType)("boolean")),
+	    variance: (0, _utils.validateOptionalType)("Variance")
+	  }
+	});
+	(0, _utils.default)("ObjectTypeProperty", {
+	  visitor: ["key", "value", "variance"],
+	  aliases: ["Flow", "UserWhitespacable"],
+	  fields: {
+	    key: (0, _utils.validateType)(["Identifier", "StringLiteral"]),
+	    value: (0, _utils.validateType)("FlowType"),
+	    kind: (0, _utils.validate)((0, _utils.assertOneOf)("init", "get", "set")),
+	    static: (0, _utils.validate)((0, _utils.assertValueType)("boolean")),
+	    proto: (0, _utils.validate)((0, _utils.assertValueType)("boolean")),
+	    optional: (0, _utils.validate)((0, _utils.assertValueType)("boolean")),
+	    variance: (0, _utils.validateOptionalType)("Variance"),
+	    method: (0, _utils.validate)((0, _utils.assertValueType)("boolean"))
+	  }
+	});
+	(0, _utils.default)("ObjectTypeSpreadProperty", {
+	  visitor: ["argument"],
+	  aliases: ["Flow", "UserWhitespacable"],
+	  fields: {
+	    argument: (0, _utils.validateType)("FlowType")
+	  }
+	});
+	(0, _utils.default)("OpaqueType", {
+	  visitor: ["id", "typeParameters", "supertype", "impltype"],
+	  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
+	  fields: {
+	    id: (0, _utils.validateType)("Identifier"),
+	    typeParameters: (0, _utils.validateOptionalType)("TypeParameterDeclaration"),
+	    supertype: (0, _utils.validateOptionalType)("FlowType"),
+	    impltype: (0, _utils.validateType)("FlowType")
+	  }
+	});
+	(0, _utils.default)("QualifiedTypeIdentifier", {
+	  visitor: ["id", "qualification"],
+	  aliases: ["Flow"],
+	  fields: {
+	    id: (0, _utils.validateType)("Identifier"),
+	    qualification: (0, _utils.validateType)(["Identifier", "QualifiedTypeIdentifier"])
+	  }
+	});
+	(0, _utils.default)("StringLiteralTypeAnnotation", {
+	  builder: ["value"],
+	  aliases: ["Flow", "FlowType"],
+	  fields: {
+	    value: (0, _utils.validate)((0, _utils.assertValueType)("string"))
+	  }
+	});
+	(0, _utils.default)("StringTypeAnnotation", {
+	  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
+	});
+	(0, _utils.default)("SymbolTypeAnnotation", {
+	  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
+	});
+	(0, _utils.default)("ThisTypeAnnotation", {
+	  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
+	});
+	(0, _utils.default)("TupleTypeAnnotation", {
+	  visitor: ["types"],
+	  aliases: ["Flow", "FlowType"],
+	  fields: {
+	    types: (0, _utils.validate)((0, _utils.arrayOfType)("FlowType"))
+	  }
+	});
+	(0, _utils.default)("TypeofTypeAnnotation", {
+	  visitor: ["argument"],
+	  aliases: ["Flow", "FlowType"],
+	  fields: {
+	    argument: (0, _utils.validateType)("FlowType")
+	  }
+	});
+	(0, _utils.default)("TypeAlias", {
+	  visitor: ["id", "typeParameters", "right"],
+	  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
+	  fields: {
+	    id: (0, _utils.validateType)("Identifier"),
+	    typeParameters: (0, _utils.validateOptionalType)("TypeParameterDeclaration"),
+	    right: (0, _utils.validateType)("FlowType")
+	  }
+	});
+	(0, _utils.default)("TypeAnnotation", {
+	  aliases: ["Flow"],
+	  visitor: ["typeAnnotation"],
+	  fields: {
+	    typeAnnotation: (0, _utils.validateType)("FlowType")
+	  }
+	});
+	(0, _utils.default)("TypeCastExpression", {
+	  visitor: ["expression", "typeAnnotation"],
+	  aliases: ["Flow", "ExpressionWrapper", "Expression"],
+	  fields: {
+	    expression: (0, _utils.validateType)("Expression"),
+	    typeAnnotation: (0, _utils.validateType)("TypeAnnotation")
+	  }
+	});
+	(0, _utils.default)("TypeParameter", {
+	  aliases: ["Flow"],
+	  visitor: ["bound", "default", "variance"],
+	  fields: {
+	    name: (0, _utils.validate)((0, _utils.assertValueType)("string")),
+	    bound: (0, _utils.validateOptionalType)("TypeAnnotation"),
+	    default: (0, _utils.validateOptionalType)("FlowType"),
+	    variance: (0, _utils.validateOptionalType)("Variance")
+	  }
+	});
+	(0, _utils.default)("TypeParameterDeclaration", {
+	  aliases: ["Flow"],
+	  visitor: ["params"],
+	  fields: {
+	    params: (0, _utils.validate)((0, _utils.arrayOfType)("TypeParameter"))
+	  }
+	});
+	(0, _utils.default)("TypeParameterInstantiation", {
+	  aliases: ["Flow"],
+	  visitor: ["params"],
+	  fields: {
+	    params: (0, _utils.validate)((0, _utils.arrayOfType)("FlowType"))
+	  }
+	});
+	(0, _utils.default)("UnionTypeAnnotation", {
+	  visitor: ["types"],
+	  aliases: ["Flow", "FlowType"],
+	  fields: {
+	    types: (0, _utils.validate)((0, _utils.arrayOfType)("FlowType"))
+	  }
+	});
+	(0, _utils.default)("Variance", {
+	  aliases: ["Flow"],
+	  builder: ["kind"],
+	  fields: {
+	    kind: (0, _utils.validate)((0, _utils.assertOneOf)("minus", "plus"))
+	  }
+	});
+	(0, _utils.default)("VoidTypeAnnotation", {
+	  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
+	});
+	(0, _utils.default)("EnumDeclaration", {
+	  aliases: ["Statement", "Declaration"],
+	  visitor: ["id", "body"],
+	  fields: {
+	    id: (0, _utils.validateType)("Identifier"),
+	    body: (0, _utils.validateType)(["EnumBooleanBody", "EnumNumberBody", "EnumStringBody", "EnumSymbolBody"])
+	  }
+	});
+	(0, _utils.default)("EnumBooleanBody", {
+	  aliases: ["EnumBody"],
+	  visitor: ["members"],
+	  fields: {
+	    explicitType: (0, _utils.validate)((0, _utils.assertValueType)("boolean")),
+	    members: (0, _utils.validateArrayOfType)("EnumBooleanMember"),
+	    hasUnknownMembers: (0, _utils.validate)((0, _utils.assertValueType)("boolean"))
+	  }
+	});
+	(0, _utils.default)("EnumNumberBody", {
+	  aliases: ["EnumBody"],
+	  visitor: ["members"],
+	  fields: {
+	    explicitType: (0, _utils.validate)((0, _utils.assertValueType)("boolean")),
+	    members: (0, _utils.validateArrayOfType)("EnumNumberMember"),
+	    hasUnknownMembers: (0, _utils.validate)((0, _utils.assertValueType)("boolean"))
+	  }
+	});
+	(0, _utils.default)("EnumStringBody", {
+	  aliases: ["EnumBody"],
+	  visitor: ["members"],
+	  fields: {
+	    explicitType: (0, _utils.validate)((0, _utils.assertValueType)("boolean")),
+	    members: (0, _utils.validateArrayOfType)(["EnumStringMember", "EnumDefaultedMember"]),
+	    hasUnknownMembers: (0, _utils.validate)((0, _utils.assertValueType)("boolean"))
+	  }
+	});
+	(0, _utils.default)("EnumSymbolBody", {
+	  aliases: ["EnumBody"],
+	  visitor: ["members"],
+	  fields: {
+	    members: (0, _utils.validateArrayOfType)("EnumDefaultedMember"),
+	    hasUnknownMembers: (0, _utils.validate)((0, _utils.assertValueType)("boolean"))
+	  }
+	});
+	(0, _utils.default)("EnumBooleanMember", {
+	  aliases: ["EnumMember"],
+	  visitor: ["id"],
+	  fields: {
+	    id: (0, _utils.validateType)("Identifier"),
+	    init: (0, _utils.validateType)("BooleanLiteral")
+	  }
+	});
+	(0, _utils.default)("EnumNumberMember", {
+	  aliases: ["EnumMember"],
+	  visitor: ["id", "init"],
+	  fields: {
+	    id: (0, _utils.validateType)("Identifier"),
+	    init: (0, _utils.validateType)("NumericLiteral")
+	  }
+	});
+	(0, _utils.default)("EnumStringMember", {
+	  aliases: ["EnumMember"],
+	  visitor: ["id", "init"],
+	  fields: {
+	    id: (0, _utils.validateType)("Identifier"),
+	    init: (0, _utils.validateType)("StringLiteral")
+	  }
+	});
+	(0, _utils.default)("EnumDefaultedMember", {
+	  aliases: ["EnumMember"],
+	  visitor: ["id"],
+	  fields: {
+	    id: (0, _utils.validateType)("Identifier")
+	  }
+	});
+	(0, _utils.default)("IndexedAccessType", {
+	  visitor: ["objectType", "indexType"],
+	  aliases: ["Flow", "FlowType"],
+	  fields: {
+	    objectType: (0, _utils.validateType)("FlowType"),
+	    indexType: (0, _utils.validateType)("FlowType")
+	  }
+	});
+	(0, _utils.default)("OptionalIndexedAccessType", {
+	  visitor: ["objectType", "indexType"],
+	  aliases: ["Flow", "FlowType"],
+	  fields: {
+	    objectType: (0, _utils.validateType)("FlowType"),
+	    indexType: (0, _utils.validateType)("FlowType"),
+	    optional: (0, _utils.validate)((0, _utils.assertValueType)("boolean"))
+	  }
+	});
+	return flow$1;
 }
 
-function validate(validate) {
-  return {
-    validate
-  };
+var jsx$1 = {};
+
+var hasRequiredJsx;
+
+function requireJsx () {
+	if (hasRequiredJsx) return jsx$1;
+	hasRequiredJsx = 1;
+
+	var _utils = requireUtils();
+
+	(0, _utils.default)("JSXAttribute", {
+	  visitor: ["name", "value"],
+	  aliases: ["JSX", "Immutable"],
+	  fields: {
+	    name: {
+	      validate: (0, _utils.assertNodeType)("JSXIdentifier", "JSXNamespacedName")
+	    },
+	    value: {
+	      optional: true,
+	      validate: (0, _utils.assertNodeType)("JSXElement", "JSXFragment", "StringLiteral", "JSXExpressionContainer")
+	    }
+	  }
+	});
+	(0, _utils.default)("JSXClosingElement", {
+	  visitor: ["name"],
+	  aliases: ["JSX", "Immutable"],
+	  fields: {
+	    name: {
+	      validate: (0, _utils.assertNodeType)("JSXIdentifier", "JSXMemberExpression", "JSXNamespacedName")
+	    }
+	  }
+	});
+	(0, _utils.default)("JSXElement", {
+	  builder: ["openingElement", "closingElement", "children", "selfClosing"],
+	  visitor: ["openingElement", "children", "closingElement"],
+	  aliases: ["JSX", "Immutable", "Expression"],
+	  fields: {
+	    openingElement: {
+	      validate: (0, _utils.assertNodeType)("JSXOpeningElement")
+	    },
+	    closingElement: {
+	      optional: true,
+	      validate: (0, _utils.assertNodeType)("JSXClosingElement")
+	    },
+	    children: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("JSXText", "JSXExpressionContainer", "JSXSpreadChild", "JSXElement", "JSXFragment")))
+	    },
+	    selfClosing: {
+	      validate: (0, _utils.assertValueType)("boolean"),
+	      optional: true
+	    }
+	  }
+	});
+	(0, _utils.default)("JSXEmptyExpression", {
+	  aliases: ["JSX"]
+	});
+	(0, _utils.default)("JSXExpressionContainer", {
+	  visitor: ["expression"],
+	  aliases: ["JSX", "Immutable"],
+	  fields: {
+	    expression: {
+	      validate: (0, _utils.assertNodeType)("Expression", "JSXEmptyExpression")
+	    }
+	  }
+	});
+	(0, _utils.default)("JSXSpreadChild", {
+	  visitor: ["expression"],
+	  aliases: ["JSX", "Immutable"],
+	  fields: {
+	    expression: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    }
+	  }
+	});
+	(0, _utils.default)("JSXIdentifier", {
+	  builder: ["name"],
+	  aliases: ["JSX"],
+	  fields: {
+	    name: {
+	      validate: (0, _utils.assertValueType)("string")
+	    }
+	  }
+	});
+	(0, _utils.default)("JSXMemberExpression", {
+	  visitor: ["object", "property"],
+	  aliases: ["JSX"],
+	  fields: {
+	    object: {
+	      validate: (0, _utils.assertNodeType)("JSXMemberExpression", "JSXIdentifier")
+	    },
+	    property: {
+	      validate: (0, _utils.assertNodeType)("JSXIdentifier")
+	    }
+	  }
+	});
+	(0, _utils.default)("JSXNamespacedName", {
+	  visitor: ["namespace", "name"],
+	  aliases: ["JSX"],
+	  fields: {
+	    namespace: {
+	      validate: (0, _utils.assertNodeType)("JSXIdentifier")
+	    },
+	    name: {
+	      validate: (0, _utils.assertNodeType)("JSXIdentifier")
+	    }
+	  }
+	});
+	(0, _utils.default)("JSXOpeningElement", {
+	  builder: ["name", "attributes", "selfClosing"],
+	  visitor: ["name", "attributes"],
+	  aliases: ["JSX", "Immutable"],
+	  fields: {
+	    name: {
+	      validate: (0, _utils.assertNodeType)("JSXIdentifier", "JSXMemberExpression", "JSXNamespacedName")
+	    },
+	    selfClosing: {
+	      default: false
+	    },
+	    attributes: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("JSXAttribute", "JSXSpreadAttribute")))
+	    },
+	    typeParameters: {
+	      validate: (0, _utils.assertNodeType)("TypeParameterInstantiation", "TSTypeParameterInstantiation"),
+	      optional: true
+	    }
+	  }
+	});
+	(0, _utils.default)("JSXSpreadAttribute", {
+	  visitor: ["argument"],
+	  aliases: ["JSX"],
+	  fields: {
+	    argument: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    }
+	  }
+	});
+	(0, _utils.default)("JSXText", {
+	  aliases: ["JSX", "Immutable"],
+	  builder: ["value"],
+	  fields: {
+	    value: {
+	      validate: (0, _utils.assertValueType)("string")
+	    }
+	  }
+	});
+	(0, _utils.default)("JSXFragment", {
+	  builder: ["openingFragment", "closingFragment", "children"],
+	  visitor: ["openingFragment", "children", "closingFragment"],
+	  aliases: ["JSX", "Immutable", "Expression"],
+	  fields: {
+	    openingFragment: {
+	      validate: (0, _utils.assertNodeType)("JSXOpeningFragment")
+	    },
+	    closingFragment: {
+	      validate: (0, _utils.assertNodeType)("JSXClosingFragment")
+	    },
+	    children: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("JSXText", "JSXExpressionContainer", "JSXSpreadChild", "JSXElement", "JSXFragment")))
+	    }
+	  }
+	});
+	(0, _utils.default)("JSXOpeningFragment", {
+	  aliases: ["JSX", "Immutable"]
+	});
+	(0, _utils.default)("JSXClosingFragment", {
+	  aliases: ["JSX", "Immutable"]
+	});
+	return jsx$1;
 }
 
-function typeIs(typeName) {
-  return typeof typeName === "string" ? assertNodeType(typeName) : assertNodeType(...typeName);
-}
-
-function validateType(typeName) {
-  return validate(typeIs(typeName));
-}
-
-function validateOptional(validate) {
-  return {
-    validate,
-    optional: true
-  };
-}
-
-function validateOptionalType(typeName) {
-  return {
-    validate: typeIs(typeName),
-    optional: true
-  };
-}
-
-function arrayOf(elementType) {
-  return chain(assertValueType("array"), assertEach(elementType));
-}
-
-function arrayOfType(typeName) {
-  return arrayOf(typeIs(typeName));
-}
-
-function validateArrayOfType(typeName) {
-  return validate(arrayOfType(typeName));
-}
-
-function assertEach(callback) {
-  function validator(node, key, val) {
-    if (!Array.isArray(val)) return;
-
-    for (let i = 0; i < val.length; i++) {
-      const subkey = `${key}[${i}]`;
-      const v = val[i];
-      callback(node, subkey, v);
-    }
-  }
-
-  validator.each = callback;
-  return validator;
-}
-
-function assertOneOf(...values) {
-  function validate(node, key, val) {
-    if (values.indexOf(val) < 0) {
-      throw new TypeError(`Property ${key} expected value to be one of ${JSON.stringify(values)} but got ${JSON.stringify(val)}`);
-    }
-  }
-
-  validate.oneOf = values;
-  return validate;
-}
-
-function assertNodeType(...types) {
-  function validate(node, key, val) {
-    for (const type of types) {
-      if ((0, _is$2.default)(type, val)) {
-        (0, _validate$1.validateChild)(node, key, val);
-        return;
-      }
-    }
-
-    throw new TypeError(`Property ${key} of ${node.type} expected node to be of a type ${JSON.stringify(types)} but instead got ${JSON.stringify(val == null ? void 0 : val.type)}`);
-  }
-
-  validate.oneOfNodeTypes = types;
-  return validate;
-}
-
-function assertNodeOrValueType(...types) {
-  function validate(node, key, val) {
-    for (const type of types) {
-      if (getType(val) === type || (0, _is$2.default)(type, val)) {
-        (0, _validate$1.validateChild)(node, key, val);
-        return;
-      }
-    }
-
-    throw new TypeError(`Property ${key} of ${node.type} expected node to be of a type ${JSON.stringify(types)} but instead got ${JSON.stringify(val == null ? void 0 : val.type)}`);
-  }
-
-  validate.oneOfNodeOrValueTypes = types;
-  return validate;
-}
-
-function assertValueType(type) {
-  function validate(node, key, val) {
-    const valid = getType(val) === type;
-
-    if (!valid) {
-      throw new TypeError(`Property ${key} expected type of ${type} but got ${getType(val)}`);
-    }
-  }
-
-  validate.type = type;
-  return validate;
-}
-
-function assertShape(shape) {
-  function validate(node, key, val) {
-    const errors = [];
-
-    for (const property of Object.keys(shape)) {
-      try {
-        (0, _validate$1.validateField)(node, property, val[property], shape[property]);
-      } catch (error) {
-        if (error instanceof TypeError) {
-          errors.push(error.message);
-          continue;
-        }
-
-        throw error;
-      }
-    }
-
-    if (errors.length) {
-      throw new TypeError(`Property ${key} of ${node.type} expected to have the following:\n${errors.join("\n")}`);
-    }
-  }
-
-  validate.shapeOf = shape;
-  return validate;
-}
-
-function assertOptionalChainStart() {
-  function validate(node) {
-    var _current;
-
-    let current = node;
-
-    while (node) {
-      const {
-        type
-      } = current;
-
-      if (type === "OptionalCallExpression") {
-        if (current.optional) return;
-        current = current.callee;
-        continue;
-      }
-
-      if (type === "OptionalMemberExpression") {
-        if (current.optional) return;
-        current = current.object;
-        continue;
-      }
-
-      break;
-    }
-
-    throw new TypeError(`Non-optional ${node.type} must chain from an optional OptionalMemberExpression or OptionalCallExpression. Found chain from ${(_current = current) == null ? void 0 : _current.type}`);
-  }
-
-  return validate;
-}
-
-function chain(...fns) {
-  function validate(...args) {
-    for (const fn of fns) {
-      fn(...args);
-    }
-  }
-
-  validate.chainOf = fns;
-
-  if (fns.length >= 2 && "type" in fns[0] && fns[0].type === "array" && !("each" in fns[1])) {
-    throw new Error(`An assertValueType("array") validator can only be followed by an assertEach(...) validator.`);
-  }
-
-  return validate;
-}
-
-const validTypeOpts = ["aliases", "builder", "deprecatedAlias", "fields", "inherits", "visitor", "validate"];
-const validFieldKeys = ["default", "optional", "validate"];
-
-function defineType(type, opts = {}) {
-  const inherits = opts.inherits && store[opts.inherits] || {};
-  let fields = opts.fields;
-
-  if (!fields) {
-    fields = {};
-
-    if (inherits.fields) {
-      const keys = Object.getOwnPropertyNames(inherits.fields);
-
-      for (const key of keys) {
-        const field = inherits.fields[key];
-        const def = field.default;
-
-        if (Array.isArray(def) ? def.length > 0 : def && typeof def === "object") {
-          throw new Error("field defaults can only be primitives or empty arrays currently");
-        }
-
-        fields[key] = {
-          default: Array.isArray(def) ? [] : def,
-          optional: field.optional,
-          validate: field.validate
-        };
-      }
-    }
-  }
-
-  const visitor = opts.visitor || inherits.visitor || [];
-  const aliases = opts.aliases || inherits.aliases || [];
-  const builder = opts.builder || inherits.builder || opts.visitor || [];
-
-  for (const k of Object.keys(opts)) {
-    if (validTypeOpts.indexOf(k) === -1) {
-      throw new Error(`Unknown type option "${k}" on ${type}`);
-    }
-  }
-
-  if (opts.deprecatedAlias) {
-    DEPRECATED_KEYS[opts.deprecatedAlias] = type;
-  }
-
-  for (const key of visitor.concat(builder)) {
-    fields[key] = fields[key] || {};
-  }
-
-  for (const key of Object.keys(fields)) {
-    const field = fields[key];
-
-    if (field.default !== undefined && builder.indexOf(key) === -1) {
-      field.optional = true;
-    }
-
-    if (field.default === undefined) {
-      field.default = null;
-    } else if (!field.validate && field.default != null) {
-      field.validate = assertValueType(getType(field.default));
-    }
-
-    for (const k of Object.keys(field)) {
-      if (validFieldKeys.indexOf(k) === -1) {
-        throw new Error(`Unknown field key "${k}" on ${type}.${key}`);
-      }
-    }
-  }
-
-  VISITOR_KEYS[type] = opts.visitor = visitor;
-  BUILDER_KEYS[type] = opts.builder = builder;
-  NODE_FIELDS[type] = opts.fields = fields;
-  ALIAS_KEYS[type] = opts.aliases = aliases;
-  aliases.forEach(alias => {
-    FLIPPED_ALIAS_KEYS[alias] = FLIPPED_ALIAS_KEYS[alias] || [];
-    FLIPPED_ALIAS_KEYS[alias].push(type);
-  });
-
-  if (opts.validate) {
-    NODE_PARENT_VALIDATIONS[type] = opts.validate;
-  }
-
-  store[type] = opts;
-}
-
-const store = {};
-
-Object.defineProperty(core, "__esModule", {
-  value: true
-});
-core.classMethodOrDeclareMethodCommon = core.classMethodOrPropertyCommon = core.patternLikeCommon = core.functionDeclarationCommon = core.functionTypeAnnotationCommon = core.functionCommon = void 0;
-
-var _constants$5 = constants;
-
-var _utils$6 = utils;
-
-(0, _utils$6.default)("ArrayExpression", {
-  fields: {
-    elements: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeOrValueType)("null", "Expression", "SpreadElement"))),
-      default: [] 
-    }
-  },
-  visitor: ["elements"],
-  aliases: ["Expression"]
-});
-(0, _utils$6.default)("AssignmentExpression", {
-  fields: {
-    operator: {
-      validate: function () {
-        {
-          return (0, _utils$6.assertValueType)("string");
-        }
-      }()
-    },
-    left: {
-      validate: (0, _utils$6.assertNodeType)("LVal") 
-    },
-    right: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    }
-  },
-  builder: ["operator", "left", "right"],
-  visitor: ["left", "right"],
-  aliases: ["Expression"]
-});
-(0, _utils$6.default)("BinaryExpression", {
-  builder: ["operator", "left", "right"],
-  fields: {
-    operator: {
-      validate: (0, _utils$6.assertOneOf)(..._constants$5.BINARY_OPERATORS)
-    },
-    left: {
-      validate: function () {
-        const expression = (0, _utils$6.assertNodeType)("Expression");
-        const inOp = (0, _utils$6.assertNodeType)("Expression", "PrivateName");
-
-        const validator = function (node, key, val) {
-          const validator = node.operator === "in" ? inOp : expression;
-          validator(node, key, val);
-        };
-
-        validator.oneOfNodeTypes = ["Expression", "PrivateName"];
-        return validator;
-      }()
-    },
-    right: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    }
-  },
-  visitor: ["left", "right"],
-  aliases: ["Binary", "Expression"]
-});
-(0, _utils$6.default)("InterpreterDirective", {
-  builder: ["value"],
-  fields: {
-    value: {
-      validate: (0, _utils$6.assertValueType)("string")
-    }
-  }
-});
-(0, _utils$6.default)("Directive", {
-  visitor: ["value"],
-  fields: {
-    value: {
-      validate: (0, _utils$6.assertNodeType)("DirectiveLiteral")
-    }
-  }
-});
-(0, _utils$6.default)("DirectiveLiteral", {
-  builder: ["value"],
-  fields: {
-    value: {
-      validate: (0, _utils$6.assertValueType)("string")
-    }
-  }
-});
-(0, _utils$6.default)("BlockStatement", {
-  builder: ["body", "directives"],
-  visitor: ["directives", "body"],
-  fields: {
-    directives: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Directive"))),
-      default: []
-    },
-    body: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Statement")))
-    }
-  },
-  aliases: ["Scopable", "BlockParent", "Block", "Statement"]
-});
-(0, _utils$6.default)("BreakStatement", {
-  visitor: ["label"],
-  fields: {
-    label: {
-      validate: (0, _utils$6.assertNodeType)("Identifier"),
-      optional: true
-    }
-  },
-  aliases: ["Statement", "Terminatorless", "CompletionStatement"]
-});
-(0, _utils$6.default)("CallExpression", {
-  visitor: ["callee", "arguments", "typeParameters", "typeArguments"],
-  builder: ["callee", "arguments"],
-  aliases: ["Expression"],
-  fields: Object.assign({
-    callee: {
-      validate: (0, _utils$6.assertNodeType)("Expression", "V8IntrinsicIdentifier")
-    },
-    arguments: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Expression", "SpreadElement", "JSXNamespacedName", "ArgumentPlaceholder")))
-    }
-  }, {
-    optional: {
-      validate: (0, _utils$6.assertOneOf)(true, false),
-      optional: true
-    }
-  } , {
-    typeArguments: {
-      validate: (0, _utils$6.assertNodeType)("TypeParameterInstantiation"),
-      optional: true
-    },
-    typeParameters: {
-      validate: (0, _utils$6.assertNodeType)("TSTypeParameterInstantiation"),
-      optional: true
-    }
-  })
-});
-(0, _utils$6.default)("CatchClause", {
-  visitor: ["param", "body"],
-  fields: {
-    param: {
-      validate: (0, _utils$6.assertNodeType)("Identifier", "ArrayPattern", "ObjectPattern"),
-      optional: true
-    },
-    body: {
-      validate: (0, _utils$6.assertNodeType)("BlockStatement")
-    }
-  },
-  aliases: ["Scopable", "BlockParent"]
-});
-(0, _utils$6.default)("ConditionalExpression", {
-  visitor: ["test", "consequent", "alternate"],
-  fields: {
-    test: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    },
-    consequent: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    },
-    alternate: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    }
-  },
-  aliases: ["Expression", "Conditional"]
-});
-(0, _utils$6.default)("ContinueStatement", {
-  visitor: ["label"],
-  fields: {
-    label: {
-      validate: (0, _utils$6.assertNodeType)("Identifier"),
-      optional: true
-    }
-  },
-  aliases: ["Statement", "Terminatorless", "CompletionStatement"]
-});
-(0, _utils$6.default)("DebuggerStatement", {
-  aliases: ["Statement"]
-});
-(0, _utils$6.default)("DoWhileStatement", {
-  visitor: ["test", "body"],
-  fields: {
-    test: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    },
-    body: {
-      validate: (0, _utils$6.assertNodeType)("Statement")
-    }
-  },
-  aliases: ["Statement", "BlockParent", "Loop", "While", "Scopable"]
-});
-(0, _utils$6.default)("EmptyStatement", {
-  aliases: ["Statement"]
-});
-(0, _utils$6.default)("ExpressionStatement", {
-  visitor: ["expression"],
-  fields: {
-    expression: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    }
-  },
-  aliases: ["Statement", "ExpressionWrapper"]
-});
-(0, _utils$6.default)("File", {
-  builder: ["program", "comments", "tokens"],
-  visitor: ["program"],
-  fields: {
-    program: {
-      validate: (0, _utils$6.assertNodeType)("Program")
-    },
-    comments: {
-      validate: Object.assign(() => {}, {
-        each: {
-          oneOfNodeTypes: ["CommentBlock", "CommentLine"]
-        }
-      }) ,
-      optional: true
-    },
-    tokens: {
-      validate: (0, _utils$6.assertEach)(Object.assign(() => {}, {
-        type: "any"
-      })),
-      optional: true
-    }
-  }
-});
-(0, _utils$6.default)("ForInStatement", {
-  visitor: ["left", "right", "body"],
-  aliases: ["Scopable", "Statement", "For", "BlockParent", "Loop", "ForXStatement"],
-  fields: {
-    left: {
-      validate: (0, _utils$6.assertNodeType)("VariableDeclaration", "LVal") 
-    },
-    right: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    },
-    body: {
-      validate: (0, _utils$6.assertNodeType)("Statement")
-    }
-  }
-});
-(0, _utils$6.default)("ForStatement", {
-  visitor: ["init", "test", "update", "body"],
-  aliases: ["Scopable", "Statement", "For", "BlockParent", "Loop"],
-  fields: {
-    init: {
-      validate: (0, _utils$6.assertNodeType)("VariableDeclaration", "Expression"),
-      optional: true
-    },
-    test: {
-      validate: (0, _utils$6.assertNodeType)("Expression"),
-      optional: true
-    },
-    update: {
-      validate: (0, _utils$6.assertNodeType)("Expression"),
-      optional: true
-    },
-    body: {
-      validate: (0, _utils$6.assertNodeType)("Statement")
-    }
-  }
-});
-const functionCommon = {
-  params: {
-    validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Identifier", "Pattern", "RestElement")))
-  },
-  generator: {
-    default: false
-  },
-  async: {
-    default: false
-  }
-};
-core.functionCommon = functionCommon;
-const functionTypeAnnotationCommon = {
-  returnType: {
-    validate: (0, _utils$6.assertNodeType)("TypeAnnotation", "TSTypeAnnotation", "Noop"),
-    optional: true
-  },
-  typeParameters: {
-    validate: (0, _utils$6.assertNodeType)("TypeParameterDeclaration", "TSTypeParameterDeclaration", "Noop"),
-    optional: true
-  }
-};
-core.functionTypeAnnotationCommon = functionTypeAnnotationCommon;
-const functionDeclarationCommon = Object.assign({}, functionCommon, {
-  declare: {
-    validate: (0, _utils$6.assertValueType)("boolean"),
-    optional: true
-  },
-  id: {
-    validate: (0, _utils$6.assertNodeType)("Identifier"),
-    optional: true
-  }
-});
-core.functionDeclarationCommon = functionDeclarationCommon;
-(0, _utils$6.default)("FunctionDeclaration", {
-  builder: ["id", "params", "body", "generator", "async"],
-  visitor: ["id", "params", "body", "returnType", "typeParameters"],
-  fields: Object.assign({}, functionDeclarationCommon, functionTypeAnnotationCommon, {
-    body: {
-      validate: (0, _utils$6.assertNodeType)("BlockStatement")
-    }
-  }),
-  aliases: ["Scopable", "Function", "BlockParent", "FunctionParent", "Statement", "Pureish", "Declaration"],
-  validate: function () {
-    return () => {};
-  }()
-});
-(0, _utils$6.default)("FunctionExpression", {
-  inherits: "FunctionDeclaration",
-  aliases: ["Scopable", "Function", "BlockParent", "FunctionParent", "Expression", "Pureish"],
-  fields: Object.assign({}, functionCommon, functionTypeAnnotationCommon, {
-    id: {
-      validate: (0, _utils$6.assertNodeType)("Identifier"),
-      optional: true
-    },
-    body: {
-      validate: (0, _utils$6.assertNodeType)("BlockStatement")
-    }
-  })
-});
-const patternLikeCommon = {
-  typeAnnotation: {
-    validate: (0, _utils$6.assertNodeType)("TypeAnnotation", "TSTypeAnnotation", "Noop"),
-    optional: true
-  },
-  decorators: {
-    validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Decorator")))
-  }
-};
-core.patternLikeCommon = patternLikeCommon;
-(0, _utils$6.default)("Identifier", {
-  builder: ["name"],
-  visitor: ["typeAnnotation", "decorators"],
-  aliases: ["Expression", "PatternLike", "LVal", "TSEntityName"],
-  fields: Object.assign({}, patternLikeCommon, {
-    name: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("string"), Object.assign(function (node, key, val) {
-        return;
-      }, {
-        type: "string"
-      }))
-    },
-    optional: {
-      validate: (0, _utils$6.assertValueType)("boolean"),
-      optional: true
-    }
-  }),
-
-  validate(parent, key, node) {
-    return;
-  }
-
-});
-(0, _utils$6.default)("IfStatement", {
-  visitor: ["test", "consequent", "alternate"],
-  aliases: ["Statement", "Conditional"],
-  fields: {
-    test: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    },
-    consequent: {
-      validate: (0, _utils$6.assertNodeType)("Statement")
-    },
-    alternate: {
-      optional: true,
-      validate: (0, _utils$6.assertNodeType)("Statement")
-    }
-  }
-});
-(0, _utils$6.default)("LabeledStatement", {
-  visitor: ["label", "body"],
-  aliases: ["Statement"],
-  fields: {
-    label: {
-      validate: (0, _utils$6.assertNodeType)("Identifier")
-    },
-    body: {
-      validate: (0, _utils$6.assertNodeType)("Statement")
-    }
-  }
-});
-(0, _utils$6.default)("StringLiteral", {
-  builder: ["value"],
-  fields: {
-    value: {
-      validate: (0, _utils$6.assertValueType)("string")
-    }
-  },
-  aliases: ["Expression", "Pureish", "Literal", "Immutable"]
-});
-(0, _utils$6.default)("NumericLiteral", {
-  builder: ["value"],
-  deprecatedAlias: "NumberLiteral",
-  fields: {
-    value: {
-      validate: (0, _utils$6.assertValueType)("number")
-    }
-  },
-  aliases: ["Expression", "Pureish", "Literal", "Immutable"]
-});
-(0, _utils$6.default)("NullLiteral", {
-  aliases: ["Expression", "Pureish", "Literal", "Immutable"]
-});
-(0, _utils$6.default)("BooleanLiteral", {
-  builder: ["value"],
-  fields: {
-    value: {
-      validate: (0, _utils$6.assertValueType)("boolean")
-    }
-  },
-  aliases: ["Expression", "Pureish", "Literal", "Immutable"]
-});
-(0, _utils$6.default)("RegExpLiteral", {
-  builder: ["pattern", "flags"],
-  deprecatedAlias: "RegexLiteral",
-  aliases: ["Expression", "Pureish", "Literal"],
-  fields: {
-    pattern: {
-      validate: (0, _utils$6.assertValueType)("string")
-    },
-    flags: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("string"), Object.assign(function (node, key, val) {
-        return;
-      }, {
-        type: "string"
-      })),
-      default: ""
-    }
-  }
-});
-(0, _utils$6.default)("LogicalExpression", {
-  builder: ["operator", "left", "right"],
-  visitor: ["left", "right"],
-  aliases: ["Binary", "Expression"],
-  fields: {
-    operator: {
-      validate: (0, _utils$6.assertOneOf)(..._constants$5.LOGICAL_OPERATORS)
-    },
-    left: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    },
-    right: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    }
-  }
-});
-(0, _utils$6.default)("MemberExpression", {
-  builder: ["object", "property", "computed", ...(["optional"] )],
-  visitor: ["object", "property"],
-  aliases: ["Expression", "LVal"],
-  fields: Object.assign({
-    object: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    },
-    property: {
-      validate: function () {
-        const normal = (0, _utils$6.assertNodeType)("Identifier", "PrivateName");
-        const computed = (0, _utils$6.assertNodeType)("Expression");
-
-        const validator = function (node, key, val) {
-          const validator = node.computed ? computed : normal;
-          validator(node, key, val);
-        };
-
-        validator.oneOfNodeTypes = ["Expression", "Identifier", "PrivateName"];
-        return validator;
-      }()
-    },
-    computed: {
-      default: false
-    }
-  }, {
-    optional: {
-      validate: (0, _utils$6.assertOneOf)(true, false),
-      optional: true
-    }
-  } )
-});
-(0, _utils$6.default)("NewExpression", {
-  inherits: "CallExpression"
-});
-(0, _utils$6.default)("Program", {
-  visitor: ["directives", "body"],
-  builder: ["body", "directives", "sourceType", "interpreter"],
-  fields: {
-    sourceFile: {
-      validate: (0, _utils$6.assertValueType)("string")
-    },
-    sourceType: {
-      validate: (0, _utils$6.assertOneOf)("script", "module"),
-      default: "script"
-    },
-    interpreter: {
-      validate: (0, _utils$6.assertNodeType)("InterpreterDirective"),
-      default: null,
-      optional: true
-    },
-    directives: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Directive"))),
-      default: []
-    },
-    body: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Statement")))
-    }
-  },
-  aliases: ["Scopable", "BlockParent", "Block"]
-});
-(0, _utils$6.default)("ObjectExpression", {
-  visitor: ["properties"],
-  aliases: ["Expression"],
-  fields: {
-    properties: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("ObjectMethod", "ObjectProperty", "SpreadElement")))
-    }
-  }
-});
-(0, _utils$6.default)("ObjectMethod", {
-  builder: ["kind", "key", "params", "body", "computed", "generator", "async"],
-  fields: Object.assign({}, functionCommon, functionTypeAnnotationCommon, {
-    kind: Object.assign({
-      validate: (0, _utils$6.assertOneOf)("method", "get", "set")
-    }, {
-      default: "method"
-    } ),
-    computed: {
-      default: false
-    },
-    key: {
-      validate: function () {
-        const normal = (0, _utils$6.assertNodeType)("Identifier", "StringLiteral", "NumericLiteral");
-        const computed = (0, _utils$6.assertNodeType)("Expression");
-
-        const validator = function (node, key, val) {
-          const validator = node.computed ? computed : normal;
-          validator(node, key, val);
-        };
-
-        validator.oneOfNodeTypes = ["Expression", "Identifier", "StringLiteral", "NumericLiteral"];
-        return validator;
-      }()
-    },
-    decorators: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Decorator"))),
-      optional: true
-    },
-    body: {
-      validate: (0, _utils$6.assertNodeType)("BlockStatement")
-    }
-  }),
-  visitor: ["key", "params", "body", "decorators", "returnType", "typeParameters"],
-  aliases: ["UserWhitespacable", "Function", "Scopable", "BlockParent", "FunctionParent", "Method", "ObjectMember"]
-});
-(0, _utils$6.default)("ObjectProperty", {
-  builder: ["key", "value", "computed", "shorthand", ...(["decorators"] )],
-  fields: {
-    computed: {
-      default: false
-    },
-    key: {
-      validate: function () {
-        const normal = (0, _utils$6.assertNodeType)("Identifier", "StringLiteral", "NumericLiteral");
-        const computed = (0, _utils$6.assertNodeType)("Expression");
-
-        const validator = function (node, key, val) {
-          const validator = node.computed ? computed : normal;
-          validator(node, key, val);
-        };
-
-        validator.oneOfNodeTypes = ["Expression", "Identifier", "StringLiteral", "NumericLiteral"];
-        return validator;
-      }()
-    },
-    value: {
-      validate: (0, _utils$6.assertNodeType)("Expression", "PatternLike")
-    },
-    shorthand: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("boolean"), Object.assign(function (node, key, val) {
-        return;
-      }, {
-        type: "boolean"
-      }), function (node, key, val) {
-        return;
-      }),
-      default: false
-    },
-    decorators: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Decorator"))),
-      optional: true
-    }
-  },
-  visitor: ["key", "value", "decorators"],
-  aliases: ["UserWhitespacable", "Property", "ObjectMember"],
-  validate: function () {
-    (0, _utils$6.assertNodeType)("Identifier", "Pattern");
-    (0, _utils$6.assertNodeType)("Expression");
-    return function (parent, key, node) {
-      return;
-    };
-  }()
-});
-(0, _utils$6.default)("RestElement", {
-  visitor: ["argument", "typeAnnotation"],
-  builder: ["argument"],
-  aliases: ["LVal", "PatternLike"],
-  deprecatedAlias: "RestProperty",
-  fields: Object.assign({}, patternLikeCommon, {
-    argument: {
-      validate: (0, _utils$6.assertNodeType)("LVal") 
-    },
-    optional: {
-      validate: (0, _utils$6.assertValueType)("boolean"),
-      optional: true
-    }
-  }),
-
-  validate(parent, key) {
-    return;
-  }
-
-});
-(0, _utils$6.default)("ReturnStatement", {
-  visitor: ["argument"],
-  aliases: ["Statement", "Terminatorless", "CompletionStatement"],
-  fields: {
-    argument: {
-      validate: (0, _utils$6.assertNodeType)("Expression"),
-      optional: true
-    }
-  }
-});
-(0, _utils$6.default)("SequenceExpression", {
-  visitor: ["expressions"],
-  fields: {
-    expressions: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Expression")))
-    }
-  },
-  aliases: ["Expression"]
-});
-(0, _utils$6.default)("ParenthesizedExpression", {
-  visitor: ["expression"],
-  aliases: ["Expression", "ExpressionWrapper"],
-  fields: {
-    expression: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    }
-  }
-});
-(0, _utils$6.default)("SwitchCase", {
-  visitor: ["test", "consequent"],
-  fields: {
-    test: {
-      validate: (0, _utils$6.assertNodeType)("Expression"),
-      optional: true
-    },
-    consequent: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Statement")))
-    }
-  }
-});
-(0, _utils$6.default)("SwitchStatement", {
-  visitor: ["discriminant", "cases"],
-  aliases: ["Statement", "BlockParent", "Scopable"],
-  fields: {
-    discriminant: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    },
-    cases: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("SwitchCase")))
-    }
-  }
-});
-(0, _utils$6.default)("ThisExpression", {
-  aliases: ["Expression"]
-});
-(0, _utils$6.default)("ThrowStatement", {
-  visitor: ["argument"],
-  aliases: ["Statement", "Terminatorless", "CompletionStatement"],
-  fields: {
-    argument: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    }
-  }
-});
-(0, _utils$6.default)("TryStatement", {
-  visitor: ["block", "handler", "finalizer"],
-  aliases: ["Statement"],
-  fields: {
-    block: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertNodeType)("BlockStatement"), Object.assign(function (node) {
-        return;
-      }, {
-        oneOfNodeTypes: ["BlockStatement"]
-      }))
-    },
-    handler: {
-      optional: true,
-      validate: (0, _utils$6.assertNodeType)("CatchClause")
-    },
-    finalizer: {
-      optional: true,
-      validate: (0, _utils$6.assertNodeType)("BlockStatement")
-    }
-  }
-});
-(0, _utils$6.default)("UnaryExpression", {
-  builder: ["operator", "argument", "prefix"],
-  fields: {
-    prefix: {
-      default: true
-    },
-    argument: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    },
-    operator: {
-      validate: (0, _utils$6.assertOneOf)(..._constants$5.UNARY_OPERATORS)
-    }
-  },
-  visitor: ["argument"],
-  aliases: ["UnaryLike", "Expression"]
-});
-(0, _utils$6.default)("UpdateExpression", {
-  builder: ["operator", "argument", "prefix"],
-  fields: {
-    prefix: {
-      default: false
-    },
-    argument: {
-      validate: (0, _utils$6.assertNodeType)("Expression") 
-    },
-    operator: {
-      validate: (0, _utils$6.assertOneOf)(..._constants$5.UPDATE_OPERATORS)
-    }
-  },
-  visitor: ["argument"],
-  aliases: ["Expression"]
-});
-(0, _utils$6.default)("VariableDeclaration", {
-  builder: ["kind", "declarations"],
-  visitor: ["declarations"],
-  aliases: ["Statement", "Declaration"],
-  fields: {
-    declare: {
-      validate: (0, _utils$6.assertValueType)("boolean"),
-      optional: true
-    },
-    kind: {
-      validate: (0, _utils$6.assertOneOf)("var", "let", "const")
-    },
-    declarations: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("VariableDeclarator")))
-    }
-  },
-
-  validate(parent, key, node) {
-    return;
-  }
-
-});
-(0, _utils$6.default)("VariableDeclarator", {
-  visitor: ["id", "init"],
-  fields: {
-    id: {
-      validate: function () {
-        {
-          return (0, _utils$6.assertNodeType)("LVal");
-        }
-      }()
-    },
-    definite: {
-      optional: true,
-      validate: (0, _utils$6.assertValueType)("boolean")
-    },
-    init: {
-      optional: true,
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    }
-  }
-});
-(0, _utils$6.default)("WhileStatement", {
-  visitor: ["test", "body"],
-  aliases: ["Statement", "BlockParent", "Loop", "While", "Scopable"],
-  fields: {
-    test: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    },
-    body: {
-      validate: (0, _utils$6.assertNodeType)("Statement")
-    }
-  }
-});
-(0, _utils$6.default)("WithStatement", {
-  visitor: ["object", "body"],
-  aliases: ["Statement"],
-  fields: {
-    object: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    },
-    body: {
-      validate: (0, _utils$6.assertNodeType)("Statement")
-    }
-  }
-});
-(0, _utils$6.default)("AssignmentPattern", {
-  visitor: ["left", "right", "decorators"],
-  builder: ["left", "right"],
-  aliases: ["Pattern", "PatternLike", "LVal"],
-  fields: Object.assign({}, patternLikeCommon, {
-    left: {
-      validate: (0, _utils$6.assertNodeType)("Identifier", "ObjectPattern", "ArrayPattern", "MemberExpression")
-    },
-    right: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    },
-    decorators: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Decorator"))),
-      optional: true
-    }
-  })
-});
-(0, _utils$6.default)("ArrayPattern", {
-  visitor: ["elements", "typeAnnotation"],
-  builder: ["elements"],
-  aliases: ["Pattern", "PatternLike", "LVal"],
-  fields: Object.assign({}, patternLikeCommon, {
-    elements: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeOrValueType)("null", "PatternLike")))
-    },
-    decorators: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Decorator"))),
-      optional: true
-    },
-    optional: {
-      validate: (0, _utils$6.assertValueType)("boolean"),
-      optional: true
-    }
-  })
-});
-(0, _utils$6.default)("ArrowFunctionExpression", {
-  builder: ["params", "body", "async"],
-  visitor: ["params", "body", "returnType", "typeParameters"],
-  aliases: ["Scopable", "Function", "BlockParent", "FunctionParent", "Expression", "Pureish"],
-  fields: Object.assign({}, functionCommon, functionTypeAnnotationCommon, {
-    expression: {
-      validate: (0, _utils$6.assertValueType)("boolean")
-    },
-    body: {
-      validate: (0, _utils$6.assertNodeType)("BlockStatement", "Expression")
-    }
-  })
-});
-(0, _utils$6.default)("ClassBody", {
-  visitor: ["body"],
-  fields: {
-    body: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("ClassMethod", "ClassPrivateMethod", "ClassProperty", "ClassPrivateProperty", "TSDeclareMethod", "TSIndexSignature")))
-    }
-  }
-});
-(0, _utils$6.default)("ClassExpression", {
-  builder: ["id", "superClass", "body", "decorators"],
-  visitor: ["id", "body", "superClass", "mixins", "typeParameters", "superTypeParameters", "implements", "decorators"],
-  aliases: ["Scopable", "Class", "Expression"],
-  fields: {
-    id: {
-      validate: (0, _utils$6.assertNodeType)("Identifier"),
-      optional: true
-    },
-    typeParameters: {
-      validate: (0, _utils$6.assertNodeType)("TypeParameterDeclaration", "TSTypeParameterDeclaration", "Noop"),
-      optional: true
-    },
-    body: {
-      validate: (0, _utils$6.assertNodeType)("ClassBody")
-    },
-    superClass: {
-      optional: true,
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    },
-    superTypeParameters: {
-      validate: (0, _utils$6.assertNodeType)("TypeParameterInstantiation", "TSTypeParameterInstantiation"),
-      optional: true
-    },
-    implements: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("TSExpressionWithTypeArguments", "ClassImplements"))),
-      optional: true
-    },
-    decorators: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Decorator"))),
-      optional: true
-    },
-    mixins: {
-      validate: (0, _utils$6.assertNodeType)("InterfaceExtends"),
-      optional: true
-    }
-  }
-});
-(0, _utils$6.default)("ClassDeclaration", {
-  inherits: "ClassExpression",
-  aliases: ["Scopable", "Class", "Statement", "Declaration"],
-  fields: {
-    id: {
-      validate: (0, _utils$6.assertNodeType)("Identifier")
-    },
-    typeParameters: {
-      validate: (0, _utils$6.assertNodeType)("TypeParameterDeclaration", "TSTypeParameterDeclaration", "Noop"),
-      optional: true
-    },
-    body: {
-      validate: (0, _utils$6.assertNodeType)("ClassBody")
-    },
-    superClass: {
-      optional: true,
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    },
-    superTypeParameters: {
-      validate: (0, _utils$6.assertNodeType)("TypeParameterInstantiation", "TSTypeParameterInstantiation"),
-      optional: true
-    },
-    implements: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("TSExpressionWithTypeArguments", "ClassImplements"))),
-      optional: true
-    },
-    decorators: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Decorator"))),
-      optional: true
-    },
-    mixins: {
-      validate: (0, _utils$6.assertNodeType)("InterfaceExtends"),
-      optional: true
-    },
-    declare: {
-      validate: (0, _utils$6.assertValueType)("boolean"),
-      optional: true
-    },
-    abstract: {
-      validate: (0, _utils$6.assertValueType)("boolean"),
-      optional: true
-    }
-  },
-  validate: function () {
-    (0, _utils$6.assertNodeType)("Identifier");
-    return function (parent, key, node) {
-      return;
-    };
-  }()
-});
-(0, _utils$6.default)("ExportAllDeclaration", {
-  visitor: ["source"],
-  aliases: ["Statement", "Declaration", "ModuleDeclaration", "ExportDeclaration"],
-  fields: {
-    source: {
-      validate: (0, _utils$6.assertNodeType)("StringLiteral")
-    },
-    exportKind: (0, _utils$6.validateOptional)((0, _utils$6.assertOneOf)("type", "value")),
-    assertions: {
-      optional: true,
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("ImportAttribute")))
-    }
-  }
-});
-(0, _utils$6.default)("ExportDefaultDeclaration", {
-  visitor: ["declaration"],
-  aliases: ["Statement", "Declaration", "ModuleDeclaration", "ExportDeclaration"],
-  fields: {
-    declaration: {
-      validate: (0, _utils$6.assertNodeType)("FunctionDeclaration", "TSDeclareFunction", "ClassDeclaration", "Expression")
-    },
-    exportKind: (0, _utils$6.validateOptional)((0, _utils$6.assertOneOf)("value"))
-  }
-});
-(0, _utils$6.default)("ExportNamedDeclaration", {
-  visitor: ["declaration", "specifiers", "source"],
-  aliases: ["Statement", "Declaration", "ModuleDeclaration", "ExportDeclaration"],
-  fields: {
-    declaration: {
-      optional: true,
-      validate: (0, _utils$6.chain)((0, _utils$6.assertNodeType)("Declaration"), Object.assign(function (node, key, val) {
-        return;
-      }, {
-        oneOfNodeTypes: ["Declaration"]
-      }), function (node, key, val) {
-        return;
-      })
-    },
-    assertions: {
-      optional: true,
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("ImportAttribute")))
-    },
-    specifiers: {
-      default: [],
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)(function () {
-        const sourced = (0, _utils$6.assertNodeType)("ExportSpecifier", "ExportDefaultSpecifier", "ExportNamespaceSpecifier");
-        (0, _utils$6.assertNodeType)("ExportSpecifier");
-        return sourced;
-      }()))
-    },
-    source: {
-      validate: (0, _utils$6.assertNodeType)("StringLiteral"),
-      optional: true
-    },
-    exportKind: (0, _utils$6.validateOptional)((0, _utils$6.assertOneOf)("type", "value"))
-  }
-});
-(0, _utils$6.default)("ExportSpecifier", {
-  visitor: ["local", "exported"],
-  aliases: ["ModuleSpecifier"],
-  fields: {
-    local: {
-      validate: (0, _utils$6.assertNodeType)("Identifier")
-    },
-    exported: {
-      validate: (0, _utils$6.assertNodeType)("Identifier", "StringLiteral")
-    }
-  }
-});
-(0, _utils$6.default)("ForOfStatement", {
-  visitor: ["left", "right", "body"],
-  builder: ["left", "right", "body", "await"],
-  aliases: ["Scopable", "Statement", "For", "BlockParent", "Loop", "ForXStatement"],
-  fields: {
-    left: {
-      validate: function () {
-        {
-          return (0, _utils$6.assertNodeType)("VariableDeclaration", "LVal");
-        }
-      }()
-    },
-    right: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    },
-    body: {
-      validate: (0, _utils$6.assertNodeType)("Statement")
-    },
-    await: {
-      default: false
-    }
-  }
-});
-(0, _utils$6.default)("ImportDeclaration", {
-  visitor: ["specifiers", "source"],
-  aliases: ["Statement", "Declaration", "ModuleDeclaration"],
-  fields: {
-    assertions: {
-      optional: true,
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("ImportAttribute")))
-    },
-    specifiers: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("ImportSpecifier", "ImportDefaultSpecifier", "ImportNamespaceSpecifier")))
-    },
-    source: {
-      validate: (0, _utils$6.assertNodeType)("StringLiteral")
-    },
-    importKind: {
-      validate: (0, _utils$6.assertOneOf)("type", "typeof", "value"),
-      optional: true
-    }
-  }
-});
-(0, _utils$6.default)("ImportDefaultSpecifier", {
-  visitor: ["local"],
-  aliases: ["ModuleSpecifier"],
-  fields: {
-    local: {
-      validate: (0, _utils$6.assertNodeType)("Identifier")
-    }
-  }
-});
-(0, _utils$6.default)("ImportNamespaceSpecifier", {
-  visitor: ["local"],
-  aliases: ["ModuleSpecifier"],
-  fields: {
-    local: {
-      validate: (0, _utils$6.assertNodeType)("Identifier")
-    }
-  }
-});
-(0, _utils$6.default)("ImportSpecifier", {
-  visitor: ["local", "imported"],
-  aliases: ["ModuleSpecifier"],
-  fields: {
-    local: {
-      validate: (0, _utils$6.assertNodeType)("Identifier")
-    },
-    imported: {
-      validate: (0, _utils$6.assertNodeType)("Identifier", "StringLiteral")
-    },
-    importKind: {
-      validate: (0, _utils$6.assertOneOf)("type", "typeof"),
-      optional: true
-    }
-  }
-});
-(0, _utils$6.default)("MetaProperty", {
-  visitor: ["meta", "property"],
-  aliases: ["Expression"],
-  fields: {
-    meta: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertNodeType)("Identifier"), Object.assign(function (node, key, val) {
-        return;
-      }, {
-        oneOfNodeTypes: ["Identifier"]
-      }))
-    },
-    property: {
-      validate: (0, _utils$6.assertNodeType)("Identifier")
-    }
-  }
-});
-const classMethodOrPropertyCommon = {
-  abstract: {
-    validate: (0, _utils$6.assertValueType)("boolean"),
-    optional: true
-  },
-  accessibility: {
-    validate: (0, _utils$6.assertOneOf)("public", "private", "protected"),
-    optional: true
-  },
-  static: {
-    default: false
-  },
-  override: {
-    default: false
-  },
-  computed: {
-    default: false
-  },
-  optional: {
-    validate: (0, _utils$6.assertValueType)("boolean"),
-    optional: true
-  },
-  key: {
-    validate: (0, _utils$6.chain)(function () {
-      const normal = (0, _utils$6.assertNodeType)("Identifier", "StringLiteral", "NumericLiteral");
-      const computed = (0, _utils$6.assertNodeType)("Expression");
-      return function (node, key, val) {
-        const validator = node.computed ? computed : normal;
-        validator(node, key, val);
-      };
-    }(), (0, _utils$6.assertNodeType)("Identifier", "StringLiteral", "NumericLiteral", "Expression"))
-  }
-};
-core.classMethodOrPropertyCommon = classMethodOrPropertyCommon;
-const classMethodOrDeclareMethodCommon = Object.assign({}, functionCommon, classMethodOrPropertyCommon, {
-  params: {
-    validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Identifier", "Pattern", "RestElement", "TSParameterProperty")))
-  },
-  kind: {
-    validate: (0, _utils$6.assertOneOf)("get", "set", "method", "constructor"),
-    default: "method"
-  },
-  access: {
-    validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("string"), (0, _utils$6.assertOneOf)("public", "private", "protected")),
-    optional: true
-  },
-  decorators: {
-    validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Decorator"))),
-    optional: true
-  }
-});
-core.classMethodOrDeclareMethodCommon = classMethodOrDeclareMethodCommon;
-(0, _utils$6.default)("ClassMethod", {
-  aliases: ["Function", "Scopable", "BlockParent", "FunctionParent", "Method"],
-  builder: ["kind", "key", "params", "body", "computed", "static", "generator", "async"],
-  visitor: ["key", "params", "body", "decorators", "returnType", "typeParameters"],
-  fields: Object.assign({}, classMethodOrDeclareMethodCommon, functionTypeAnnotationCommon, {
-    body: {
-      validate: (0, _utils$6.assertNodeType)("BlockStatement")
-    }
-  })
-});
-(0, _utils$6.default)("ObjectPattern", {
-  visitor: ["properties", "typeAnnotation", "decorators"],
-  builder: ["properties"],
-  aliases: ["Pattern", "PatternLike", "LVal"],
-  fields: Object.assign({}, patternLikeCommon, {
-    properties: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("RestElement", "ObjectProperty")))
-    }
-  })
-});
-(0, _utils$6.default)("SpreadElement", {
-  visitor: ["argument"],
-  aliases: ["UnaryLike"],
-  deprecatedAlias: "SpreadProperty",
-  fields: {
-    argument: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    }
-  }
-});
-(0, _utils$6.default)("Super", {
-  aliases: ["Expression"]
-});
-(0, _utils$6.default)("TaggedTemplateExpression", {
-  visitor: ["tag", "quasi", "typeParameters"],
-  builder: ["tag", "quasi"],
-  aliases: ["Expression"],
-  fields: {
-    tag: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    },
-    quasi: {
-      validate: (0, _utils$6.assertNodeType)("TemplateLiteral")
-    },
-    typeParameters: {
-      validate: (0, _utils$6.assertNodeType)("TypeParameterInstantiation", "TSTypeParameterInstantiation"),
-      optional: true
-    }
-  }
-});
-(0, _utils$6.default)("TemplateElement", {
-  builder: ["value", "tail"],
-  fields: {
-    value: {
-      validate: (0, _utils$6.assertShape)({
-        raw: {
-          validate: (0, _utils$6.assertValueType)("string")
-        },
-        cooked: {
-          validate: (0, _utils$6.assertValueType)("string"),
-          optional: true
-        }
-      })
-    },
-    tail: {
-      default: false
-    }
-  }
-});
-(0, _utils$6.default)("TemplateLiteral", {
-  visitor: ["quasis", "expressions"],
-  aliases: ["Expression", "Literal"],
-  fields: {
-    quasis: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("TemplateElement")))
-    },
-    expressions: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Expression", "TSType")), function (node, key, val) {
-        if (node.quasis.length !== val.length + 1) {
-          throw new TypeError(`Number of ${node.type} quasis should be exactly one more than the number of expressions.\nExpected ${val.length + 1} quasis but got ${node.quasis.length}`);
-        }
-      })
-    }
-  }
-});
-(0, _utils$6.default)("YieldExpression", {
-  builder: ["argument", "delegate"],
-  visitor: ["argument"],
-  aliases: ["Expression", "Terminatorless"],
-  fields: {
-    delegate: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("boolean"), Object.assign(function (node, key, val) {
-        return;
-      }, {
-        type: "boolean"
-      })),
-      default: false
-    },
-    argument: {
-      optional: true,
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    }
-  }
-});
-(0, _utils$6.default)("AwaitExpression", {
-  builder: ["argument"],
-  visitor: ["argument"],
-  aliases: ["Expression", "Terminatorless"],
-  fields: {
-    argument: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    }
-  }
-});
-(0, _utils$6.default)("Import", {
-  aliases: ["Expression"]
-});
-(0, _utils$6.default)("BigIntLiteral", {
-  builder: ["value"],
-  fields: {
-    value: {
-      validate: (0, _utils$6.assertValueType)("string")
-    }
-  },
-  aliases: ["Expression", "Pureish", "Literal", "Immutable"]
-});
-(0, _utils$6.default)("ExportNamespaceSpecifier", {
-  visitor: ["exported"],
-  aliases: ["ModuleSpecifier"],
-  fields: {
-    exported: {
-      validate: (0, _utils$6.assertNodeType)("Identifier")
-    }
-  }
-});
-(0, _utils$6.default)("OptionalMemberExpression", {
-  builder: ["object", "property", "computed", "optional"],
-  visitor: ["object", "property"],
-  aliases: ["Expression"],
-  fields: {
-    object: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    },
-    property: {
-      validate: function () {
-        const normal = (0, _utils$6.assertNodeType)("Identifier");
-        const computed = (0, _utils$6.assertNodeType)("Expression");
-
-        const validator = function (node, key, val) {
-          const validator = node.computed ? computed : normal;
-          validator(node, key, val);
-        };
-
-        validator.oneOfNodeTypes = ["Expression", "Identifier"];
-        return validator;
-      }()
-    },
-    computed: {
-      default: false
-    },
-    optional: {
-      validate: (0, _utils$6.assertValueType)("boolean") 
-    }
-  }
-});
-(0, _utils$6.default)("OptionalCallExpression", {
-  visitor: ["callee", "arguments", "typeParameters", "typeArguments"],
-  builder: ["callee", "arguments", "optional"],
-  aliases: ["Expression"],
-  fields: {
-    callee: {
-      validate: (0, _utils$6.assertNodeType)("Expression")
-    },
-    arguments: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Expression", "SpreadElement", "JSXNamespacedName", "ArgumentPlaceholder")))
-    },
-    optional: {
-      validate: (0, _utils$6.assertValueType)("boolean") 
-    },
-    typeArguments: {
-      validate: (0, _utils$6.assertNodeType)("TypeParameterInstantiation"),
-      optional: true
-    },
-    typeParameters: {
-      validate: (0, _utils$6.assertNodeType)("TSTypeParameterInstantiation"),
-      optional: true
-    }
-  }
-});
-(0, _utils$6.default)("ClassProperty", {
-  visitor: ["key", "value", "typeAnnotation", "decorators"],
-  builder: ["key", "value", "typeAnnotation", "decorators", "computed", "static"],
-  aliases: ["Property"],
-  fields: Object.assign({}, classMethodOrPropertyCommon, {
-    value: {
-      validate: (0, _utils$6.assertNodeType)("Expression"),
-      optional: true
-    },
-    definite: {
-      validate: (0, _utils$6.assertValueType)("boolean"),
-      optional: true
-    },
-    typeAnnotation: {
-      validate: (0, _utils$6.assertNodeType)("TypeAnnotation", "TSTypeAnnotation", "Noop"),
-      optional: true
-    },
-    decorators: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Decorator"))),
-      optional: true
-    },
-    readonly: {
-      validate: (0, _utils$6.assertValueType)("boolean"),
-      optional: true
-    },
-    declare: {
-      validate: (0, _utils$6.assertValueType)("boolean"),
-      optional: true
-    },
-    variance: {
-      validate: (0, _utils$6.assertNodeType)("Variance"),
-      optional: true
-    }
-  })
-});
-(0, _utils$6.default)("ClassPrivateProperty", {
-  visitor: ["key", "value", "decorators", "typeAnnotation"],
-  builder: ["key", "value", "decorators", "static"],
-  aliases: ["Property", "Private"],
-  fields: {
-    key: {
-      validate: (0, _utils$6.assertNodeType)("PrivateName")
-    },
-    value: {
-      validate: (0, _utils$6.assertNodeType)("Expression"),
-      optional: true
-    },
-    typeAnnotation: {
-      validate: (0, _utils$6.assertNodeType)("TypeAnnotation", "TSTypeAnnotation", "Noop"),
-      optional: true
-    },
-    decorators: {
-      validate: (0, _utils$6.chain)((0, _utils$6.assertValueType)("array"), (0, _utils$6.assertEach)((0, _utils$6.assertNodeType)("Decorator"))),
-      optional: true
-    },
-    readonly: {
-      validate: (0, _utils$6.assertValueType)("boolean"),
-      optional: true
-    },
-    definite: {
-      validate: (0, _utils$6.assertValueType)("boolean"),
-      optional: true
-    },
-    variance: {
-      validate: (0, _utils$6.assertNodeType)("Variance"),
-      optional: true
-    }
-  }
-});
-(0, _utils$6.default)("ClassPrivateMethod", {
-  builder: ["kind", "key", "params", "body", "static"],
-  visitor: ["key", "params", "body", "decorators", "returnType", "typeParameters"],
-  aliases: ["Function", "Scopable", "BlockParent", "FunctionParent", "Method", "Private"],
-  fields: Object.assign({}, classMethodOrDeclareMethodCommon, functionTypeAnnotationCommon, {
-    key: {
-      validate: (0, _utils$6.assertNodeType)("PrivateName")
-    },
-    body: {
-      validate: (0, _utils$6.assertNodeType)("BlockStatement")
-    }
-  })
-});
-(0, _utils$6.default)("PrivateName", {
-  visitor: ["id"],
-  aliases: ["Private"],
-  fields: {
-    id: {
-      validate: (0, _utils$6.assertNodeType)("Identifier")
-    }
-  }
-});
-
-var _utils$5 = utils;
-
-const defineInterfaceishType = (name, typeParameterType = "TypeParameterDeclaration") => {
-  (0, _utils$5.default)(name, {
-    builder: ["id", "typeParameters", "extends", "body"],
-    visitor: ["id", "typeParameters", "extends", "mixins", "implements", "body"],
-    aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
-    fields: {
-      id: (0, _utils$5.validateType)("Identifier"),
-      typeParameters: (0, _utils$5.validateOptionalType)(typeParameterType),
-      extends: (0, _utils$5.validateOptional)((0, _utils$5.arrayOfType)("InterfaceExtends")),
-      mixins: (0, _utils$5.validateOptional)((0, _utils$5.arrayOfType)("InterfaceExtends")),
-      implements: (0, _utils$5.validateOptional)((0, _utils$5.arrayOfType)("ClassImplements")),
-      body: (0, _utils$5.validateType)("ObjectTypeAnnotation")
-    }
-  });
-};
-
-(0, _utils$5.default)("AnyTypeAnnotation", {
-  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
-});
-(0, _utils$5.default)("ArrayTypeAnnotation", {
-  visitor: ["elementType"],
-  aliases: ["Flow", "FlowType"],
-  fields: {
-    elementType: (0, _utils$5.validateType)("FlowType")
-  }
-});
-(0, _utils$5.default)("BooleanTypeAnnotation", {
-  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
-});
-(0, _utils$5.default)("BooleanLiteralTypeAnnotation", {
-  builder: ["value"],
-  aliases: ["Flow", "FlowType"],
-  fields: {
-    value: (0, _utils$5.validate)((0, _utils$5.assertValueType)("boolean"))
-  }
-});
-(0, _utils$5.default)("NullLiteralTypeAnnotation", {
-  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
-});
-(0, _utils$5.default)("ClassImplements", {
-  visitor: ["id", "typeParameters"],
-  aliases: ["Flow"],
-  fields: {
-    id: (0, _utils$5.validateType)("Identifier"),
-    typeParameters: (0, _utils$5.validateOptionalType)("TypeParameterInstantiation")
-  }
-});
-defineInterfaceishType("DeclareClass");
-(0, _utils$5.default)("DeclareFunction", {
-  visitor: ["id"],
-  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
-  fields: {
-    id: (0, _utils$5.validateType)("Identifier"),
-    predicate: (0, _utils$5.validateOptionalType)("DeclaredPredicate")
-  }
-});
-defineInterfaceishType("DeclareInterface");
-(0, _utils$5.default)("DeclareModule", {
-  builder: ["id", "body", "kind"],
-  visitor: ["id", "body"],
-  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
-  fields: {
-    id: (0, _utils$5.validateType)(["Identifier", "StringLiteral"]),
-    body: (0, _utils$5.validateType)("BlockStatement"),
-    kind: (0, _utils$5.validateOptional)((0, _utils$5.assertOneOf)("CommonJS", "ES"))
-  }
-});
-(0, _utils$5.default)("DeclareModuleExports", {
-  visitor: ["typeAnnotation"],
-  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
-  fields: {
-    typeAnnotation: (0, _utils$5.validateType)("TypeAnnotation")
-  }
-});
-(0, _utils$5.default)("DeclareTypeAlias", {
-  visitor: ["id", "typeParameters", "right"],
-  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
-  fields: {
-    id: (0, _utils$5.validateType)("Identifier"),
-    typeParameters: (0, _utils$5.validateOptionalType)("TypeParameterDeclaration"),
-    right: (0, _utils$5.validateType)("FlowType")
-  }
-});
-(0, _utils$5.default)("DeclareOpaqueType", {
-  visitor: ["id", "typeParameters", "supertype"],
-  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
-  fields: {
-    id: (0, _utils$5.validateType)("Identifier"),
-    typeParameters: (0, _utils$5.validateOptionalType)("TypeParameterDeclaration"),
-    supertype: (0, _utils$5.validateOptionalType)("FlowType"),
-    impltype: (0, _utils$5.validateOptionalType)("FlowType")
-  }
-});
-(0, _utils$5.default)("DeclareVariable", {
-  visitor: ["id"],
-  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
-  fields: {
-    id: (0, _utils$5.validateType)("Identifier")
-  }
-});
-(0, _utils$5.default)("DeclareExportDeclaration", {
-  visitor: ["declaration", "specifiers", "source"],
-  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
-  fields: {
-    declaration: (0, _utils$5.validateOptionalType)("Flow"),
-    specifiers: (0, _utils$5.validateOptional)((0, _utils$5.arrayOfType)(["ExportSpecifier", "ExportNamespaceSpecifier"])),
-    source: (0, _utils$5.validateOptionalType)("StringLiteral"),
-    default: (0, _utils$5.validateOptional)((0, _utils$5.assertValueType)("boolean"))
-  }
-});
-(0, _utils$5.default)("DeclareExportAllDeclaration", {
-  visitor: ["source"],
-  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
-  fields: {
-    source: (0, _utils$5.validateType)("StringLiteral"),
-    exportKind: (0, _utils$5.validateOptional)((0, _utils$5.assertOneOf)("type", "value"))
-  }
-});
-(0, _utils$5.default)("DeclaredPredicate", {
-  visitor: ["value"],
-  aliases: ["Flow", "FlowPredicate"],
-  fields: {
-    value: (0, _utils$5.validateType)("Flow")
-  }
-});
-(0, _utils$5.default)("ExistsTypeAnnotation", {
-  aliases: ["Flow", "FlowType"]
-});
-(0, _utils$5.default)("FunctionTypeAnnotation", {
-  visitor: ["typeParameters", "params", "rest", "returnType"],
-  aliases: ["Flow", "FlowType"],
-  fields: {
-    typeParameters: (0, _utils$5.validateOptionalType)("TypeParameterDeclaration"),
-    params: (0, _utils$5.validate)((0, _utils$5.arrayOfType)("FunctionTypeParam")),
-    rest: (0, _utils$5.validateOptionalType)("FunctionTypeParam"),
-    this: (0, _utils$5.validateOptionalType)("FunctionTypeParam"),
-    returnType: (0, _utils$5.validateType)("FlowType")
-  }
-});
-(0, _utils$5.default)("FunctionTypeParam", {
-  visitor: ["name", "typeAnnotation"],
-  aliases: ["Flow"],
-  fields: {
-    name: (0, _utils$5.validateOptionalType)("Identifier"),
-    typeAnnotation: (0, _utils$5.validateType)("FlowType"),
-    optional: (0, _utils$5.validateOptional)((0, _utils$5.assertValueType)("boolean"))
-  }
-});
-(0, _utils$5.default)("GenericTypeAnnotation", {
-  visitor: ["id", "typeParameters"],
-  aliases: ["Flow", "FlowType"],
-  fields: {
-    id: (0, _utils$5.validateType)(["Identifier", "QualifiedTypeIdentifier"]),
-    typeParameters: (0, _utils$5.validateOptionalType)("TypeParameterInstantiation")
-  }
-});
-(0, _utils$5.default)("InferredPredicate", {
-  aliases: ["Flow", "FlowPredicate"]
-});
-(0, _utils$5.default)("InterfaceExtends", {
-  visitor: ["id", "typeParameters"],
-  aliases: ["Flow"],
-  fields: {
-    id: (0, _utils$5.validateType)(["Identifier", "QualifiedTypeIdentifier"]),
-    typeParameters: (0, _utils$5.validateOptionalType)("TypeParameterInstantiation")
-  }
-});
-defineInterfaceishType("InterfaceDeclaration");
-(0, _utils$5.default)("InterfaceTypeAnnotation", {
-  visitor: ["extends", "body"],
-  aliases: ["Flow", "FlowType"],
-  fields: {
-    extends: (0, _utils$5.validateOptional)((0, _utils$5.arrayOfType)("InterfaceExtends")),
-    body: (0, _utils$5.validateType)("ObjectTypeAnnotation")
-  }
-});
-(0, _utils$5.default)("IntersectionTypeAnnotation", {
-  visitor: ["types"],
-  aliases: ["Flow", "FlowType"],
-  fields: {
-    types: (0, _utils$5.validate)((0, _utils$5.arrayOfType)("FlowType"))
-  }
-});
-(0, _utils$5.default)("MixedTypeAnnotation", {
-  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
-});
-(0, _utils$5.default)("EmptyTypeAnnotation", {
-  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
-});
-(0, _utils$5.default)("NullableTypeAnnotation", {
-  visitor: ["typeAnnotation"],
-  aliases: ["Flow", "FlowType"],
-  fields: {
-    typeAnnotation: (0, _utils$5.validateType)("FlowType")
-  }
-});
-(0, _utils$5.default)("NumberLiteralTypeAnnotation", {
-  builder: ["value"],
-  aliases: ["Flow", "FlowType"],
-  fields: {
-    value: (0, _utils$5.validate)((0, _utils$5.assertValueType)("number"))
-  }
-});
-(0, _utils$5.default)("NumberTypeAnnotation", {
-  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
-});
-(0, _utils$5.default)("ObjectTypeAnnotation", {
-  visitor: ["properties", "indexers", "callProperties", "internalSlots"],
-  aliases: ["Flow", "FlowType"],
-  builder: ["properties", "indexers", "callProperties", "internalSlots", "exact"],
-  fields: {
-    properties: (0, _utils$5.validate)((0, _utils$5.arrayOfType)(["ObjectTypeProperty", "ObjectTypeSpreadProperty"])),
-    indexers: (0, _utils$5.validateOptional)((0, _utils$5.arrayOfType)("ObjectTypeIndexer")),
-    callProperties: (0, _utils$5.validateOptional)((0, _utils$5.arrayOfType)("ObjectTypeCallProperty")),
-    internalSlots: (0, _utils$5.validateOptional)((0, _utils$5.arrayOfType)("ObjectTypeInternalSlot")),
-    exact: {
-      validate: (0, _utils$5.assertValueType)("boolean"),
-      default: false
-    },
-    inexact: (0, _utils$5.validateOptional)((0, _utils$5.assertValueType)("boolean"))
-  }
-});
-(0, _utils$5.default)("ObjectTypeInternalSlot", {
-  visitor: ["id", "value", "optional", "static", "method"],
-  aliases: ["Flow", "UserWhitespacable"],
-  fields: {
-    id: (0, _utils$5.validateType)("Identifier"),
-    value: (0, _utils$5.validateType)("FlowType"),
-    optional: (0, _utils$5.validate)((0, _utils$5.assertValueType)("boolean")),
-    static: (0, _utils$5.validate)((0, _utils$5.assertValueType)("boolean")),
-    method: (0, _utils$5.validate)((0, _utils$5.assertValueType)("boolean"))
-  }
-});
-(0, _utils$5.default)("ObjectTypeCallProperty", {
-  visitor: ["value"],
-  aliases: ["Flow", "UserWhitespacable"],
-  fields: {
-    value: (0, _utils$5.validateType)("FlowType"),
-    static: (0, _utils$5.validate)((0, _utils$5.assertValueType)("boolean"))
-  }
-});
-(0, _utils$5.default)("ObjectTypeIndexer", {
-  visitor: ["id", "key", "value", "variance"],
-  aliases: ["Flow", "UserWhitespacable"],
-  fields: {
-    id: (0, _utils$5.validateOptionalType)("Identifier"),
-    key: (0, _utils$5.validateType)("FlowType"),
-    value: (0, _utils$5.validateType)("FlowType"),
-    static: (0, _utils$5.validate)((0, _utils$5.assertValueType)("boolean")),
-    variance: (0, _utils$5.validateOptionalType)("Variance")
-  }
-});
-(0, _utils$5.default)("ObjectTypeProperty", {
-  visitor: ["key", "value", "variance"],
-  aliases: ["Flow", "UserWhitespacable"],
-  fields: {
-    key: (0, _utils$5.validateType)(["Identifier", "StringLiteral"]),
-    value: (0, _utils$5.validateType)("FlowType"),
-    kind: (0, _utils$5.validate)((0, _utils$5.assertOneOf)("init", "get", "set")),
-    static: (0, _utils$5.validate)((0, _utils$5.assertValueType)("boolean")),
-    proto: (0, _utils$5.validate)((0, _utils$5.assertValueType)("boolean")),
-    optional: (0, _utils$5.validate)((0, _utils$5.assertValueType)("boolean")),
-    variance: (0, _utils$5.validateOptionalType)("Variance"),
-    method: (0, _utils$5.validate)((0, _utils$5.assertValueType)("boolean"))
-  }
-});
-(0, _utils$5.default)("ObjectTypeSpreadProperty", {
-  visitor: ["argument"],
-  aliases: ["Flow", "UserWhitespacable"],
-  fields: {
-    argument: (0, _utils$5.validateType)("FlowType")
-  }
-});
-(0, _utils$5.default)("OpaqueType", {
-  visitor: ["id", "typeParameters", "supertype", "impltype"],
-  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
-  fields: {
-    id: (0, _utils$5.validateType)("Identifier"),
-    typeParameters: (0, _utils$5.validateOptionalType)("TypeParameterDeclaration"),
-    supertype: (0, _utils$5.validateOptionalType)("FlowType"),
-    impltype: (0, _utils$5.validateType)("FlowType")
-  }
-});
-(0, _utils$5.default)("QualifiedTypeIdentifier", {
-  visitor: ["id", "qualification"],
-  aliases: ["Flow"],
-  fields: {
-    id: (0, _utils$5.validateType)("Identifier"),
-    qualification: (0, _utils$5.validateType)(["Identifier", "QualifiedTypeIdentifier"])
-  }
-});
-(0, _utils$5.default)("StringLiteralTypeAnnotation", {
-  builder: ["value"],
-  aliases: ["Flow", "FlowType"],
-  fields: {
-    value: (0, _utils$5.validate)((0, _utils$5.assertValueType)("string"))
-  }
-});
-(0, _utils$5.default)("StringTypeAnnotation", {
-  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
-});
-(0, _utils$5.default)("SymbolTypeAnnotation", {
-  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
-});
-(0, _utils$5.default)("ThisTypeAnnotation", {
-  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
-});
-(0, _utils$5.default)("TupleTypeAnnotation", {
-  visitor: ["types"],
-  aliases: ["Flow", "FlowType"],
-  fields: {
-    types: (0, _utils$5.validate)((0, _utils$5.arrayOfType)("FlowType"))
-  }
-});
-(0, _utils$5.default)("TypeofTypeAnnotation", {
-  visitor: ["argument"],
-  aliases: ["Flow", "FlowType"],
-  fields: {
-    argument: (0, _utils$5.validateType)("FlowType")
-  }
-});
-(0, _utils$5.default)("TypeAlias", {
-  visitor: ["id", "typeParameters", "right"],
-  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
-  fields: {
-    id: (0, _utils$5.validateType)("Identifier"),
-    typeParameters: (0, _utils$5.validateOptionalType)("TypeParameterDeclaration"),
-    right: (0, _utils$5.validateType)("FlowType")
-  }
-});
-(0, _utils$5.default)("TypeAnnotation", {
-  aliases: ["Flow"],
-  visitor: ["typeAnnotation"],
-  fields: {
-    typeAnnotation: (0, _utils$5.validateType)("FlowType")
-  }
-});
-(0, _utils$5.default)("TypeCastExpression", {
-  visitor: ["expression", "typeAnnotation"],
-  aliases: ["Flow", "ExpressionWrapper", "Expression"],
-  fields: {
-    expression: (0, _utils$5.validateType)("Expression"),
-    typeAnnotation: (0, _utils$5.validateType)("TypeAnnotation")
-  }
-});
-(0, _utils$5.default)("TypeParameter", {
-  aliases: ["Flow"],
-  visitor: ["bound", "default", "variance"],
-  fields: {
-    name: (0, _utils$5.validate)((0, _utils$5.assertValueType)("string")),
-    bound: (0, _utils$5.validateOptionalType)("TypeAnnotation"),
-    default: (0, _utils$5.validateOptionalType)("FlowType"),
-    variance: (0, _utils$5.validateOptionalType)("Variance")
-  }
-});
-(0, _utils$5.default)("TypeParameterDeclaration", {
-  aliases: ["Flow"],
-  visitor: ["params"],
-  fields: {
-    params: (0, _utils$5.validate)((0, _utils$5.arrayOfType)("TypeParameter"))
-  }
-});
-(0, _utils$5.default)("TypeParameterInstantiation", {
-  aliases: ["Flow"],
-  visitor: ["params"],
-  fields: {
-    params: (0, _utils$5.validate)((0, _utils$5.arrayOfType)("FlowType"))
-  }
-});
-(0, _utils$5.default)("UnionTypeAnnotation", {
-  visitor: ["types"],
-  aliases: ["Flow", "FlowType"],
-  fields: {
-    types: (0, _utils$5.validate)((0, _utils$5.arrayOfType)("FlowType"))
-  }
-});
-(0, _utils$5.default)("Variance", {
-  aliases: ["Flow"],
-  builder: ["kind"],
-  fields: {
-    kind: (0, _utils$5.validate)((0, _utils$5.assertOneOf)("minus", "plus"))
-  }
-});
-(0, _utils$5.default)("VoidTypeAnnotation", {
-  aliases: ["Flow", "FlowType", "FlowBaseAnnotation"]
-});
-(0, _utils$5.default)("EnumDeclaration", {
-  aliases: ["Statement", "Declaration"],
-  visitor: ["id", "body"],
-  fields: {
-    id: (0, _utils$5.validateType)("Identifier"),
-    body: (0, _utils$5.validateType)(["EnumBooleanBody", "EnumNumberBody", "EnumStringBody", "EnumSymbolBody"])
-  }
-});
-(0, _utils$5.default)("EnumBooleanBody", {
-  aliases: ["EnumBody"],
-  visitor: ["members"],
-  fields: {
-    explicitType: (0, _utils$5.validate)((0, _utils$5.assertValueType)("boolean")),
-    members: (0, _utils$5.validateArrayOfType)("EnumBooleanMember"),
-    hasUnknownMembers: (0, _utils$5.validate)((0, _utils$5.assertValueType)("boolean"))
-  }
-});
-(0, _utils$5.default)("EnumNumberBody", {
-  aliases: ["EnumBody"],
-  visitor: ["members"],
-  fields: {
-    explicitType: (0, _utils$5.validate)((0, _utils$5.assertValueType)("boolean")),
-    members: (0, _utils$5.validateArrayOfType)("EnumNumberMember"),
-    hasUnknownMembers: (0, _utils$5.validate)((0, _utils$5.assertValueType)("boolean"))
-  }
-});
-(0, _utils$5.default)("EnumStringBody", {
-  aliases: ["EnumBody"],
-  visitor: ["members"],
-  fields: {
-    explicitType: (0, _utils$5.validate)((0, _utils$5.assertValueType)("boolean")),
-    members: (0, _utils$5.validateArrayOfType)(["EnumStringMember", "EnumDefaultedMember"]),
-    hasUnknownMembers: (0, _utils$5.validate)((0, _utils$5.assertValueType)("boolean"))
-  }
-});
-(0, _utils$5.default)("EnumSymbolBody", {
-  aliases: ["EnumBody"],
-  visitor: ["members"],
-  fields: {
-    members: (0, _utils$5.validateArrayOfType)("EnumDefaultedMember"),
-    hasUnknownMembers: (0, _utils$5.validate)((0, _utils$5.assertValueType)("boolean"))
-  }
-});
-(0, _utils$5.default)("EnumBooleanMember", {
-  aliases: ["EnumMember"],
-  visitor: ["id"],
-  fields: {
-    id: (0, _utils$5.validateType)("Identifier"),
-    init: (0, _utils$5.validateType)("BooleanLiteral")
-  }
-});
-(0, _utils$5.default)("EnumNumberMember", {
-  aliases: ["EnumMember"],
-  visitor: ["id", "init"],
-  fields: {
-    id: (0, _utils$5.validateType)("Identifier"),
-    init: (0, _utils$5.validateType)("NumericLiteral")
-  }
-});
-(0, _utils$5.default)("EnumStringMember", {
-  aliases: ["EnumMember"],
-  visitor: ["id", "init"],
-  fields: {
-    id: (0, _utils$5.validateType)("Identifier"),
-    init: (0, _utils$5.validateType)("StringLiteral")
-  }
-});
-(0, _utils$5.default)("EnumDefaultedMember", {
-  aliases: ["EnumMember"],
-  visitor: ["id"],
-  fields: {
-    id: (0, _utils$5.validateType)("Identifier")
-  }
-});
-(0, _utils$5.default)("IndexedAccessType", {
-  visitor: ["objectType", "indexType"],
-  aliases: ["Flow", "FlowType"],
-  fields: {
-    objectType: (0, _utils$5.validateType)("FlowType"),
-    indexType: (0, _utils$5.validateType)("FlowType")
-  }
-});
-(0, _utils$5.default)("OptionalIndexedAccessType", {
-  visitor: ["objectType", "indexType"],
-  aliases: ["Flow", "FlowType"],
-  fields: {
-    objectType: (0, _utils$5.validateType)("FlowType"),
-    indexType: (0, _utils$5.validateType)("FlowType"),
-    optional: (0, _utils$5.validate)((0, _utils$5.assertValueType)("boolean"))
-  }
-});
-
-var _utils$4 = utils;
-
-(0, _utils$4.default)("JSXAttribute", {
-  visitor: ["name", "value"],
-  aliases: ["JSX", "Immutable"],
-  fields: {
-    name: {
-      validate: (0, _utils$4.assertNodeType)("JSXIdentifier", "JSXNamespacedName")
-    },
-    value: {
-      optional: true,
-      validate: (0, _utils$4.assertNodeType)("JSXElement", "JSXFragment", "StringLiteral", "JSXExpressionContainer")
-    }
-  }
-});
-(0, _utils$4.default)("JSXClosingElement", {
-  visitor: ["name"],
-  aliases: ["JSX", "Immutable"],
-  fields: {
-    name: {
-      validate: (0, _utils$4.assertNodeType)("JSXIdentifier", "JSXMemberExpression", "JSXNamespacedName")
-    }
-  }
-});
-(0, _utils$4.default)("JSXElement", {
-  builder: ["openingElement", "closingElement", "children", "selfClosing"],
-  visitor: ["openingElement", "children", "closingElement"],
-  aliases: ["JSX", "Immutable", "Expression"],
-  fields: {
-    openingElement: {
-      validate: (0, _utils$4.assertNodeType)("JSXOpeningElement")
-    },
-    closingElement: {
-      optional: true,
-      validate: (0, _utils$4.assertNodeType)("JSXClosingElement")
-    },
-    children: {
-      validate: (0, _utils$4.chain)((0, _utils$4.assertValueType)("array"), (0, _utils$4.assertEach)((0, _utils$4.assertNodeType)("JSXText", "JSXExpressionContainer", "JSXSpreadChild", "JSXElement", "JSXFragment")))
-    },
-    selfClosing: {
-      validate: (0, _utils$4.assertValueType)("boolean"),
-      optional: true
-    }
-  }
-});
-(0, _utils$4.default)("JSXEmptyExpression", {
-  aliases: ["JSX"]
-});
-(0, _utils$4.default)("JSXExpressionContainer", {
-  visitor: ["expression"],
-  aliases: ["JSX", "Immutable"],
-  fields: {
-    expression: {
-      validate: (0, _utils$4.assertNodeType)("Expression", "JSXEmptyExpression")
-    }
-  }
-});
-(0, _utils$4.default)("JSXSpreadChild", {
-  visitor: ["expression"],
-  aliases: ["JSX", "Immutable"],
-  fields: {
-    expression: {
-      validate: (0, _utils$4.assertNodeType)("Expression")
-    }
-  }
-});
-(0, _utils$4.default)("JSXIdentifier", {
-  builder: ["name"],
-  aliases: ["JSX"],
-  fields: {
-    name: {
-      validate: (0, _utils$4.assertValueType)("string")
-    }
-  }
-});
-(0, _utils$4.default)("JSXMemberExpression", {
-  visitor: ["object", "property"],
-  aliases: ["JSX"],
-  fields: {
-    object: {
-      validate: (0, _utils$4.assertNodeType)("JSXMemberExpression", "JSXIdentifier")
-    },
-    property: {
-      validate: (0, _utils$4.assertNodeType)("JSXIdentifier")
-    }
-  }
-});
-(0, _utils$4.default)("JSXNamespacedName", {
-  visitor: ["namespace", "name"],
-  aliases: ["JSX"],
-  fields: {
-    namespace: {
-      validate: (0, _utils$4.assertNodeType)("JSXIdentifier")
-    },
-    name: {
-      validate: (0, _utils$4.assertNodeType)("JSXIdentifier")
-    }
-  }
-});
-(0, _utils$4.default)("JSXOpeningElement", {
-  builder: ["name", "attributes", "selfClosing"],
-  visitor: ["name", "attributes"],
-  aliases: ["JSX", "Immutable"],
-  fields: {
-    name: {
-      validate: (0, _utils$4.assertNodeType)("JSXIdentifier", "JSXMemberExpression", "JSXNamespacedName")
-    },
-    selfClosing: {
-      default: false
-    },
-    attributes: {
-      validate: (0, _utils$4.chain)((0, _utils$4.assertValueType)("array"), (0, _utils$4.assertEach)((0, _utils$4.assertNodeType)("JSXAttribute", "JSXSpreadAttribute")))
-    },
-    typeParameters: {
-      validate: (0, _utils$4.assertNodeType)("TypeParameterInstantiation", "TSTypeParameterInstantiation"),
-      optional: true
-    }
-  }
-});
-(0, _utils$4.default)("JSXSpreadAttribute", {
-  visitor: ["argument"],
-  aliases: ["JSX"],
-  fields: {
-    argument: {
-      validate: (0, _utils$4.assertNodeType)("Expression")
-    }
-  }
-});
-(0, _utils$4.default)("JSXText", {
-  aliases: ["JSX", "Immutable"],
-  builder: ["value"],
-  fields: {
-    value: {
-      validate: (0, _utils$4.assertValueType)("string")
-    }
-  }
-});
-(0, _utils$4.default)("JSXFragment", {
-  builder: ["openingFragment", "closingFragment", "children"],
-  visitor: ["openingFragment", "children", "closingFragment"],
-  aliases: ["JSX", "Immutable", "Expression"],
-  fields: {
-    openingFragment: {
-      validate: (0, _utils$4.assertNodeType)("JSXOpeningFragment")
-    },
-    closingFragment: {
-      validate: (0, _utils$4.assertNodeType)("JSXClosingFragment")
-    },
-    children: {
-      validate: (0, _utils$4.chain)((0, _utils$4.assertValueType)("array"), (0, _utils$4.assertEach)((0, _utils$4.assertNodeType)("JSXText", "JSXExpressionContainer", "JSXSpreadChild", "JSXElement", "JSXFragment")))
-    }
-  }
-});
-(0, _utils$4.default)("JSXOpeningFragment", {
-  aliases: ["JSX", "Immutable"]
-});
-(0, _utils$4.default)("JSXClosingFragment", {
-  aliases: ["JSX", "Immutable"]
-});
+var misc = {};
 
 var placeholders = {};
 
-Object.defineProperty(placeholders, "__esModule", {
-  value: true
-});
-placeholders.PLACEHOLDERS_FLIPPED_ALIAS = placeholders.PLACEHOLDERS_ALIAS = placeholders.PLACEHOLDERS = void 0;
+var hasRequiredPlaceholders;
 
-var _utils$3 = utils;
+function requirePlaceholders () {
+	if (hasRequiredPlaceholders) return placeholders;
+	hasRequiredPlaceholders = 1;
 
-const PLACEHOLDERS = ["Identifier", "StringLiteral", "Expression", "Statement", "Declaration", "BlockStatement", "ClassBody", "Pattern"];
-placeholders.PLACEHOLDERS = PLACEHOLDERS;
-const PLACEHOLDERS_ALIAS = {
-  Declaration: ["Statement"],
-  Pattern: ["PatternLike", "LVal"]
-};
-placeholders.PLACEHOLDERS_ALIAS = PLACEHOLDERS_ALIAS;
+	Object.defineProperty(placeholders, "__esModule", {
+	  value: true
+	});
+	placeholders.PLACEHOLDERS_FLIPPED_ALIAS = placeholders.PLACEHOLDERS_ALIAS = placeholders.PLACEHOLDERS = void 0;
 
-for (const type of PLACEHOLDERS) {
-  const alias = _utils$3.ALIAS_KEYS[type];
-  if (alias != null && alias.length) PLACEHOLDERS_ALIAS[type] = alias;
+	var _utils = requireUtils();
+
+	const PLACEHOLDERS = ["Identifier", "StringLiteral", "Expression", "Statement", "Declaration", "BlockStatement", "ClassBody", "Pattern"];
+	placeholders.PLACEHOLDERS = PLACEHOLDERS;
+	const PLACEHOLDERS_ALIAS = {
+	  Declaration: ["Statement"],
+	  Pattern: ["PatternLike", "LVal"]
+	};
+	placeholders.PLACEHOLDERS_ALIAS = PLACEHOLDERS_ALIAS;
+
+	for (const type of PLACEHOLDERS) {
+	  const alias = _utils.ALIAS_KEYS[type];
+	  if (alias != null && alias.length) PLACEHOLDERS_ALIAS[type] = alias;
+	}
+
+	const PLACEHOLDERS_FLIPPED_ALIAS = {};
+	placeholders.PLACEHOLDERS_FLIPPED_ALIAS = PLACEHOLDERS_FLIPPED_ALIAS;
+	Object.keys(PLACEHOLDERS_ALIAS).forEach(type => {
+	  PLACEHOLDERS_ALIAS[type].forEach(alias => {
+	    if (!Object.hasOwnProperty.call(PLACEHOLDERS_FLIPPED_ALIAS, alias)) {
+	      PLACEHOLDERS_FLIPPED_ALIAS[alias] = [];
+	    }
+
+	    PLACEHOLDERS_FLIPPED_ALIAS[alias].push(type);
+	  });
+	});
+	return placeholders;
 }
 
-const PLACEHOLDERS_FLIPPED_ALIAS = {};
-placeholders.PLACEHOLDERS_FLIPPED_ALIAS = PLACEHOLDERS_FLIPPED_ALIAS;
-Object.keys(PLACEHOLDERS_ALIAS).forEach(type => {
-  PLACEHOLDERS_ALIAS[type].forEach(alias => {
-    if (!Object.hasOwnProperty.call(PLACEHOLDERS_FLIPPED_ALIAS, alias)) {
-      PLACEHOLDERS_FLIPPED_ALIAS[alias] = [];
-    }
+var hasRequiredMisc;
 
-    PLACEHOLDERS_FLIPPED_ALIAS[alias].push(type);
-  });
-});
+function requireMisc () {
+	if (hasRequiredMisc) return misc;
+	hasRequiredMisc = 1;
 
-var _utils$2 = utils;
+	var _utils = requireUtils();
 
-var _placeholders = placeholders;
+	var _placeholders = requirePlaceholders();
 
-{
-  (0, _utils$2.default)("Noop", {
-    visitor: []
-  });
-}
-(0, _utils$2.default)("Placeholder", {
-  visitor: [],
-  builder: ["expectedNode", "name"],
-  fields: {
-    name: {
-      validate: (0, _utils$2.assertNodeType)("Identifier")
-    },
-    expectedNode: {
-      validate: (0, _utils$2.assertOneOf)(..._placeholders.PLACEHOLDERS)
-    }
-  }
-});
-(0, _utils$2.default)("V8IntrinsicIdentifier", {
-  builder: ["name"],
-  fields: {
-    name: {
-      validate: (0, _utils$2.assertValueType)("string")
-    }
-  }
-});
-
-var _utils$1 = utils;
-
-(0, _utils$1.default)("ArgumentPlaceholder", {});
-(0, _utils$1.default)("BindExpression", {
-  visitor: ["object", "callee"],
-  aliases: ["Expression"],
-  fields: {
-    object: {
-      validate: Object.assign(() => {}, {
-        oneOfNodeTypes: ["Expression"]
-      })
-    },
-    callee: {
-      validate: Object.assign(() => {}, {
-        oneOfNodeTypes: ["Expression"]
-      })
-    }
-  } 
-});
-(0, _utils$1.default)("ImportAttribute", {
-  visitor: ["key", "value"],
-  fields: {
-    key: {
-      validate: (0, _utils$1.assertNodeType)("Identifier", "StringLiteral")
-    },
-    value: {
-      validate: (0, _utils$1.assertNodeType)("StringLiteral")
-    }
-  }
-});
-(0, _utils$1.default)("Decorator", {
-  visitor: ["expression"],
-  fields: {
-    expression: {
-      validate: (0, _utils$1.assertNodeType)("Expression")
-    }
-  }
-});
-(0, _utils$1.default)("DoExpression", {
-  visitor: ["body"],
-  builder: ["body", "async"],
-  aliases: ["Expression"],
-  fields: {
-    body: {
-      validate: (0, _utils$1.assertNodeType)("BlockStatement")
-    },
-    async: {
-      validate: (0, _utils$1.assertValueType)("boolean"),
-      default: false
-    }
-  }
-});
-(0, _utils$1.default)("ExportDefaultSpecifier", {
-  visitor: ["exported"],
-  aliases: ["ModuleSpecifier"],
-  fields: {
-    exported: {
-      validate: (0, _utils$1.assertNodeType)("Identifier")
-    }
-  }
-});
-(0, _utils$1.default)("RecordExpression", {
-  visitor: ["properties"],
-  aliases: ["Expression"],
-  fields: {
-    properties: {
-      validate: (0, _utils$1.chain)((0, _utils$1.assertValueType)("array"), (0, _utils$1.assertEach)((0, _utils$1.assertNodeType)("ObjectProperty", "SpreadElement")))
-    }
-  }
-});
-(0, _utils$1.default)("TupleExpression", {
-  fields: {
-    elements: {
-      validate: (0, _utils$1.chain)((0, _utils$1.assertValueType)("array"), (0, _utils$1.assertEach)((0, _utils$1.assertNodeType)("Expression", "SpreadElement"))),
-      default: []
-    }
-  },
-  visitor: ["elements"],
-  aliases: ["Expression"]
-});
-(0, _utils$1.default)("DecimalLiteral", {
-  builder: ["value"],
-  fields: {
-    value: {
-      validate: (0, _utils$1.assertValueType)("string")
-    }
-  },
-  aliases: ["Expression", "Pureish", "Literal", "Immutable"]
-});
-(0, _utils$1.default)("StaticBlock", {
-  visitor: ["body"],
-  fields: {
-    body: {
-      validate: (0, _utils$1.chain)((0, _utils$1.assertValueType)("array"), (0, _utils$1.assertEach)((0, _utils$1.assertNodeType)("Statement")))
-    }
-  },
-  aliases: ["Scopable", "BlockParent"]
-});
-(0, _utils$1.default)("ModuleExpression", {
-  visitor: ["body"],
-  fields: {
-    body: {
-      validate: (0, _utils$1.assertNodeType)("Program")
-    }
-  },
-  aliases: ["Expression"]
-});
-(0, _utils$1.default)("TopicReference", {
-  aliases: ["Expression"]
-});
-(0, _utils$1.default)("PipelineTopicExpression", {
-  builder: ["expression"],
-  visitor: ["expression"],
-  fields: {
-    expression: {
-      validate: (0, _utils$1.assertNodeType)("Expression")
-    }
-  },
-  aliases: ["Expression"]
-});
-(0, _utils$1.default)("PipelineBareFunction", {
-  builder: ["callee"],
-  visitor: ["callee"],
-  fields: {
-    callee: {
-      validate: (0, _utils$1.assertNodeType)("Expression")
-    }
-  },
-  aliases: ["Expression"]
-});
-(0, _utils$1.default)("PipelinePrimaryTopicReference", {
-  aliases: ["Expression"]
-});
-
-var _utils = utils;
-
-var _core = core;
-
-var _is$1 = is$1;
-
-const bool = (0, _utils.assertValueType)("boolean");
-const tSFunctionTypeAnnotationCommon = {
-  returnType: {
-    validate: (0, _utils.assertNodeType)("TSTypeAnnotation", "Noop"),
-    optional: true
-  },
-  typeParameters: {
-    validate: (0, _utils.assertNodeType)("TSTypeParameterDeclaration", "Noop"),
-    optional: true
-  }
-};
-(0, _utils.default)("TSParameterProperty", {
-  aliases: ["LVal"],
-  visitor: ["parameter"],
-  fields: {
-    accessibility: {
-      validate: (0, _utils.assertOneOf)("public", "private", "protected"),
-      optional: true
-    },
-    readonly: {
-      validate: (0, _utils.assertValueType)("boolean"),
-      optional: true
-    },
-    parameter: {
-      validate: (0, _utils.assertNodeType)("Identifier", "AssignmentPattern")
-    },
-    override: {
-      validate: (0, _utils.assertValueType)("boolean"),
-      optional: true
-    },
-    decorators: {
-      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Decorator"))),
-      optional: true
-    }
-  }
-});
-(0, _utils.default)("TSDeclareFunction", {
-  aliases: ["Statement", "Declaration"],
-  visitor: ["id", "typeParameters", "params", "returnType"],
-  fields: Object.assign({}, _core.functionDeclarationCommon, tSFunctionTypeAnnotationCommon)
-});
-(0, _utils.default)("TSDeclareMethod", {
-  visitor: ["decorators", "key", "typeParameters", "params", "returnType"],
-  fields: Object.assign({}, _core.classMethodOrDeclareMethodCommon, tSFunctionTypeAnnotationCommon)
-});
-(0, _utils.default)("TSQualifiedName", {
-  aliases: ["TSEntityName"],
-  visitor: ["left", "right"],
-  fields: {
-    left: (0, _utils.validateType)("TSEntityName"),
-    right: (0, _utils.validateType)("Identifier")
-  }
-});
-const signatureDeclarationCommon = {
-  typeParameters: (0, _utils.validateOptionalType)("TSTypeParameterDeclaration"),
-  parameters: (0, _utils.validateArrayOfType)(["Identifier", "RestElement"]),
-  typeAnnotation: (0, _utils.validateOptionalType)("TSTypeAnnotation")
-};
-const callConstructSignatureDeclaration = {
-  aliases: ["TSTypeElement"],
-  visitor: ["typeParameters", "parameters", "typeAnnotation"],
-  fields: signatureDeclarationCommon
-};
-(0, _utils.default)("TSCallSignatureDeclaration", callConstructSignatureDeclaration);
-(0, _utils.default)("TSConstructSignatureDeclaration", callConstructSignatureDeclaration);
-const namedTypeElementCommon = {
-  key: (0, _utils.validateType)("Expression"),
-  computed: (0, _utils.validate)(bool),
-  optional: (0, _utils.validateOptional)(bool)
-};
-(0, _utils.default)("TSPropertySignature", {
-  aliases: ["TSTypeElement"],
-  visitor: ["key", "typeAnnotation", "initializer"],
-  fields: Object.assign({}, namedTypeElementCommon, {
-    readonly: (0, _utils.validateOptional)(bool),
-    typeAnnotation: (0, _utils.validateOptionalType)("TSTypeAnnotation"),
-    initializer: (0, _utils.validateOptionalType)("Expression"),
-    kind: {
-      validate: (0, _utils.assertOneOf)("get", "set")
-    }
-  })
-});
-(0, _utils.default)("TSMethodSignature", {
-  aliases: ["TSTypeElement"],
-  visitor: ["key", "typeParameters", "parameters", "typeAnnotation"],
-  fields: Object.assign({}, signatureDeclarationCommon, namedTypeElementCommon, {
-    kind: {
-      validate: (0, _utils.assertOneOf)("method", "get", "set")
-    }
-  })
-});
-(0, _utils.default)("TSIndexSignature", {
-  aliases: ["TSTypeElement"],
-  visitor: ["parameters", "typeAnnotation"],
-  fields: {
-    readonly: (0, _utils.validateOptional)(bool),
-    static: (0, _utils.validateOptional)(bool),
-    parameters: (0, _utils.validateArrayOfType)("Identifier"),
-    typeAnnotation: (0, _utils.validateOptionalType)("TSTypeAnnotation")
-  }
-});
-const tsKeywordTypes = ["TSAnyKeyword", "TSBooleanKeyword", "TSBigIntKeyword", "TSIntrinsicKeyword", "TSNeverKeyword", "TSNullKeyword", "TSNumberKeyword", "TSObjectKeyword", "TSStringKeyword", "TSSymbolKeyword", "TSUndefinedKeyword", "TSUnknownKeyword", "TSVoidKeyword"];
-
-for (const type of tsKeywordTypes) {
-  (0, _utils.default)(type, {
-    aliases: ["TSType", "TSBaseType"],
-    visitor: [],
-    fields: {}
-  });
+	{
+	  (0, _utils.default)("Noop", {
+	    visitor: []
+	  });
+	}
+	(0, _utils.default)("Placeholder", {
+	  visitor: [],
+	  builder: ["expectedNode", "name"],
+	  fields: {
+	    name: {
+	      validate: (0, _utils.assertNodeType)("Identifier")
+	    },
+	    expectedNode: {
+	      validate: (0, _utils.assertOneOf)(..._placeholders.PLACEHOLDERS)
+	    }
+	  }
+	});
+	(0, _utils.default)("V8IntrinsicIdentifier", {
+	  builder: ["name"],
+	  fields: {
+	    name: {
+	      validate: (0, _utils.assertValueType)("string")
+	    }
+	  }
+	});
+	return misc;
 }
 
-(0, _utils.default)("TSThisType", {
-  aliases: ["TSType", "TSBaseType"],
-  visitor: [],
-  fields: {}
-});
-const fnOrCtrBase = {
-  aliases: ["TSType"],
-  visitor: ["typeParameters", "parameters", "typeAnnotation"]
-};
-(0, _utils.default)("TSFunctionType", Object.assign({}, fnOrCtrBase, {
-  fields: signatureDeclarationCommon
-}));
-(0, _utils.default)("TSConstructorType", Object.assign({}, fnOrCtrBase, {
-  fields: Object.assign({}, signatureDeclarationCommon, {
-    abstract: (0, _utils.validateOptional)(bool)
-  })
-}));
-(0, _utils.default)("TSTypeReference", {
-  aliases: ["TSType"],
-  visitor: ["typeName", "typeParameters"],
-  fields: {
-    typeName: (0, _utils.validateType)("TSEntityName"),
-    typeParameters: (0, _utils.validateOptionalType)("TSTypeParameterInstantiation")
-  }
-});
-(0, _utils.default)("TSTypePredicate", {
-  aliases: ["TSType"],
-  visitor: ["parameterName", "typeAnnotation"],
-  builder: ["parameterName", "typeAnnotation", "asserts"],
-  fields: {
-    parameterName: (0, _utils.validateType)(["Identifier", "TSThisType"]),
-    typeAnnotation: (0, _utils.validateOptionalType)("TSTypeAnnotation"),
-    asserts: (0, _utils.validateOptional)(bool)
-  }
-});
-(0, _utils.default)("TSTypeQuery", {
-  aliases: ["TSType"],
-  visitor: ["exprName"],
-  fields: {
-    exprName: (0, _utils.validateType)(["TSEntityName", "TSImportType"])
-  }
-});
-(0, _utils.default)("TSTypeLiteral", {
-  aliases: ["TSType"],
-  visitor: ["members"],
-  fields: {
-    members: (0, _utils.validateArrayOfType)("TSTypeElement")
-  }
-});
-(0, _utils.default)("TSArrayType", {
-  aliases: ["TSType"],
-  visitor: ["elementType"],
-  fields: {
-    elementType: (0, _utils.validateType)("TSType")
-  }
-});
-(0, _utils.default)("TSTupleType", {
-  aliases: ["TSType"],
-  visitor: ["elementTypes"],
-  fields: {
-    elementTypes: (0, _utils.validateArrayOfType)(["TSType", "TSNamedTupleMember"])
-  }
-});
-(0, _utils.default)("TSOptionalType", {
-  aliases: ["TSType"],
-  visitor: ["typeAnnotation"],
-  fields: {
-    typeAnnotation: (0, _utils.validateType)("TSType")
-  }
-});
-(0, _utils.default)("TSRestType", {
-  aliases: ["TSType"],
-  visitor: ["typeAnnotation"],
-  fields: {
-    typeAnnotation: (0, _utils.validateType)("TSType")
-  }
-});
-(0, _utils.default)("TSNamedTupleMember", {
-  visitor: ["label", "elementType"],
-  builder: ["label", "elementType", "optional"],
-  fields: {
-    label: (0, _utils.validateType)("Identifier"),
-    optional: {
-      validate: bool,
-      default: false
-    },
-    elementType: (0, _utils.validateType)("TSType")
-  }
-});
-const unionOrIntersection = {
-  aliases: ["TSType"],
-  visitor: ["types"],
-  fields: {
-    types: (0, _utils.validateArrayOfType)("TSType")
-  }
-};
-(0, _utils.default)("TSUnionType", unionOrIntersection);
-(0, _utils.default)("TSIntersectionType", unionOrIntersection);
-(0, _utils.default)("TSConditionalType", {
-  aliases: ["TSType"],
-  visitor: ["checkType", "extendsType", "trueType", "falseType"],
-  fields: {
-    checkType: (0, _utils.validateType)("TSType"),
-    extendsType: (0, _utils.validateType)("TSType"),
-    trueType: (0, _utils.validateType)("TSType"),
-    falseType: (0, _utils.validateType)("TSType")
-  }
-});
-(0, _utils.default)("TSInferType", {
-  aliases: ["TSType"],
-  visitor: ["typeParameter"],
-  fields: {
-    typeParameter: (0, _utils.validateType)("TSTypeParameter")
-  }
-});
-(0, _utils.default)("TSParenthesizedType", {
-  aliases: ["TSType"],
-  visitor: ["typeAnnotation"],
-  fields: {
-    typeAnnotation: (0, _utils.validateType)("TSType")
-  }
-});
-(0, _utils.default)("TSTypeOperator", {
-  aliases: ["TSType"],
-  visitor: ["typeAnnotation"],
-  fields: {
-    operator: (0, _utils.validate)((0, _utils.assertValueType)("string")),
-    typeAnnotation: (0, _utils.validateType)("TSType")
-  }
-});
-(0, _utils.default)("TSIndexedAccessType", {
-  aliases: ["TSType"],
-  visitor: ["objectType", "indexType"],
-  fields: {
-    objectType: (0, _utils.validateType)("TSType"),
-    indexType: (0, _utils.validateType)("TSType")
-  }
-});
-(0, _utils.default)("TSMappedType", {
-  aliases: ["TSType"],
-  visitor: ["typeParameter", "typeAnnotation", "nameType"],
-  fields: {
-    readonly: (0, _utils.validateOptional)(bool),
-    typeParameter: (0, _utils.validateType)("TSTypeParameter"),
-    optional: (0, _utils.validateOptional)(bool),
-    typeAnnotation: (0, _utils.validateOptionalType)("TSType"),
-    nameType: (0, _utils.validateOptionalType)("TSType")
-  }
-});
-(0, _utils.default)("TSLiteralType", {
-  aliases: ["TSType", "TSBaseType"],
-  visitor: ["literal"],
-  fields: {
-    literal: {
-      validate: function () {
-        const unaryExpression = (0, _utils.assertNodeType)("NumericLiteral", "BigIntLiteral");
-        const unaryOperator = (0, _utils.assertOneOf)("-");
-        const literal = (0, _utils.assertNodeType)("NumericLiteral", "StringLiteral", "BooleanLiteral", "BigIntLiteral");
+var experimental = {};
 
-        function validator(parent, key, node) {
-          if ((0, _is$1.default)("UnaryExpression", node)) {
-            unaryOperator(node, "operator", node.operator);
-            unaryExpression(node, "argument", node.argument);
-          } else {
-            literal(parent, key, node);
-          }
-        }
+var hasRequiredExperimental;
 
-        validator.oneOfNodeTypes = ["NumericLiteral", "StringLiteral", "BooleanLiteral", "BigIntLiteral", "UnaryExpression"];
-        return validator;
-      }()
-    }
-  }
-});
-(0, _utils.default)("TSExpressionWithTypeArguments", {
-  aliases: ["TSType"],
-  visitor: ["expression", "typeParameters"],
-  fields: {
-    expression: (0, _utils.validateType)("TSEntityName"),
-    typeParameters: (0, _utils.validateOptionalType)("TSTypeParameterInstantiation")
-  }
-});
-(0, _utils.default)("TSInterfaceDeclaration", {
-  aliases: ["Statement", "Declaration"],
-  visitor: ["id", "typeParameters", "extends", "body"],
-  fields: {
-    declare: (0, _utils.validateOptional)(bool),
-    id: (0, _utils.validateType)("Identifier"),
-    typeParameters: (0, _utils.validateOptionalType)("TSTypeParameterDeclaration"),
-    extends: (0, _utils.validateOptional)((0, _utils.arrayOfType)("TSExpressionWithTypeArguments")),
-    body: (0, _utils.validateType)("TSInterfaceBody")
-  }
-});
-(0, _utils.default)("TSInterfaceBody", {
-  visitor: ["body"],
-  fields: {
-    body: (0, _utils.validateArrayOfType)("TSTypeElement")
-  }
-});
-(0, _utils.default)("TSTypeAliasDeclaration", {
-  aliases: ["Statement", "Declaration"],
-  visitor: ["id", "typeParameters", "typeAnnotation"],
-  fields: {
-    declare: (0, _utils.validateOptional)(bool),
-    id: (0, _utils.validateType)("Identifier"),
-    typeParameters: (0, _utils.validateOptionalType)("TSTypeParameterDeclaration"),
-    typeAnnotation: (0, _utils.validateType)("TSType")
-  }
-});
-(0, _utils.default)("TSAsExpression", {
-  aliases: ["Expression"],
-  visitor: ["expression", "typeAnnotation"],
-  fields: {
-    expression: (0, _utils.validateType)("Expression"),
-    typeAnnotation: (0, _utils.validateType)("TSType")
-  }
-});
-(0, _utils.default)("TSTypeAssertion", {
-  aliases: ["Expression"],
-  visitor: ["typeAnnotation", "expression"],
-  fields: {
-    typeAnnotation: (0, _utils.validateType)("TSType"),
-    expression: (0, _utils.validateType)("Expression")
-  }
-});
-(0, _utils.default)("TSEnumDeclaration", {
-  aliases: ["Statement", "Declaration"],
-  visitor: ["id", "members"],
-  fields: {
-    declare: (0, _utils.validateOptional)(bool),
-    const: (0, _utils.validateOptional)(bool),
-    id: (0, _utils.validateType)("Identifier"),
-    members: (0, _utils.validateArrayOfType)("TSEnumMember"),
-    initializer: (0, _utils.validateOptionalType)("Expression")
-  }
-});
-(0, _utils.default)("TSEnumMember", {
-  visitor: ["id", "initializer"],
-  fields: {
-    id: (0, _utils.validateType)(["Identifier", "StringLiteral"]),
-    initializer: (0, _utils.validateOptionalType)("Expression")
-  }
-});
-(0, _utils.default)("TSModuleDeclaration", {
-  aliases: ["Statement", "Declaration"],
-  visitor: ["id", "body"],
-  fields: {
-    declare: (0, _utils.validateOptional)(bool),
-    global: (0, _utils.validateOptional)(bool),
-    id: (0, _utils.validateType)(["Identifier", "StringLiteral"]),
-    body: (0, _utils.validateType)(["TSModuleBlock", "TSModuleDeclaration"])
-  }
-});
-(0, _utils.default)("TSModuleBlock", {
-  aliases: ["Scopable", "Block", "BlockParent"],
-  visitor: ["body"],
-  fields: {
-    body: (0, _utils.validateArrayOfType)("Statement")
-  }
-});
-(0, _utils.default)("TSImportType", {
-  aliases: ["TSType"],
-  visitor: ["argument", "qualifier", "typeParameters"],
-  fields: {
-    argument: (0, _utils.validateType)("StringLiteral"),
-    qualifier: (0, _utils.validateOptionalType)("TSEntityName"),
-    typeParameters: (0, _utils.validateOptionalType)("TSTypeParameterInstantiation")
-  }
-});
-(0, _utils.default)("TSImportEqualsDeclaration", {
-  aliases: ["Statement"],
-  visitor: ["id", "moduleReference"],
-  fields: {
-    isExport: (0, _utils.validate)(bool),
-    id: (0, _utils.validateType)("Identifier"),
-    moduleReference: (0, _utils.validateType)(["TSEntityName", "TSExternalModuleReference"]),
-    importKind: {
-      validate: (0, _utils.assertOneOf)("type", "value"),
-      optional: true
-    }
-  }
-});
-(0, _utils.default)("TSExternalModuleReference", {
-  visitor: ["expression"],
-  fields: {
-    expression: (0, _utils.validateType)("StringLiteral")
-  }
-});
-(0, _utils.default)("TSNonNullExpression", {
-  aliases: ["Expression"],
-  visitor: ["expression"],
-  fields: {
-    expression: (0, _utils.validateType)("Expression")
-  }
-});
-(0, _utils.default)("TSExportAssignment", {
-  aliases: ["Statement"],
-  visitor: ["expression"],
-  fields: {
-    expression: (0, _utils.validateType)("Expression")
-  }
-});
-(0, _utils.default)("TSNamespaceExportDeclaration", {
-  aliases: ["Statement"],
-  visitor: ["id"],
-  fields: {
-    id: (0, _utils.validateType)("Identifier")
-  }
-});
-(0, _utils.default)("TSTypeAnnotation", {
-  visitor: ["typeAnnotation"],
-  fields: {
-    typeAnnotation: {
-      validate: (0, _utils.assertNodeType)("TSType")
-    }
-  }
-});
-(0, _utils.default)("TSTypeParameterInstantiation", {
-  visitor: ["params"],
-  fields: {
-    params: {
-      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("TSType")))
-    }
-  }
-});
-(0, _utils.default)("TSTypeParameterDeclaration", {
-  visitor: ["params"],
-  fields: {
-    params: {
-      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("TSTypeParameter")))
-    }
-  }
-});
-(0, _utils.default)("TSTypeParameter", {
-  builder: ["constraint", "default", "name"],
-  visitor: ["constraint", "default"],
-  fields: {
-    name: {
-      validate: (0, _utils.assertValueType)("string")
-    },
-    constraint: {
-      validate: (0, _utils.assertNodeType)("TSType"),
-      optional: true
-    },
-    default: {
-      validate: (0, _utils.assertNodeType)("TSType"),
-      optional: true
-    }
-  }
-});
+function requireExperimental () {
+	if (hasRequiredExperimental) return experimental;
+	hasRequiredExperimental = 1;
 
-(function (exports) {
+	var _utils = requireUtils();
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "VISITOR_KEYS", {
-  enumerable: true,
-  get: function () {
-    return _utils.VISITOR_KEYS;
-  }
-});
-Object.defineProperty(exports, "ALIAS_KEYS", {
-  enumerable: true,
-  get: function () {
-    return _utils.ALIAS_KEYS;
-  }
-});
-Object.defineProperty(exports, "FLIPPED_ALIAS_KEYS", {
-  enumerable: true,
-  get: function () {
-    return _utils.FLIPPED_ALIAS_KEYS;
-  }
-});
-Object.defineProperty(exports, "NODE_FIELDS", {
-  enumerable: true,
-  get: function () {
-    return _utils.NODE_FIELDS;
-  }
-});
-Object.defineProperty(exports, "BUILDER_KEYS", {
-  enumerable: true,
-  get: function () {
-    return _utils.BUILDER_KEYS;
-  }
-});
-Object.defineProperty(exports, "DEPRECATED_KEYS", {
-  enumerable: true,
-  get: function () {
-    return _utils.DEPRECATED_KEYS;
-  }
-});
-Object.defineProperty(exports, "NODE_PARENT_VALIDATIONS", {
-  enumerable: true,
-  get: function () {
-    return _utils.NODE_PARENT_VALIDATIONS;
-  }
-});
-Object.defineProperty(exports, "PLACEHOLDERS", {
-  enumerable: true,
-  get: function () {
-    return _placeholders.PLACEHOLDERS;
-  }
-});
-Object.defineProperty(exports, "PLACEHOLDERS_ALIAS", {
-  enumerable: true,
-  get: function () {
-    return _placeholders.PLACEHOLDERS_ALIAS;
-  }
-});
-Object.defineProperty(exports, "PLACEHOLDERS_FLIPPED_ALIAS", {
-  enumerable: true,
-  get: function () {
-    return _placeholders.PLACEHOLDERS_FLIPPED_ALIAS;
-  }
-});
-exports.TYPES = void 0;
+	(0, _utils.default)("ArgumentPlaceholder", {});
+	(0, _utils.default)("BindExpression", {
+	  visitor: ["object", "callee"],
+	  aliases: ["Expression"],
+	  fields: !process.env.BABEL_TYPES_8_BREAKING ? {
+	    object: {
+	      validate: Object.assign(() => {}, {
+	        oneOfNodeTypes: ["Expression"]
+	      })
+	    },
+	    callee: {
+	      validate: Object.assign(() => {}, {
+	        oneOfNodeTypes: ["Expression"]
+	      })
+	    }
+	  } : {
+	    object: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    },
+	    callee: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    }
+	  }
+	});
+	(0, _utils.default)("ImportAttribute", {
+	  visitor: ["key", "value"],
+	  fields: {
+	    key: {
+	      validate: (0, _utils.assertNodeType)("Identifier", "StringLiteral")
+	    },
+	    value: {
+	      validate: (0, _utils.assertNodeType)("StringLiteral")
+	    }
+	  }
+	});
+	(0, _utils.default)("Decorator", {
+	  visitor: ["expression"],
+	  fields: {
+	    expression: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    }
+	  }
+	});
+	(0, _utils.default)("DoExpression", {
+	  visitor: ["body"],
+	  builder: ["body", "async"],
+	  aliases: ["Expression"],
+	  fields: {
+	    body: {
+	      validate: (0, _utils.assertNodeType)("BlockStatement")
+	    },
+	    async: {
+	      validate: (0, _utils.assertValueType)("boolean"),
+	      default: false
+	    }
+	  }
+	});
+	(0, _utils.default)("ExportDefaultSpecifier", {
+	  visitor: ["exported"],
+	  aliases: ["ModuleSpecifier"],
+	  fields: {
+	    exported: {
+	      validate: (0, _utils.assertNodeType)("Identifier")
+	    }
+	  }
+	});
+	(0, _utils.default)("RecordExpression", {
+	  visitor: ["properties"],
+	  aliases: ["Expression"],
+	  fields: {
+	    properties: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("ObjectProperty", "SpreadElement")))
+	    }
+	  }
+	});
+	(0, _utils.default)("TupleExpression", {
+	  fields: {
+	    elements: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Expression", "SpreadElement"))),
+	      default: []
+	    }
+	  },
+	  visitor: ["elements"],
+	  aliases: ["Expression"]
+	});
+	(0, _utils.default)("DecimalLiteral", {
+	  builder: ["value"],
+	  fields: {
+	    value: {
+	      validate: (0, _utils.assertValueType)("string")
+	    }
+	  },
+	  aliases: ["Expression", "Pureish", "Literal", "Immutable"]
+	});
+	(0, _utils.default)("StaticBlock", {
+	  visitor: ["body"],
+	  fields: {
+	    body: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Statement")))
+	    }
+	  },
+	  aliases: ["Scopable", "BlockParent"]
+	});
+	(0, _utils.default)("ModuleExpression", {
+	  visitor: ["body"],
+	  fields: {
+	    body: {
+	      validate: (0, _utils.assertNodeType)("Program")
+	    }
+	  },
+	  aliases: ["Expression"]
+	});
+	(0, _utils.default)("TopicReference", {
+	  aliases: ["Expression"]
+	});
+	(0, _utils.default)("PipelineTopicExpression", {
+	  builder: ["expression"],
+	  visitor: ["expression"],
+	  fields: {
+	    expression: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    }
+	  },
+	  aliases: ["Expression"]
+	});
+	(0, _utils.default)("PipelineBareFunction", {
+	  builder: ["callee"],
+	  visitor: ["callee"],
+	  fields: {
+	    callee: {
+	      validate: (0, _utils.assertNodeType)("Expression")
+	    }
+	  },
+	  aliases: ["Expression"]
+	});
+	(0, _utils.default)("PipelinePrimaryTopicReference", {
+	  aliases: ["Expression"]
+	});
+	return experimental;
+}
 
-var _toFastProperties = toFastProperties;
+var typescript$1 = {};
 
+var hasRequiredTypescript;
 
+function requireTypescript () {
+	if (hasRequiredTypescript) return typescript$1;
+	hasRequiredTypescript = 1;
 
+	var _utils = requireUtils();
 
+	var _core = requireCore();
 
+	var _is = requireIs();
 
+	const bool = (0, _utils.assertValueType)("boolean");
+	const tSFunctionTypeAnnotationCommon = {
+	  returnType: {
+	    validate: (0, _utils.assertNodeType)("TSTypeAnnotation", "Noop"),
+	    optional: true
+	  },
+	  typeParameters: {
+	    validate: (0, _utils.assertNodeType)("TSTypeParameterDeclaration", "Noop"),
+	    optional: true
+	  }
+	};
+	(0, _utils.default)("TSParameterProperty", {
+	  aliases: ["LVal"],
+	  visitor: ["parameter"],
+	  fields: {
+	    accessibility: {
+	      validate: (0, _utils.assertOneOf)("public", "private", "protected"),
+	      optional: true
+	    },
+	    readonly: {
+	      validate: (0, _utils.assertValueType)("boolean"),
+	      optional: true
+	    },
+	    parameter: {
+	      validate: (0, _utils.assertNodeType)("Identifier", "AssignmentPattern")
+	    },
+	    override: {
+	      validate: (0, _utils.assertValueType)("boolean"),
+	      optional: true
+	    },
+	    decorators: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Decorator"))),
+	      optional: true
+	    }
+	  }
+	});
+	(0, _utils.default)("TSDeclareFunction", {
+	  aliases: ["Statement", "Declaration"],
+	  visitor: ["id", "typeParameters", "params", "returnType"],
+	  fields: Object.assign({}, _core.functionDeclarationCommon, tSFunctionTypeAnnotationCommon)
+	});
+	(0, _utils.default)("TSDeclareMethod", {
+	  visitor: ["decorators", "key", "typeParameters", "params", "returnType"],
+	  fields: Object.assign({}, _core.classMethodOrDeclareMethodCommon, tSFunctionTypeAnnotationCommon)
+	});
+	(0, _utils.default)("TSQualifiedName", {
+	  aliases: ["TSEntityName"],
+	  visitor: ["left", "right"],
+	  fields: {
+	    left: (0, _utils.validateType)("TSEntityName"),
+	    right: (0, _utils.validateType)("Identifier")
+	  }
+	});
+	const signatureDeclarationCommon = {
+	  typeParameters: (0, _utils.validateOptionalType)("TSTypeParameterDeclaration"),
+	  parameters: (0, _utils.validateArrayOfType)(["Identifier", "RestElement"]),
+	  typeAnnotation: (0, _utils.validateOptionalType)("TSTypeAnnotation")
+	};
+	const callConstructSignatureDeclaration = {
+	  aliases: ["TSTypeElement"],
+	  visitor: ["typeParameters", "parameters", "typeAnnotation"],
+	  fields: signatureDeclarationCommon
+	};
+	(0, _utils.default)("TSCallSignatureDeclaration", callConstructSignatureDeclaration);
+	(0, _utils.default)("TSConstructSignatureDeclaration", callConstructSignatureDeclaration);
+	const namedTypeElementCommon = {
+	  key: (0, _utils.validateType)("Expression"),
+	  computed: (0, _utils.validate)(bool),
+	  optional: (0, _utils.validateOptional)(bool)
+	};
+	(0, _utils.default)("TSPropertySignature", {
+	  aliases: ["TSTypeElement"],
+	  visitor: ["key", "typeAnnotation", "initializer"],
+	  fields: Object.assign({}, namedTypeElementCommon, {
+	    readonly: (0, _utils.validateOptional)(bool),
+	    typeAnnotation: (0, _utils.validateOptionalType)("TSTypeAnnotation"),
+	    initializer: (0, _utils.validateOptionalType)("Expression"),
+	    kind: {
+	      validate: (0, _utils.assertOneOf)("get", "set")
+	    }
+	  })
+	});
+	(0, _utils.default)("TSMethodSignature", {
+	  aliases: ["TSTypeElement"],
+	  visitor: ["key", "typeParameters", "parameters", "typeAnnotation"],
+	  fields: Object.assign({}, signatureDeclarationCommon, namedTypeElementCommon, {
+	    kind: {
+	      validate: (0, _utils.assertOneOf)("method", "get", "set")
+	    }
+	  })
+	});
+	(0, _utils.default)("TSIndexSignature", {
+	  aliases: ["TSTypeElement"],
+	  visitor: ["parameters", "typeAnnotation"],
+	  fields: {
+	    readonly: (0, _utils.validateOptional)(bool),
+	    static: (0, _utils.validateOptional)(bool),
+	    parameters: (0, _utils.validateArrayOfType)("Identifier"),
+	    typeAnnotation: (0, _utils.validateOptionalType)("TSTypeAnnotation")
+	  }
+	});
+	const tsKeywordTypes = ["TSAnyKeyword", "TSBooleanKeyword", "TSBigIntKeyword", "TSIntrinsicKeyword", "TSNeverKeyword", "TSNullKeyword", "TSNumberKeyword", "TSObjectKeyword", "TSStringKeyword", "TSSymbolKeyword", "TSUndefinedKeyword", "TSUnknownKeyword", "TSVoidKeyword"];
 
+	for (const type of tsKeywordTypes) {
+	  (0, _utils.default)(type, {
+	    aliases: ["TSType", "TSBaseType"],
+	    visitor: [],
+	    fields: {}
+	  });
+	}
 
+	(0, _utils.default)("TSThisType", {
+	  aliases: ["TSType", "TSBaseType"],
+	  visitor: [],
+	  fields: {}
+	});
+	const fnOrCtrBase = {
+	  aliases: ["TSType"],
+	  visitor: ["typeParameters", "parameters", "typeAnnotation"]
+	};
+	(0, _utils.default)("TSFunctionType", Object.assign({}, fnOrCtrBase, {
+	  fields: signatureDeclarationCommon
+	}));
+	(0, _utils.default)("TSConstructorType", Object.assign({}, fnOrCtrBase, {
+	  fields: Object.assign({}, signatureDeclarationCommon, {
+	    abstract: (0, _utils.validateOptional)(bool)
+	  })
+	}));
+	(0, _utils.default)("TSTypeReference", {
+	  aliases: ["TSType"],
+	  visitor: ["typeName", "typeParameters"],
+	  fields: {
+	    typeName: (0, _utils.validateType)("TSEntityName"),
+	    typeParameters: (0, _utils.validateOptionalType)("TSTypeParameterInstantiation")
+	  }
+	});
+	(0, _utils.default)("TSTypePredicate", {
+	  aliases: ["TSType"],
+	  visitor: ["parameterName", "typeAnnotation"],
+	  builder: ["parameterName", "typeAnnotation", "asserts"],
+	  fields: {
+	    parameterName: (0, _utils.validateType)(["Identifier", "TSThisType"]),
+	    typeAnnotation: (0, _utils.validateOptionalType)("TSTypeAnnotation"),
+	    asserts: (0, _utils.validateOptional)(bool)
+	  }
+	});
+	(0, _utils.default)("TSTypeQuery", {
+	  aliases: ["TSType"],
+	  visitor: ["exprName"],
+	  fields: {
+	    exprName: (0, _utils.validateType)(["TSEntityName", "TSImportType"])
+	  }
+	});
+	(0, _utils.default)("TSTypeLiteral", {
+	  aliases: ["TSType"],
+	  visitor: ["members"],
+	  fields: {
+	    members: (0, _utils.validateArrayOfType)("TSTypeElement")
+	  }
+	});
+	(0, _utils.default)("TSArrayType", {
+	  aliases: ["TSType"],
+	  visitor: ["elementType"],
+	  fields: {
+	    elementType: (0, _utils.validateType)("TSType")
+	  }
+	});
+	(0, _utils.default)("TSTupleType", {
+	  aliases: ["TSType"],
+	  visitor: ["elementTypes"],
+	  fields: {
+	    elementTypes: (0, _utils.validateArrayOfType)(["TSType", "TSNamedTupleMember"])
+	  }
+	});
+	(0, _utils.default)("TSOptionalType", {
+	  aliases: ["TSType"],
+	  visitor: ["typeAnnotation"],
+	  fields: {
+	    typeAnnotation: (0, _utils.validateType)("TSType")
+	  }
+	});
+	(0, _utils.default)("TSRestType", {
+	  aliases: ["TSType"],
+	  visitor: ["typeAnnotation"],
+	  fields: {
+	    typeAnnotation: (0, _utils.validateType)("TSType")
+	  }
+	});
+	(0, _utils.default)("TSNamedTupleMember", {
+	  visitor: ["label", "elementType"],
+	  builder: ["label", "elementType", "optional"],
+	  fields: {
+	    label: (0, _utils.validateType)("Identifier"),
+	    optional: {
+	      validate: bool,
+	      default: false
+	    },
+	    elementType: (0, _utils.validateType)("TSType")
+	  }
+	});
+	const unionOrIntersection = {
+	  aliases: ["TSType"],
+	  visitor: ["types"],
+	  fields: {
+	    types: (0, _utils.validateArrayOfType)("TSType")
+	  }
+	};
+	(0, _utils.default)("TSUnionType", unionOrIntersection);
+	(0, _utils.default)("TSIntersectionType", unionOrIntersection);
+	(0, _utils.default)("TSConditionalType", {
+	  aliases: ["TSType"],
+	  visitor: ["checkType", "extendsType", "trueType", "falseType"],
+	  fields: {
+	    checkType: (0, _utils.validateType)("TSType"),
+	    extendsType: (0, _utils.validateType)("TSType"),
+	    trueType: (0, _utils.validateType)("TSType"),
+	    falseType: (0, _utils.validateType)("TSType")
+	  }
+	});
+	(0, _utils.default)("TSInferType", {
+	  aliases: ["TSType"],
+	  visitor: ["typeParameter"],
+	  fields: {
+	    typeParameter: (0, _utils.validateType)("TSTypeParameter")
+	  }
+	});
+	(0, _utils.default)("TSParenthesizedType", {
+	  aliases: ["TSType"],
+	  visitor: ["typeAnnotation"],
+	  fields: {
+	    typeAnnotation: (0, _utils.validateType)("TSType")
+	  }
+	});
+	(0, _utils.default)("TSTypeOperator", {
+	  aliases: ["TSType"],
+	  visitor: ["typeAnnotation"],
+	  fields: {
+	    operator: (0, _utils.validate)((0, _utils.assertValueType)("string")),
+	    typeAnnotation: (0, _utils.validateType)("TSType")
+	  }
+	});
+	(0, _utils.default)("TSIndexedAccessType", {
+	  aliases: ["TSType"],
+	  visitor: ["objectType", "indexType"],
+	  fields: {
+	    objectType: (0, _utils.validateType)("TSType"),
+	    indexType: (0, _utils.validateType)("TSType")
+	  }
+	});
+	(0, _utils.default)("TSMappedType", {
+	  aliases: ["TSType"],
+	  visitor: ["typeParameter", "typeAnnotation", "nameType"],
+	  fields: {
+	    readonly: (0, _utils.validateOptional)(bool),
+	    typeParameter: (0, _utils.validateType)("TSTypeParameter"),
+	    optional: (0, _utils.validateOptional)(bool),
+	    typeAnnotation: (0, _utils.validateOptionalType)("TSType"),
+	    nameType: (0, _utils.validateOptionalType)("TSType")
+	  }
+	});
+	(0, _utils.default)("TSLiteralType", {
+	  aliases: ["TSType", "TSBaseType"],
+	  visitor: ["literal"],
+	  fields: {
+	    literal: {
+	      validate: function () {
+	        const unaryExpression = (0, _utils.assertNodeType)("NumericLiteral", "BigIntLiteral");
+	        const unaryOperator = (0, _utils.assertOneOf)("-");
+	        const literal = (0, _utils.assertNodeType)("NumericLiteral", "StringLiteral", "BooleanLiteral", "BigIntLiteral");
 
+	        function validator(parent, key, node) {
+	          if ((0, _is.default)("UnaryExpression", node)) {
+	            unaryOperator(node, "operator", node.operator);
+	            unaryExpression(node, "argument", node.argument);
+	          } else {
+	            literal(parent, key, node);
+	          }
+	        }
 
+	        validator.oneOfNodeTypes = ["NumericLiteral", "StringLiteral", "BooleanLiteral", "BigIntLiteral", "UnaryExpression"];
+	        return validator;
+	      }()
+	    }
+	  }
+	});
+	(0, _utils.default)("TSExpressionWithTypeArguments", {
+	  aliases: ["TSType"],
+	  visitor: ["expression", "typeParameters"],
+	  fields: {
+	    expression: (0, _utils.validateType)("TSEntityName"),
+	    typeParameters: (0, _utils.validateOptionalType)("TSTypeParameterInstantiation")
+	  }
+	});
+	(0, _utils.default)("TSInterfaceDeclaration", {
+	  aliases: ["Statement", "Declaration"],
+	  visitor: ["id", "typeParameters", "extends", "body"],
+	  fields: {
+	    declare: (0, _utils.validateOptional)(bool),
+	    id: (0, _utils.validateType)("Identifier"),
+	    typeParameters: (0, _utils.validateOptionalType)("TSTypeParameterDeclaration"),
+	    extends: (0, _utils.validateOptional)((0, _utils.arrayOfType)("TSExpressionWithTypeArguments")),
+	    body: (0, _utils.validateType)("TSInterfaceBody")
+	  }
+	});
+	(0, _utils.default)("TSInterfaceBody", {
+	  visitor: ["body"],
+	  fields: {
+	    body: (0, _utils.validateArrayOfType)("TSTypeElement")
+	  }
+	});
+	(0, _utils.default)("TSTypeAliasDeclaration", {
+	  aliases: ["Statement", "Declaration"],
+	  visitor: ["id", "typeParameters", "typeAnnotation"],
+	  fields: {
+	    declare: (0, _utils.validateOptional)(bool),
+	    id: (0, _utils.validateType)("Identifier"),
+	    typeParameters: (0, _utils.validateOptionalType)("TSTypeParameterDeclaration"),
+	    typeAnnotation: (0, _utils.validateType)("TSType")
+	  }
+	});
+	(0, _utils.default)("TSAsExpression", {
+	  aliases: ["Expression"],
+	  visitor: ["expression", "typeAnnotation"],
+	  fields: {
+	    expression: (0, _utils.validateType)("Expression"),
+	    typeAnnotation: (0, _utils.validateType)("TSType")
+	  }
+	});
+	(0, _utils.default)("TSTypeAssertion", {
+	  aliases: ["Expression"],
+	  visitor: ["typeAnnotation", "expression"],
+	  fields: {
+	    typeAnnotation: (0, _utils.validateType)("TSType"),
+	    expression: (0, _utils.validateType)("Expression")
+	  }
+	});
+	(0, _utils.default)("TSEnumDeclaration", {
+	  aliases: ["Statement", "Declaration"],
+	  visitor: ["id", "members"],
+	  fields: {
+	    declare: (0, _utils.validateOptional)(bool),
+	    const: (0, _utils.validateOptional)(bool),
+	    id: (0, _utils.validateType)("Identifier"),
+	    members: (0, _utils.validateArrayOfType)("TSEnumMember"),
+	    initializer: (0, _utils.validateOptionalType)("Expression")
+	  }
+	});
+	(0, _utils.default)("TSEnumMember", {
+	  visitor: ["id", "initializer"],
+	  fields: {
+	    id: (0, _utils.validateType)(["Identifier", "StringLiteral"]),
+	    initializer: (0, _utils.validateOptionalType)("Expression")
+	  }
+	});
+	(0, _utils.default)("TSModuleDeclaration", {
+	  aliases: ["Statement", "Declaration"],
+	  visitor: ["id", "body"],
+	  fields: {
+	    declare: (0, _utils.validateOptional)(bool),
+	    global: (0, _utils.validateOptional)(bool),
+	    id: (0, _utils.validateType)(["Identifier", "StringLiteral"]),
+	    body: (0, _utils.validateType)(["TSModuleBlock", "TSModuleDeclaration"])
+	  }
+	});
+	(0, _utils.default)("TSModuleBlock", {
+	  aliases: ["Scopable", "Block", "BlockParent"],
+	  visitor: ["body"],
+	  fields: {
+	    body: (0, _utils.validateArrayOfType)("Statement")
+	  }
+	});
+	(0, _utils.default)("TSImportType", {
+	  aliases: ["TSType"],
+	  visitor: ["argument", "qualifier", "typeParameters"],
+	  fields: {
+	    argument: (0, _utils.validateType)("StringLiteral"),
+	    qualifier: (0, _utils.validateOptionalType)("TSEntityName"),
+	    typeParameters: (0, _utils.validateOptionalType)("TSTypeParameterInstantiation")
+	  }
+	});
+	(0, _utils.default)("TSImportEqualsDeclaration", {
+	  aliases: ["Statement"],
+	  visitor: ["id", "moduleReference"],
+	  fields: {
+	    isExport: (0, _utils.validate)(bool),
+	    id: (0, _utils.validateType)("Identifier"),
+	    moduleReference: (0, _utils.validateType)(["TSEntityName", "TSExternalModuleReference"]),
+	    importKind: {
+	      validate: (0, _utils.assertOneOf)("type", "value"),
+	      optional: true
+	    }
+	  }
+	});
+	(0, _utils.default)("TSExternalModuleReference", {
+	  visitor: ["expression"],
+	  fields: {
+	    expression: (0, _utils.validateType)("StringLiteral")
+	  }
+	});
+	(0, _utils.default)("TSNonNullExpression", {
+	  aliases: ["Expression"],
+	  visitor: ["expression"],
+	  fields: {
+	    expression: (0, _utils.validateType)("Expression")
+	  }
+	});
+	(0, _utils.default)("TSExportAssignment", {
+	  aliases: ["Statement"],
+	  visitor: ["expression"],
+	  fields: {
+	    expression: (0, _utils.validateType)("Expression")
+	  }
+	});
+	(0, _utils.default)("TSNamespaceExportDeclaration", {
+	  aliases: ["Statement"],
+	  visitor: ["id"],
+	  fields: {
+	    id: (0, _utils.validateType)("Identifier")
+	  }
+	});
+	(0, _utils.default)("TSTypeAnnotation", {
+	  visitor: ["typeAnnotation"],
+	  fields: {
+	    typeAnnotation: {
+	      validate: (0, _utils.assertNodeType)("TSType")
+	    }
+	  }
+	});
+	(0, _utils.default)("TSTypeParameterInstantiation", {
+	  visitor: ["params"],
+	  fields: {
+	    params: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("TSType")))
+	    }
+	  }
+	});
+	(0, _utils.default)("TSTypeParameterDeclaration", {
+	  visitor: ["params"],
+	  fields: {
+	    params: {
+	      validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("TSTypeParameter")))
+	    }
+	  }
+	});
+	(0, _utils.default)("TSTypeParameter", {
+	  builder: ["constraint", "default", "name"],
+	  visitor: ["constraint", "default"],
+	  fields: {
+	    name: {
+	      validate: (0, _utils.assertValueType)("string")
+	    },
+	    constraint: {
+	      validate: (0, _utils.assertNodeType)("TSType"),
+	      optional: true
+	    },
+	    default: {
+	      validate: (0, _utils.assertNodeType)("TSType"),
+	      optional: true
+	    }
+	  }
+	});
+	return typescript$1;
+}
 
+var hasRequiredDefinitions;
 
+function requireDefinitions () {
+	if (hasRequiredDefinitions) return definitions;
+	hasRequiredDefinitions = 1;
+	(function (exports) {
 
-var _utils = utils;
+		Object.defineProperty(exports, "__esModule", {
+		  value: true
+		});
+		Object.defineProperty(exports, "VISITOR_KEYS", {
+		  enumerable: true,
+		  get: function () {
+		    return _utils.VISITOR_KEYS;
+		  }
+		});
+		Object.defineProperty(exports, "ALIAS_KEYS", {
+		  enumerable: true,
+		  get: function () {
+		    return _utils.ALIAS_KEYS;
+		  }
+		});
+		Object.defineProperty(exports, "FLIPPED_ALIAS_KEYS", {
+		  enumerable: true,
+		  get: function () {
+		    return _utils.FLIPPED_ALIAS_KEYS;
+		  }
+		});
+		Object.defineProperty(exports, "NODE_FIELDS", {
+		  enumerable: true,
+		  get: function () {
+		    return _utils.NODE_FIELDS;
+		  }
+		});
+		Object.defineProperty(exports, "BUILDER_KEYS", {
+		  enumerable: true,
+		  get: function () {
+		    return _utils.BUILDER_KEYS;
+		  }
+		});
+		Object.defineProperty(exports, "DEPRECATED_KEYS", {
+		  enumerable: true,
+		  get: function () {
+		    return _utils.DEPRECATED_KEYS;
+		  }
+		});
+		Object.defineProperty(exports, "NODE_PARENT_VALIDATIONS", {
+		  enumerable: true,
+		  get: function () {
+		    return _utils.NODE_PARENT_VALIDATIONS;
+		  }
+		});
+		Object.defineProperty(exports, "PLACEHOLDERS", {
+		  enumerable: true,
+		  get: function () {
+		    return _placeholders.PLACEHOLDERS;
+		  }
+		});
+		Object.defineProperty(exports, "PLACEHOLDERS_ALIAS", {
+		  enumerable: true,
+		  get: function () {
+		    return _placeholders.PLACEHOLDERS_ALIAS;
+		  }
+		});
+		Object.defineProperty(exports, "PLACEHOLDERS_FLIPPED_ALIAS", {
+		  enumerable: true,
+		  get: function () {
+		    return _placeholders.PLACEHOLDERS_FLIPPED_ALIAS;
+		  }
+		});
+		exports.TYPES = void 0;
 
-var _placeholders = placeholders;
+		var _toFastProperties = toFastProperties;
 
-_toFastProperties(_utils.VISITOR_KEYS);
+		requireCore();
 
-_toFastProperties(_utils.ALIAS_KEYS);
+		requireFlow();
 
-_toFastProperties(_utils.FLIPPED_ALIAS_KEYS);
+		requireJsx();
 
-_toFastProperties(_utils.NODE_FIELDS);
+		requireMisc();
 
-_toFastProperties(_utils.BUILDER_KEYS);
+		requireExperimental();
 
-_toFastProperties(_utils.DEPRECATED_KEYS);
+		requireTypescript();
 
-_toFastProperties(_placeholders.PLACEHOLDERS_ALIAS);
+		var _utils = requireUtils();
 
-_toFastProperties(_placeholders.PLACEHOLDERS_FLIPPED_ALIAS);
+		var _placeholders = requirePlaceholders();
 
-const TYPES = Object.keys(_utils.VISITOR_KEYS).concat(Object.keys(_utils.FLIPPED_ALIAS_KEYS)).concat(Object.keys(_utils.DEPRECATED_KEYS));
-exports.TYPES = TYPES;
-}(definitions));
+		_toFastProperties(_utils.VISITOR_KEYS);
+
+		_toFastProperties(_utils.ALIAS_KEYS);
+
+		_toFastProperties(_utils.FLIPPED_ALIAS_KEYS);
+
+		_toFastProperties(_utils.NODE_FIELDS);
+
+		_toFastProperties(_utils.BUILDER_KEYS);
+
+		_toFastProperties(_utils.DEPRECATED_KEYS);
+
+		_toFastProperties(_placeholders.PLACEHOLDERS_ALIAS);
+
+		_toFastProperties(_placeholders.PLACEHOLDERS_FLIPPED_ALIAS);
+
+		const TYPES = Object.keys(_utils.VISITOR_KEYS).concat(Object.keys(_utils.FLIPPED_ALIAS_KEYS)).concat(Object.keys(_utils.DEPRECATED_KEYS));
+		exports.TYPES = TYPES;
+} (definitions));
+	return definitions;
+}
 
 Object.defineProperty(builder$1, "__esModule", {
   value: true
 });
 builder$1.default = builder;
 
-var _definitions$6 = definitions;
+var _definitions$6 = requireDefinitions();
 
-var _validate = validate$2;
+var _validate = requireValidate();
 
 function builder(type, ...args) {
   const keys = _definitions$6.BUILDER_KEYS[type];
@@ -27804,7 +28255,7 @@ Object.defineProperty(isNode$1, "__esModule", {
 });
 isNode$1.default = isNode;
 
-var _definitions$5 = definitions;
+var _definitions$5 = requireDefinitions();
 
 function isNode(node) {
   return !!(node && _definitions$5.VISITOR_KEYS[node.type]);
@@ -28127,7 +28578,7 @@ generated$2.assertRegexLiteral = assertRegexLiteral;
 generated$2.assertRestProperty = assertRestProperty;
 generated$2.assertSpreadProperty = assertSpreadProperty;
 
-var _is = is$1;
+var _is = requireIs();
 
 function assert(type, node, opts) {
   if (!(0, _is.default)(type, node, opts)) {
@@ -29531,1512 +29982,1512 @@ var uppercase = {};
 
 (function (exports) {
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "ArrayExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.arrayExpression;
-  }
-});
-Object.defineProperty(exports, "AssignmentExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.assignmentExpression;
-  }
-});
-Object.defineProperty(exports, "BinaryExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.binaryExpression;
-  }
-});
-Object.defineProperty(exports, "InterpreterDirective", {
-  enumerable: true,
-  get: function () {
-    return _index.interpreterDirective;
-  }
-});
-Object.defineProperty(exports, "Directive", {
-  enumerable: true,
-  get: function () {
-    return _index.directive;
-  }
-});
-Object.defineProperty(exports, "DirectiveLiteral", {
-  enumerable: true,
-  get: function () {
-    return _index.directiveLiteral;
-  }
-});
-Object.defineProperty(exports, "BlockStatement", {
-  enumerable: true,
-  get: function () {
-    return _index.blockStatement;
-  }
-});
-Object.defineProperty(exports, "BreakStatement", {
-  enumerable: true,
-  get: function () {
-    return _index.breakStatement;
-  }
-});
-Object.defineProperty(exports, "CallExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.callExpression;
-  }
-});
-Object.defineProperty(exports, "CatchClause", {
-  enumerable: true,
-  get: function () {
-    return _index.catchClause;
-  }
-});
-Object.defineProperty(exports, "ConditionalExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.conditionalExpression;
-  }
-});
-Object.defineProperty(exports, "ContinueStatement", {
-  enumerable: true,
-  get: function () {
-    return _index.continueStatement;
-  }
-});
-Object.defineProperty(exports, "DebuggerStatement", {
-  enumerable: true,
-  get: function () {
-    return _index.debuggerStatement;
-  }
-});
-Object.defineProperty(exports, "DoWhileStatement", {
-  enumerable: true,
-  get: function () {
-    return _index.doWhileStatement;
-  }
-});
-Object.defineProperty(exports, "EmptyStatement", {
-  enumerable: true,
-  get: function () {
-    return _index.emptyStatement;
-  }
-});
-Object.defineProperty(exports, "ExpressionStatement", {
-  enumerable: true,
-  get: function () {
-    return _index.expressionStatement;
-  }
-});
-Object.defineProperty(exports, "File", {
-  enumerable: true,
-  get: function () {
-    return _index.file;
-  }
-});
-Object.defineProperty(exports, "ForInStatement", {
-  enumerable: true,
-  get: function () {
-    return _index.forInStatement;
-  }
-});
-Object.defineProperty(exports, "ForStatement", {
-  enumerable: true,
-  get: function () {
-    return _index.forStatement;
-  }
-});
-Object.defineProperty(exports, "FunctionDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.functionDeclaration;
-  }
-});
-Object.defineProperty(exports, "FunctionExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.functionExpression;
-  }
-});
-Object.defineProperty(exports, "Identifier", {
-  enumerable: true,
-  get: function () {
-    return _index.identifier;
-  }
-});
-Object.defineProperty(exports, "IfStatement", {
-  enumerable: true,
-  get: function () {
-    return _index.ifStatement;
-  }
-});
-Object.defineProperty(exports, "LabeledStatement", {
-  enumerable: true,
-  get: function () {
-    return _index.labeledStatement;
-  }
-});
-Object.defineProperty(exports, "StringLiteral", {
-  enumerable: true,
-  get: function () {
-    return _index.stringLiteral;
-  }
-});
-Object.defineProperty(exports, "NumericLiteral", {
-  enumerable: true,
-  get: function () {
-    return _index.numericLiteral;
-  }
-});
-Object.defineProperty(exports, "NullLiteral", {
-  enumerable: true,
-  get: function () {
-    return _index.nullLiteral;
-  }
-});
-Object.defineProperty(exports, "BooleanLiteral", {
-  enumerable: true,
-  get: function () {
-    return _index.booleanLiteral;
-  }
-});
-Object.defineProperty(exports, "RegExpLiteral", {
-  enumerable: true,
-  get: function () {
-    return _index.regExpLiteral;
-  }
-});
-Object.defineProperty(exports, "LogicalExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.logicalExpression;
-  }
-});
-Object.defineProperty(exports, "MemberExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.memberExpression;
-  }
-});
-Object.defineProperty(exports, "NewExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.newExpression;
-  }
-});
-Object.defineProperty(exports, "Program", {
-  enumerable: true,
-  get: function () {
-    return _index.program;
-  }
-});
-Object.defineProperty(exports, "ObjectExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.objectExpression;
-  }
-});
-Object.defineProperty(exports, "ObjectMethod", {
-  enumerable: true,
-  get: function () {
-    return _index.objectMethod;
-  }
-});
-Object.defineProperty(exports, "ObjectProperty", {
-  enumerable: true,
-  get: function () {
-    return _index.objectProperty;
-  }
-});
-Object.defineProperty(exports, "RestElement", {
-  enumerable: true,
-  get: function () {
-    return _index.restElement;
-  }
-});
-Object.defineProperty(exports, "ReturnStatement", {
-  enumerable: true,
-  get: function () {
-    return _index.returnStatement;
-  }
-});
-Object.defineProperty(exports, "SequenceExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.sequenceExpression;
-  }
-});
-Object.defineProperty(exports, "ParenthesizedExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.parenthesizedExpression;
-  }
-});
-Object.defineProperty(exports, "SwitchCase", {
-  enumerable: true,
-  get: function () {
-    return _index.switchCase;
-  }
-});
-Object.defineProperty(exports, "SwitchStatement", {
-  enumerable: true,
-  get: function () {
-    return _index.switchStatement;
-  }
-});
-Object.defineProperty(exports, "ThisExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.thisExpression;
-  }
-});
-Object.defineProperty(exports, "ThrowStatement", {
-  enumerable: true,
-  get: function () {
-    return _index.throwStatement;
-  }
-});
-Object.defineProperty(exports, "TryStatement", {
-  enumerable: true,
-  get: function () {
-    return _index.tryStatement;
-  }
-});
-Object.defineProperty(exports, "UnaryExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.unaryExpression;
-  }
-});
-Object.defineProperty(exports, "UpdateExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.updateExpression;
-  }
-});
-Object.defineProperty(exports, "VariableDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.variableDeclaration;
-  }
-});
-Object.defineProperty(exports, "VariableDeclarator", {
-  enumerable: true,
-  get: function () {
-    return _index.variableDeclarator;
-  }
-});
-Object.defineProperty(exports, "WhileStatement", {
-  enumerable: true,
-  get: function () {
-    return _index.whileStatement;
-  }
-});
-Object.defineProperty(exports, "WithStatement", {
-  enumerable: true,
-  get: function () {
-    return _index.withStatement;
-  }
-});
-Object.defineProperty(exports, "AssignmentPattern", {
-  enumerable: true,
-  get: function () {
-    return _index.assignmentPattern;
-  }
-});
-Object.defineProperty(exports, "ArrayPattern", {
-  enumerable: true,
-  get: function () {
-    return _index.arrayPattern;
-  }
-});
-Object.defineProperty(exports, "ArrowFunctionExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.arrowFunctionExpression;
-  }
-});
-Object.defineProperty(exports, "ClassBody", {
-  enumerable: true,
-  get: function () {
-    return _index.classBody;
-  }
-});
-Object.defineProperty(exports, "ClassExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.classExpression;
-  }
-});
-Object.defineProperty(exports, "ClassDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.classDeclaration;
-  }
-});
-Object.defineProperty(exports, "ExportAllDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.exportAllDeclaration;
-  }
-});
-Object.defineProperty(exports, "ExportDefaultDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.exportDefaultDeclaration;
-  }
-});
-Object.defineProperty(exports, "ExportNamedDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.exportNamedDeclaration;
-  }
-});
-Object.defineProperty(exports, "ExportSpecifier", {
-  enumerable: true,
-  get: function () {
-    return _index.exportSpecifier;
-  }
-});
-Object.defineProperty(exports, "ForOfStatement", {
-  enumerable: true,
-  get: function () {
-    return _index.forOfStatement;
-  }
-});
-Object.defineProperty(exports, "ImportDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.importDeclaration;
-  }
-});
-Object.defineProperty(exports, "ImportDefaultSpecifier", {
-  enumerable: true,
-  get: function () {
-    return _index.importDefaultSpecifier;
-  }
-});
-Object.defineProperty(exports, "ImportNamespaceSpecifier", {
-  enumerable: true,
-  get: function () {
-    return _index.importNamespaceSpecifier;
-  }
-});
-Object.defineProperty(exports, "ImportSpecifier", {
-  enumerable: true,
-  get: function () {
-    return _index.importSpecifier;
-  }
-});
-Object.defineProperty(exports, "MetaProperty", {
-  enumerable: true,
-  get: function () {
-    return _index.metaProperty;
-  }
-});
-Object.defineProperty(exports, "ClassMethod", {
-  enumerable: true,
-  get: function () {
-    return _index.classMethod;
-  }
-});
-Object.defineProperty(exports, "ObjectPattern", {
-  enumerable: true,
-  get: function () {
-    return _index.objectPattern;
-  }
-});
-Object.defineProperty(exports, "SpreadElement", {
-  enumerable: true,
-  get: function () {
-    return _index.spreadElement;
-  }
-});
-Object.defineProperty(exports, "Super", {
-  enumerable: true,
-  get: function () {
-    return _index.super;
-  }
-});
-Object.defineProperty(exports, "TaggedTemplateExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.taggedTemplateExpression;
-  }
-});
-Object.defineProperty(exports, "TemplateElement", {
-  enumerable: true,
-  get: function () {
-    return _index.templateElement;
-  }
-});
-Object.defineProperty(exports, "TemplateLiteral", {
-  enumerable: true,
-  get: function () {
-    return _index.templateLiteral;
-  }
-});
-Object.defineProperty(exports, "YieldExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.yieldExpression;
-  }
-});
-Object.defineProperty(exports, "AwaitExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.awaitExpression;
-  }
-});
-Object.defineProperty(exports, "Import", {
-  enumerable: true,
-  get: function () {
-    return _index.import;
-  }
-});
-Object.defineProperty(exports, "BigIntLiteral", {
-  enumerable: true,
-  get: function () {
-    return _index.bigIntLiteral;
-  }
-});
-Object.defineProperty(exports, "ExportNamespaceSpecifier", {
-  enumerable: true,
-  get: function () {
-    return _index.exportNamespaceSpecifier;
-  }
-});
-Object.defineProperty(exports, "OptionalMemberExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.optionalMemberExpression;
-  }
-});
-Object.defineProperty(exports, "OptionalCallExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.optionalCallExpression;
-  }
-});
-Object.defineProperty(exports, "ClassProperty", {
-  enumerable: true,
-  get: function () {
-    return _index.classProperty;
-  }
-});
-Object.defineProperty(exports, "ClassPrivateProperty", {
-  enumerable: true,
-  get: function () {
-    return _index.classPrivateProperty;
-  }
-});
-Object.defineProperty(exports, "ClassPrivateMethod", {
-  enumerable: true,
-  get: function () {
-    return _index.classPrivateMethod;
-  }
-});
-Object.defineProperty(exports, "PrivateName", {
-  enumerable: true,
-  get: function () {
-    return _index.privateName;
-  }
-});
-Object.defineProperty(exports, "AnyTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.anyTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "ArrayTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.arrayTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "BooleanTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.booleanTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "BooleanLiteralTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.booleanLiteralTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "NullLiteralTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.nullLiteralTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "ClassImplements", {
-  enumerable: true,
-  get: function () {
-    return _index.classImplements;
-  }
-});
-Object.defineProperty(exports, "DeclareClass", {
-  enumerable: true,
-  get: function () {
-    return _index.declareClass;
-  }
-});
-Object.defineProperty(exports, "DeclareFunction", {
-  enumerable: true,
-  get: function () {
-    return _index.declareFunction;
-  }
-});
-Object.defineProperty(exports, "DeclareInterface", {
-  enumerable: true,
-  get: function () {
-    return _index.declareInterface;
-  }
-});
-Object.defineProperty(exports, "DeclareModule", {
-  enumerable: true,
-  get: function () {
-    return _index.declareModule;
-  }
-});
-Object.defineProperty(exports, "DeclareModuleExports", {
-  enumerable: true,
-  get: function () {
-    return _index.declareModuleExports;
-  }
-});
-Object.defineProperty(exports, "DeclareTypeAlias", {
-  enumerable: true,
-  get: function () {
-    return _index.declareTypeAlias;
-  }
-});
-Object.defineProperty(exports, "DeclareOpaqueType", {
-  enumerable: true,
-  get: function () {
-    return _index.declareOpaqueType;
-  }
-});
-Object.defineProperty(exports, "DeclareVariable", {
-  enumerable: true,
-  get: function () {
-    return _index.declareVariable;
-  }
-});
-Object.defineProperty(exports, "DeclareExportDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.declareExportDeclaration;
-  }
-});
-Object.defineProperty(exports, "DeclareExportAllDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.declareExportAllDeclaration;
-  }
-});
-Object.defineProperty(exports, "DeclaredPredicate", {
-  enumerable: true,
-  get: function () {
-    return _index.declaredPredicate;
-  }
-});
-Object.defineProperty(exports, "ExistsTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.existsTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "FunctionTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.functionTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "FunctionTypeParam", {
-  enumerable: true,
-  get: function () {
-    return _index.functionTypeParam;
-  }
-});
-Object.defineProperty(exports, "GenericTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.genericTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "InferredPredicate", {
-  enumerable: true,
-  get: function () {
-    return _index.inferredPredicate;
-  }
-});
-Object.defineProperty(exports, "InterfaceExtends", {
-  enumerable: true,
-  get: function () {
-    return _index.interfaceExtends;
-  }
-});
-Object.defineProperty(exports, "InterfaceDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.interfaceDeclaration;
-  }
-});
-Object.defineProperty(exports, "InterfaceTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.interfaceTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "IntersectionTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.intersectionTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "MixedTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.mixedTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "EmptyTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.emptyTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "NullableTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.nullableTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "NumberLiteralTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.numberLiteralTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "NumberTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.numberTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "ObjectTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.objectTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "ObjectTypeInternalSlot", {
-  enumerable: true,
-  get: function () {
-    return _index.objectTypeInternalSlot;
-  }
-});
-Object.defineProperty(exports, "ObjectTypeCallProperty", {
-  enumerable: true,
-  get: function () {
-    return _index.objectTypeCallProperty;
-  }
-});
-Object.defineProperty(exports, "ObjectTypeIndexer", {
-  enumerable: true,
-  get: function () {
-    return _index.objectTypeIndexer;
-  }
-});
-Object.defineProperty(exports, "ObjectTypeProperty", {
-  enumerable: true,
-  get: function () {
-    return _index.objectTypeProperty;
-  }
-});
-Object.defineProperty(exports, "ObjectTypeSpreadProperty", {
-  enumerable: true,
-  get: function () {
-    return _index.objectTypeSpreadProperty;
-  }
-});
-Object.defineProperty(exports, "OpaqueType", {
-  enumerable: true,
-  get: function () {
-    return _index.opaqueType;
-  }
-});
-Object.defineProperty(exports, "QualifiedTypeIdentifier", {
-  enumerable: true,
-  get: function () {
-    return _index.qualifiedTypeIdentifier;
-  }
-});
-Object.defineProperty(exports, "StringLiteralTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.stringLiteralTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "StringTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.stringTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "SymbolTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.symbolTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "ThisTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.thisTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "TupleTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.tupleTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "TypeofTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.typeofTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "TypeAlias", {
-  enumerable: true,
-  get: function () {
-    return _index.typeAlias;
-  }
-});
-Object.defineProperty(exports, "TypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.typeAnnotation;
-  }
-});
-Object.defineProperty(exports, "TypeCastExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.typeCastExpression;
-  }
-});
-Object.defineProperty(exports, "TypeParameter", {
-  enumerable: true,
-  get: function () {
-    return _index.typeParameter;
-  }
-});
-Object.defineProperty(exports, "TypeParameterDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.typeParameterDeclaration;
-  }
-});
-Object.defineProperty(exports, "TypeParameterInstantiation", {
-  enumerable: true,
-  get: function () {
-    return _index.typeParameterInstantiation;
-  }
-});
-Object.defineProperty(exports, "UnionTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.unionTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "Variance", {
-  enumerable: true,
-  get: function () {
-    return _index.variance;
-  }
-});
-Object.defineProperty(exports, "VoidTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.voidTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "EnumDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.enumDeclaration;
-  }
-});
-Object.defineProperty(exports, "EnumBooleanBody", {
-  enumerable: true,
-  get: function () {
-    return _index.enumBooleanBody;
-  }
-});
-Object.defineProperty(exports, "EnumNumberBody", {
-  enumerable: true,
-  get: function () {
-    return _index.enumNumberBody;
-  }
-});
-Object.defineProperty(exports, "EnumStringBody", {
-  enumerable: true,
-  get: function () {
-    return _index.enumStringBody;
-  }
-});
-Object.defineProperty(exports, "EnumSymbolBody", {
-  enumerable: true,
-  get: function () {
-    return _index.enumSymbolBody;
-  }
-});
-Object.defineProperty(exports, "EnumBooleanMember", {
-  enumerable: true,
-  get: function () {
-    return _index.enumBooleanMember;
-  }
-});
-Object.defineProperty(exports, "EnumNumberMember", {
-  enumerable: true,
-  get: function () {
-    return _index.enumNumberMember;
-  }
-});
-Object.defineProperty(exports, "EnumStringMember", {
-  enumerable: true,
-  get: function () {
-    return _index.enumStringMember;
-  }
-});
-Object.defineProperty(exports, "EnumDefaultedMember", {
-  enumerable: true,
-  get: function () {
-    return _index.enumDefaultedMember;
-  }
-});
-Object.defineProperty(exports, "IndexedAccessType", {
-  enumerable: true,
-  get: function () {
-    return _index.indexedAccessType;
-  }
-});
-Object.defineProperty(exports, "OptionalIndexedAccessType", {
-  enumerable: true,
-  get: function () {
-    return _index.optionalIndexedAccessType;
-  }
-});
-Object.defineProperty(exports, "JSXAttribute", {
-  enumerable: true,
-  get: function () {
-    return _index.jsxAttribute;
-  }
-});
-Object.defineProperty(exports, "JSXClosingElement", {
-  enumerable: true,
-  get: function () {
-    return _index.jsxClosingElement;
-  }
-});
-Object.defineProperty(exports, "JSXElement", {
-  enumerable: true,
-  get: function () {
-    return _index.jsxElement;
-  }
-});
-Object.defineProperty(exports, "JSXEmptyExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.jsxEmptyExpression;
-  }
-});
-Object.defineProperty(exports, "JSXExpressionContainer", {
-  enumerable: true,
-  get: function () {
-    return _index.jsxExpressionContainer;
-  }
-});
-Object.defineProperty(exports, "JSXSpreadChild", {
-  enumerable: true,
-  get: function () {
-    return _index.jsxSpreadChild;
-  }
-});
-Object.defineProperty(exports, "JSXIdentifier", {
-  enumerable: true,
-  get: function () {
-    return _index.jsxIdentifier;
-  }
-});
-Object.defineProperty(exports, "JSXMemberExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.jsxMemberExpression;
-  }
-});
-Object.defineProperty(exports, "JSXNamespacedName", {
-  enumerable: true,
-  get: function () {
-    return _index.jsxNamespacedName;
-  }
-});
-Object.defineProperty(exports, "JSXOpeningElement", {
-  enumerable: true,
-  get: function () {
-    return _index.jsxOpeningElement;
-  }
-});
-Object.defineProperty(exports, "JSXSpreadAttribute", {
-  enumerable: true,
-  get: function () {
-    return _index.jsxSpreadAttribute;
-  }
-});
-Object.defineProperty(exports, "JSXText", {
-  enumerable: true,
-  get: function () {
-    return _index.jsxText;
-  }
-});
-Object.defineProperty(exports, "JSXFragment", {
-  enumerable: true,
-  get: function () {
-    return _index.jsxFragment;
-  }
-});
-Object.defineProperty(exports, "JSXOpeningFragment", {
-  enumerable: true,
-  get: function () {
-    return _index.jsxOpeningFragment;
-  }
-});
-Object.defineProperty(exports, "JSXClosingFragment", {
-  enumerable: true,
-  get: function () {
-    return _index.jsxClosingFragment;
-  }
-});
-Object.defineProperty(exports, "Noop", {
-  enumerable: true,
-  get: function () {
-    return _index.noop;
-  }
-});
-Object.defineProperty(exports, "Placeholder", {
-  enumerable: true,
-  get: function () {
-    return _index.placeholder;
-  }
-});
-Object.defineProperty(exports, "V8IntrinsicIdentifier", {
-  enumerable: true,
-  get: function () {
-    return _index.v8IntrinsicIdentifier;
-  }
-});
-Object.defineProperty(exports, "ArgumentPlaceholder", {
-  enumerable: true,
-  get: function () {
-    return _index.argumentPlaceholder;
-  }
-});
-Object.defineProperty(exports, "BindExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.bindExpression;
-  }
-});
-Object.defineProperty(exports, "ImportAttribute", {
-  enumerable: true,
-  get: function () {
-    return _index.importAttribute;
-  }
-});
-Object.defineProperty(exports, "Decorator", {
-  enumerable: true,
-  get: function () {
-    return _index.decorator;
-  }
-});
-Object.defineProperty(exports, "DoExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.doExpression;
-  }
-});
-Object.defineProperty(exports, "ExportDefaultSpecifier", {
-  enumerable: true,
-  get: function () {
-    return _index.exportDefaultSpecifier;
-  }
-});
-Object.defineProperty(exports, "RecordExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.recordExpression;
-  }
-});
-Object.defineProperty(exports, "TupleExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.tupleExpression;
-  }
-});
-Object.defineProperty(exports, "DecimalLiteral", {
-  enumerable: true,
-  get: function () {
-    return _index.decimalLiteral;
-  }
-});
-Object.defineProperty(exports, "StaticBlock", {
-  enumerable: true,
-  get: function () {
-    return _index.staticBlock;
-  }
-});
-Object.defineProperty(exports, "ModuleExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.moduleExpression;
-  }
-});
-Object.defineProperty(exports, "TopicReference", {
-  enumerable: true,
-  get: function () {
-    return _index.topicReference;
-  }
-});
-Object.defineProperty(exports, "PipelineTopicExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.pipelineTopicExpression;
-  }
-});
-Object.defineProperty(exports, "PipelineBareFunction", {
-  enumerable: true,
-  get: function () {
-    return _index.pipelineBareFunction;
-  }
-});
-Object.defineProperty(exports, "PipelinePrimaryTopicReference", {
-  enumerable: true,
-  get: function () {
-    return _index.pipelinePrimaryTopicReference;
-  }
-});
-Object.defineProperty(exports, "TSParameterProperty", {
-  enumerable: true,
-  get: function () {
-    return _index.tsParameterProperty;
-  }
-});
-Object.defineProperty(exports, "TSDeclareFunction", {
-  enumerable: true,
-  get: function () {
-    return _index.tsDeclareFunction;
-  }
-});
-Object.defineProperty(exports, "TSDeclareMethod", {
-  enumerable: true,
-  get: function () {
-    return _index.tsDeclareMethod;
-  }
-});
-Object.defineProperty(exports, "TSQualifiedName", {
-  enumerable: true,
-  get: function () {
-    return _index.tsQualifiedName;
-  }
-});
-Object.defineProperty(exports, "TSCallSignatureDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.tsCallSignatureDeclaration;
-  }
-});
-Object.defineProperty(exports, "TSConstructSignatureDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.tsConstructSignatureDeclaration;
-  }
-});
-Object.defineProperty(exports, "TSPropertySignature", {
-  enumerable: true,
-  get: function () {
-    return _index.tsPropertySignature;
-  }
-});
-Object.defineProperty(exports, "TSMethodSignature", {
-  enumerable: true,
-  get: function () {
-    return _index.tsMethodSignature;
-  }
-});
-Object.defineProperty(exports, "TSIndexSignature", {
-  enumerable: true,
-  get: function () {
-    return _index.tsIndexSignature;
-  }
-});
-Object.defineProperty(exports, "TSAnyKeyword", {
-  enumerable: true,
-  get: function () {
-    return _index.tsAnyKeyword;
-  }
-});
-Object.defineProperty(exports, "TSBooleanKeyword", {
-  enumerable: true,
-  get: function () {
-    return _index.tsBooleanKeyword;
-  }
-});
-Object.defineProperty(exports, "TSBigIntKeyword", {
-  enumerable: true,
-  get: function () {
-    return _index.tsBigIntKeyword;
-  }
-});
-Object.defineProperty(exports, "TSIntrinsicKeyword", {
-  enumerable: true,
-  get: function () {
-    return _index.tsIntrinsicKeyword;
-  }
-});
-Object.defineProperty(exports, "TSNeverKeyword", {
-  enumerable: true,
-  get: function () {
-    return _index.tsNeverKeyword;
-  }
-});
-Object.defineProperty(exports, "TSNullKeyword", {
-  enumerable: true,
-  get: function () {
-    return _index.tsNullKeyword;
-  }
-});
-Object.defineProperty(exports, "TSNumberKeyword", {
-  enumerable: true,
-  get: function () {
-    return _index.tsNumberKeyword;
-  }
-});
-Object.defineProperty(exports, "TSObjectKeyword", {
-  enumerable: true,
-  get: function () {
-    return _index.tsObjectKeyword;
-  }
-});
-Object.defineProperty(exports, "TSStringKeyword", {
-  enumerable: true,
-  get: function () {
-    return _index.tsStringKeyword;
-  }
-});
-Object.defineProperty(exports, "TSSymbolKeyword", {
-  enumerable: true,
-  get: function () {
-    return _index.tsSymbolKeyword;
-  }
-});
-Object.defineProperty(exports, "TSUndefinedKeyword", {
-  enumerable: true,
-  get: function () {
-    return _index.tsUndefinedKeyword;
-  }
-});
-Object.defineProperty(exports, "TSUnknownKeyword", {
-  enumerable: true,
-  get: function () {
-    return _index.tsUnknownKeyword;
-  }
-});
-Object.defineProperty(exports, "TSVoidKeyword", {
-  enumerable: true,
-  get: function () {
-    return _index.tsVoidKeyword;
-  }
-});
-Object.defineProperty(exports, "TSThisType", {
-  enumerable: true,
-  get: function () {
-    return _index.tsThisType;
-  }
-});
-Object.defineProperty(exports, "TSFunctionType", {
-  enumerable: true,
-  get: function () {
-    return _index.tsFunctionType;
-  }
-});
-Object.defineProperty(exports, "TSConstructorType", {
-  enumerable: true,
-  get: function () {
-    return _index.tsConstructorType;
-  }
-});
-Object.defineProperty(exports, "TSTypeReference", {
-  enumerable: true,
-  get: function () {
-    return _index.tsTypeReference;
-  }
-});
-Object.defineProperty(exports, "TSTypePredicate", {
-  enumerable: true,
-  get: function () {
-    return _index.tsTypePredicate;
-  }
-});
-Object.defineProperty(exports, "TSTypeQuery", {
-  enumerable: true,
-  get: function () {
-    return _index.tsTypeQuery;
-  }
-});
-Object.defineProperty(exports, "TSTypeLiteral", {
-  enumerable: true,
-  get: function () {
-    return _index.tsTypeLiteral;
-  }
-});
-Object.defineProperty(exports, "TSArrayType", {
-  enumerable: true,
-  get: function () {
-    return _index.tsArrayType;
-  }
-});
-Object.defineProperty(exports, "TSTupleType", {
-  enumerable: true,
-  get: function () {
-    return _index.tsTupleType;
-  }
-});
-Object.defineProperty(exports, "TSOptionalType", {
-  enumerable: true,
-  get: function () {
-    return _index.tsOptionalType;
-  }
-});
-Object.defineProperty(exports, "TSRestType", {
-  enumerable: true,
-  get: function () {
-    return _index.tsRestType;
-  }
-});
-Object.defineProperty(exports, "TSNamedTupleMember", {
-  enumerable: true,
-  get: function () {
-    return _index.tsNamedTupleMember;
-  }
-});
-Object.defineProperty(exports, "TSUnionType", {
-  enumerable: true,
-  get: function () {
-    return _index.tsUnionType;
-  }
-});
-Object.defineProperty(exports, "TSIntersectionType", {
-  enumerable: true,
-  get: function () {
-    return _index.tsIntersectionType;
-  }
-});
-Object.defineProperty(exports, "TSConditionalType", {
-  enumerable: true,
-  get: function () {
-    return _index.tsConditionalType;
-  }
-});
-Object.defineProperty(exports, "TSInferType", {
-  enumerable: true,
-  get: function () {
-    return _index.tsInferType;
-  }
-});
-Object.defineProperty(exports, "TSParenthesizedType", {
-  enumerable: true,
-  get: function () {
-    return _index.tsParenthesizedType;
-  }
-});
-Object.defineProperty(exports, "TSTypeOperator", {
-  enumerable: true,
-  get: function () {
-    return _index.tsTypeOperator;
-  }
-});
-Object.defineProperty(exports, "TSIndexedAccessType", {
-  enumerable: true,
-  get: function () {
-    return _index.tsIndexedAccessType;
-  }
-});
-Object.defineProperty(exports, "TSMappedType", {
-  enumerable: true,
-  get: function () {
-    return _index.tsMappedType;
-  }
-});
-Object.defineProperty(exports, "TSLiteralType", {
-  enumerable: true,
-  get: function () {
-    return _index.tsLiteralType;
-  }
-});
-Object.defineProperty(exports, "TSExpressionWithTypeArguments", {
-  enumerable: true,
-  get: function () {
-    return _index.tsExpressionWithTypeArguments;
-  }
-});
-Object.defineProperty(exports, "TSInterfaceDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.tsInterfaceDeclaration;
-  }
-});
-Object.defineProperty(exports, "TSInterfaceBody", {
-  enumerable: true,
-  get: function () {
-    return _index.tsInterfaceBody;
-  }
-});
-Object.defineProperty(exports, "TSTypeAliasDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.tsTypeAliasDeclaration;
-  }
-});
-Object.defineProperty(exports, "TSAsExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.tsAsExpression;
-  }
-});
-Object.defineProperty(exports, "TSTypeAssertion", {
-  enumerable: true,
-  get: function () {
-    return _index.tsTypeAssertion;
-  }
-});
-Object.defineProperty(exports, "TSEnumDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.tsEnumDeclaration;
-  }
-});
-Object.defineProperty(exports, "TSEnumMember", {
-  enumerable: true,
-  get: function () {
-    return _index.tsEnumMember;
-  }
-});
-Object.defineProperty(exports, "TSModuleDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.tsModuleDeclaration;
-  }
-});
-Object.defineProperty(exports, "TSModuleBlock", {
-  enumerable: true,
-  get: function () {
-    return _index.tsModuleBlock;
-  }
-});
-Object.defineProperty(exports, "TSImportType", {
-  enumerable: true,
-  get: function () {
-    return _index.tsImportType;
-  }
-});
-Object.defineProperty(exports, "TSImportEqualsDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.tsImportEqualsDeclaration;
-  }
-});
-Object.defineProperty(exports, "TSExternalModuleReference", {
-  enumerable: true,
-  get: function () {
-    return _index.tsExternalModuleReference;
-  }
-});
-Object.defineProperty(exports, "TSNonNullExpression", {
-  enumerable: true,
-  get: function () {
-    return _index.tsNonNullExpression;
-  }
-});
-Object.defineProperty(exports, "TSExportAssignment", {
-  enumerable: true,
-  get: function () {
-    return _index.tsExportAssignment;
-  }
-});
-Object.defineProperty(exports, "TSNamespaceExportDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.tsNamespaceExportDeclaration;
-  }
-});
-Object.defineProperty(exports, "TSTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _index.tsTypeAnnotation;
-  }
-});
-Object.defineProperty(exports, "TSTypeParameterInstantiation", {
-  enumerable: true,
-  get: function () {
-    return _index.tsTypeParameterInstantiation;
-  }
-});
-Object.defineProperty(exports, "TSTypeParameterDeclaration", {
-  enumerable: true,
-  get: function () {
-    return _index.tsTypeParameterDeclaration;
-  }
-});
-Object.defineProperty(exports, "TSTypeParameter", {
-  enumerable: true,
-  get: function () {
-    return _index.tsTypeParameter;
-  }
-});
-Object.defineProperty(exports, "NumberLiteral", {
-  enumerable: true,
-  get: function () {
-    return _index.numberLiteral;
-  }
-});
-Object.defineProperty(exports, "RegexLiteral", {
-  enumerable: true,
-  get: function () {
-    return _index.regexLiteral;
-  }
-});
-Object.defineProperty(exports, "RestProperty", {
-  enumerable: true,
-  get: function () {
-    return _index.restProperty;
-  }
-});
-Object.defineProperty(exports, "SpreadProperty", {
-  enumerable: true,
-  get: function () {
-    return _index.spreadProperty;
-  }
-});
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	Object.defineProperty(exports, "ArrayExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.arrayExpression;
+	  }
+	});
+	Object.defineProperty(exports, "AssignmentExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.assignmentExpression;
+	  }
+	});
+	Object.defineProperty(exports, "BinaryExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.binaryExpression;
+	  }
+	});
+	Object.defineProperty(exports, "InterpreterDirective", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.interpreterDirective;
+	  }
+	});
+	Object.defineProperty(exports, "Directive", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.directive;
+	  }
+	});
+	Object.defineProperty(exports, "DirectiveLiteral", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.directiveLiteral;
+	  }
+	});
+	Object.defineProperty(exports, "BlockStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.blockStatement;
+	  }
+	});
+	Object.defineProperty(exports, "BreakStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.breakStatement;
+	  }
+	});
+	Object.defineProperty(exports, "CallExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.callExpression;
+	  }
+	});
+	Object.defineProperty(exports, "CatchClause", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.catchClause;
+	  }
+	});
+	Object.defineProperty(exports, "ConditionalExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.conditionalExpression;
+	  }
+	});
+	Object.defineProperty(exports, "ContinueStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.continueStatement;
+	  }
+	});
+	Object.defineProperty(exports, "DebuggerStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.debuggerStatement;
+	  }
+	});
+	Object.defineProperty(exports, "DoWhileStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.doWhileStatement;
+	  }
+	});
+	Object.defineProperty(exports, "EmptyStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.emptyStatement;
+	  }
+	});
+	Object.defineProperty(exports, "ExpressionStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.expressionStatement;
+	  }
+	});
+	Object.defineProperty(exports, "File", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.file;
+	  }
+	});
+	Object.defineProperty(exports, "ForInStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.forInStatement;
+	  }
+	});
+	Object.defineProperty(exports, "ForStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.forStatement;
+	  }
+	});
+	Object.defineProperty(exports, "FunctionDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.functionDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "FunctionExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.functionExpression;
+	  }
+	});
+	Object.defineProperty(exports, "Identifier", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.identifier;
+	  }
+	});
+	Object.defineProperty(exports, "IfStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.ifStatement;
+	  }
+	});
+	Object.defineProperty(exports, "LabeledStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.labeledStatement;
+	  }
+	});
+	Object.defineProperty(exports, "StringLiteral", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.stringLiteral;
+	  }
+	});
+	Object.defineProperty(exports, "NumericLiteral", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.numericLiteral;
+	  }
+	});
+	Object.defineProperty(exports, "NullLiteral", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.nullLiteral;
+	  }
+	});
+	Object.defineProperty(exports, "BooleanLiteral", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.booleanLiteral;
+	  }
+	});
+	Object.defineProperty(exports, "RegExpLiteral", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.regExpLiteral;
+	  }
+	});
+	Object.defineProperty(exports, "LogicalExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.logicalExpression;
+	  }
+	});
+	Object.defineProperty(exports, "MemberExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.memberExpression;
+	  }
+	});
+	Object.defineProperty(exports, "NewExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.newExpression;
+	  }
+	});
+	Object.defineProperty(exports, "Program", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.program;
+	  }
+	});
+	Object.defineProperty(exports, "ObjectExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.objectExpression;
+	  }
+	});
+	Object.defineProperty(exports, "ObjectMethod", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.objectMethod;
+	  }
+	});
+	Object.defineProperty(exports, "ObjectProperty", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.objectProperty;
+	  }
+	});
+	Object.defineProperty(exports, "RestElement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.restElement;
+	  }
+	});
+	Object.defineProperty(exports, "ReturnStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.returnStatement;
+	  }
+	});
+	Object.defineProperty(exports, "SequenceExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.sequenceExpression;
+	  }
+	});
+	Object.defineProperty(exports, "ParenthesizedExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.parenthesizedExpression;
+	  }
+	});
+	Object.defineProperty(exports, "SwitchCase", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.switchCase;
+	  }
+	});
+	Object.defineProperty(exports, "SwitchStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.switchStatement;
+	  }
+	});
+	Object.defineProperty(exports, "ThisExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.thisExpression;
+	  }
+	});
+	Object.defineProperty(exports, "ThrowStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.throwStatement;
+	  }
+	});
+	Object.defineProperty(exports, "TryStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tryStatement;
+	  }
+	});
+	Object.defineProperty(exports, "UnaryExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.unaryExpression;
+	  }
+	});
+	Object.defineProperty(exports, "UpdateExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.updateExpression;
+	  }
+	});
+	Object.defineProperty(exports, "VariableDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.variableDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "VariableDeclarator", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.variableDeclarator;
+	  }
+	});
+	Object.defineProperty(exports, "WhileStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.whileStatement;
+	  }
+	});
+	Object.defineProperty(exports, "WithStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.withStatement;
+	  }
+	});
+	Object.defineProperty(exports, "AssignmentPattern", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.assignmentPattern;
+	  }
+	});
+	Object.defineProperty(exports, "ArrayPattern", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.arrayPattern;
+	  }
+	});
+	Object.defineProperty(exports, "ArrowFunctionExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.arrowFunctionExpression;
+	  }
+	});
+	Object.defineProperty(exports, "ClassBody", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.classBody;
+	  }
+	});
+	Object.defineProperty(exports, "ClassExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.classExpression;
+	  }
+	});
+	Object.defineProperty(exports, "ClassDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.classDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "ExportAllDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.exportAllDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "ExportDefaultDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.exportDefaultDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "ExportNamedDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.exportNamedDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "ExportSpecifier", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.exportSpecifier;
+	  }
+	});
+	Object.defineProperty(exports, "ForOfStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.forOfStatement;
+	  }
+	});
+	Object.defineProperty(exports, "ImportDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.importDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "ImportDefaultSpecifier", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.importDefaultSpecifier;
+	  }
+	});
+	Object.defineProperty(exports, "ImportNamespaceSpecifier", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.importNamespaceSpecifier;
+	  }
+	});
+	Object.defineProperty(exports, "ImportSpecifier", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.importSpecifier;
+	  }
+	});
+	Object.defineProperty(exports, "MetaProperty", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.metaProperty;
+	  }
+	});
+	Object.defineProperty(exports, "ClassMethod", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.classMethod;
+	  }
+	});
+	Object.defineProperty(exports, "ObjectPattern", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.objectPattern;
+	  }
+	});
+	Object.defineProperty(exports, "SpreadElement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.spreadElement;
+	  }
+	});
+	Object.defineProperty(exports, "Super", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.super;
+	  }
+	});
+	Object.defineProperty(exports, "TaggedTemplateExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.taggedTemplateExpression;
+	  }
+	});
+	Object.defineProperty(exports, "TemplateElement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.templateElement;
+	  }
+	});
+	Object.defineProperty(exports, "TemplateLiteral", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.templateLiteral;
+	  }
+	});
+	Object.defineProperty(exports, "YieldExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.yieldExpression;
+	  }
+	});
+	Object.defineProperty(exports, "AwaitExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.awaitExpression;
+	  }
+	});
+	Object.defineProperty(exports, "Import", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.import;
+	  }
+	});
+	Object.defineProperty(exports, "BigIntLiteral", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.bigIntLiteral;
+	  }
+	});
+	Object.defineProperty(exports, "ExportNamespaceSpecifier", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.exportNamespaceSpecifier;
+	  }
+	});
+	Object.defineProperty(exports, "OptionalMemberExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.optionalMemberExpression;
+	  }
+	});
+	Object.defineProperty(exports, "OptionalCallExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.optionalCallExpression;
+	  }
+	});
+	Object.defineProperty(exports, "ClassProperty", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.classProperty;
+	  }
+	});
+	Object.defineProperty(exports, "ClassPrivateProperty", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.classPrivateProperty;
+	  }
+	});
+	Object.defineProperty(exports, "ClassPrivateMethod", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.classPrivateMethod;
+	  }
+	});
+	Object.defineProperty(exports, "PrivateName", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.privateName;
+	  }
+	});
+	Object.defineProperty(exports, "AnyTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.anyTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "ArrayTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.arrayTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "BooleanTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.booleanTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "BooleanLiteralTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.booleanLiteralTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "NullLiteralTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.nullLiteralTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "ClassImplements", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.classImplements;
+	  }
+	});
+	Object.defineProperty(exports, "DeclareClass", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.declareClass;
+	  }
+	});
+	Object.defineProperty(exports, "DeclareFunction", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.declareFunction;
+	  }
+	});
+	Object.defineProperty(exports, "DeclareInterface", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.declareInterface;
+	  }
+	});
+	Object.defineProperty(exports, "DeclareModule", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.declareModule;
+	  }
+	});
+	Object.defineProperty(exports, "DeclareModuleExports", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.declareModuleExports;
+	  }
+	});
+	Object.defineProperty(exports, "DeclareTypeAlias", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.declareTypeAlias;
+	  }
+	});
+	Object.defineProperty(exports, "DeclareOpaqueType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.declareOpaqueType;
+	  }
+	});
+	Object.defineProperty(exports, "DeclareVariable", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.declareVariable;
+	  }
+	});
+	Object.defineProperty(exports, "DeclareExportDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.declareExportDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "DeclareExportAllDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.declareExportAllDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "DeclaredPredicate", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.declaredPredicate;
+	  }
+	});
+	Object.defineProperty(exports, "ExistsTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.existsTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "FunctionTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.functionTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "FunctionTypeParam", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.functionTypeParam;
+	  }
+	});
+	Object.defineProperty(exports, "GenericTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.genericTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "InferredPredicate", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.inferredPredicate;
+	  }
+	});
+	Object.defineProperty(exports, "InterfaceExtends", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.interfaceExtends;
+	  }
+	});
+	Object.defineProperty(exports, "InterfaceDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.interfaceDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "InterfaceTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.interfaceTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "IntersectionTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.intersectionTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "MixedTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.mixedTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "EmptyTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.emptyTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "NullableTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.nullableTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "NumberLiteralTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.numberLiteralTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "NumberTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.numberTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "ObjectTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.objectTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "ObjectTypeInternalSlot", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.objectTypeInternalSlot;
+	  }
+	});
+	Object.defineProperty(exports, "ObjectTypeCallProperty", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.objectTypeCallProperty;
+	  }
+	});
+	Object.defineProperty(exports, "ObjectTypeIndexer", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.objectTypeIndexer;
+	  }
+	});
+	Object.defineProperty(exports, "ObjectTypeProperty", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.objectTypeProperty;
+	  }
+	});
+	Object.defineProperty(exports, "ObjectTypeSpreadProperty", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.objectTypeSpreadProperty;
+	  }
+	});
+	Object.defineProperty(exports, "OpaqueType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.opaqueType;
+	  }
+	});
+	Object.defineProperty(exports, "QualifiedTypeIdentifier", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.qualifiedTypeIdentifier;
+	  }
+	});
+	Object.defineProperty(exports, "StringLiteralTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.stringLiteralTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "StringTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.stringTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "SymbolTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.symbolTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "ThisTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.thisTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "TupleTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tupleTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "TypeofTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.typeofTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "TypeAlias", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.typeAlias;
+	  }
+	});
+	Object.defineProperty(exports, "TypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.typeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "TypeCastExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.typeCastExpression;
+	  }
+	});
+	Object.defineProperty(exports, "TypeParameter", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.typeParameter;
+	  }
+	});
+	Object.defineProperty(exports, "TypeParameterDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.typeParameterDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "TypeParameterInstantiation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.typeParameterInstantiation;
+	  }
+	});
+	Object.defineProperty(exports, "UnionTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.unionTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "Variance", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.variance;
+	  }
+	});
+	Object.defineProperty(exports, "VoidTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.voidTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "EnumDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.enumDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "EnumBooleanBody", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.enumBooleanBody;
+	  }
+	});
+	Object.defineProperty(exports, "EnumNumberBody", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.enumNumberBody;
+	  }
+	});
+	Object.defineProperty(exports, "EnumStringBody", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.enumStringBody;
+	  }
+	});
+	Object.defineProperty(exports, "EnumSymbolBody", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.enumSymbolBody;
+	  }
+	});
+	Object.defineProperty(exports, "EnumBooleanMember", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.enumBooleanMember;
+	  }
+	});
+	Object.defineProperty(exports, "EnumNumberMember", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.enumNumberMember;
+	  }
+	});
+	Object.defineProperty(exports, "EnumStringMember", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.enumStringMember;
+	  }
+	});
+	Object.defineProperty(exports, "EnumDefaultedMember", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.enumDefaultedMember;
+	  }
+	});
+	Object.defineProperty(exports, "IndexedAccessType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.indexedAccessType;
+	  }
+	});
+	Object.defineProperty(exports, "OptionalIndexedAccessType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.optionalIndexedAccessType;
+	  }
+	});
+	Object.defineProperty(exports, "JSXAttribute", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.jsxAttribute;
+	  }
+	});
+	Object.defineProperty(exports, "JSXClosingElement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.jsxClosingElement;
+	  }
+	});
+	Object.defineProperty(exports, "JSXElement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.jsxElement;
+	  }
+	});
+	Object.defineProperty(exports, "JSXEmptyExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.jsxEmptyExpression;
+	  }
+	});
+	Object.defineProperty(exports, "JSXExpressionContainer", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.jsxExpressionContainer;
+	  }
+	});
+	Object.defineProperty(exports, "JSXSpreadChild", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.jsxSpreadChild;
+	  }
+	});
+	Object.defineProperty(exports, "JSXIdentifier", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.jsxIdentifier;
+	  }
+	});
+	Object.defineProperty(exports, "JSXMemberExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.jsxMemberExpression;
+	  }
+	});
+	Object.defineProperty(exports, "JSXNamespacedName", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.jsxNamespacedName;
+	  }
+	});
+	Object.defineProperty(exports, "JSXOpeningElement", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.jsxOpeningElement;
+	  }
+	});
+	Object.defineProperty(exports, "JSXSpreadAttribute", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.jsxSpreadAttribute;
+	  }
+	});
+	Object.defineProperty(exports, "JSXText", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.jsxText;
+	  }
+	});
+	Object.defineProperty(exports, "JSXFragment", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.jsxFragment;
+	  }
+	});
+	Object.defineProperty(exports, "JSXOpeningFragment", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.jsxOpeningFragment;
+	  }
+	});
+	Object.defineProperty(exports, "JSXClosingFragment", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.jsxClosingFragment;
+	  }
+	});
+	Object.defineProperty(exports, "Noop", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.noop;
+	  }
+	});
+	Object.defineProperty(exports, "Placeholder", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.placeholder;
+	  }
+	});
+	Object.defineProperty(exports, "V8IntrinsicIdentifier", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.v8IntrinsicIdentifier;
+	  }
+	});
+	Object.defineProperty(exports, "ArgumentPlaceholder", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.argumentPlaceholder;
+	  }
+	});
+	Object.defineProperty(exports, "BindExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.bindExpression;
+	  }
+	});
+	Object.defineProperty(exports, "ImportAttribute", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.importAttribute;
+	  }
+	});
+	Object.defineProperty(exports, "Decorator", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.decorator;
+	  }
+	});
+	Object.defineProperty(exports, "DoExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.doExpression;
+	  }
+	});
+	Object.defineProperty(exports, "ExportDefaultSpecifier", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.exportDefaultSpecifier;
+	  }
+	});
+	Object.defineProperty(exports, "RecordExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.recordExpression;
+	  }
+	});
+	Object.defineProperty(exports, "TupleExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tupleExpression;
+	  }
+	});
+	Object.defineProperty(exports, "DecimalLiteral", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.decimalLiteral;
+	  }
+	});
+	Object.defineProperty(exports, "StaticBlock", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.staticBlock;
+	  }
+	});
+	Object.defineProperty(exports, "ModuleExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.moduleExpression;
+	  }
+	});
+	Object.defineProperty(exports, "TopicReference", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.topicReference;
+	  }
+	});
+	Object.defineProperty(exports, "PipelineTopicExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.pipelineTopicExpression;
+	  }
+	});
+	Object.defineProperty(exports, "PipelineBareFunction", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.pipelineBareFunction;
+	  }
+	});
+	Object.defineProperty(exports, "PipelinePrimaryTopicReference", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.pipelinePrimaryTopicReference;
+	  }
+	});
+	Object.defineProperty(exports, "TSParameterProperty", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsParameterProperty;
+	  }
+	});
+	Object.defineProperty(exports, "TSDeclareFunction", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsDeclareFunction;
+	  }
+	});
+	Object.defineProperty(exports, "TSDeclareMethod", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsDeclareMethod;
+	  }
+	});
+	Object.defineProperty(exports, "TSQualifiedName", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsQualifiedName;
+	  }
+	});
+	Object.defineProperty(exports, "TSCallSignatureDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsCallSignatureDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "TSConstructSignatureDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsConstructSignatureDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "TSPropertySignature", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsPropertySignature;
+	  }
+	});
+	Object.defineProperty(exports, "TSMethodSignature", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsMethodSignature;
+	  }
+	});
+	Object.defineProperty(exports, "TSIndexSignature", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsIndexSignature;
+	  }
+	});
+	Object.defineProperty(exports, "TSAnyKeyword", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsAnyKeyword;
+	  }
+	});
+	Object.defineProperty(exports, "TSBooleanKeyword", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsBooleanKeyword;
+	  }
+	});
+	Object.defineProperty(exports, "TSBigIntKeyword", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsBigIntKeyword;
+	  }
+	});
+	Object.defineProperty(exports, "TSIntrinsicKeyword", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsIntrinsicKeyword;
+	  }
+	});
+	Object.defineProperty(exports, "TSNeverKeyword", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsNeverKeyword;
+	  }
+	});
+	Object.defineProperty(exports, "TSNullKeyword", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsNullKeyword;
+	  }
+	});
+	Object.defineProperty(exports, "TSNumberKeyword", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsNumberKeyword;
+	  }
+	});
+	Object.defineProperty(exports, "TSObjectKeyword", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsObjectKeyword;
+	  }
+	});
+	Object.defineProperty(exports, "TSStringKeyword", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsStringKeyword;
+	  }
+	});
+	Object.defineProperty(exports, "TSSymbolKeyword", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsSymbolKeyword;
+	  }
+	});
+	Object.defineProperty(exports, "TSUndefinedKeyword", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsUndefinedKeyword;
+	  }
+	});
+	Object.defineProperty(exports, "TSUnknownKeyword", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsUnknownKeyword;
+	  }
+	});
+	Object.defineProperty(exports, "TSVoidKeyword", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsVoidKeyword;
+	  }
+	});
+	Object.defineProperty(exports, "TSThisType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsThisType;
+	  }
+	});
+	Object.defineProperty(exports, "TSFunctionType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsFunctionType;
+	  }
+	});
+	Object.defineProperty(exports, "TSConstructorType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsConstructorType;
+	  }
+	});
+	Object.defineProperty(exports, "TSTypeReference", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsTypeReference;
+	  }
+	});
+	Object.defineProperty(exports, "TSTypePredicate", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsTypePredicate;
+	  }
+	});
+	Object.defineProperty(exports, "TSTypeQuery", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsTypeQuery;
+	  }
+	});
+	Object.defineProperty(exports, "TSTypeLiteral", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsTypeLiteral;
+	  }
+	});
+	Object.defineProperty(exports, "TSArrayType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsArrayType;
+	  }
+	});
+	Object.defineProperty(exports, "TSTupleType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsTupleType;
+	  }
+	});
+	Object.defineProperty(exports, "TSOptionalType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsOptionalType;
+	  }
+	});
+	Object.defineProperty(exports, "TSRestType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsRestType;
+	  }
+	});
+	Object.defineProperty(exports, "TSNamedTupleMember", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsNamedTupleMember;
+	  }
+	});
+	Object.defineProperty(exports, "TSUnionType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsUnionType;
+	  }
+	});
+	Object.defineProperty(exports, "TSIntersectionType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsIntersectionType;
+	  }
+	});
+	Object.defineProperty(exports, "TSConditionalType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsConditionalType;
+	  }
+	});
+	Object.defineProperty(exports, "TSInferType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsInferType;
+	  }
+	});
+	Object.defineProperty(exports, "TSParenthesizedType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsParenthesizedType;
+	  }
+	});
+	Object.defineProperty(exports, "TSTypeOperator", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsTypeOperator;
+	  }
+	});
+	Object.defineProperty(exports, "TSIndexedAccessType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsIndexedAccessType;
+	  }
+	});
+	Object.defineProperty(exports, "TSMappedType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsMappedType;
+	  }
+	});
+	Object.defineProperty(exports, "TSLiteralType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsLiteralType;
+	  }
+	});
+	Object.defineProperty(exports, "TSExpressionWithTypeArguments", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsExpressionWithTypeArguments;
+	  }
+	});
+	Object.defineProperty(exports, "TSInterfaceDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsInterfaceDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "TSInterfaceBody", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsInterfaceBody;
+	  }
+	});
+	Object.defineProperty(exports, "TSTypeAliasDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsTypeAliasDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "TSAsExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsAsExpression;
+	  }
+	});
+	Object.defineProperty(exports, "TSTypeAssertion", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsTypeAssertion;
+	  }
+	});
+	Object.defineProperty(exports, "TSEnumDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsEnumDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "TSEnumMember", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsEnumMember;
+	  }
+	});
+	Object.defineProperty(exports, "TSModuleDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsModuleDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "TSModuleBlock", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsModuleBlock;
+	  }
+	});
+	Object.defineProperty(exports, "TSImportType", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsImportType;
+	  }
+	});
+	Object.defineProperty(exports, "TSImportEqualsDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsImportEqualsDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "TSExternalModuleReference", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsExternalModuleReference;
+	  }
+	});
+	Object.defineProperty(exports, "TSNonNullExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsNonNullExpression;
+	  }
+	});
+	Object.defineProperty(exports, "TSExportAssignment", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsExportAssignment;
+	  }
+	});
+	Object.defineProperty(exports, "TSNamespaceExportDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsNamespaceExportDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "TSTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsTypeAnnotation;
+	  }
+	});
+	Object.defineProperty(exports, "TSTypeParameterInstantiation", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsTypeParameterInstantiation;
+	  }
+	});
+	Object.defineProperty(exports, "TSTypeParameterDeclaration", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsTypeParameterDeclaration;
+	  }
+	});
+	Object.defineProperty(exports, "TSTypeParameter", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.tsTypeParameter;
+	  }
+	});
+	Object.defineProperty(exports, "NumberLiteral", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.numberLiteral;
+	  }
+	});
+	Object.defineProperty(exports, "RegexLiteral", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.regexLiteral;
+	  }
+	});
+	Object.defineProperty(exports, "RestProperty", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.restProperty;
+	  }
+	});
+	Object.defineProperty(exports, "SpreadProperty", {
+	  enumerable: true,
+	  get: function () {
+	    return _index.spreadProperty;
+	  }
+	});
 
-var _index = generated$3;
-}(uppercase));
+	var _index = generated$3;
+} (uppercase));
 
 var cloneNode$1 = {};
 
@@ -31045,7 +31496,7 @@ Object.defineProperty(cloneNode$1, "__esModule", {
 });
 cloneNode$1.default = cloneNode;
 
-var _definitions$4 = definitions;
+var _definitions$4 = requireDefinitions();
 
 var _generated$g = generated$4;
 
@@ -31238,15 +31689,6 @@ addComment$1.default = addComment;
 
 var _addComments = addComments$1;
 
-
-/**
- * 
- * @param {ast节点} node 
- * @param {类型，枚举： "leading" | "inner" | "trailing"} type 
- * @param {注释内容} content 
- * @param {注释是否和代码在同一行} line 
- * @returns 
- */
 function addComment(node, type, content, line) {
   return (0, _addComments.default)(node, type, [{
     type: line ? "CommentLine" : "CommentBlock",
@@ -31350,7 +31792,7 @@ Object.defineProperty(generated$1, "__esModule", {
 });
 generated$1.TSBASETYPE_TYPES = generated$1.TSTYPE_TYPES = generated$1.TSTYPEELEMENT_TYPES = generated$1.JSX_TYPES = generated$1.ENUMMEMBER_TYPES = generated$1.ENUMBODY_TYPES = generated$1.FLOWPREDICATE_TYPES = generated$1.FLOWDECLARATION_TYPES = generated$1.FLOWBASEANNOTATION_TYPES = generated$1.FLOWTYPE_TYPES = generated$1.FLOW_TYPES = generated$1.PRIVATE_TYPES = generated$1.MODULESPECIFIER_TYPES = generated$1.EXPORTDECLARATION_TYPES = generated$1.MODULEDECLARATION_TYPES = generated$1.CLASS_TYPES = generated$1.PATTERN_TYPES = generated$1.UNARYLIKE_TYPES = generated$1.PROPERTY_TYPES = generated$1.OBJECTMEMBER_TYPES = generated$1.METHOD_TYPES = generated$1.USERWHITESPACABLE_TYPES = generated$1.IMMUTABLE_TYPES = generated$1.LITERAL_TYPES = generated$1.TSENTITYNAME_TYPES = generated$1.LVAL_TYPES = generated$1.PATTERNLIKE_TYPES = generated$1.DECLARATION_TYPES = generated$1.PUREISH_TYPES = generated$1.FUNCTIONPARENT_TYPES = generated$1.FUNCTION_TYPES = generated$1.FORXSTATEMENT_TYPES = generated$1.FOR_TYPES = generated$1.EXPRESSIONWRAPPER_TYPES = generated$1.WHILE_TYPES = generated$1.LOOP_TYPES = generated$1.CONDITIONAL_TYPES = generated$1.COMPLETIONSTATEMENT_TYPES = generated$1.TERMINATORLESS_TYPES = generated$1.STATEMENT_TYPES = generated$1.BLOCK_TYPES = generated$1.BLOCKPARENT_TYPES = generated$1.SCOPABLE_TYPES = generated$1.BINARY_TYPES = generated$1.EXPRESSION_TYPES = void 0;
 
-var _definitions$3 = definitions;
+var _definitions$3 = requireDefinitions();
 
 const EXPRESSION_TYPES = _definitions$3.FLIPPED_ALIAS_KEYS["Expression"];
 generated$1.EXPRESSION_TYPES = EXPRESSION_TYPES;
@@ -31598,7 +32040,7 @@ Object.defineProperty(traverseFast$1, "__esModule", {
 });
 traverseFast$1.default = traverseFast;
 
-var _definitions$2 = definitions;
+var _definitions$2 = requireDefinitions();
 
 function traverseFast(node, enter, opts) {
   if (!node) return;
@@ -32145,7 +32587,7 @@ Object.defineProperty(traverse$1, "__esModule", {
 });
 traverse$1.default = traverse;
 
-var _definitions$1 = definitions;
+var _definitions$1 = requireDefinitions();
 
 function traverse(node, handlers, state) {
   if (typeof handlers === "function") {
@@ -32263,7 +32705,7 @@ Object.defineProperty(isImmutable$1, "__esModule", {
 });
 isImmutable$1.default = isImmutable;
 
-var _isType = isType$2;
+var _isType = requireIsType();
 
 var _generated$3 = generated$4;
 
@@ -32288,7 +32730,7 @@ Object.defineProperty(isNodesEquivalent$1, "__esModule", {
 });
 isNodesEquivalent$1.default = isNodesEquivalent;
 
-var _definitions = definitions;
+var _definitions = requireDefinitions();
 
 function isNodesEquivalent(a, b) {
   if (typeof a !== "object" || typeof b !== "object" || a == null || b == null) {
@@ -32534,660 +32976,656 @@ function isVar(node) {
   }) && !node[_constants.BLOCK_SCOPED_SYMBOL];
 }
 
-var generated = /*#__PURE__*/Object.freeze({
-    __proto__: null
-});
-
-var require$$65 = /*@__PURE__*/getAugmentedNamespace(generated);
+var generated = {};
 
 (function (exports) {
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var _exportNames = {
-  react: true,
-  assertNode: true,
-  createTypeAnnotationBasedOnTypeof: true,
-  createUnionTypeAnnotation: true,
-  createFlowUnionType: true,
-  createTSUnionType: true,
-  cloneNode: true,
-  clone: true,
-  cloneDeep: true,
-  cloneDeepWithoutLoc: true,
-  cloneWithoutLoc: true,
-  addComment: true,
-  addComments: true,
-  inheritInnerComments: true,
-  inheritLeadingComments: true,
-  inheritsComments: true,
-  inheritTrailingComments: true,
-  removeComments: true,
-  ensureBlock: true,
-  toBindingIdentifierName: true,
-  toBlock: true,
-  toComputedKey: true,
-  toExpression: true,
-  toIdentifier: true,
-  toKeyAlias: true,
-  toSequenceExpression: true,
-  toStatement: true,
-  valueToNode: true,
-  appendToMemberExpression: true,
-  inherits: true,
-  prependToMemberExpression: true,
-  removeProperties: true,
-  removePropertiesDeep: true,
-  removeTypeDuplicates: true,
-  getBindingIdentifiers: true,
-  getOuterBindingIdentifiers: true,
-  traverse: true,
-  traverseFast: true,
-  shallowEqual: true,
-  is: true,
-  isBinding: true,
-  isBlockScoped: true,
-  isImmutable: true,
-  isLet: true,
-  isNode: true,
-  isNodesEquivalent: true,
-  isPlaceholderType: true,
-  isReferenced: true,
-  isScope: true,
-  isSpecifierDefault: true,
-  isType: true,
-  isValidES3Identifier: true,
-  isValidIdentifier: true,
-  isVar: true,
-  matchesPattern: true,
-  validate: true,
-  buildMatchMemberExpression: true
-};
-Object.defineProperty(exports, "assertNode", {
-  enumerable: true,
-  get: function () {
-    return _assertNode.default;
-  }
-});
-Object.defineProperty(exports, "createTypeAnnotationBasedOnTypeof", {
-  enumerable: true,
-  get: function () {
-    return _createTypeAnnotationBasedOnTypeof.default;
-  }
-});
-Object.defineProperty(exports, "createUnionTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _createFlowUnionType.default;
-  }
-});
-Object.defineProperty(exports, "createFlowUnionType", {
-  enumerable: true,
-  get: function () {
-    return _createFlowUnionType.default;
-  }
-});
-Object.defineProperty(exports, "createTSUnionType", {
-  enumerable: true,
-  get: function () {
-    return _createTSUnionType.default;
-  }
-});
-Object.defineProperty(exports, "cloneNode", {
-  enumerable: true,
-  get: function () {
-    return _cloneNode.default;
-  }
-});
-Object.defineProperty(exports, "clone", {
-  enumerable: true,
-  get: function () {
-    return _clone.default;
-  }
-});
-Object.defineProperty(exports, "cloneDeep", {
-  enumerable: true,
-  get: function () {
-    return _cloneDeep.default;
-  }
-});
-Object.defineProperty(exports, "cloneDeepWithoutLoc", {
-  enumerable: true,
-  get: function () {
-    return _cloneDeepWithoutLoc.default;
-  }
-});
-Object.defineProperty(exports, "cloneWithoutLoc", {
-  enumerable: true,
-  get: function () {
-    return _cloneWithoutLoc.default;
-  }
-});
-Object.defineProperty(exports, "addComment", {
-  enumerable: true,
-  get: function () {
-    return _addComment.default;
-  }
-});
-Object.defineProperty(exports, "addComments", {
-  enumerable: true,
-  get: function () {
-    return _addComments.default;
-  }
-});
-Object.defineProperty(exports, "inheritInnerComments", {
-  enumerable: true,
-  get: function () {
-    return _inheritInnerComments.default;
-  }
-});
-Object.defineProperty(exports, "inheritLeadingComments", {
-  enumerable: true,
-  get: function () {
-    return _inheritLeadingComments.default;
-  }
-});
-Object.defineProperty(exports, "inheritsComments", {
-  enumerable: true,
-  get: function () {
-    return _inheritsComments.default;
-  }
-});
-Object.defineProperty(exports, "inheritTrailingComments", {
-  enumerable: true,
-  get: function () {
-    return _inheritTrailingComments.default;
-  }
-});
-Object.defineProperty(exports, "removeComments", {
-  enumerable: true,
-  get: function () {
-    return _removeComments.default;
-  }
-});
-Object.defineProperty(exports, "ensureBlock", {
-  enumerable: true,
-  get: function () {
-    return _ensureBlock.default;
-  }
-});
-Object.defineProperty(exports, "toBindingIdentifierName", {
-  enumerable: true,
-  get: function () {
-    return _toBindingIdentifierName.default;
-  }
-});
-Object.defineProperty(exports, "toBlock", {
-  enumerable: true,
-  get: function () {
-    return _toBlock.default;
-  }
-});
-Object.defineProperty(exports, "toComputedKey", {
-  enumerable: true,
-  get: function () {
-    return _toComputedKey.default;
-  }
-});
-Object.defineProperty(exports, "toExpression", {
-  enumerable: true,
-  get: function () {
-    return _toExpression.default;
-  }
-});
-Object.defineProperty(exports, "toIdentifier", {
-  enumerable: true,
-  get: function () {
-    return _toIdentifier.default;
-  }
-});
-Object.defineProperty(exports, "toKeyAlias", {
-  enumerable: true,
-  get: function () {
-    return _toKeyAlias.default;
-  }
-});
-Object.defineProperty(exports, "toSequenceExpression", {
-  enumerable: true,
-  get: function () {
-    return _toSequenceExpression.default;
-  }
-});
-Object.defineProperty(exports, "toStatement", {
-  enumerable: true,
-  get: function () {
-    return _toStatement.default;
-  }
-});
-Object.defineProperty(exports, "valueToNode", {
-  enumerable: true,
-  get: function () {
-    return _valueToNode.default;
-  }
-});
-Object.defineProperty(exports, "appendToMemberExpression", {
-  enumerable: true,
-  get: function () {
-    return _appendToMemberExpression.default;
-  }
-});
-Object.defineProperty(exports, "inherits", {
-  enumerable: true,
-  get: function () {
-    return _inherits.default;
-  }
-});
-Object.defineProperty(exports, "prependToMemberExpression", {
-  enumerable: true,
-  get: function () {
-    return _prependToMemberExpression.default;
-  }
-});
-Object.defineProperty(exports, "removeProperties", {
-  enumerable: true,
-  get: function () {
-    return _removeProperties.default;
-  }
-});
-Object.defineProperty(exports, "removePropertiesDeep", {
-  enumerable: true,
-  get: function () {
-    return _removePropertiesDeep.default;
-  }
-});
-Object.defineProperty(exports, "removeTypeDuplicates", {
-  enumerable: true,
-  get: function () {
-    return _removeTypeDuplicates.default;
-  }
-});
-Object.defineProperty(exports, "getBindingIdentifiers", {
-  enumerable: true,
-  get: function () {
-    return _getBindingIdentifiers.default;
-  }
-});
-Object.defineProperty(exports, "getOuterBindingIdentifiers", {
-  enumerable: true,
-  get: function () {
-    return _getOuterBindingIdentifiers.default;
-  }
-});
-Object.defineProperty(exports, "traverse", {
-  enumerable: true,
-  get: function () {
-    return _traverse.default;
-  }
-});
-Object.defineProperty(exports, "traverseFast", {
-  enumerable: true,
-  get: function () {
-    return _traverseFast.default;
-  }
-});
-Object.defineProperty(exports, "shallowEqual", {
-  enumerable: true,
-  get: function () {
-    return _shallowEqual.default;
-  }
-});
-Object.defineProperty(exports, "is", {
-  enumerable: true,
-  get: function () {
-    return _is.default;
-  }
-});
-Object.defineProperty(exports, "isBinding", {
-  enumerable: true,
-  get: function () {
-    return _isBinding.default;
-  }
-});
-Object.defineProperty(exports, "isBlockScoped", {
-  enumerable: true,
-  get: function () {
-    return _isBlockScoped.default;
-  }
-});
-Object.defineProperty(exports, "isImmutable", {
-  enumerable: true,
-  get: function () {
-    return _isImmutable.default;
-  }
-});
-Object.defineProperty(exports, "isLet", {
-  enumerable: true,
-  get: function () {
-    return _isLet.default;
-  }
-});
-Object.defineProperty(exports, "isNode", {
-  enumerable: true,
-  get: function () {
-    return _isNode.default;
-  }
-});
-Object.defineProperty(exports, "isNodesEquivalent", {
-  enumerable: true,
-  get: function () {
-    return _isNodesEquivalent.default;
-  }
-});
-Object.defineProperty(exports, "isPlaceholderType", {
-  enumerable: true,
-  get: function () {
-    return _isPlaceholderType.default;
-  }
-});
-Object.defineProperty(exports, "isReferenced", {
-  enumerable: true,
-  get: function () {
-    return _isReferenced.default;
-  }
-});
-Object.defineProperty(exports, "isScope", {
-  enumerable: true,
-  get: function () {
-    return _isScope.default;
-  }
-});
-Object.defineProperty(exports, "isSpecifierDefault", {
-  enumerable: true,
-  get: function () {
-    return _isSpecifierDefault.default;
-  }
-});
-Object.defineProperty(exports, "isType", {
-  enumerable: true,
-  get: function () {
-    return _isType.default;
-  }
-});
-Object.defineProperty(exports, "isValidES3Identifier", {
-  enumerable: true,
-  get: function () {
-    return _isValidES3Identifier.default;
-  }
-});
-Object.defineProperty(exports, "isValidIdentifier", {
-  enumerable: true,
-  get: function () {
-    return _isValidIdentifier.default;
-  }
-});
-Object.defineProperty(exports, "isVar", {
-  enumerable: true,
-  get: function () {
-    return _isVar.default;
-  }
-});
-Object.defineProperty(exports, "matchesPattern", {
-  enumerable: true,
-  get: function () {
-    return _matchesPattern.default;
-  }
-});
-Object.defineProperty(exports, "validate", {
-  enumerable: true,
-  get: function () {
-    return _validate.default;
-  }
-});
-Object.defineProperty(exports, "buildMatchMemberExpression", {
-  enumerable: true,
-  get: function () {
-    return _buildMatchMemberExpression.default;
-  }
-});
-exports.react = void 0;
-
-var _isReactComponent = isReactComponent$1;
-
-var _isCompatTag = isCompatTag$1;
-
-var _buildChildren = buildChildren$1;
-
-var _assertNode = assertNode$1;
-
-var _generated = generated$2;
-
-Object.keys(_generated).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  if (key in exports && exports[key] === _generated[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _generated[key];
-    }
-  });
-});
-
-var _createTypeAnnotationBasedOnTypeof = createTypeAnnotationBasedOnTypeof$1;
-
-var _createFlowUnionType = createFlowUnionType$1;
-
-var _createTSUnionType = createTSUnionType$1;
-
-var _generated2 = generated$3;
-
-Object.keys(_generated2).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  if (key in exports && exports[key] === _generated2[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _generated2[key];
-    }
-  });
-});
-
-var _uppercase = uppercase;
-
-Object.keys(_uppercase).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  if (key in exports && exports[key] === _uppercase[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _uppercase[key];
-    }
-  });
-});
-
-var _cloneNode = cloneNode$1;
-
-var _clone = clone$1;
-
-var _cloneDeep = cloneDeep$1;
-
-var _cloneDeepWithoutLoc = cloneDeepWithoutLoc$1;
-
-var _cloneWithoutLoc = cloneWithoutLoc$1;
-
-var _addComment = addComment$1;
-
-var _addComments = addComments$1;
-
-var _inheritInnerComments = inheritInnerComments$1;
-
-var _inheritLeadingComments = inheritLeadingComments$1;
-
-var _inheritsComments = inheritsComments$1;
-
-var _inheritTrailingComments = inheritTrailingComments$1;
-
-var _removeComments = removeComments$1;
-
-var _generated3 = generated$1;
-
-Object.keys(_generated3).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  if (key in exports && exports[key] === _generated3[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _generated3[key];
-    }
-  });
-});
-
-var _constants = constants;
-
-Object.keys(_constants).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  if (key in exports && exports[key] === _constants[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _constants[key];
-    }
-  });
-});
-
-var _ensureBlock = ensureBlock$1;
-
-var _toBindingIdentifierName = toBindingIdentifierName$1;
-
-var _toBlock = toBlock$1;
-
-var _toComputedKey = toComputedKey$1;
-
-var _toExpression = toExpression$1;
-
-var _toIdentifier = toIdentifier$1;
-
-var _toKeyAlias = toKeyAlias$1;
-
-var _toSequenceExpression = toSequenceExpression$1;
-
-var _toStatement = toStatement$1;
-
-var _valueToNode = valueToNode$1;
-
-var _definitions = definitions;
-
-Object.keys(_definitions).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  if (key in exports && exports[key] === _definitions[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _definitions[key];
-    }
-  });
-});
-
-var _appendToMemberExpression = appendToMemberExpression$1;
-
-var _inherits = inherits$1;
-
-var _prependToMemberExpression = prependToMemberExpression$1;
-
-var _removeProperties = removeProperties$1;
-
-var _removePropertiesDeep = removePropertiesDeep$1;
-
-var _removeTypeDuplicates = removeTypeDuplicates$3;
-
-var _getBindingIdentifiers = getBindingIdentifiers$1;
-
-var _getOuterBindingIdentifiers = getOuterBindingIdentifiers$1;
-
-var _traverse = traverse$1;
-
-Object.keys(_traverse).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  if (key in exports && exports[key] === _traverse[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _traverse[key];
-    }
-  });
-});
-
-var _traverseFast = traverseFast$1;
-
-var _shallowEqual = shallowEqual$1;
-
-var _is = is$1;
-
-var _isBinding = isBinding$1;
-
-var _isBlockScoped = isBlockScoped$1;
-
-var _isImmutable = isImmutable$1;
-
-var _isLet = isLet$1;
-
-var _isNode = isNode$1;
-
-var _isNodesEquivalent = isNodesEquivalent$1;
-
-var _isPlaceholderType = isPlaceholderType$1;
-
-var _isReferenced = isReferenced$1;
-
-var _isScope = isScope$1;
-
-var _isSpecifierDefault = isSpecifierDefault$1;
-
-var _isType = isType$2;
-
-var _isValidES3Identifier = isValidES3Identifier$1;
-
-var _isValidIdentifier = isValidIdentifier$1;
-
-var _isVar = isVar$1;
-
-var _matchesPattern = matchesPattern$1;
-
-var _validate = validate$2;
-
-var _buildMatchMemberExpression = buildMatchMemberExpression$1;
-
-var _generated4 = generated$4;
-
-Object.keys(_generated4).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  if (key in exports && exports[key] === _generated4[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _generated4[key];
-    }
-  });
-});
-
-var _generated5 = require$$65;
-
-Object.keys(_generated5).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  if (key in exports && exports[key] === _generated5[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _generated5[key];
-    }
-  });
-});
-const react = {
-  isReactComponent: _isReactComponent.default,
-  isCompatTag: _isCompatTag.default,
-  buildChildren: _buildChildren.default
-};
-exports.react = react;
-}(lib$1));
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var _exportNames = {
+	  react: true,
+	  assertNode: true,
+	  createTypeAnnotationBasedOnTypeof: true,
+	  createUnionTypeAnnotation: true,
+	  createFlowUnionType: true,
+	  createTSUnionType: true,
+	  cloneNode: true,
+	  clone: true,
+	  cloneDeep: true,
+	  cloneDeepWithoutLoc: true,
+	  cloneWithoutLoc: true,
+	  addComment: true,
+	  addComments: true,
+	  inheritInnerComments: true,
+	  inheritLeadingComments: true,
+	  inheritsComments: true,
+	  inheritTrailingComments: true,
+	  removeComments: true,
+	  ensureBlock: true,
+	  toBindingIdentifierName: true,
+	  toBlock: true,
+	  toComputedKey: true,
+	  toExpression: true,
+	  toIdentifier: true,
+	  toKeyAlias: true,
+	  toSequenceExpression: true,
+	  toStatement: true,
+	  valueToNode: true,
+	  appendToMemberExpression: true,
+	  inherits: true,
+	  prependToMemberExpression: true,
+	  removeProperties: true,
+	  removePropertiesDeep: true,
+	  removeTypeDuplicates: true,
+	  getBindingIdentifiers: true,
+	  getOuterBindingIdentifiers: true,
+	  traverse: true,
+	  traverseFast: true,
+	  shallowEqual: true,
+	  is: true,
+	  isBinding: true,
+	  isBlockScoped: true,
+	  isImmutable: true,
+	  isLet: true,
+	  isNode: true,
+	  isNodesEquivalent: true,
+	  isPlaceholderType: true,
+	  isReferenced: true,
+	  isScope: true,
+	  isSpecifierDefault: true,
+	  isType: true,
+	  isValidES3Identifier: true,
+	  isValidIdentifier: true,
+	  isVar: true,
+	  matchesPattern: true,
+	  validate: true,
+	  buildMatchMemberExpression: true
+	};
+	Object.defineProperty(exports, "assertNode", {
+	  enumerable: true,
+	  get: function () {
+	    return _assertNode.default;
+	  }
+	});
+	Object.defineProperty(exports, "createTypeAnnotationBasedOnTypeof", {
+	  enumerable: true,
+	  get: function () {
+	    return _createTypeAnnotationBasedOnTypeof.default;
+	  }
+	});
+	Object.defineProperty(exports, "createUnionTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _createFlowUnionType.default;
+	  }
+	});
+	Object.defineProperty(exports, "createFlowUnionType", {
+	  enumerable: true,
+	  get: function () {
+	    return _createFlowUnionType.default;
+	  }
+	});
+	Object.defineProperty(exports, "createTSUnionType", {
+	  enumerable: true,
+	  get: function () {
+	    return _createTSUnionType.default;
+	  }
+	});
+	Object.defineProperty(exports, "cloneNode", {
+	  enumerable: true,
+	  get: function () {
+	    return _cloneNode.default;
+	  }
+	});
+	Object.defineProperty(exports, "clone", {
+	  enumerable: true,
+	  get: function () {
+	    return _clone.default;
+	  }
+	});
+	Object.defineProperty(exports, "cloneDeep", {
+	  enumerable: true,
+	  get: function () {
+	    return _cloneDeep.default;
+	  }
+	});
+	Object.defineProperty(exports, "cloneDeepWithoutLoc", {
+	  enumerable: true,
+	  get: function () {
+	    return _cloneDeepWithoutLoc.default;
+	  }
+	});
+	Object.defineProperty(exports, "cloneWithoutLoc", {
+	  enumerable: true,
+	  get: function () {
+	    return _cloneWithoutLoc.default;
+	  }
+	});
+	Object.defineProperty(exports, "addComment", {
+	  enumerable: true,
+	  get: function () {
+	    return _addComment.default;
+	  }
+	});
+	Object.defineProperty(exports, "addComments", {
+	  enumerable: true,
+	  get: function () {
+	    return _addComments.default;
+	  }
+	});
+	Object.defineProperty(exports, "inheritInnerComments", {
+	  enumerable: true,
+	  get: function () {
+	    return _inheritInnerComments.default;
+	  }
+	});
+	Object.defineProperty(exports, "inheritLeadingComments", {
+	  enumerable: true,
+	  get: function () {
+	    return _inheritLeadingComments.default;
+	  }
+	});
+	Object.defineProperty(exports, "inheritsComments", {
+	  enumerable: true,
+	  get: function () {
+	    return _inheritsComments.default;
+	  }
+	});
+	Object.defineProperty(exports, "inheritTrailingComments", {
+	  enumerable: true,
+	  get: function () {
+	    return _inheritTrailingComments.default;
+	  }
+	});
+	Object.defineProperty(exports, "removeComments", {
+	  enumerable: true,
+	  get: function () {
+	    return _removeComments.default;
+	  }
+	});
+	Object.defineProperty(exports, "ensureBlock", {
+	  enumerable: true,
+	  get: function () {
+	    return _ensureBlock.default;
+	  }
+	});
+	Object.defineProperty(exports, "toBindingIdentifierName", {
+	  enumerable: true,
+	  get: function () {
+	    return _toBindingIdentifierName.default;
+	  }
+	});
+	Object.defineProperty(exports, "toBlock", {
+	  enumerable: true,
+	  get: function () {
+	    return _toBlock.default;
+	  }
+	});
+	Object.defineProperty(exports, "toComputedKey", {
+	  enumerable: true,
+	  get: function () {
+	    return _toComputedKey.default;
+	  }
+	});
+	Object.defineProperty(exports, "toExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _toExpression.default;
+	  }
+	});
+	Object.defineProperty(exports, "toIdentifier", {
+	  enumerable: true,
+	  get: function () {
+	    return _toIdentifier.default;
+	  }
+	});
+	Object.defineProperty(exports, "toKeyAlias", {
+	  enumerable: true,
+	  get: function () {
+	    return _toKeyAlias.default;
+	  }
+	});
+	Object.defineProperty(exports, "toSequenceExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _toSequenceExpression.default;
+	  }
+	});
+	Object.defineProperty(exports, "toStatement", {
+	  enumerable: true,
+	  get: function () {
+	    return _toStatement.default;
+	  }
+	});
+	Object.defineProperty(exports, "valueToNode", {
+	  enumerable: true,
+	  get: function () {
+	    return _valueToNode.default;
+	  }
+	});
+	Object.defineProperty(exports, "appendToMemberExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _appendToMemberExpression.default;
+	  }
+	});
+	Object.defineProperty(exports, "inherits", {
+	  enumerable: true,
+	  get: function () {
+	    return _inherits.default;
+	  }
+	});
+	Object.defineProperty(exports, "prependToMemberExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _prependToMemberExpression.default;
+	  }
+	});
+	Object.defineProperty(exports, "removeProperties", {
+	  enumerable: true,
+	  get: function () {
+	    return _removeProperties.default;
+	  }
+	});
+	Object.defineProperty(exports, "removePropertiesDeep", {
+	  enumerable: true,
+	  get: function () {
+	    return _removePropertiesDeep.default;
+	  }
+	});
+	Object.defineProperty(exports, "removeTypeDuplicates", {
+	  enumerable: true,
+	  get: function () {
+	    return _removeTypeDuplicates.default;
+	  }
+	});
+	Object.defineProperty(exports, "getBindingIdentifiers", {
+	  enumerable: true,
+	  get: function () {
+	    return _getBindingIdentifiers.default;
+	  }
+	});
+	Object.defineProperty(exports, "getOuterBindingIdentifiers", {
+	  enumerable: true,
+	  get: function () {
+	    return _getOuterBindingIdentifiers.default;
+	  }
+	});
+	Object.defineProperty(exports, "traverse", {
+	  enumerable: true,
+	  get: function () {
+	    return _traverse.default;
+	  }
+	});
+	Object.defineProperty(exports, "traverseFast", {
+	  enumerable: true,
+	  get: function () {
+	    return _traverseFast.default;
+	  }
+	});
+	Object.defineProperty(exports, "shallowEqual", {
+	  enumerable: true,
+	  get: function () {
+	    return _shallowEqual.default;
+	  }
+	});
+	Object.defineProperty(exports, "is", {
+	  enumerable: true,
+	  get: function () {
+	    return _is.default;
+	  }
+	});
+	Object.defineProperty(exports, "isBinding", {
+	  enumerable: true,
+	  get: function () {
+	    return _isBinding.default;
+	  }
+	});
+	Object.defineProperty(exports, "isBlockScoped", {
+	  enumerable: true,
+	  get: function () {
+	    return _isBlockScoped.default;
+	  }
+	});
+	Object.defineProperty(exports, "isImmutable", {
+	  enumerable: true,
+	  get: function () {
+	    return _isImmutable.default;
+	  }
+	});
+	Object.defineProperty(exports, "isLet", {
+	  enumerable: true,
+	  get: function () {
+	    return _isLet.default;
+	  }
+	});
+	Object.defineProperty(exports, "isNode", {
+	  enumerable: true,
+	  get: function () {
+	    return _isNode.default;
+	  }
+	});
+	Object.defineProperty(exports, "isNodesEquivalent", {
+	  enumerable: true,
+	  get: function () {
+	    return _isNodesEquivalent.default;
+	  }
+	});
+	Object.defineProperty(exports, "isPlaceholderType", {
+	  enumerable: true,
+	  get: function () {
+	    return _isPlaceholderType.default;
+	  }
+	});
+	Object.defineProperty(exports, "isReferenced", {
+	  enumerable: true,
+	  get: function () {
+	    return _isReferenced.default;
+	  }
+	});
+	Object.defineProperty(exports, "isScope", {
+	  enumerable: true,
+	  get: function () {
+	    return _isScope.default;
+	  }
+	});
+	Object.defineProperty(exports, "isSpecifierDefault", {
+	  enumerable: true,
+	  get: function () {
+	    return _isSpecifierDefault.default;
+	  }
+	});
+	Object.defineProperty(exports, "isType", {
+	  enumerable: true,
+	  get: function () {
+	    return _isType.default;
+	  }
+	});
+	Object.defineProperty(exports, "isValidES3Identifier", {
+	  enumerable: true,
+	  get: function () {
+	    return _isValidES3Identifier.default;
+	  }
+	});
+	Object.defineProperty(exports, "isValidIdentifier", {
+	  enumerable: true,
+	  get: function () {
+	    return _isValidIdentifier.default;
+	  }
+	});
+	Object.defineProperty(exports, "isVar", {
+	  enumerable: true,
+	  get: function () {
+	    return _isVar.default;
+	  }
+	});
+	Object.defineProperty(exports, "matchesPattern", {
+	  enumerable: true,
+	  get: function () {
+	    return _matchesPattern.default;
+	  }
+	});
+	Object.defineProperty(exports, "validate", {
+	  enumerable: true,
+	  get: function () {
+	    return _validate.default;
+	  }
+	});
+	Object.defineProperty(exports, "buildMatchMemberExpression", {
+	  enumerable: true,
+	  get: function () {
+	    return _buildMatchMemberExpression.default;
+	  }
+	});
+	exports.react = void 0;
+
+	var _isReactComponent = isReactComponent$1;
+
+	var _isCompatTag = isCompatTag$1;
+
+	var _buildChildren = buildChildren$1;
+
+	var _assertNode = assertNode$1;
+
+	var _generated = generated$2;
+
+	Object.keys(_generated).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+	  if (key in exports && exports[key] === _generated[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _generated[key];
+	    }
+	  });
+	});
+
+	var _createTypeAnnotationBasedOnTypeof = createTypeAnnotationBasedOnTypeof$1;
+
+	var _createFlowUnionType = createFlowUnionType$1;
+
+	var _createTSUnionType = createTSUnionType$1;
+
+	var _generated2 = generated$3;
+
+	Object.keys(_generated2).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+	  if (key in exports && exports[key] === _generated2[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _generated2[key];
+	    }
+	  });
+	});
+
+	var _uppercase = uppercase;
+
+	Object.keys(_uppercase).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+	  if (key in exports && exports[key] === _uppercase[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _uppercase[key];
+	    }
+	  });
+	});
+
+	var _cloneNode = cloneNode$1;
+
+	var _clone = clone$1;
+
+	var _cloneDeep = cloneDeep$1;
+
+	var _cloneDeepWithoutLoc = cloneDeepWithoutLoc$1;
+
+	var _cloneWithoutLoc = cloneWithoutLoc$1;
+
+	var _addComment = addComment$1;
+
+	var _addComments = addComments$1;
+
+	var _inheritInnerComments = inheritInnerComments$1;
+
+	var _inheritLeadingComments = inheritLeadingComments$1;
+
+	var _inheritsComments = inheritsComments$1;
+
+	var _inheritTrailingComments = inheritTrailingComments$1;
+
+	var _removeComments = removeComments$1;
+
+	var _generated3 = generated$1;
+
+	Object.keys(_generated3).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+	  if (key in exports && exports[key] === _generated3[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _generated3[key];
+	    }
+	  });
+	});
+
+	var _constants = constants;
+
+	Object.keys(_constants).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+	  if (key in exports && exports[key] === _constants[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _constants[key];
+	    }
+	  });
+	});
+
+	var _ensureBlock = ensureBlock$1;
+
+	var _toBindingIdentifierName = toBindingIdentifierName$1;
+
+	var _toBlock = toBlock$1;
+
+	var _toComputedKey = toComputedKey$1;
+
+	var _toExpression = toExpression$1;
+
+	var _toIdentifier = toIdentifier$1;
+
+	var _toKeyAlias = toKeyAlias$1;
+
+	var _toSequenceExpression = toSequenceExpression$1;
+
+	var _toStatement = toStatement$1;
+
+	var _valueToNode = valueToNode$1;
+
+	var _definitions = requireDefinitions();
+
+	Object.keys(_definitions).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+	  if (key in exports && exports[key] === _definitions[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _definitions[key];
+	    }
+	  });
+	});
+
+	var _appendToMemberExpression = appendToMemberExpression$1;
+
+	var _inherits = inherits$1;
+
+	var _prependToMemberExpression = prependToMemberExpression$1;
+
+	var _removeProperties = removeProperties$1;
+
+	var _removePropertiesDeep = removePropertiesDeep$1;
+
+	var _removeTypeDuplicates = removeTypeDuplicates$3;
+
+	var _getBindingIdentifiers = getBindingIdentifiers$1;
+
+	var _getOuterBindingIdentifiers = getOuterBindingIdentifiers$1;
+
+	var _traverse = traverse$1;
+
+	Object.keys(_traverse).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+	  if (key in exports && exports[key] === _traverse[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _traverse[key];
+	    }
+	  });
+	});
+
+	var _traverseFast = traverseFast$1;
+
+	var _shallowEqual = shallowEqual$1;
+
+	var _is = requireIs();
+
+	var _isBinding = isBinding$1;
+
+	var _isBlockScoped = isBlockScoped$1;
+
+	var _isImmutable = isImmutable$1;
+
+	var _isLet = isLet$1;
+
+	var _isNode = isNode$1;
+
+	var _isNodesEquivalent = isNodesEquivalent$1;
+
+	var _isPlaceholderType = requireIsPlaceholderType();
+
+	var _isReferenced = isReferenced$1;
+
+	var _isScope = isScope$1;
+
+	var _isSpecifierDefault = isSpecifierDefault$1;
+
+	var _isType = requireIsType();
+
+	var _isValidES3Identifier = isValidES3Identifier$1;
+
+	var _isValidIdentifier = isValidIdentifier$1;
+
+	var _isVar = isVar$1;
+
+	var _matchesPattern = matchesPattern$1;
+
+	var _validate = requireValidate();
+
+	var _buildMatchMemberExpression = buildMatchMemberExpression$1;
+
+	var _generated4 = generated$4;
+
+	Object.keys(_generated4).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+	  if (key in exports && exports[key] === _generated4[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _generated4[key];
+	    }
+	  });
+	});
+
+	var _generated5 = generated;
+
+	Object.keys(_generated5).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+	  if (key in exports && exports[key] === _generated5[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _generated5[key];
+	    }
+	  });
+	});
+	const react = {
+	  isReactComponent: _isReactComponent.default,
+	  isCompatTag: _isCompatTag.default,
+	  buildChildren: _buildChildren.default
+	};
+	exports.react = react;
+} (lib$1));
 
 Object.defineProperty(whitespace$1, "__esModule", {
   value: true
@@ -35096,6 +35534,209 @@ function ImportNamespaceSpecifier(node) {
 
 var types = {};
 
+var lookup = [];
+var revLookup = [];
+var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array;
+var inited = false;
+function init () {
+  inited = true;
+  var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+  for (var i = 0, len = code.length; i < len; ++i) {
+    lookup[i] = code[i];
+    revLookup[code.charCodeAt(i)] = i;
+  }
+
+  revLookup['-'.charCodeAt(0)] = 62;
+  revLookup['_'.charCodeAt(0)] = 63;
+}
+
+function toByteArray (b64) {
+  if (!inited) {
+    init();
+  }
+  var i, j, l, tmp, placeHolders, arr;
+  var len = b64.length;
+
+  if (len % 4 > 0) {
+    throw new Error('Invalid string. Length must be a multiple of 4')
+  }
+
+  // the number of equal signs (place holders)
+  // if there are two placeholders, than the two characters before it
+  // represent one byte
+  // if there is only one, then the three characters before it represent 2 bytes
+  // this is just a cheap hack to not do indexOf twice
+  placeHolders = b64[len - 2] === '=' ? 2 : b64[len - 1] === '=' ? 1 : 0;
+
+  // base64 is 4/3 + up to two characters of the original data
+  arr = new Arr(len * 3 / 4 - placeHolders);
+
+  // if there are placeholders, only get up to the last complete 4 chars
+  l = placeHolders > 0 ? len - 4 : len;
+
+  var L = 0;
+
+  for (i = 0, j = 0; i < l; i += 4, j += 3) {
+    tmp = (revLookup[b64.charCodeAt(i)] << 18) | (revLookup[b64.charCodeAt(i + 1)] << 12) | (revLookup[b64.charCodeAt(i + 2)] << 6) | revLookup[b64.charCodeAt(i + 3)];
+    arr[L++] = (tmp >> 16) & 0xFF;
+    arr[L++] = (tmp >> 8) & 0xFF;
+    arr[L++] = tmp & 0xFF;
+  }
+
+  if (placeHolders === 2) {
+    tmp = (revLookup[b64.charCodeAt(i)] << 2) | (revLookup[b64.charCodeAt(i + 1)] >> 4);
+    arr[L++] = tmp & 0xFF;
+  } else if (placeHolders === 1) {
+    tmp = (revLookup[b64.charCodeAt(i)] << 10) | (revLookup[b64.charCodeAt(i + 1)] << 4) | (revLookup[b64.charCodeAt(i + 2)] >> 2);
+    arr[L++] = (tmp >> 8) & 0xFF;
+    arr[L++] = tmp & 0xFF;
+  }
+
+  return arr
+}
+
+function tripletToBase64 (num) {
+  return lookup[num >> 18 & 0x3F] + lookup[num >> 12 & 0x3F] + lookup[num >> 6 & 0x3F] + lookup[num & 0x3F]
+}
+
+function encodeChunk (uint8, start, end) {
+  var tmp;
+  var output = [];
+  for (var i = start; i < end; i += 3) {
+    tmp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2]);
+    output.push(tripletToBase64(tmp));
+  }
+  return output.join('')
+}
+
+function fromByteArray (uint8) {
+  if (!inited) {
+    init();
+  }
+  var tmp;
+  var len = uint8.length;
+  var extraBytes = len % 3; // if we have 1 byte left, pad 2 bytes
+  var output = '';
+  var parts = [];
+  var maxChunkLength = 16383; // must be multiple of 3
+
+  // go through the array every three bytes, we'll deal with trailing stuff later
+  for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
+    parts.push(encodeChunk(uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)));
+  }
+
+  // pad the end with zeros, but make sure to not forget the extra bytes
+  if (extraBytes === 1) {
+    tmp = uint8[len - 1];
+    output += lookup[tmp >> 2];
+    output += lookup[(tmp << 4) & 0x3F];
+    output += '==';
+  } else if (extraBytes === 2) {
+    tmp = (uint8[len - 2] << 8) + (uint8[len - 1]);
+    output += lookup[tmp >> 10];
+    output += lookup[(tmp >> 4) & 0x3F];
+    output += lookup[(tmp << 2) & 0x3F];
+    output += '=';
+  }
+
+  parts.push(output);
+
+  return parts.join('')
+}
+
+function read (buffer, offset, isLE, mLen, nBytes) {
+  var e, m;
+  var eLen = nBytes * 8 - mLen - 1;
+  var eMax = (1 << eLen) - 1;
+  var eBias = eMax >> 1;
+  var nBits = -7;
+  var i = isLE ? (nBytes - 1) : 0;
+  var d = isLE ? -1 : 1;
+  var s = buffer[offset + i];
+
+  i += d;
+
+  e = s & ((1 << (-nBits)) - 1);
+  s >>= (-nBits);
+  nBits += eLen;
+  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+
+  m = e & ((1 << (-nBits)) - 1);
+  e >>= (-nBits);
+  nBits += mLen;
+  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+
+  if (e === 0) {
+    e = 1 - eBias;
+  } else if (e === eMax) {
+    return m ? NaN : ((s ? -1 : 1) * Infinity)
+  } else {
+    m = m + Math.pow(2, mLen);
+    e = e - eBias;
+  }
+  return (s ? -1 : 1) * m * Math.pow(2, e - mLen)
+}
+
+function write (buffer, value, offset, isLE, mLen, nBytes) {
+  var e, m, c;
+  var eLen = nBytes * 8 - mLen - 1;
+  var eMax = (1 << eLen) - 1;
+  var eBias = eMax >> 1;
+  var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0);
+  var i = isLE ? 0 : (nBytes - 1);
+  var d = isLE ? 1 : -1;
+  var s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0;
+
+  value = Math.abs(value);
+
+  if (isNaN(value) || value === Infinity) {
+    m = isNaN(value) ? 1 : 0;
+    e = eMax;
+  } else {
+    e = Math.floor(Math.log(value) / Math.LN2);
+    if (value * (c = Math.pow(2, -e)) < 1) {
+      e--;
+      c *= 2;
+    }
+    if (e + eBias >= 1) {
+      value += rt / c;
+    } else {
+      value += rt * Math.pow(2, 1 - eBias);
+    }
+    if (value * c >= 2) {
+      e++;
+      c /= 2;
+    }
+
+    if (e + eBias >= eMax) {
+      m = 0;
+      e = eMax;
+    } else if (e + eBias >= 1) {
+      m = (value * c - 1) * Math.pow(2, mLen);
+      e = e + eBias;
+    } else {
+      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
+      e = 0;
+    }
+  }
+
+  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
+
+  e = (e << mLen) | m;
+  eLen += mLen;
+  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
+
+  buffer[offset + i - d] |= s * 128;
+}
+
+var toString$1 = {}.toString;
+
+var isArray$1 = Array.isArray || function (arr) {
+  return toString$1.call(arr) == '[object Array]';
+};
+
+var INSPECT_MAX_BYTES = 50;
+
 /**
  * If `Buffer.TYPED_ARRAY_SUPPORT`:
  *   === true    Use Uint8Array implementation (fastest)
@@ -35120,9 +35761,1729 @@ var types = {};
  * We detect these buggy browsers and set `Buffer.TYPED_ARRAY_SUPPORT` to `false` so they
  * get the Object implementation, which is slower but behaves correctly.
  */
-global$1.TYPED_ARRAY_SUPPORT !== undefined
+Buffer.TYPED_ARRAY_SUPPORT = global$1.TYPED_ARRAY_SUPPORT !== undefined
   ? global$1.TYPED_ARRAY_SUPPORT
   : true;
+
+/*
+ * Export kMaxLength after typed array support is determined.
+ */
+kMaxLength();
+
+function kMaxLength () {
+  return Buffer.TYPED_ARRAY_SUPPORT
+    ? 0x7fffffff
+    : 0x3fffffff
+}
+
+function createBuffer (that, length) {
+  if (kMaxLength() < length) {
+    throw new RangeError('Invalid typed array length')
+  }
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    // Return an augmented `Uint8Array` instance, for best performance
+    that = new Uint8Array(length);
+    that.__proto__ = Buffer.prototype;
+  } else {
+    // Fallback: Return an object instance of the Buffer class
+    if (that === null) {
+      that = new Buffer(length);
+    }
+    that.length = length;
+  }
+
+  return that
+}
+
+/**
+ * The Buffer constructor returns instances of `Uint8Array` that have their
+ * prototype changed to `Buffer.prototype`. Furthermore, `Buffer` is a subclass of
+ * `Uint8Array`, so the returned instances will have all the node `Buffer` methods
+ * and the `Uint8Array` methods. Square bracket notation works as expected -- it
+ * returns a single octet.
+ *
+ * The `Uint8Array` prototype remains unmodified.
+ */
+
+function Buffer (arg, encodingOrOffset, length) {
+  if (!Buffer.TYPED_ARRAY_SUPPORT && !(this instanceof Buffer)) {
+    return new Buffer(arg, encodingOrOffset, length)
+  }
+
+  // Common case.
+  if (typeof arg === 'number') {
+    if (typeof encodingOrOffset === 'string') {
+      throw new Error(
+        'If encoding is specified then the first argument must be a string'
+      )
+    }
+    return allocUnsafe(this, arg)
+  }
+  return from(this, arg, encodingOrOffset, length)
+}
+
+Buffer.poolSize = 8192; // not used by this implementation
+
+// TODO: Legacy, not needed anymore. Remove in next major version.
+Buffer._augment = function (arr) {
+  arr.__proto__ = Buffer.prototype;
+  return arr
+};
+
+function from (that, value, encodingOrOffset, length) {
+  if (typeof value === 'number') {
+    throw new TypeError('"value" argument must not be a number')
+  }
+
+  if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
+    return fromArrayBuffer(that, value, encodingOrOffset, length)
+  }
+
+  if (typeof value === 'string') {
+    return fromString(that, value, encodingOrOffset)
+  }
+
+  return fromObject(that, value)
+}
+
+/**
+ * Functionally equivalent to Buffer(arg, encoding) but throws a TypeError
+ * if value is a number.
+ * Buffer.from(str[, encoding])
+ * Buffer.from(array)
+ * Buffer.from(buffer)
+ * Buffer.from(arrayBuffer[, byteOffset[, length]])
+ **/
+Buffer.from = function (value, encodingOrOffset, length) {
+  return from(null, value, encodingOrOffset, length)
+};
+
+if (Buffer.TYPED_ARRAY_SUPPORT) {
+  Buffer.prototype.__proto__ = Uint8Array.prototype;
+  Buffer.__proto__ = Uint8Array;
+  if (typeof Symbol !== 'undefined' && Symbol.species &&
+      Buffer[Symbol.species] === Buffer) ;
+}
+
+function assertSize (size) {
+  if (typeof size !== 'number') {
+    throw new TypeError('"size" argument must be a number')
+  } else if (size < 0) {
+    throw new RangeError('"size" argument must not be negative')
+  }
+}
+
+function alloc (that, size, fill, encoding) {
+  assertSize(size);
+  if (size <= 0) {
+    return createBuffer(that, size)
+  }
+  if (fill !== undefined) {
+    // Only pay attention to encoding if it's a string. This
+    // prevents accidentally sending in a number that would
+    // be interpretted as a start offset.
+    return typeof encoding === 'string'
+      ? createBuffer(that, size).fill(fill, encoding)
+      : createBuffer(that, size).fill(fill)
+  }
+  return createBuffer(that, size)
+}
+
+/**
+ * Creates a new filled Buffer instance.
+ * alloc(size[, fill[, encoding]])
+ **/
+Buffer.alloc = function (size, fill, encoding) {
+  return alloc(null, size, fill, encoding)
+};
+
+function allocUnsafe (that, size) {
+  assertSize(size);
+  that = createBuffer(that, size < 0 ? 0 : checked(size) | 0);
+  if (!Buffer.TYPED_ARRAY_SUPPORT) {
+    for (var i = 0; i < size; ++i) {
+      that[i] = 0;
+    }
+  }
+  return that
+}
+
+/**
+ * Equivalent to Buffer(num), by default creates a non-zero-filled Buffer instance.
+ * */
+Buffer.allocUnsafe = function (size) {
+  return allocUnsafe(null, size)
+};
+/**
+ * Equivalent to SlowBuffer(num), by default creates a non-zero-filled Buffer instance.
+ */
+Buffer.allocUnsafeSlow = function (size) {
+  return allocUnsafe(null, size)
+};
+
+function fromString (that, string, encoding) {
+  if (typeof encoding !== 'string' || encoding === '') {
+    encoding = 'utf8';
+  }
+
+  if (!Buffer.isEncoding(encoding)) {
+    throw new TypeError('"encoding" must be a valid string encoding')
+  }
+
+  var length = byteLength(string, encoding) | 0;
+  that = createBuffer(that, length);
+
+  var actual = that.write(string, encoding);
+
+  if (actual !== length) {
+    // Writing a hex string, for example, that contains invalid characters will
+    // cause everything after the first invalid character to be ignored. (e.g.
+    // 'abxxcd' will be treated as 'ab')
+    that = that.slice(0, actual);
+  }
+
+  return that
+}
+
+function fromArrayLike (that, array) {
+  var length = array.length < 0 ? 0 : checked(array.length) | 0;
+  that = createBuffer(that, length);
+  for (var i = 0; i < length; i += 1) {
+    that[i] = array[i] & 255;
+  }
+  return that
+}
+
+function fromArrayBuffer (that, array, byteOffset, length) {
+  array.byteLength; // this throws if `array` is not a valid ArrayBuffer
+
+  if (byteOffset < 0 || array.byteLength < byteOffset) {
+    throw new RangeError('\'offset\' is out of bounds')
+  }
+
+  if (array.byteLength < byteOffset + (length || 0)) {
+    throw new RangeError('\'length\' is out of bounds')
+  }
+
+  if (byteOffset === undefined && length === undefined) {
+    array = new Uint8Array(array);
+  } else if (length === undefined) {
+    array = new Uint8Array(array, byteOffset);
+  } else {
+    array = new Uint8Array(array, byteOffset, length);
+  }
+
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    // Return an augmented `Uint8Array` instance, for best performance
+    that = array;
+    that.__proto__ = Buffer.prototype;
+  } else {
+    // Fallback: Return an object instance of the Buffer class
+    that = fromArrayLike(that, array);
+  }
+  return that
+}
+
+function fromObject (that, obj) {
+  if (internalIsBuffer(obj)) {
+    var len = checked(obj.length) | 0;
+    that = createBuffer(that, len);
+
+    if (that.length === 0) {
+      return that
+    }
+
+    obj.copy(that, 0, 0, len);
+    return that
+  }
+
+  if (obj) {
+    if ((typeof ArrayBuffer !== 'undefined' &&
+        obj.buffer instanceof ArrayBuffer) || 'length' in obj) {
+      if (typeof obj.length !== 'number' || isnan(obj.length)) {
+        return createBuffer(that, 0)
+      }
+      return fromArrayLike(that, obj)
+    }
+
+    if (obj.type === 'Buffer' && isArray$1(obj.data)) {
+      return fromArrayLike(that, obj.data)
+    }
+  }
+
+  throw new TypeError('First argument must be a string, Buffer, ArrayBuffer, Array, or array-like object.')
+}
+
+function checked (length) {
+  // Note: cannot use `length < kMaxLength()` here because that fails when
+  // length is NaN (which is otherwise coerced to zero.)
+  if (length >= kMaxLength()) {
+    throw new RangeError('Attempt to allocate Buffer larger than maximum ' +
+                         'size: 0x' + kMaxLength().toString(16) + ' bytes')
+  }
+  return length | 0
+}
+Buffer.isBuffer = isBuffer$1;
+function internalIsBuffer (b) {
+  return !!(b != null && b._isBuffer)
+}
+
+Buffer.compare = function compare (a, b) {
+  if (!internalIsBuffer(a) || !internalIsBuffer(b)) {
+    throw new TypeError('Arguments must be Buffers')
+  }
+
+  if (a === b) return 0
+
+  var x = a.length;
+  var y = b.length;
+
+  for (var i = 0, len = Math.min(x, y); i < len; ++i) {
+    if (a[i] !== b[i]) {
+      x = a[i];
+      y = b[i];
+      break
+    }
+  }
+
+  if (x < y) return -1
+  if (y < x) return 1
+  return 0
+};
+
+Buffer.isEncoding = function isEncoding (encoding) {
+  switch (String(encoding).toLowerCase()) {
+    case 'hex':
+    case 'utf8':
+    case 'utf-8':
+    case 'ascii':
+    case 'latin1':
+    case 'binary':
+    case 'base64':
+    case 'ucs2':
+    case 'ucs-2':
+    case 'utf16le':
+    case 'utf-16le':
+      return true
+    default:
+      return false
+  }
+};
+
+Buffer.concat = function concat (list, length) {
+  if (!isArray$1(list)) {
+    throw new TypeError('"list" argument must be an Array of Buffers')
+  }
+
+  if (list.length === 0) {
+    return Buffer.alloc(0)
+  }
+
+  var i;
+  if (length === undefined) {
+    length = 0;
+    for (i = 0; i < list.length; ++i) {
+      length += list[i].length;
+    }
+  }
+
+  var buffer = Buffer.allocUnsafe(length);
+  var pos = 0;
+  for (i = 0; i < list.length; ++i) {
+    var buf = list[i];
+    if (!internalIsBuffer(buf)) {
+      throw new TypeError('"list" argument must be an Array of Buffers')
+    }
+    buf.copy(buffer, pos);
+    pos += buf.length;
+  }
+  return buffer
+};
+
+function byteLength (string, encoding) {
+  if (internalIsBuffer(string)) {
+    return string.length
+  }
+  if (typeof ArrayBuffer !== 'undefined' && typeof ArrayBuffer.isView === 'function' &&
+      (ArrayBuffer.isView(string) || string instanceof ArrayBuffer)) {
+    return string.byteLength
+  }
+  if (typeof string !== 'string') {
+    string = '' + string;
+  }
+
+  var len = string.length;
+  if (len === 0) return 0
+
+  // Use a for loop to avoid recursion
+  var loweredCase = false;
+  for (;;) {
+    switch (encoding) {
+      case 'ascii':
+      case 'latin1':
+      case 'binary':
+        return len
+      case 'utf8':
+      case 'utf-8':
+      case undefined:
+        return utf8ToBytes(string).length
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return len * 2
+      case 'hex':
+        return len >>> 1
+      case 'base64':
+        return base64ToBytes(string).length
+      default:
+        if (loweredCase) return utf8ToBytes(string).length // assume utf8
+        encoding = ('' + encoding).toLowerCase();
+        loweredCase = true;
+    }
+  }
+}
+Buffer.byteLength = byteLength;
+
+function slowToString (encoding, start, end) {
+  var loweredCase = false;
+
+  // No need to verify that "this.length <= MAX_UINT32" since it's a read-only
+  // property of a typed array.
+
+  // This behaves neither like String nor Uint8Array in that we set start/end
+  // to their upper/lower bounds if the value passed is out of range.
+  // undefined is handled specially as per ECMA-262 6th Edition,
+  // Section 13.3.3.7 Runtime Semantics: KeyedBindingInitialization.
+  if (start === undefined || start < 0) {
+    start = 0;
+  }
+  // Return early if start > this.length. Done here to prevent potential uint32
+  // coercion fail below.
+  if (start > this.length) {
+    return ''
+  }
+
+  if (end === undefined || end > this.length) {
+    end = this.length;
+  }
+
+  if (end <= 0) {
+    return ''
+  }
+
+  // Force coersion to uint32. This will also coerce falsey/NaN values to 0.
+  end >>>= 0;
+  start >>>= 0;
+
+  if (end <= start) {
+    return ''
+  }
+
+  if (!encoding) encoding = 'utf8';
+
+  while (true) {
+    switch (encoding) {
+      case 'hex':
+        return hexSlice(this, start, end)
+
+      case 'utf8':
+      case 'utf-8':
+        return utf8Slice(this, start, end)
+
+      case 'ascii':
+        return asciiSlice(this, start, end)
+
+      case 'latin1':
+      case 'binary':
+        return latin1Slice(this, start, end)
+
+      case 'base64':
+        return base64Slice(this, start, end)
+
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return utf16leSlice(this, start, end)
+
+      default:
+        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
+        encoding = (encoding + '').toLowerCase();
+        loweredCase = true;
+    }
+  }
+}
+
+// The property is used by `Buffer.isBuffer` and `is-buffer` (in Safari 5-7) to detect
+// Buffer instances.
+Buffer.prototype._isBuffer = true;
+
+function swap (b, n, m) {
+  var i = b[n];
+  b[n] = b[m];
+  b[m] = i;
+}
+
+Buffer.prototype.swap16 = function swap16 () {
+  var len = this.length;
+  if (len % 2 !== 0) {
+    throw new RangeError('Buffer size must be a multiple of 16-bits')
+  }
+  for (var i = 0; i < len; i += 2) {
+    swap(this, i, i + 1);
+  }
+  return this
+};
+
+Buffer.prototype.swap32 = function swap32 () {
+  var len = this.length;
+  if (len % 4 !== 0) {
+    throw new RangeError('Buffer size must be a multiple of 32-bits')
+  }
+  for (var i = 0; i < len; i += 4) {
+    swap(this, i, i + 3);
+    swap(this, i + 1, i + 2);
+  }
+  return this
+};
+
+Buffer.prototype.swap64 = function swap64 () {
+  var len = this.length;
+  if (len % 8 !== 0) {
+    throw new RangeError('Buffer size must be a multiple of 64-bits')
+  }
+  for (var i = 0; i < len; i += 8) {
+    swap(this, i, i + 7);
+    swap(this, i + 1, i + 6);
+    swap(this, i + 2, i + 5);
+    swap(this, i + 3, i + 4);
+  }
+  return this
+};
+
+Buffer.prototype.toString = function toString () {
+  var length = this.length | 0;
+  if (length === 0) return ''
+  if (arguments.length === 0) return utf8Slice(this, 0, length)
+  return slowToString.apply(this, arguments)
+};
+
+Buffer.prototype.equals = function equals (b) {
+  if (!internalIsBuffer(b)) throw new TypeError('Argument must be a Buffer')
+  if (this === b) return true
+  return Buffer.compare(this, b) === 0
+};
+
+Buffer.prototype.inspect = function inspect () {
+  var str = '';
+  var max = INSPECT_MAX_BYTES;
+  if (this.length > 0) {
+    str = this.toString('hex', 0, max).match(/.{2}/g).join(' ');
+    if (this.length > max) str += ' ... ';
+  }
+  return '<Buffer ' + str + '>'
+};
+
+Buffer.prototype.compare = function compare (target, start, end, thisStart, thisEnd) {
+  if (!internalIsBuffer(target)) {
+    throw new TypeError('Argument must be a Buffer')
+  }
+
+  if (start === undefined) {
+    start = 0;
+  }
+  if (end === undefined) {
+    end = target ? target.length : 0;
+  }
+  if (thisStart === undefined) {
+    thisStart = 0;
+  }
+  if (thisEnd === undefined) {
+    thisEnd = this.length;
+  }
+
+  if (start < 0 || end > target.length || thisStart < 0 || thisEnd > this.length) {
+    throw new RangeError('out of range index')
+  }
+
+  if (thisStart >= thisEnd && start >= end) {
+    return 0
+  }
+  if (thisStart >= thisEnd) {
+    return -1
+  }
+  if (start >= end) {
+    return 1
+  }
+
+  start >>>= 0;
+  end >>>= 0;
+  thisStart >>>= 0;
+  thisEnd >>>= 0;
+
+  if (this === target) return 0
+
+  var x = thisEnd - thisStart;
+  var y = end - start;
+  var len = Math.min(x, y);
+
+  var thisCopy = this.slice(thisStart, thisEnd);
+  var targetCopy = target.slice(start, end);
+
+  for (var i = 0; i < len; ++i) {
+    if (thisCopy[i] !== targetCopy[i]) {
+      x = thisCopy[i];
+      y = targetCopy[i];
+      break
+    }
+  }
+
+  if (x < y) return -1
+  if (y < x) return 1
+  return 0
+};
+
+// Finds either the first index of `val` in `buffer` at offset >= `byteOffset`,
+// OR the last index of `val` in `buffer` at offset <= `byteOffset`.
+//
+// Arguments:
+// - buffer - a Buffer to search
+// - val - a string, Buffer, or number
+// - byteOffset - an index into `buffer`; will be clamped to an int32
+// - encoding - an optional encoding, relevant is val is a string
+// - dir - true for indexOf, false for lastIndexOf
+function bidirectionalIndexOf (buffer, val, byteOffset, encoding, dir) {
+  // Empty buffer means no match
+  if (buffer.length === 0) return -1
+
+  // Normalize byteOffset
+  if (typeof byteOffset === 'string') {
+    encoding = byteOffset;
+    byteOffset = 0;
+  } else if (byteOffset > 0x7fffffff) {
+    byteOffset = 0x7fffffff;
+  } else if (byteOffset < -0x80000000) {
+    byteOffset = -0x80000000;
+  }
+  byteOffset = +byteOffset;  // Coerce to Number.
+  if (isNaN(byteOffset)) {
+    // byteOffset: it it's undefined, null, NaN, "foo", etc, search whole buffer
+    byteOffset = dir ? 0 : (buffer.length - 1);
+  }
+
+  // Normalize byteOffset: negative offsets start from the end of the buffer
+  if (byteOffset < 0) byteOffset = buffer.length + byteOffset;
+  if (byteOffset >= buffer.length) {
+    if (dir) return -1
+    else byteOffset = buffer.length - 1;
+  } else if (byteOffset < 0) {
+    if (dir) byteOffset = 0;
+    else return -1
+  }
+
+  // Normalize val
+  if (typeof val === 'string') {
+    val = Buffer.from(val, encoding);
+  }
+
+  // Finally, search either indexOf (if dir is true) or lastIndexOf
+  if (internalIsBuffer(val)) {
+    // Special case: looking for empty string/buffer always fails
+    if (val.length === 0) {
+      return -1
+    }
+    return arrayIndexOf(buffer, val, byteOffset, encoding, dir)
+  } else if (typeof val === 'number') {
+    val = val & 0xFF; // Search for a byte value [0-255]
+    if (Buffer.TYPED_ARRAY_SUPPORT &&
+        typeof Uint8Array.prototype.indexOf === 'function') {
+      if (dir) {
+        return Uint8Array.prototype.indexOf.call(buffer, val, byteOffset)
+      } else {
+        return Uint8Array.prototype.lastIndexOf.call(buffer, val, byteOffset)
+      }
+    }
+    return arrayIndexOf(buffer, [ val ], byteOffset, encoding, dir)
+  }
+
+  throw new TypeError('val must be string, number or Buffer')
+}
+
+function arrayIndexOf (arr, val, byteOffset, encoding, dir) {
+  var indexSize = 1;
+  var arrLength = arr.length;
+  var valLength = val.length;
+
+  if (encoding !== undefined) {
+    encoding = String(encoding).toLowerCase();
+    if (encoding === 'ucs2' || encoding === 'ucs-2' ||
+        encoding === 'utf16le' || encoding === 'utf-16le') {
+      if (arr.length < 2 || val.length < 2) {
+        return -1
+      }
+      indexSize = 2;
+      arrLength /= 2;
+      valLength /= 2;
+      byteOffset /= 2;
+    }
+  }
+
+  function read (buf, i) {
+    if (indexSize === 1) {
+      return buf[i]
+    } else {
+      return buf.readUInt16BE(i * indexSize)
+    }
+  }
+
+  var i;
+  if (dir) {
+    var foundIndex = -1;
+    for (i = byteOffset; i < arrLength; i++) {
+      if (read(arr, i) === read(val, foundIndex === -1 ? 0 : i - foundIndex)) {
+        if (foundIndex === -1) foundIndex = i;
+        if (i - foundIndex + 1 === valLength) return foundIndex * indexSize
+      } else {
+        if (foundIndex !== -1) i -= i - foundIndex;
+        foundIndex = -1;
+      }
+    }
+  } else {
+    if (byteOffset + valLength > arrLength) byteOffset = arrLength - valLength;
+    for (i = byteOffset; i >= 0; i--) {
+      var found = true;
+      for (var j = 0; j < valLength; j++) {
+        if (read(arr, i + j) !== read(val, j)) {
+          found = false;
+          break
+        }
+      }
+      if (found) return i
+    }
+  }
+
+  return -1
+}
+
+Buffer.prototype.includes = function includes (val, byteOffset, encoding) {
+  return this.indexOf(val, byteOffset, encoding) !== -1
+};
+
+Buffer.prototype.indexOf = function indexOf (val, byteOffset, encoding) {
+  return bidirectionalIndexOf(this, val, byteOffset, encoding, true)
+};
+
+Buffer.prototype.lastIndexOf = function lastIndexOf (val, byteOffset, encoding) {
+  return bidirectionalIndexOf(this, val, byteOffset, encoding, false)
+};
+
+function hexWrite (buf, string, offset, length) {
+  offset = Number(offset) || 0;
+  var remaining = buf.length - offset;
+  if (!length) {
+    length = remaining;
+  } else {
+    length = Number(length);
+    if (length > remaining) {
+      length = remaining;
+    }
+  }
+
+  // must be an even number of digits
+  var strLen = string.length;
+  if (strLen % 2 !== 0) throw new TypeError('Invalid hex string')
+
+  if (length > strLen / 2) {
+    length = strLen / 2;
+  }
+  for (var i = 0; i < length; ++i) {
+    var parsed = parseInt(string.substr(i * 2, 2), 16);
+    if (isNaN(parsed)) return i
+    buf[offset + i] = parsed;
+  }
+  return i
+}
+
+function utf8Write (buf, string, offset, length) {
+  return blitBuffer(utf8ToBytes(string, buf.length - offset), buf, offset, length)
+}
+
+function asciiWrite (buf, string, offset, length) {
+  return blitBuffer(asciiToBytes(string), buf, offset, length)
+}
+
+function latin1Write (buf, string, offset, length) {
+  return asciiWrite(buf, string, offset, length)
+}
+
+function base64Write (buf, string, offset, length) {
+  return blitBuffer(base64ToBytes(string), buf, offset, length)
+}
+
+function ucs2Write (buf, string, offset, length) {
+  return blitBuffer(utf16leToBytes(string, buf.length - offset), buf, offset, length)
+}
+
+Buffer.prototype.write = function write (string, offset, length, encoding) {
+  // Buffer#write(string)
+  if (offset === undefined) {
+    encoding = 'utf8';
+    length = this.length;
+    offset = 0;
+  // Buffer#write(string, encoding)
+  } else if (length === undefined && typeof offset === 'string') {
+    encoding = offset;
+    length = this.length;
+    offset = 0;
+  // Buffer#write(string, offset[, length][, encoding])
+  } else if (isFinite(offset)) {
+    offset = offset | 0;
+    if (isFinite(length)) {
+      length = length | 0;
+      if (encoding === undefined) encoding = 'utf8';
+    } else {
+      encoding = length;
+      length = undefined;
+    }
+  // legacy write(string, encoding, offset, length) - remove in v0.13
+  } else {
+    throw new Error(
+      'Buffer.write(string, encoding, offset[, length]) is no longer supported'
+    )
+  }
+
+  var remaining = this.length - offset;
+  if (length === undefined || length > remaining) length = remaining;
+
+  if ((string.length > 0 && (length < 0 || offset < 0)) || offset > this.length) {
+    throw new RangeError('Attempt to write outside buffer bounds')
+  }
+
+  if (!encoding) encoding = 'utf8';
+
+  var loweredCase = false;
+  for (;;) {
+    switch (encoding) {
+      case 'hex':
+        return hexWrite(this, string, offset, length)
+
+      case 'utf8':
+      case 'utf-8':
+        return utf8Write(this, string, offset, length)
+
+      case 'ascii':
+        return asciiWrite(this, string, offset, length)
+
+      case 'latin1':
+      case 'binary':
+        return latin1Write(this, string, offset, length)
+
+      case 'base64':
+        // Warning: maxLength not taken into account in base64Write
+        return base64Write(this, string, offset, length)
+
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return ucs2Write(this, string, offset, length)
+
+      default:
+        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
+        encoding = ('' + encoding).toLowerCase();
+        loweredCase = true;
+    }
+  }
+};
+
+Buffer.prototype.toJSON = function toJSON () {
+  return {
+    type: 'Buffer',
+    data: Array.prototype.slice.call(this._arr || this, 0)
+  }
+};
+
+function base64Slice (buf, start, end) {
+  if (start === 0 && end === buf.length) {
+    return fromByteArray(buf)
+  } else {
+    return fromByteArray(buf.slice(start, end))
+  }
+}
+
+function utf8Slice (buf, start, end) {
+  end = Math.min(buf.length, end);
+  var res = [];
+
+  var i = start;
+  while (i < end) {
+    var firstByte = buf[i];
+    var codePoint = null;
+    var bytesPerSequence = (firstByte > 0xEF) ? 4
+      : (firstByte > 0xDF) ? 3
+      : (firstByte > 0xBF) ? 2
+      : 1;
+
+    if (i + bytesPerSequence <= end) {
+      var secondByte, thirdByte, fourthByte, tempCodePoint;
+
+      switch (bytesPerSequence) {
+        case 1:
+          if (firstByte < 0x80) {
+            codePoint = firstByte;
+          }
+          break
+        case 2:
+          secondByte = buf[i + 1];
+          if ((secondByte & 0xC0) === 0x80) {
+            tempCodePoint = (firstByte & 0x1F) << 0x6 | (secondByte & 0x3F);
+            if (tempCodePoint > 0x7F) {
+              codePoint = tempCodePoint;
+            }
+          }
+          break
+        case 3:
+          secondByte = buf[i + 1];
+          thirdByte = buf[i + 2];
+          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80) {
+            tempCodePoint = (firstByte & 0xF) << 0xC | (secondByte & 0x3F) << 0x6 | (thirdByte & 0x3F);
+            if (tempCodePoint > 0x7FF && (tempCodePoint < 0xD800 || tempCodePoint > 0xDFFF)) {
+              codePoint = tempCodePoint;
+            }
+          }
+          break
+        case 4:
+          secondByte = buf[i + 1];
+          thirdByte = buf[i + 2];
+          fourthByte = buf[i + 3];
+          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80 && (fourthByte & 0xC0) === 0x80) {
+            tempCodePoint = (firstByte & 0xF) << 0x12 | (secondByte & 0x3F) << 0xC | (thirdByte & 0x3F) << 0x6 | (fourthByte & 0x3F);
+            if (tempCodePoint > 0xFFFF && tempCodePoint < 0x110000) {
+              codePoint = tempCodePoint;
+            }
+          }
+      }
+    }
+
+    if (codePoint === null) {
+      // we did not generate a valid codePoint so insert a
+      // replacement char (U+FFFD) and advance only 1 byte
+      codePoint = 0xFFFD;
+      bytesPerSequence = 1;
+    } else if (codePoint > 0xFFFF) {
+      // encode to utf16 (surrogate pair dance)
+      codePoint -= 0x10000;
+      res.push(codePoint >>> 10 & 0x3FF | 0xD800);
+      codePoint = 0xDC00 | codePoint & 0x3FF;
+    }
+
+    res.push(codePoint);
+    i += bytesPerSequence;
+  }
+
+  return decodeCodePointsArray(res)
+}
+
+// Based on http://stackoverflow.com/a/22747272/680742, the browser with
+// the lowest limit is Chrome, with 0x10000 args.
+// We go 1 magnitude less, for safety
+var MAX_ARGUMENTS_LENGTH = 0x1000;
+
+function decodeCodePointsArray (codePoints) {
+  var len = codePoints.length;
+  if (len <= MAX_ARGUMENTS_LENGTH) {
+    return String.fromCharCode.apply(String, codePoints) // avoid extra slice()
+  }
+
+  // Decode in chunks to avoid "call stack size exceeded".
+  var res = '';
+  var i = 0;
+  while (i < len) {
+    res += String.fromCharCode.apply(
+      String,
+      codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH)
+    );
+  }
+  return res
+}
+
+function asciiSlice (buf, start, end) {
+  var ret = '';
+  end = Math.min(buf.length, end);
+
+  for (var i = start; i < end; ++i) {
+    ret += String.fromCharCode(buf[i] & 0x7F);
+  }
+  return ret
+}
+
+function latin1Slice (buf, start, end) {
+  var ret = '';
+  end = Math.min(buf.length, end);
+
+  for (var i = start; i < end; ++i) {
+    ret += String.fromCharCode(buf[i]);
+  }
+  return ret
+}
+
+function hexSlice (buf, start, end) {
+  var len = buf.length;
+
+  if (!start || start < 0) start = 0;
+  if (!end || end < 0 || end > len) end = len;
+
+  var out = '';
+  for (var i = start; i < end; ++i) {
+    out += toHex(buf[i]);
+  }
+  return out
+}
+
+function utf16leSlice (buf, start, end) {
+  var bytes = buf.slice(start, end);
+  var res = '';
+  for (var i = 0; i < bytes.length; i += 2) {
+    res += String.fromCharCode(bytes[i] + bytes[i + 1] * 256);
+  }
+  return res
+}
+
+Buffer.prototype.slice = function slice (start, end) {
+  var len = this.length;
+  start = ~~start;
+  end = end === undefined ? len : ~~end;
+
+  if (start < 0) {
+    start += len;
+    if (start < 0) start = 0;
+  } else if (start > len) {
+    start = len;
+  }
+
+  if (end < 0) {
+    end += len;
+    if (end < 0) end = 0;
+  } else if (end > len) {
+    end = len;
+  }
+
+  if (end < start) end = start;
+
+  var newBuf;
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    newBuf = this.subarray(start, end);
+    newBuf.__proto__ = Buffer.prototype;
+  } else {
+    var sliceLen = end - start;
+    newBuf = new Buffer(sliceLen, undefined);
+    for (var i = 0; i < sliceLen; ++i) {
+      newBuf[i] = this[i + start];
+    }
+  }
+
+  return newBuf
+};
+
+/*
+ * Need to make sure that buffer isn't trying to write out of bounds.
+ */
+function checkOffset (offset, ext, length) {
+  if ((offset % 1) !== 0 || offset < 0) throw new RangeError('offset is not uint')
+  if (offset + ext > length) throw new RangeError('Trying to access beyond buffer length')
+}
+
+Buffer.prototype.readUIntLE = function readUIntLE (offset, byteLength, noAssert) {
+  offset = offset | 0;
+  byteLength = byteLength | 0;
+  if (!noAssert) checkOffset(offset, byteLength, this.length);
+
+  var val = this[offset];
+  var mul = 1;
+  var i = 0;
+  while (++i < byteLength && (mul *= 0x100)) {
+    val += this[offset + i] * mul;
+  }
+
+  return val
+};
+
+Buffer.prototype.readUIntBE = function readUIntBE (offset, byteLength, noAssert) {
+  offset = offset | 0;
+  byteLength = byteLength | 0;
+  if (!noAssert) {
+    checkOffset(offset, byteLength, this.length);
+  }
+
+  var val = this[offset + --byteLength];
+  var mul = 1;
+  while (byteLength > 0 && (mul *= 0x100)) {
+    val += this[offset + --byteLength] * mul;
+  }
+
+  return val
+};
+
+Buffer.prototype.readUInt8 = function readUInt8 (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 1, this.length);
+  return this[offset]
+};
+
+Buffer.prototype.readUInt16LE = function readUInt16LE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length);
+  return this[offset] | (this[offset + 1] << 8)
+};
+
+Buffer.prototype.readUInt16BE = function readUInt16BE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length);
+  return (this[offset] << 8) | this[offset + 1]
+};
+
+Buffer.prototype.readUInt32LE = function readUInt32LE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length);
+
+  return ((this[offset]) |
+      (this[offset + 1] << 8) |
+      (this[offset + 2] << 16)) +
+      (this[offset + 3] * 0x1000000)
+};
+
+Buffer.prototype.readUInt32BE = function readUInt32BE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length);
+
+  return (this[offset] * 0x1000000) +
+    ((this[offset + 1] << 16) |
+    (this[offset + 2] << 8) |
+    this[offset + 3])
+};
+
+Buffer.prototype.readIntLE = function readIntLE (offset, byteLength, noAssert) {
+  offset = offset | 0;
+  byteLength = byteLength | 0;
+  if (!noAssert) checkOffset(offset, byteLength, this.length);
+
+  var val = this[offset];
+  var mul = 1;
+  var i = 0;
+  while (++i < byteLength && (mul *= 0x100)) {
+    val += this[offset + i] * mul;
+  }
+  mul *= 0x80;
+
+  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
+
+  return val
+};
+
+Buffer.prototype.readIntBE = function readIntBE (offset, byteLength, noAssert) {
+  offset = offset | 0;
+  byteLength = byteLength | 0;
+  if (!noAssert) checkOffset(offset, byteLength, this.length);
+
+  var i = byteLength;
+  var mul = 1;
+  var val = this[offset + --i];
+  while (i > 0 && (mul *= 0x100)) {
+    val += this[offset + --i] * mul;
+  }
+  mul *= 0x80;
+
+  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
+
+  return val
+};
+
+Buffer.prototype.readInt8 = function readInt8 (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 1, this.length);
+  if (!(this[offset] & 0x80)) return (this[offset])
+  return ((0xff - this[offset] + 1) * -1)
+};
+
+Buffer.prototype.readInt16LE = function readInt16LE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length);
+  var val = this[offset] | (this[offset + 1] << 8);
+  return (val & 0x8000) ? val | 0xFFFF0000 : val
+};
+
+Buffer.prototype.readInt16BE = function readInt16BE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length);
+  var val = this[offset + 1] | (this[offset] << 8);
+  return (val & 0x8000) ? val | 0xFFFF0000 : val
+};
+
+Buffer.prototype.readInt32LE = function readInt32LE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length);
+
+  return (this[offset]) |
+    (this[offset + 1] << 8) |
+    (this[offset + 2] << 16) |
+    (this[offset + 3] << 24)
+};
+
+Buffer.prototype.readInt32BE = function readInt32BE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length);
+
+  return (this[offset] << 24) |
+    (this[offset + 1] << 16) |
+    (this[offset + 2] << 8) |
+    (this[offset + 3])
+};
+
+Buffer.prototype.readFloatLE = function readFloatLE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length);
+  return read(this, offset, true, 23, 4)
+};
+
+Buffer.prototype.readFloatBE = function readFloatBE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length);
+  return read(this, offset, false, 23, 4)
+};
+
+Buffer.prototype.readDoubleLE = function readDoubleLE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 8, this.length);
+  return read(this, offset, true, 52, 8)
+};
+
+Buffer.prototype.readDoubleBE = function readDoubleBE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 8, this.length);
+  return read(this, offset, false, 52, 8)
+};
+
+function checkInt (buf, value, offset, ext, max, min) {
+  if (!internalIsBuffer(buf)) throw new TypeError('"buffer" argument must be a Buffer instance')
+  if (value > max || value < min) throw new RangeError('"value" argument is out of bounds')
+  if (offset + ext > buf.length) throw new RangeError('Index out of range')
+}
+
+Buffer.prototype.writeUIntLE = function writeUIntLE (value, offset, byteLength, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  byteLength = byteLength | 0;
+  if (!noAssert) {
+    var maxBytes = Math.pow(2, 8 * byteLength) - 1;
+    checkInt(this, value, offset, byteLength, maxBytes, 0);
+  }
+
+  var mul = 1;
+  var i = 0;
+  this[offset] = value & 0xFF;
+  while (++i < byteLength && (mul *= 0x100)) {
+    this[offset + i] = (value / mul) & 0xFF;
+  }
+
+  return offset + byteLength
+};
+
+Buffer.prototype.writeUIntBE = function writeUIntBE (value, offset, byteLength, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  byteLength = byteLength | 0;
+  if (!noAssert) {
+    var maxBytes = Math.pow(2, 8 * byteLength) - 1;
+    checkInt(this, value, offset, byteLength, maxBytes, 0);
+  }
+
+  var i = byteLength - 1;
+  var mul = 1;
+  this[offset + i] = value & 0xFF;
+  while (--i >= 0 && (mul *= 0x100)) {
+    this[offset + i] = (value / mul) & 0xFF;
+  }
+
+  return offset + byteLength
+};
+
+Buffer.prototype.writeUInt8 = function writeUInt8 (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 1, 0xff, 0);
+  if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
+  this[offset] = (value & 0xff);
+  return offset + 1
+};
+
+function objectWriteUInt16 (buf, value, offset, littleEndian) {
+  if (value < 0) value = 0xffff + value + 1;
+  for (var i = 0, j = Math.min(buf.length - offset, 2); i < j; ++i) {
+    buf[offset + i] = (value & (0xff << (8 * (littleEndian ? i : 1 - i)))) >>>
+      (littleEndian ? i : 1 - i) * 8;
+  }
+}
+
+Buffer.prototype.writeUInt16LE = function writeUInt16LE (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value & 0xff);
+    this[offset + 1] = (value >>> 8);
+  } else {
+    objectWriteUInt16(this, value, offset, true);
+  }
+  return offset + 2
+};
+
+Buffer.prototype.writeUInt16BE = function writeUInt16BE (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 8);
+    this[offset + 1] = (value & 0xff);
+  } else {
+    objectWriteUInt16(this, value, offset, false);
+  }
+  return offset + 2
+};
+
+function objectWriteUInt32 (buf, value, offset, littleEndian) {
+  if (value < 0) value = 0xffffffff + value + 1;
+  for (var i = 0, j = Math.min(buf.length - offset, 4); i < j; ++i) {
+    buf[offset + i] = (value >>> (littleEndian ? i : 3 - i) * 8) & 0xff;
+  }
+}
+
+Buffer.prototype.writeUInt32LE = function writeUInt32LE (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset + 3] = (value >>> 24);
+    this[offset + 2] = (value >>> 16);
+    this[offset + 1] = (value >>> 8);
+    this[offset] = (value & 0xff);
+  } else {
+    objectWriteUInt32(this, value, offset, true);
+  }
+  return offset + 4
+};
+
+Buffer.prototype.writeUInt32BE = function writeUInt32BE (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 24);
+    this[offset + 1] = (value >>> 16);
+    this[offset + 2] = (value >>> 8);
+    this[offset + 3] = (value & 0xff);
+  } else {
+    objectWriteUInt32(this, value, offset, false);
+  }
+  return offset + 4
+};
+
+Buffer.prototype.writeIntLE = function writeIntLE (value, offset, byteLength, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) {
+    var limit = Math.pow(2, 8 * byteLength - 1);
+
+    checkInt(this, value, offset, byteLength, limit - 1, -limit);
+  }
+
+  var i = 0;
+  var mul = 1;
+  var sub = 0;
+  this[offset] = value & 0xFF;
+  while (++i < byteLength && (mul *= 0x100)) {
+    if (value < 0 && sub === 0 && this[offset + i - 1] !== 0) {
+      sub = 1;
+    }
+    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF;
+  }
+
+  return offset + byteLength
+};
+
+Buffer.prototype.writeIntBE = function writeIntBE (value, offset, byteLength, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) {
+    var limit = Math.pow(2, 8 * byteLength - 1);
+
+    checkInt(this, value, offset, byteLength, limit - 1, -limit);
+  }
+
+  var i = byteLength - 1;
+  var mul = 1;
+  var sub = 0;
+  this[offset + i] = value & 0xFF;
+  while (--i >= 0 && (mul *= 0x100)) {
+    if (value < 0 && sub === 0 && this[offset + i + 1] !== 0) {
+      sub = 1;
+    }
+    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF;
+  }
+
+  return offset + byteLength
+};
+
+Buffer.prototype.writeInt8 = function writeInt8 (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 1, 0x7f, -0x80);
+  if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
+  if (value < 0) value = 0xff + value + 1;
+  this[offset] = (value & 0xff);
+  return offset + 1
+};
+
+Buffer.prototype.writeInt16LE = function writeInt16LE (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value & 0xff);
+    this[offset + 1] = (value >>> 8);
+  } else {
+    objectWriteUInt16(this, value, offset, true);
+  }
+  return offset + 2
+};
+
+Buffer.prototype.writeInt16BE = function writeInt16BE (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 8);
+    this[offset + 1] = (value & 0xff);
+  } else {
+    objectWriteUInt16(this, value, offset, false);
+  }
+  return offset + 2
+};
+
+Buffer.prototype.writeInt32LE = function writeInt32LE (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value & 0xff);
+    this[offset + 1] = (value >>> 8);
+    this[offset + 2] = (value >>> 16);
+    this[offset + 3] = (value >>> 24);
+  } else {
+    objectWriteUInt32(this, value, offset, true);
+  }
+  return offset + 4
+};
+
+Buffer.prototype.writeInt32BE = function writeInt32BE (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000);
+  if (value < 0) value = 0xffffffff + value + 1;
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 24);
+    this[offset + 1] = (value >>> 16);
+    this[offset + 2] = (value >>> 8);
+    this[offset + 3] = (value & 0xff);
+  } else {
+    objectWriteUInt32(this, value, offset, false);
+  }
+  return offset + 4
+};
+
+function checkIEEE754 (buf, value, offset, ext, max, min) {
+  if (offset + ext > buf.length) throw new RangeError('Index out of range')
+  if (offset < 0) throw new RangeError('Index out of range')
+}
+
+function writeFloat (buf, value, offset, littleEndian, noAssert) {
+  if (!noAssert) {
+    checkIEEE754(buf, value, offset, 4);
+  }
+  write(buf, value, offset, littleEndian, 23, 4);
+  return offset + 4
+}
+
+Buffer.prototype.writeFloatLE = function writeFloatLE (value, offset, noAssert) {
+  return writeFloat(this, value, offset, true, noAssert)
+};
+
+Buffer.prototype.writeFloatBE = function writeFloatBE (value, offset, noAssert) {
+  return writeFloat(this, value, offset, false, noAssert)
+};
+
+function writeDouble (buf, value, offset, littleEndian, noAssert) {
+  if (!noAssert) {
+    checkIEEE754(buf, value, offset, 8);
+  }
+  write(buf, value, offset, littleEndian, 52, 8);
+  return offset + 8
+}
+
+Buffer.prototype.writeDoubleLE = function writeDoubleLE (value, offset, noAssert) {
+  return writeDouble(this, value, offset, true, noAssert)
+};
+
+Buffer.prototype.writeDoubleBE = function writeDoubleBE (value, offset, noAssert) {
+  return writeDouble(this, value, offset, false, noAssert)
+};
+
+// copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
+Buffer.prototype.copy = function copy (target, targetStart, start, end) {
+  if (!start) start = 0;
+  if (!end && end !== 0) end = this.length;
+  if (targetStart >= target.length) targetStart = target.length;
+  if (!targetStart) targetStart = 0;
+  if (end > 0 && end < start) end = start;
+
+  // Copy 0 bytes; we're done
+  if (end === start) return 0
+  if (target.length === 0 || this.length === 0) return 0
+
+  // Fatal error conditions
+  if (targetStart < 0) {
+    throw new RangeError('targetStart out of bounds')
+  }
+  if (start < 0 || start >= this.length) throw new RangeError('sourceStart out of bounds')
+  if (end < 0) throw new RangeError('sourceEnd out of bounds')
+
+  // Are we oob?
+  if (end > this.length) end = this.length;
+  if (target.length - targetStart < end - start) {
+    end = target.length - targetStart + start;
+  }
+
+  var len = end - start;
+  var i;
+
+  if (this === target && start < targetStart && targetStart < end) {
+    // descending copy from end
+    for (i = len - 1; i >= 0; --i) {
+      target[i + targetStart] = this[i + start];
+    }
+  } else if (len < 1000 || !Buffer.TYPED_ARRAY_SUPPORT) {
+    // ascending copy from start
+    for (i = 0; i < len; ++i) {
+      target[i + targetStart] = this[i + start];
+    }
+  } else {
+    Uint8Array.prototype.set.call(
+      target,
+      this.subarray(start, start + len),
+      targetStart
+    );
+  }
+
+  return len
+};
+
+// Usage:
+//    buffer.fill(number[, offset[, end]])
+//    buffer.fill(buffer[, offset[, end]])
+//    buffer.fill(string[, offset[, end]][, encoding])
+Buffer.prototype.fill = function fill (val, start, end, encoding) {
+  // Handle string cases:
+  if (typeof val === 'string') {
+    if (typeof start === 'string') {
+      encoding = start;
+      start = 0;
+      end = this.length;
+    } else if (typeof end === 'string') {
+      encoding = end;
+      end = this.length;
+    }
+    if (val.length === 1) {
+      var code = val.charCodeAt(0);
+      if (code < 256) {
+        val = code;
+      }
+    }
+    if (encoding !== undefined && typeof encoding !== 'string') {
+      throw new TypeError('encoding must be a string')
+    }
+    if (typeof encoding === 'string' && !Buffer.isEncoding(encoding)) {
+      throw new TypeError('Unknown encoding: ' + encoding)
+    }
+  } else if (typeof val === 'number') {
+    val = val & 255;
+  }
+
+  // Invalid ranges are not set to a default, so can range check early.
+  if (start < 0 || this.length < start || this.length < end) {
+    throw new RangeError('Out of range index')
+  }
+
+  if (end <= start) {
+    return this
+  }
+
+  start = start >>> 0;
+  end = end === undefined ? this.length : end >>> 0;
+
+  if (!val) val = 0;
+
+  var i;
+  if (typeof val === 'number') {
+    for (i = start; i < end; ++i) {
+      this[i] = val;
+    }
+  } else {
+    var bytes = internalIsBuffer(val)
+      ? val
+      : utf8ToBytes(new Buffer(val, encoding).toString());
+    var len = bytes.length;
+    for (i = 0; i < end - start; ++i) {
+      this[i + start] = bytes[i % len];
+    }
+  }
+
+  return this
+};
+
+// HELPER FUNCTIONS
+// ================
+
+var INVALID_BASE64_RE = /[^+\/0-9A-Za-z-_]/g;
+
+function base64clean (str) {
+  // Node strips out invalid characters like \n and \t from the string, base64-js does not
+  str = stringtrim(str).replace(INVALID_BASE64_RE, '');
+  // Node converts strings with length < 2 to ''
+  if (str.length < 2) return ''
+  // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
+  while (str.length % 4 !== 0) {
+    str = str + '=';
+  }
+  return str
+}
+
+function stringtrim (str) {
+  if (str.trim) return str.trim()
+  return str.replace(/^\s+|\s+$/g, '')
+}
+
+function toHex (n) {
+  if (n < 16) return '0' + n.toString(16)
+  return n.toString(16)
+}
+
+function utf8ToBytes (string, units) {
+  units = units || Infinity;
+  var codePoint;
+  var length = string.length;
+  var leadSurrogate = null;
+  var bytes = [];
+
+  for (var i = 0; i < length; ++i) {
+    codePoint = string.charCodeAt(i);
+
+    // is surrogate component
+    if (codePoint > 0xD7FF && codePoint < 0xE000) {
+      // last char was a lead
+      if (!leadSurrogate) {
+        // no lead yet
+        if (codePoint > 0xDBFF) {
+          // unexpected trail
+          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+          continue
+        } else if (i + 1 === length) {
+          // unpaired lead
+          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+          continue
+        }
+
+        // valid lead
+        leadSurrogate = codePoint;
+
+        continue
+      }
+
+      // 2 leads in a row
+      if (codePoint < 0xDC00) {
+        if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+        leadSurrogate = codePoint;
+        continue
+      }
+
+      // valid surrogate pair
+      codePoint = (leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00) + 0x10000;
+    } else if (leadSurrogate) {
+      // valid bmp char, but last char was a lead
+      if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+    }
+
+    leadSurrogate = null;
+
+    // encode utf8
+    if (codePoint < 0x80) {
+      if ((units -= 1) < 0) break
+      bytes.push(codePoint);
+    } else if (codePoint < 0x800) {
+      if ((units -= 2) < 0) break
+      bytes.push(
+        codePoint >> 0x6 | 0xC0,
+        codePoint & 0x3F | 0x80
+      );
+    } else if (codePoint < 0x10000) {
+      if ((units -= 3) < 0) break
+      bytes.push(
+        codePoint >> 0xC | 0xE0,
+        codePoint >> 0x6 & 0x3F | 0x80,
+        codePoint & 0x3F | 0x80
+      );
+    } else if (codePoint < 0x110000) {
+      if ((units -= 4) < 0) break
+      bytes.push(
+        codePoint >> 0x12 | 0xF0,
+        codePoint >> 0xC & 0x3F | 0x80,
+        codePoint >> 0x6 & 0x3F | 0x80,
+        codePoint & 0x3F | 0x80
+      );
+    } else {
+      throw new Error('Invalid code point')
+    }
+  }
+
+  return bytes
+}
+
+function asciiToBytes (str) {
+  var byteArray = [];
+  for (var i = 0; i < str.length; ++i) {
+    // Node's code seems to be doing this and not & 0x7F..
+    byteArray.push(str.charCodeAt(i) & 0xFF);
+  }
+  return byteArray
+}
+
+function utf16leToBytes (str, units) {
+  var c, hi, lo;
+  var byteArray = [];
+  for (var i = 0; i < str.length; ++i) {
+    if ((units -= 2) < 0) break
+
+    c = str.charCodeAt(i);
+    hi = c >> 8;
+    lo = c % 256;
+    byteArray.push(lo);
+    byteArray.push(hi);
+  }
+
+  return byteArray
+}
+
+
+function base64ToBytes (str) {
+  return toByteArray(base64clean(str))
+}
+
+function blitBuffer (src, dst, offset, length) {
+  for (var i = 0; i < length; ++i) {
+    if ((i + offset >= dst.length) || (i >= src.length)) break
+    dst[i + offset] = src[i];
+  }
+  return i
+}
+
+function isnan (val) {
+  return val !== val // eslint-disable-line no-self-compare
+}
 
 
 // the following is from is-buffer, also by Feross Aboukhadijeh and with same lisence
@@ -35751,800 +38112,800 @@ var flow = {};
 
 (function (exports) {
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.AnyTypeAnnotation = AnyTypeAnnotation;
-exports.ArrayTypeAnnotation = ArrayTypeAnnotation;
-exports.BooleanTypeAnnotation = BooleanTypeAnnotation;
-exports.BooleanLiteralTypeAnnotation = BooleanLiteralTypeAnnotation;
-exports.NullLiteralTypeAnnotation = NullLiteralTypeAnnotation;
-exports.DeclareClass = DeclareClass;
-exports.DeclareFunction = DeclareFunction;
-exports.InferredPredicate = InferredPredicate;
-exports.DeclaredPredicate = DeclaredPredicate;
-exports.DeclareInterface = DeclareInterface;
-exports.DeclareModule = DeclareModule;
-exports.DeclareModuleExports = DeclareModuleExports;
-exports.DeclareTypeAlias = DeclareTypeAlias;
-exports.DeclareOpaqueType = DeclareOpaqueType;
-exports.DeclareVariable = DeclareVariable;
-exports.DeclareExportDeclaration = DeclareExportDeclaration;
-exports.DeclareExportAllDeclaration = DeclareExportAllDeclaration;
-exports.EnumDeclaration = EnumDeclaration;
-exports.EnumBooleanBody = EnumBooleanBody;
-exports.EnumNumberBody = EnumNumberBody;
-exports.EnumStringBody = EnumStringBody;
-exports.EnumSymbolBody = EnumSymbolBody;
-exports.EnumDefaultedMember = EnumDefaultedMember;
-exports.EnumBooleanMember = EnumBooleanMember;
-exports.EnumNumberMember = EnumNumberMember;
-exports.EnumStringMember = EnumStringMember;
-exports.ExistsTypeAnnotation = ExistsTypeAnnotation;
-exports.FunctionTypeAnnotation = FunctionTypeAnnotation;
-exports.FunctionTypeParam = FunctionTypeParam;
-exports.GenericTypeAnnotation = exports.ClassImplements = exports.InterfaceExtends = InterfaceExtends;
-exports._interfaceish = _interfaceish;
-exports._variance = _variance;
-exports.InterfaceDeclaration = InterfaceDeclaration;
-exports.InterfaceTypeAnnotation = InterfaceTypeAnnotation;
-exports.IntersectionTypeAnnotation = IntersectionTypeAnnotation;
-exports.MixedTypeAnnotation = MixedTypeAnnotation;
-exports.EmptyTypeAnnotation = EmptyTypeAnnotation;
-exports.NullableTypeAnnotation = NullableTypeAnnotation;
-exports.NumberTypeAnnotation = NumberTypeAnnotation;
-exports.StringTypeAnnotation = StringTypeAnnotation;
-exports.ThisTypeAnnotation = ThisTypeAnnotation;
-exports.TupleTypeAnnotation = TupleTypeAnnotation;
-exports.TypeofTypeAnnotation = TypeofTypeAnnotation;
-exports.TypeAlias = TypeAlias;
-exports.TypeAnnotation = TypeAnnotation;
-exports.TypeParameterDeclaration = exports.TypeParameterInstantiation = TypeParameterInstantiation;
-exports.TypeParameter = TypeParameter;
-exports.OpaqueType = OpaqueType;
-exports.ObjectTypeAnnotation = ObjectTypeAnnotation;
-exports.ObjectTypeInternalSlot = ObjectTypeInternalSlot;
-exports.ObjectTypeCallProperty = ObjectTypeCallProperty;
-exports.ObjectTypeIndexer = ObjectTypeIndexer;
-exports.ObjectTypeProperty = ObjectTypeProperty;
-exports.ObjectTypeSpreadProperty = ObjectTypeSpreadProperty;
-exports.QualifiedTypeIdentifier = QualifiedTypeIdentifier;
-exports.SymbolTypeAnnotation = SymbolTypeAnnotation;
-exports.UnionTypeAnnotation = UnionTypeAnnotation;
-exports.TypeCastExpression = TypeCastExpression;
-exports.Variance = Variance;
-exports.VoidTypeAnnotation = VoidTypeAnnotation;
-exports.IndexedAccessType = IndexedAccessType;
-exports.OptionalIndexedAccessType = OptionalIndexedAccessType;
-Object.defineProperty(exports, "NumberLiteralTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _types2.NumericLiteral;
-  }
-});
-Object.defineProperty(exports, "StringLiteralTypeAnnotation", {
-  enumerable: true,
-  get: function () {
-    return _types2.StringLiteral;
-  }
-});
-
-var t = lib$1;
-
-var _modules = modules;
-
-var _types2 = types;
-
-const {
-  isDeclareExportDeclaration,
-  isStatement
-} = t;
-
-function AnyTypeAnnotation() {
-  this.word("any");
-}
-
-function ArrayTypeAnnotation(node) {
-  this.print(node.elementType, node);
-  this.token("[");
-  this.token("]");
-}
-
-function BooleanTypeAnnotation() {
-  this.word("boolean");
-}
-
-function BooleanLiteralTypeAnnotation(node) {
-  this.word(node.value ? "true" : "false");
-}
-
-function NullLiteralTypeAnnotation() {
-  this.word("null");
-}
-
-function DeclareClass(node, parent) {
-  if (!isDeclareExportDeclaration(parent)) {
-    this.word("declare");
-    this.space();
-  }
-
-  this.word("class");
-  this.space();
-
-  this._interfaceish(node);
-}
-
-function DeclareFunction(node, parent) {
-  if (!isDeclareExportDeclaration(parent)) {
-    this.word("declare");
-    this.space();
-  }
-
-  this.word("function");
-  this.space();
-  this.print(node.id, node);
-  this.print(node.id.typeAnnotation.typeAnnotation, node);
-
-  if (node.predicate) {
-    this.space();
-    this.print(node.predicate, node);
-  }
-
-  this.semicolon();
-}
-
-function InferredPredicate() {
-  this.token("%");
-  this.word("checks");
-}
-
-function DeclaredPredicate(node) {
-  this.token("%");
-  this.word("checks");
-  this.token("(");
-  this.print(node.value, node);
-  this.token(")");
-}
-
-function DeclareInterface(node) {
-  this.word("declare");
-  this.space();
-  this.InterfaceDeclaration(node);
-}
-
-function DeclareModule(node) {
-  this.word("declare");
-  this.space();
-  this.word("module");
-  this.space();
-  this.print(node.id, node);
-  this.space();
-  this.print(node.body, node);
-}
-
-function DeclareModuleExports(node) {
-  this.word("declare");
-  this.space();
-  this.word("module");
-  this.token(".");
-  this.word("exports");
-  this.print(node.typeAnnotation, node);
-}
-
-function DeclareTypeAlias(node) {
-  this.word("declare");
-  this.space();
-  this.TypeAlias(node);
-}
-
-function DeclareOpaqueType(node, parent) {
-  if (!isDeclareExportDeclaration(parent)) {
-    this.word("declare");
-    this.space();
-  }
-
-  this.OpaqueType(node);
-}
-
-function DeclareVariable(node, parent) {
-  if (!isDeclareExportDeclaration(parent)) {
-    this.word("declare");
-    this.space();
-  }
-
-  this.word("var");
-  this.space();
-  this.print(node.id, node);
-  this.print(node.id.typeAnnotation, node);
-  this.semicolon();
-}
-
-function DeclareExportDeclaration(node) {
-  this.word("declare");
-  this.space();
-  this.word("export");
-  this.space();
-
-  if (node.default) {
-    this.word("default");
-    this.space();
-  }
-
-  FlowExportDeclaration.apply(this, arguments);
-}
-
-function DeclareExportAllDeclaration() {
-  this.word("declare");
-  this.space();
-
-  _modules.ExportAllDeclaration.apply(this, arguments);
-}
-
-function EnumDeclaration(node) {
-  const {
-    id,
-    body
-  } = node;
-  this.word("enum");
-  this.space();
-  this.print(id, node);
-  this.print(body, node);
-}
-
-function enumExplicitType(context, name, hasExplicitType) {
-  if (hasExplicitType) {
-    context.space();
-    context.word("of");
-    context.space();
-    context.word(name);
-  }
-
-  context.space();
-}
-
-function enumBody(context, node) {
-  const {
-    members
-  } = node;
-  context.token("{");
-  context.indent();
-  context.newline();
-
-  for (const member of members) {
-    context.print(member, node);
-    context.newline();
-  }
-
-  if (node.hasUnknownMembers) {
-    context.token("...");
-    context.newline();
-  }
-
-  context.dedent();
-  context.token("}");
-}
-
-function EnumBooleanBody(node) {
-  const {
-    explicitType
-  } = node;
-  enumExplicitType(this, "boolean", explicitType);
-  enumBody(this, node);
-}
-
-function EnumNumberBody(node) {
-  const {
-    explicitType
-  } = node;
-  enumExplicitType(this, "number", explicitType);
-  enumBody(this, node);
-}
-
-function EnumStringBody(node) {
-  const {
-    explicitType
-  } = node;
-  enumExplicitType(this, "string", explicitType);
-  enumBody(this, node);
-}
-
-function EnumSymbolBody(node) {
-  enumExplicitType(this, "symbol", true);
-  enumBody(this, node);
-}
-
-function EnumDefaultedMember(node) {
-  const {
-    id
-  } = node;
-  this.print(id, node);
-  this.token(",");
-}
-
-function enumInitializedMember(context, node) {
-  const {
-    id,
-    init
-  } = node;
-  context.print(id, node);
-  context.space();
-  context.token("=");
-  context.space();
-  context.print(init, node);
-  context.token(",");
-}
-
-function EnumBooleanMember(node) {
-  enumInitializedMember(this, node);
-}
-
-function EnumNumberMember(node) {
-  enumInitializedMember(this, node);
-}
-
-function EnumStringMember(node) {
-  enumInitializedMember(this, node);
-}
-
-function FlowExportDeclaration(node) {
-  if (node.declaration) {
-    const declar = node.declaration;
-    this.print(declar, node);
-    if (!isStatement(declar)) this.semicolon();
-  } else {
-    this.token("{");
-
-    if (node.specifiers.length) {
-      this.space();
-      this.printList(node.specifiers, node);
-      this.space();
-    }
-
-    this.token("}");
-
-    if (node.source) {
-      this.space();
-      this.word("from");
-      this.space();
-      this.print(node.source, node);
-    }
-
-    this.semicolon();
-  }
-}
-
-function ExistsTypeAnnotation() {
-  this.token("*");
-}
-
-function FunctionTypeAnnotation(node, parent) {
-  this.print(node.typeParameters, node);
-  this.token("(");
-
-  if (node.this) {
-    this.word("this");
-    this.token(":");
-    this.space();
-    this.print(node.this.typeAnnotation, node);
-
-    if (node.params.length || node.rest) {
-      this.token(",");
-      this.space();
-    }
-  }
-
-  this.printList(node.params, node);
-
-  if (node.rest) {
-    if (node.params.length) {
-      this.token(",");
-      this.space();
-    }
-
-    this.token("...");
-    this.print(node.rest, node);
-  }
-
-  this.token(")");
-
-  if (parent.type === "ObjectTypeCallProperty" || parent.type === "DeclareFunction" || parent.type === "ObjectTypeProperty" && parent.method) {
-    this.token(":");
-  } else {
-    this.space();
-    this.token("=>");
-  }
-
-  this.space();
-  this.print(node.returnType, node);
-}
-
-function FunctionTypeParam(node) {
-  this.print(node.name, node);
-  if (node.optional) this.token("?");
-
-  if (node.name) {
-    this.token(":");
-    this.space();
-  }
-
-  this.print(node.typeAnnotation, node);
-}
-
-function InterfaceExtends(node) {
-  this.print(node.id, node);
-  this.print(node.typeParameters, node);
-}
-
-function _interfaceish(node) {
-  var _node$extends;
-
-  this.print(node.id, node);
-  this.print(node.typeParameters, node);
-
-  if ((_node$extends = node.extends) != null && _node$extends.length) {
-    this.space();
-    this.word("extends");
-    this.space();
-    this.printList(node.extends, node);
-  }
-
-  if (node.mixins && node.mixins.length) {
-    this.space();
-    this.word("mixins");
-    this.space();
-    this.printList(node.mixins, node);
-  }
-
-  if (node.implements && node.implements.length) {
-    this.space();
-    this.word("implements");
-    this.space();
-    this.printList(node.implements, node);
-  }
-
-  this.space();
-  this.print(node.body, node);
-}
-
-function _variance(node) {
-  if (node.variance) {
-    if (node.variance.kind === "plus") {
-      this.token("+");
-    } else if (node.variance.kind === "minus") {
-      this.token("-");
-    }
-  }
-}
-
-function InterfaceDeclaration(node) {
-  this.word("interface");
-  this.space();
-
-  this._interfaceish(node);
-}
-
-function andSeparator() {
-  this.space();
-  this.token("&");
-  this.space();
-}
-
-function InterfaceTypeAnnotation(node) {
-  this.word("interface");
-
-  if (node.extends && node.extends.length) {
-    this.space();
-    this.word("extends");
-    this.space();
-    this.printList(node.extends, node);
-  }
-
-  this.space();
-  this.print(node.body, node);
-}
-
-function IntersectionTypeAnnotation(node) {
-  this.printJoin(node.types, node, {
-    separator: andSeparator
-  });
-}
-
-function MixedTypeAnnotation() {
-  this.word("mixed");
-}
-
-function EmptyTypeAnnotation() {
-  this.word("empty");
-}
-
-function NullableTypeAnnotation(node) {
-  this.token("?");
-  this.print(node.typeAnnotation, node);
-}
-
-function NumberTypeAnnotation() {
-  this.word("number");
-}
-
-function StringTypeAnnotation() {
-  this.word("string");
-}
-
-function ThisTypeAnnotation() {
-  this.word("this");
-}
-
-function TupleTypeAnnotation(node) {
-  this.token("[");
-  this.printList(node.types, node);
-  this.token("]");
-}
-
-function TypeofTypeAnnotation(node) {
-  this.word("typeof");
-  this.space();
-  this.print(node.argument, node);
-}
-
-function TypeAlias(node) {
-  this.word("type");
-  this.space();
-  this.print(node.id, node);
-  this.print(node.typeParameters, node);
-  this.space();
-  this.token("=");
-  this.space();
-  this.print(node.right, node);
-  this.semicolon();
-}
-
-function TypeAnnotation(node) {
-  this.token(":");
-  this.space();
-  if (node.optional) this.token("?");
-  this.print(node.typeAnnotation, node);
-}
-
-function TypeParameterInstantiation(node) {
-  this.token("<");
-  this.printList(node.params, node, {});
-  this.token(">");
-}
-
-function TypeParameter(node) {
-  this._variance(node);
-
-  this.word(node.name);
-
-  if (node.bound) {
-    this.print(node.bound, node);
-  }
-
-  if (node.default) {
-    this.space();
-    this.token("=");
-    this.space();
-    this.print(node.default, node);
-  }
-}
-
-function OpaqueType(node) {
-  this.word("opaque");
-  this.space();
-  this.word("type");
-  this.space();
-  this.print(node.id, node);
-  this.print(node.typeParameters, node);
-
-  if (node.supertype) {
-    this.token(":");
-    this.space();
-    this.print(node.supertype, node);
-  }
-
-  if (node.impltype) {
-    this.space();
-    this.token("=");
-    this.space();
-    this.print(node.impltype, node);
-  }
-
-  this.semicolon();
-}
-
-function ObjectTypeAnnotation(node) {
-  if (node.exact) {
-    this.token("{|");
-  } else {
-    this.token("{");
-  }
-
-  const props = [...node.properties, ...(node.callProperties || []), ...(node.indexers || []), ...(node.internalSlots || [])];
-
-  if (props.length) {
-    this.space();
-    this.printJoin(props, node, {
-      addNewlines(leading) {
-        if (leading && !props[0]) return 1;
-      },
-
-      indent: true,
-      statement: true,
-      iterator: () => {
-        if (props.length !== 1 || node.inexact) {
-          this.token(",");
-          this.space();
-        }
-      }
-    });
-    this.space();
-  }
-
-  if (node.inexact) {
-    this.indent();
-    this.token("...");
-
-    if (props.length) {
-      this.newline();
-    }
-
-    this.dedent();
-  }
-
-  if (node.exact) {
-    this.token("|}");
-  } else {
-    this.token("}");
-  }
-}
-
-function ObjectTypeInternalSlot(node) {
-  if (node.static) {
-    this.word("static");
-    this.space();
-  }
-
-  this.token("[");
-  this.token("[");
-  this.print(node.id, node);
-  this.token("]");
-  this.token("]");
-  if (node.optional) this.token("?");
-
-  if (!node.method) {
-    this.token(":");
-    this.space();
-  }
-
-  this.print(node.value, node);
-}
-
-function ObjectTypeCallProperty(node) {
-  if (node.static) {
-    this.word("static");
-    this.space();
-  }
-
-  this.print(node.value, node);
-}
-
-function ObjectTypeIndexer(node) {
-  if (node.static) {
-    this.word("static");
-    this.space();
-  }
-
-  this._variance(node);
-
-  this.token("[");
-
-  if (node.id) {
-    this.print(node.id, node);
-    this.token(":");
-    this.space();
-  }
-
-  this.print(node.key, node);
-  this.token("]");
-  this.token(":");
-  this.space();
-  this.print(node.value, node);
-}
-
-function ObjectTypeProperty(node) {
-  if (node.proto) {
-    this.word("proto");
-    this.space();
-  }
-
-  if (node.static) {
-    this.word("static");
-    this.space();
-  }
-
-  if (node.kind === "get" || node.kind === "set") {
-    this.word(node.kind);
-    this.space();
-  }
-
-  this._variance(node);
-
-  this.print(node.key, node);
-  if (node.optional) this.token("?");
-
-  if (!node.method) {
-    this.token(":");
-    this.space();
-  }
-
-  this.print(node.value, node);
-}
-
-function ObjectTypeSpreadProperty(node) {
-  this.token("...");
-  this.print(node.argument, node);
-}
-
-function QualifiedTypeIdentifier(node) {
-  this.print(node.qualification, node);
-  this.token(".");
-  this.print(node.id, node);
-}
-
-function SymbolTypeAnnotation() {
-  this.word("symbol");
-}
-
-function orSeparator() {
-  this.space();
-  this.token("|");
-  this.space();
-}
-
-function UnionTypeAnnotation(node) {
-  this.printJoin(node.types, node, {
-    separator: orSeparator
-  });
-}
-
-function TypeCastExpression(node) {
-  this.token("(");
-  this.print(node.expression, node);
-  this.print(node.typeAnnotation, node);
-  this.token(")");
-}
-
-function Variance(node) {
-  if (node.kind === "plus") {
-    this.token("+");
-  } else {
-    this.token("-");
-  }
-}
-
-function VoidTypeAnnotation() {
-  this.word("void");
-}
-
-function IndexedAccessType(node) {
-  this.print(node.objectType, node);
-  this.token("[");
-  this.print(node.indexType, node);
-  this.token("]");
-}
-
-function OptionalIndexedAccessType(node) {
-  this.print(node.objectType, node);
-
-  if (node.optional) {
-    this.token("?.");
-  }
-
-  this.token("[");
-  this.print(node.indexType, node);
-  this.token("]");
-}
-}(flow));
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.AnyTypeAnnotation = AnyTypeAnnotation;
+	exports.ArrayTypeAnnotation = ArrayTypeAnnotation;
+	exports.BooleanTypeAnnotation = BooleanTypeAnnotation;
+	exports.BooleanLiteralTypeAnnotation = BooleanLiteralTypeAnnotation;
+	exports.NullLiteralTypeAnnotation = NullLiteralTypeAnnotation;
+	exports.DeclareClass = DeclareClass;
+	exports.DeclareFunction = DeclareFunction;
+	exports.InferredPredicate = InferredPredicate;
+	exports.DeclaredPredicate = DeclaredPredicate;
+	exports.DeclareInterface = DeclareInterface;
+	exports.DeclareModule = DeclareModule;
+	exports.DeclareModuleExports = DeclareModuleExports;
+	exports.DeclareTypeAlias = DeclareTypeAlias;
+	exports.DeclareOpaqueType = DeclareOpaqueType;
+	exports.DeclareVariable = DeclareVariable;
+	exports.DeclareExportDeclaration = DeclareExportDeclaration;
+	exports.DeclareExportAllDeclaration = DeclareExportAllDeclaration;
+	exports.EnumDeclaration = EnumDeclaration;
+	exports.EnumBooleanBody = EnumBooleanBody;
+	exports.EnumNumberBody = EnumNumberBody;
+	exports.EnumStringBody = EnumStringBody;
+	exports.EnumSymbolBody = EnumSymbolBody;
+	exports.EnumDefaultedMember = EnumDefaultedMember;
+	exports.EnumBooleanMember = EnumBooleanMember;
+	exports.EnumNumberMember = EnumNumberMember;
+	exports.EnumStringMember = EnumStringMember;
+	exports.ExistsTypeAnnotation = ExistsTypeAnnotation;
+	exports.FunctionTypeAnnotation = FunctionTypeAnnotation;
+	exports.FunctionTypeParam = FunctionTypeParam;
+	exports.GenericTypeAnnotation = exports.ClassImplements = exports.InterfaceExtends = InterfaceExtends;
+	exports._interfaceish = _interfaceish;
+	exports._variance = _variance;
+	exports.InterfaceDeclaration = InterfaceDeclaration;
+	exports.InterfaceTypeAnnotation = InterfaceTypeAnnotation;
+	exports.IntersectionTypeAnnotation = IntersectionTypeAnnotation;
+	exports.MixedTypeAnnotation = MixedTypeAnnotation;
+	exports.EmptyTypeAnnotation = EmptyTypeAnnotation;
+	exports.NullableTypeAnnotation = NullableTypeAnnotation;
+	exports.NumberTypeAnnotation = NumberTypeAnnotation;
+	exports.StringTypeAnnotation = StringTypeAnnotation;
+	exports.ThisTypeAnnotation = ThisTypeAnnotation;
+	exports.TupleTypeAnnotation = TupleTypeAnnotation;
+	exports.TypeofTypeAnnotation = TypeofTypeAnnotation;
+	exports.TypeAlias = TypeAlias;
+	exports.TypeAnnotation = TypeAnnotation;
+	exports.TypeParameterDeclaration = exports.TypeParameterInstantiation = TypeParameterInstantiation;
+	exports.TypeParameter = TypeParameter;
+	exports.OpaqueType = OpaqueType;
+	exports.ObjectTypeAnnotation = ObjectTypeAnnotation;
+	exports.ObjectTypeInternalSlot = ObjectTypeInternalSlot;
+	exports.ObjectTypeCallProperty = ObjectTypeCallProperty;
+	exports.ObjectTypeIndexer = ObjectTypeIndexer;
+	exports.ObjectTypeProperty = ObjectTypeProperty;
+	exports.ObjectTypeSpreadProperty = ObjectTypeSpreadProperty;
+	exports.QualifiedTypeIdentifier = QualifiedTypeIdentifier;
+	exports.SymbolTypeAnnotation = SymbolTypeAnnotation;
+	exports.UnionTypeAnnotation = UnionTypeAnnotation;
+	exports.TypeCastExpression = TypeCastExpression;
+	exports.Variance = Variance;
+	exports.VoidTypeAnnotation = VoidTypeAnnotation;
+	exports.IndexedAccessType = IndexedAccessType;
+	exports.OptionalIndexedAccessType = OptionalIndexedAccessType;
+	Object.defineProperty(exports, "NumberLiteralTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _types2.NumericLiteral;
+	  }
+	});
+	Object.defineProperty(exports, "StringLiteralTypeAnnotation", {
+	  enumerable: true,
+	  get: function () {
+	    return _types2.StringLiteral;
+	  }
+	});
+
+	var t = lib$1;
+
+	var _modules = modules;
+
+	var _types2 = types;
+
+	const {
+	  isDeclareExportDeclaration,
+	  isStatement
+	} = t;
+
+	function AnyTypeAnnotation() {
+	  this.word("any");
+	}
+
+	function ArrayTypeAnnotation(node) {
+	  this.print(node.elementType, node);
+	  this.token("[");
+	  this.token("]");
+	}
+
+	function BooleanTypeAnnotation() {
+	  this.word("boolean");
+	}
+
+	function BooleanLiteralTypeAnnotation(node) {
+	  this.word(node.value ? "true" : "false");
+	}
+
+	function NullLiteralTypeAnnotation() {
+	  this.word("null");
+	}
+
+	function DeclareClass(node, parent) {
+	  if (!isDeclareExportDeclaration(parent)) {
+	    this.word("declare");
+	    this.space();
+	  }
+
+	  this.word("class");
+	  this.space();
+
+	  this._interfaceish(node);
+	}
+
+	function DeclareFunction(node, parent) {
+	  if (!isDeclareExportDeclaration(parent)) {
+	    this.word("declare");
+	    this.space();
+	  }
+
+	  this.word("function");
+	  this.space();
+	  this.print(node.id, node);
+	  this.print(node.id.typeAnnotation.typeAnnotation, node);
+
+	  if (node.predicate) {
+	    this.space();
+	    this.print(node.predicate, node);
+	  }
+
+	  this.semicolon();
+	}
+
+	function InferredPredicate() {
+	  this.token("%");
+	  this.word("checks");
+	}
+
+	function DeclaredPredicate(node) {
+	  this.token("%");
+	  this.word("checks");
+	  this.token("(");
+	  this.print(node.value, node);
+	  this.token(")");
+	}
+
+	function DeclareInterface(node) {
+	  this.word("declare");
+	  this.space();
+	  this.InterfaceDeclaration(node);
+	}
+
+	function DeclareModule(node) {
+	  this.word("declare");
+	  this.space();
+	  this.word("module");
+	  this.space();
+	  this.print(node.id, node);
+	  this.space();
+	  this.print(node.body, node);
+	}
+
+	function DeclareModuleExports(node) {
+	  this.word("declare");
+	  this.space();
+	  this.word("module");
+	  this.token(".");
+	  this.word("exports");
+	  this.print(node.typeAnnotation, node);
+	}
+
+	function DeclareTypeAlias(node) {
+	  this.word("declare");
+	  this.space();
+	  this.TypeAlias(node);
+	}
+
+	function DeclareOpaqueType(node, parent) {
+	  if (!isDeclareExportDeclaration(parent)) {
+	    this.word("declare");
+	    this.space();
+	  }
+
+	  this.OpaqueType(node);
+	}
+
+	function DeclareVariable(node, parent) {
+	  if (!isDeclareExportDeclaration(parent)) {
+	    this.word("declare");
+	    this.space();
+	  }
+
+	  this.word("var");
+	  this.space();
+	  this.print(node.id, node);
+	  this.print(node.id.typeAnnotation, node);
+	  this.semicolon();
+	}
+
+	function DeclareExportDeclaration(node) {
+	  this.word("declare");
+	  this.space();
+	  this.word("export");
+	  this.space();
+
+	  if (node.default) {
+	    this.word("default");
+	    this.space();
+	  }
+
+	  FlowExportDeclaration.apply(this, arguments);
+	}
+
+	function DeclareExportAllDeclaration() {
+	  this.word("declare");
+	  this.space();
+
+	  _modules.ExportAllDeclaration.apply(this, arguments);
+	}
+
+	function EnumDeclaration(node) {
+	  const {
+	    id,
+	    body
+	  } = node;
+	  this.word("enum");
+	  this.space();
+	  this.print(id, node);
+	  this.print(body, node);
+	}
+
+	function enumExplicitType(context, name, hasExplicitType) {
+	  if (hasExplicitType) {
+	    context.space();
+	    context.word("of");
+	    context.space();
+	    context.word(name);
+	  }
+
+	  context.space();
+	}
+
+	function enumBody(context, node) {
+	  const {
+	    members
+	  } = node;
+	  context.token("{");
+	  context.indent();
+	  context.newline();
+
+	  for (const member of members) {
+	    context.print(member, node);
+	    context.newline();
+	  }
+
+	  if (node.hasUnknownMembers) {
+	    context.token("...");
+	    context.newline();
+	  }
+
+	  context.dedent();
+	  context.token("}");
+	}
+
+	function EnumBooleanBody(node) {
+	  const {
+	    explicitType
+	  } = node;
+	  enumExplicitType(this, "boolean", explicitType);
+	  enumBody(this, node);
+	}
+
+	function EnumNumberBody(node) {
+	  const {
+	    explicitType
+	  } = node;
+	  enumExplicitType(this, "number", explicitType);
+	  enumBody(this, node);
+	}
+
+	function EnumStringBody(node) {
+	  const {
+	    explicitType
+	  } = node;
+	  enumExplicitType(this, "string", explicitType);
+	  enumBody(this, node);
+	}
+
+	function EnumSymbolBody(node) {
+	  enumExplicitType(this, "symbol", true);
+	  enumBody(this, node);
+	}
+
+	function EnumDefaultedMember(node) {
+	  const {
+	    id
+	  } = node;
+	  this.print(id, node);
+	  this.token(",");
+	}
+
+	function enumInitializedMember(context, node) {
+	  const {
+	    id,
+	    init
+	  } = node;
+	  context.print(id, node);
+	  context.space();
+	  context.token("=");
+	  context.space();
+	  context.print(init, node);
+	  context.token(",");
+	}
+
+	function EnumBooleanMember(node) {
+	  enumInitializedMember(this, node);
+	}
+
+	function EnumNumberMember(node) {
+	  enumInitializedMember(this, node);
+	}
+
+	function EnumStringMember(node) {
+	  enumInitializedMember(this, node);
+	}
+
+	function FlowExportDeclaration(node) {
+	  if (node.declaration) {
+	    const declar = node.declaration;
+	    this.print(declar, node);
+	    if (!isStatement(declar)) this.semicolon();
+	  } else {
+	    this.token("{");
+
+	    if (node.specifiers.length) {
+	      this.space();
+	      this.printList(node.specifiers, node);
+	      this.space();
+	    }
+
+	    this.token("}");
+
+	    if (node.source) {
+	      this.space();
+	      this.word("from");
+	      this.space();
+	      this.print(node.source, node);
+	    }
+
+	    this.semicolon();
+	  }
+	}
+
+	function ExistsTypeAnnotation() {
+	  this.token("*");
+	}
+
+	function FunctionTypeAnnotation(node, parent) {
+	  this.print(node.typeParameters, node);
+	  this.token("(");
+
+	  if (node.this) {
+	    this.word("this");
+	    this.token(":");
+	    this.space();
+	    this.print(node.this.typeAnnotation, node);
+
+	    if (node.params.length || node.rest) {
+	      this.token(",");
+	      this.space();
+	    }
+	  }
+
+	  this.printList(node.params, node);
+
+	  if (node.rest) {
+	    if (node.params.length) {
+	      this.token(",");
+	      this.space();
+	    }
+
+	    this.token("...");
+	    this.print(node.rest, node);
+	  }
+
+	  this.token(")");
+
+	  if (parent.type === "ObjectTypeCallProperty" || parent.type === "DeclareFunction" || parent.type === "ObjectTypeProperty" && parent.method) {
+	    this.token(":");
+	  } else {
+	    this.space();
+	    this.token("=>");
+	  }
+
+	  this.space();
+	  this.print(node.returnType, node);
+	}
+
+	function FunctionTypeParam(node) {
+	  this.print(node.name, node);
+	  if (node.optional) this.token("?");
+
+	  if (node.name) {
+	    this.token(":");
+	    this.space();
+	  }
+
+	  this.print(node.typeAnnotation, node);
+	}
+
+	function InterfaceExtends(node) {
+	  this.print(node.id, node);
+	  this.print(node.typeParameters, node);
+	}
+
+	function _interfaceish(node) {
+	  var _node$extends;
+
+	  this.print(node.id, node);
+	  this.print(node.typeParameters, node);
+
+	  if ((_node$extends = node.extends) != null && _node$extends.length) {
+	    this.space();
+	    this.word("extends");
+	    this.space();
+	    this.printList(node.extends, node);
+	  }
+
+	  if (node.mixins && node.mixins.length) {
+	    this.space();
+	    this.word("mixins");
+	    this.space();
+	    this.printList(node.mixins, node);
+	  }
+
+	  if (node.implements && node.implements.length) {
+	    this.space();
+	    this.word("implements");
+	    this.space();
+	    this.printList(node.implements, node);
+	  }
+
+	  this.space();
+	  this.print(node.body, node);
+	}
+
+	function _variance(node) {
+	  if (node.variance) {
+	    if (node.variance.kind === "plus") {
+	      this.token("+");
+	    } else if (node.variance.kind === "minus") {
+	      this.token("-");
+	    }
+	  }
+	}
+
+	function InterfaceDeclaration(node) {
+	  this.word("interface");
+	  this.space();
+
+	  this._interfaceish(node);
+	}
+
+	function andSeparator() {
+	  this.space();
+	  this.token("&");
+	  this.space();
+	}
+
+	function InterfaceTypeAnnotation(node) {
+	  this.word("interface");
+
+	  if (node.extends && node.extends.length) {
+	    this.space();
+	    this.word("extends");
+	    this.space();
+	    this.printList(node.extends, node);
+	  }
+
+	  this.space();
+	  this.print(node.body, node);
+	}
+
+	function IntersectionTypeAnnotation(node) {
+	  this.printJoin(node.types, node, {
+	    separator: andSeparator
+	  });
+	}
+
+	function MixedTypeAnnotation() {
+	  this.word("mixed");
+	}
+
+	function EmptyTypeAnnotation() {
+	  this.word("empty");
+	}
+
+	function NullableTypeAnnotation(node) {
+	  this.token("?");
+	  this.print(node.typeAnnotation, node);
+	}
+
+	function NumberTypeAnnotation() {
+	  this.word("number");
+	}
+
+	function StringTypeAnnotation() {
+	  this.word("string");
+	}
+
+	function ThisTypeAnnotation() {
+	  this.word("this");
+	}
+
+	function TupleTypeAnnotation(node) {
+	  this.token("[");
+	  this.printList(node.types, node);
+	  this.token("]");
+	}
+
+	function TypeofTypeAnnotation(node) {
+	  this.word("typeof");
+	  this.space();
+	  this.print(node.argument, node);
+	}
+
+	function TypeAlias(node) {
+	  this.word("type");
+	  this.space();
+	  this.print(node.id, node);
+	  this.print(node.typeParameters, node);
+	  this.space();
+	  this.token("=");
+	  this.space();
+	  this.print(node.right, node);
+	  this.semicolon();
+	}
+
+	function TypeAnnotation(node) {
+	  this.token(":");
+	  this.space();
+	  if (node.optional) this.token("?");
+	  this.print(node.typeAnnotation, node);
+	}
+
+	function TypeParameterInstantiation(node) {
+	  this.token("<");
+	  this.printList(node.params, node, {});
+	  this.token(">");
+	}
+
+	function TypeParameter(node) {
+	  this._variance(node);
+
+	  this.word(node.name);
+
+	  if (node.bound) {
+	    this.print(node.bound, node);
+	  }
+
+	  if (node.default) {
+	    this.space();
+	    this.token("=");
+	    this.space();
+	    this.print(node.default, node);
+	  }
+	}
+
+	function OpaqueType(node) {
+	  this.word("opaque");
+	  this.space();
+	  this.word("type");
+	  this.space();
+	  this.print(node.id, node);
+	  this.print(node.typeParameters, node);
+
+	  if (node.supertype) {
+	    this.token(":");
+	    this.space();
+	    this.print(node.supertype, node);
+	  }
+
+	  if (node.impltype) {
+	    this.space();
+	    this.token("=");
+	    this.space();
+	    this.print(node.impltype, node);
+	  }
+
+	  this.semicolon();
+	}
+
+	function ObjectTypeAnnotation(node) {
+	  if (node.exact) {
+	    this.token("{|");
+	  } else {
+	    this.token("{");
+	  }
+
+	  const props = [...node.properties, ...(node.callProperties || []), ...(node.indexers || []), ...(node.internalSlots || [])];
+
+	  if (props.length) {
+	    this.space();
+	    this.printJoin(props, node, {
+	      addNewlines(leading) {
+	        if (leading && !props[0]) return 1;
+	      },
+
+	      indent: true,
+	      statement: true,
+	      iterator: () => {
+	        if (props.length !== 1 || node.inexact) {
+	          this.token(",");
+	          this.space();
+	        }
+	      }
+	    });
+	    this.space();
+	  }
+
+	  if (node.inexact) {
+	    this.indent();
+	    this.token("...");
+
+	    if (props.length) {
+	      this.newline();
+	    }
+
+	    this.dedent();
+	  }
+
+	  if (node.exact) {
+	    this.token("|}");
+	  } else {
+	    this.token("}");
+	  }
+	}
+
+	function ObjectTypeInternalSlot(node) {
+	  if (node.static) {
+	    this.word("static");
+	    this.space();
+	  }
+
+	  this.token("[");
+	  this.token("[");
+	  this.print(node.id, node);
+	  this.token("]");
+	  this.token("]");
+	  if (node.optional) this.token("?");
+
+	  if (!node.method) {
+	    this.token(":");
+	    this.space();
+	  }
+
+	  this.print(node.value, node);
+	}
+
+	function ObjectTypeCallProperty(node) {
+	  if (node.static) {
+	    this.word("static");
+	    this.space();
+	  }
+
+	  this.print(node.value, node);
+	}
+
+	function ObjectTypeIndexer(node) {
+	  if (node.static) {
+	    this.word("static");
+	    this.space();
+	  }
+
+	  this._variance(node);
+
+	  this.token("[");
+
+	  if (node.id) {
+	    this.print(node.id, node);
+	    this.token(":");
+	    this.space();
+	  }
+
+	  this.print(node.key, node);
+	  this.token("]");
+	  this.token(":");
+	  this.space();
+	  this.print(node.value, node);
+	}
+
+	function ObjectTypeProperty(node) {
+	  if (node.proto) {
+	    this.word("proto");
+	    this.space();
+	  }
+
+	  if (node.static) {
+	    this.word("static");
+	    this.space();
+	  }
+
+	  if (node.kind === "get" || node.kind === "set") {
+	    this.word(node.kind);
+	    this.space();
+	  }
+
+	  this._variance(node);
+
+	  this.print(node.key, node);
+	  if (node.optional) this.token("?");
+
+	  if (!node.method) {
+	    this.token(":");
+	    this.space();
+	  }
+
+	  this.print(node.value, node);
+	}
+
+	function ObjectTypeSpreadProperty(node) {
+	  this.token("...");
+	  this.print(node.argument, node);
+	}
+
+	function QualifiedTypeIdentifier(node) {
+	  this.print(node.qualification, node);
+	  this.token(".");
+	  this.print(node.id, node);
+	}
+
+	function SymbolTypeAnnotation() {
+	  this.word("symbol");
+	}
+
+	function orSeparator() {
+	  this.space();
+	  this.token("|");
+	  this.space();
+	}
+
+	function UnionTypeAnnotation(node) {
+	  this.printJoin(node.types, node, {
+	    separator: orSeparator
+	  });
+	}
+
+	function TypeCastExpression(node) {
+	  this.token("(");
+	  this.print(node.expression, node);
+	  this.print(node.typeAnnotation, node);
+	  this.token(")");
+	}
+
+	function Variance(node) {
+	  if (node.kind === "plus") {
+	    this.token("+");
+	  } else {
+	    this.token("-");
+	  }
+	}
+
+	function VoidTypeAnnotation() {
+	  this.word("void");
+	}
+
+	function IndexedAccessType(node) {
+	  this.print(node.objectType, node);
+	  this.token("[");
+	  this.print(node.indexType, node);
+	  this.token("]");
+	}
+
+	function OptionalIndexedAccessType(node) {
+	  this.print(node.objectType, node);
+
+	  if (node.optional) {
+	    this.token("?.");
+	  }
+
+	  this.token("[");
+	  this.print(node.indexType, node);
+	  this.token("]");
+	}
+} (flow));
 
 var base = {};
 
@@ -37598,153 +39959,153 @@ function tsPrintClassMemberModifiers(node, isField) {
 
 (function (exports) {
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 
-var _templateLiterals = templateLiterals;
+	var _templateLiterals = templateLiterals;
 
-Object.keys(_templateLiterals).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (key in exports && exports[key] === _templateLiterals[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _templateLiterals[key];
-    }
-  });
-});
+	Object.keys(_templateLiterals).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (key in exports && exports[key] === _templateLiterals[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _templateLiterals[key];
+	    }
+	  });
+	});
 
-var _expressions = expressions;
+	var _expressions = expressions;
 
-Object.keys(_expressions).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (key in exports && exports[key] === _expressions[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _expressions[key];
-    }
-  });
-});
+	Object.keys(_expressions).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (key in exports && exports[key] === _expressions[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _expressions[key];
+	    }
+	  });
+	});
 
-var _statements = statements;
+	var _statements = statements;
 
-Object.keys(_statements).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (key in exports && exports[key] === _statements[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _statements[key];
-    }
-  });
-});
+	Object.keys(_statements).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (key in exports && exports[key] === _statements[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _statements[key];
+	    }
+	  });
+	});
 
-var _classes = classes;
+	var _classes = classes;
 
-Object.keys(_classes).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (key in exports && exports[key] === _classes[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _classes[key];
-    }
-  });
-});
+	Object.keys(_classes).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (key in exports && exports[key] === _classes[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _classes[key];
+	    }
+	  });
+	});
 
-var _methods = methods;
+	var _methods = methods;
 
-Object.keys(_methods).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (key in exports && exports[key] === _methods[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _methods[key];
-    }
-  });
-});
+	Object.keys(_methods).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (key in exports && exports[key] === _methods[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _methods[key];
+	    }
+	  });
+	});
 
-var _modules = modules;
+	var _modules = modules;
 
-Object.keys(_modules).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (key in exports && exports[key] === _modules[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _modules[key];
-    }
-  });
-});
+	Object.keys(_modules).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (key in exports && exports[key] === _modules[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _modules[key];
+	    }
+	  });
+	});
 
-var _types = types;
+	var _types = types;
 
-Object.keys(_types).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (key in exports && exports[key] === _types[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _types[key];
-    }
-  });
-});
+	Object.keys(_types).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (key in exports && exports[key] === _types[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _types[key];
+	    }
+	  });
+	});
 
-var _flow = flow;
+	var _flow = flow;
 
-Object.keys(_flow).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (key in exports && exports[key] === _flow[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _flow[key];
-    }
-  });
-});
+	Object.keys(_flow).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (key in exports && exports[key] === _flow[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _flow[key];
+	    }
+	  });
+	});
 
-var _base = base;
+	var _base = base;
 
-Object.keys(_base).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (key in exports && exports[key] === _base[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _base[key];
-    }
-  });
-});
+	Object.keys(_base).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (key in exports && exports[key] === _base[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _base[key];
+	    }
+	  });
+	});
 
-var _jsx = jsx;
+	var _jsx = jsx;
 
-Object.keys(_jsx).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (key in exports && exports[key] === _jsx[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _jsx[key];
-    }
-  });
-});
+	Object.keys(_jsx).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (key in exports && exports[key] === _jsx[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _jsx[key];
+	    }
+	  });
+	});
 
-var _typescript = typescript;
+	var _typescript = typescript;
 
-Object.keys(_typescript).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (key in exports && exports[key] === _typescript[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _typescript[key];
-    }
-  });
-});
-}(generators));
+	Object.keys(_typescript).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  if (key in exports && exports[key] === _typescript[key]) return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function () {
+	      return _typescript[key];
+	    }
+	  });
+	});
+} (generators));
 
 Object.defineProperty(printer, "__esModule", {
   value: true
@@ -38381,6 +40742,28 @@ function generate(ast, opts, code) {
   return gen.generate();
 }
 
+const renderTemplate = (config) => {
+    const { linkAddress, title, typeCode, actionName, method, requestTypeName, responseTypeName, } = config;
+    const code = `
+  /**
+   * 接口名称：${title}
+   * yapi 地址：${linkAddress}
+   */
+  
+  import baseRequest from "@/jsbridge/baseRequest";
+  
+  ${typeCode}
+
+  export function JBG_${actionName}(params: ${requestTypeName}) {
+    return baseRequest<${responseTypeName}>({
+      api: "_${actionName}",
+      method: "${method}",
+      params,
+    });
+  }`;
+    return code;
+};
+
 // 根据数据类型
 function getTSTypeByType(type) {
     switch (type) {
@@ -38444,32 +40827,8 @@ function getExportTypeDeclarationByType(typeItem) {
     description && lib$1.addComment(node, 'leading', description, true);
     return node;
 }
-// 构造 给业务层调用的 export 方法
-function getExportFunc(apiData) {
-    const { action, functionName, requestType, responseDataInfo, isNeedToken, isSkipLogin } = apiData;
-    const callExpression = lib$1.callExpression(lib$1.memberExpression(lib$1.identifier('Request'), lib$1.identifier('request')), [lib$1.stringLiteral(action), requestType ? lib$1.identifier('params') : lib$1.objectExpression([]), lib$1.booleanLiteral(isNeedToken), lib$1.booleanLiteral(isSkipLogin)]);
-    const tsType = lib$1.tsTypeReference(lib$1.identifier(responseDataInfo.typeName));
-    callExpression.typeParameters = lib$1.tsTypeParameterInstantiation([
-        responseDataInfo.isArray ? lib$1.tsArrayType(tsType) : tsType
-    ]);
-    const returnStatement = lib$1.returnStatement(callExpression);
-    const args = [];
-    if (requestType) {
-        const paramsIdentifier = lib$1.identifier('params');
-        // 给参数定义添加ts类型约束
-        paramsIdentifier.typeAnnotation = lib$1.tsTypeAnnotation(lib$1.tsTypeReference(lib$1.identifier(requestType)));
-        args.push(paramsIdentifier);
-    }
-    const functionDelaration = lib$1.functionDeclaration(lib$1.identifier(functionName), args, lib$1.blockStatement([returnStatement]));
-    return lib$1.exportNamedDeclaration(functionDelaration);
-    // `
-    //   export function getNewcomerGoodsList (params: GetNewcomerGoodsListReq) {
-    //     return Request.request<AA>(action, params, false)
-    //   }
-    // `
-}
 function transform2code (apiData) {
-    const { typeList, apiDesc, apiLocation, actionName, enumTypeList } = apiData;
+    const { typeList, apiDesc, apiLocation, actionName, enumTypeList, requestType, responseDataInfo } = apiData;
     // console.log(typeList)
     // console.log(JSON.stringify(exportTypeDeclaration))
     const ast = parse_1(``, {
@@ -38481,14 +40840,14 @@ function transform2code (apiData) {
     const body = ast.program.body;
     console.warn(JSON.stringify(body));
     // 创建import语句导入请求方法
-    const functionImport = lib$1.importDeclaration([lib$1.importDefaultSpecifier(lib$1.identifier('Request'))], lib$1.stringLiteral('@/network'));
-    const apiComment = `
-    * ${apiDesc}
-    * yapi: ${apiLocation}
-    * actionName: ${actionName}
-  `;
-    lib$1.addComment(functionImport, 'leading', apiComment, false);
-    body.push(functionImport);
+    // const functionImport = t.importDeclaration([t.importDefaultSpecifier(t.identifier('Request'))], t.stringLiteral('@/network'))
+    // const apiComment = `
+    //   * ${apiDesc}
+    //   * yapi: ${apiLocation}
+    //   * actionName: ${actionName}
+    // `
+    // t.addComment(functionImport, 'leading', apiComment, false);
+    // body.push(functionImport);
     // 遍历枚举类列表，创建枚举类代码
     enumTypeList.forEach(item => {
         const exportEnumDeclaration = getExportEnumDeclaration(item);
@@ -38500,11 +40859,20 @@ function transform2code (apiData) {
         body.push(exportTypeDeclaration);
     });
     // 创建入口函数并导出
-    const exportFunc = getExportFunc(apiData);
-    body.push(exportFunc);
-    const output = _default(ast);
-    return output.code;
-    // console.warn(output)
+    // const exportFunc = getExportFunc(apiData)
+    // body.push(exportFunc);
+    const typeCode = _default(ast).code;
+    const finalCode = renderTemplate({
+        linkAddress: apiLocation,
+        title: apiDesc,
+        typeCode,
+        actionName,
+        method: 'post',
+        requestTypeName: requestType,
+        responseTypeName: responseDataInfo.typeName,
+    });
+    console.warn(finalCode);
+    return finalCode;
     // 构造请求方法调用代码
 }
 
@@ -38512,13 +40880,6 @@ function insertGenerateButton() {
     const button = document.createElement('button');
     button.className = 'ant-btn ant-btn-primary generate-api-code-btn';
     button.innerText = '生成api代码';
-    document.getElementById('yapi')?.appendChild(button);
-    return button;
-}
-function insertSetParamsButton() {
-    const button = document.createElement('button');
-    button.className = 'ant-btn set-params-btn';
-    button.innerText = '设置参数';
     document.getElementById('yapi')?.appendChild(button);
     return button;
 }
@@ -38549,61 +40910,20 @@ function insertSetParamsButton() {
 // }
 
 let pageData = null;
-let isNeedToken = false; // 是否需要带上token字段
-let actionName = '';
-// token失效时是否无需跳登录页
-let isSkipLogin = false;
 let typeList = [];
 let enumTypeList = [];
-/*
-typeList: [{
-  typeName: 'DetailType',
-  items: [{
-    name: 'name',
-    description: '名字',
-    type: string,
-    required: true
-  }]
-}]
-*/
-// 获取action
-function getActionInfo() {
-    const result = {
-        action: '',
-        apiDesc: ''
-    };
-    pageData.title.replace(/(^[a-zA-Z.0-9]+)\((.+)\)/g, function (_, action, apiDesc) {
-        result.action = action;
-        result.apiDesc = apiDesc;
-    });
-    return result;
-}
 // 获取入参信息
 function getRequestType(actionName) {
-    // properties:
-    // action: {type: "string", description: "action"}
-    // cityCode: {type: "string", description: "展示城市code"}
-    // options: {type: "array", items: {…}, description: "二级导航tab对象集合"}
-    // tabId: {type: "string", description: "一级导航id，一级导航接口返回透传"}
-    // token: {type: "string", description: "登录时传"}
-    // required: (3) ["action", "cityCode", "tabId"]
-    // todo 兼容params 有包含对象的场景
     const { properties, required: requiredList } = JSON.parse(pageData.req_body_other);
     const items = [];
-    // 判断这个接口是否包含token字段
-    isNeedToken = !!properties['token'];
-    isSkipLogin = !requiredList.includes('token');
     Object.entries(properties).forEach(([key, data]) => {
-        //过滤掉 token 和 action, 后面可以考虑走配置
-        if (key === 'action' || key === 'token')
-            return;
         const item = getTypeItem(data, key, requiredList);
         items.push(item);
     });
     console.warn(JSON.stringify(items));
     if (!items.length)
         return '';
-    const typeName = `${actionName}Req`;
+    const typeName = `${getHeadCodeToUpperCase(actionName)}ParamsType`;
     typeList.push({
         typeName,
         items,
@@ -38622,22 +40942,10 @@ function getArrayType(items, keyName, description = '') {
         return items.type;
     }
 }
-function getObjectType(data, keyName, requiedList = [''], description = '') {
+function getObjectType(data, keyName, requiredList = [''], description = '') {
     // 处理复杂数据，生成类型项，push到typeList
-    // {
-    //   "aa": {
-    //     "type": "string",
-    //     "description": "今日必推（好物必买）111",
-    //     "required": []
-    //   },
-    //   "bb": {
-    //     "type": "string",
-    //     "description": "今日必推（好物必买）222",
-    //     "required": []
-    //   },
-    // }
     const items = Object.entries(data).map(([keyName, data]) => {
-        return getTypeItem(data, keyName, requiedList);
+        return getTypeItem(data, keyName, requiredList);
     });
     const typeName = `${getHeadCodeToUpperCase(keyName)}Type`;
     // 生成类型列表项
@@ -38689,36 +40997,29 @@ function getResponseDataInfo(actionName) {
     const { properties } = JSON.parse(pageData.res_body);
     const data = properties.data;
     console.warn(data);
-    const { type, isArray } = getTypeItem(data, `${actionName}Response`, data.required);
+    const { type, isArray } = getTypeItem(data, `${getHeadCodeToUpperCase(actionName)}ResponseType`, data.required);
     return {
         typeName: type,
         isArray,
     };
 }
 function generateCode() {
-    const { action, apiDesc } = getActionInfo();
-    // const actionName = getHeadCodeToUpperCase(action);
-    // 这个两个参数需要用户输入
-    // const actionName = 'AAA';
-    // const isSkipLogin = false;
+    const { actionName, apiDesc, method } = getApiBasicInfo(pageData);
     const requestType = getRequestType(actionName);
     const resultData = {
-        action,
         actionName,
         apiDesc,
         apiLocation: window.location.href,
-        isNeedToken,
-        isSkipLogin,
         functionName: `${actionName}API`,
         requestType,
         responseDataInfo: getResponseDataInfo(actionName),
         typeList,
+        method,
         enumTypeList
     };
     console.warn(resultData);
     const code = lintCode(transform2code(resultData));
     return code;
-    // console.warn(code)
 }
 function lintCode(code) {
     return code.replace(/(?<=[^:]\/\/)(.+)/g, (_, res) => {
@@ -38729,41 +41030,37 @@ function lintCode(code) {
 setTimeout(() => {
     const generateButton = insertGenerateButton();
     generateButton.addEventListener('click', () => {
-        if (!actionName) {
-            alert('请先设置参数');
-            return;
-        }
         // mockData
-        pageData = mockData;
-        typeList = [];
-        enumTypeList = [];
-        const code = generateCode();
-        navigator.clipboard.writeText(code).then(() => {
-            alert('代码已经复制到粘贴板上');
-        }).catch(e => {
-            alert(e);
-        });
-        // 从url上拿取apiId
-        // const apiId = getApiId(window.location.href)
-        // apiId && fetchData(apiId).then(({errcode, errmsg, data}) => {
-        //   if(errcode !== 0) throw errmsg
-        //   pageData = data;
-        //   typeList = [];
-        //   enumTypeList = [];
-        //   const code = generateCode();
-        //   navigator.clipboard.writeText(code).then(()=>{
-        //     alert('代码已经复制到粘贴板上')
-        //   }).catch(e=>{
-        //     alert(e)
-        //   })
-        // }).catch((msg) => {
-        //   alert(msg)
+        // pageData = mockData;
+        // typeList = [];
+        // enumTypeList = [];
+        // const code = generateCode();
+        // navigator.clipboard.writeText(code).then(()=>{
+        //   alert('代码已经复制到粘贴板上')
+        // }).catch(e=>{
+        //   alert(e)
         // })
+        // 从url上拿取apiId
+        const apiId = getApiId(window.location.href);
+        apiId && fetchData(apiId).then(({ errcode, errmsg, data }) => {
+            if (errcode !== 0)
+                throw errmsg;
+            pageData = data;
+            typeList = [];
+            enumTypeList = [];
+            const code = generateCode();
+            navigator.clipboard.writeText(code).then(() => {
+                alert('代码已经复制到粘贴板上');
+            }).catch(e => {
+                alert(e);
+            });
+        }).catch((msg) => {
+            alert(msg);
+        });
     });
-    const setParamsButton = insertSetParamsButton();
-    setParamsButton.addEventListener('click', () => {
-        actionName = prompt("请输入接口名称（英文）") || '';
-        // isSkipLogin = !confirm("token失效是否需要跳转登录页？是，请点击确定，否则点击取消！");
-        alert('参数设置成功，可以生成API代码了~');
-    });
+    // const setParamsButton = insertSetParamsButton();
+    // setParamsButton.addEventListener('click', () => {
+    //   actionName = prompt("请输入接口名称（英文）") || '';
+    //   alert('参数设置成功，可以生成API代码了~')
+    // })
 }, 1000);

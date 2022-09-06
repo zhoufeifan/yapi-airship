@@ -8,8 +8,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://yapi.hellobike.cn/*",
-        "http://yapi.hellobike.cn/*"
+        "https://api.weizhipin.com/*"
       ],
       "js": [
         "js/content.js"

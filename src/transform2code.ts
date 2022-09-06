@@ -2,7 +2,7 @@ import { parse } from "@babel/parser";
 import generate from "@babel/generator";
 import * as t from "@babel/types";
 import { FieldDataType, ParamsRowDataType, TypeListItem, ObjectType, EnumTypeItem } from './types'
-
+import { renderTemplate } from "./render";
 // 根据数据类型
 function getTSTypeByType(type: string) {
   switch(type) {
@@ -77,10 +77,7 @@ function getExportTypeDeclarationByType(typeItem: TypeListItem) {
 }
 
 interface ApiDataType {
-  action: string,
   actionName: string,
-  isNeedToken: boolean,
-  isSkipLogin: boolean,
   requestType: any,
   typeList: TypeListItem[],
   enumTypeList: EnumTypeItem[],
@@ -92,40 +89,40 @@ interface ApiDataType {
 
 // 构造 给业务层调用的 export 方法
 function getExportFunc(apiData: ApiDataType) {
-  const { action, functionName, requestType, responseDataInfo, isNeedToken, isSkipLogin } = apiData
-  const callExpression = t.callExpression(
-    t.memberExpression(t.identifier('Request'), t.identifier('request')),
-    [t.stringLiteral(action), requestType ? t.identifier('params'):t.objectExpression([]), t.booleanLiteral(isNeedToken), t.booleanLiteral(isSkipLogin)]
-  )
-  const tsType = t.tsTypeReference(t.identifier(responseDataInfo.typeName))
+  // const { action, functionName, requestType, responseDataInfo } = apiData
+  // const callExpression = t.callExpression(
+  //   t.memberExpression(t.identifier('Request'), t.identifier('request')),
+  //   [t.stringLiteral(action), requestType ? t.identifier('params'):t.objectExpression([]), t.booleanLiteral(isNeedToken), t.booleanLiteral(isSkipLogin)]
+  // )
+  // const tsType = t.tsTypeReference(t.identifier(responseDataInfo.typeName))
 
-  callExpression.typeParameters = t.tsTypeParameterInstantiation(
-    [
-      responseDataInfo.isArray ? t.tsArrayType(tsType) : tsType
-    ]
-  )
-  const returnStatement = t.returnStatement(callExpression)
+  // callExpression.typeParameters = t.tsTypeParameterInstantiation(
+  //   [
+  //     responseDataInfo.isArray ? t.tsArrayType(tsType) : tsType
+  //   ]
+  // )
+  // const returnStatement = t.returnStatement(callExpression)
 
-  const args = []
-  if (requestType) {
-    const paramsIdentifier = t.identifier('params')
-    // 给参数定义添加ts类型约束
-    paramsIdentifier.typeAnnotation = t.tsTypeAnnotation(t.tsTypeReference(t.identifier(requestType)))
-    args.push(paramsIdentifier)
-  }
+  // const args = []
+  // if (requestType) {
+  //   const paramsIdentifier = t.identifier('params')
+  //   // 给参数定义添加ts类型约束
+  //   paramsIdentifier.typeAnnotation = t.tsTypeAnnotation(t.tsTypeReference(t.identifier(requestType)))
+  //   args.push(paramsIdentifier)
+  // }
   
-  const functionDelaration = t.functionDeclaration(t.identifier(functionName),args, t.blockStatement([returnStatement]) )
-  return t.exportNamedDeclaration(functionDelaration)
+  // const functionDeclaration = t.functionDeclaration(t.identifier(functionName),args, t.blockStatement([returnStatement]) )
+  // return t.exportNamedDeclaration(functionDeclaration)
   // `
   //   export function getNewcomerGoodsList (params: GetNewcomerGoodsListReq) {
-  //     return Request.request<AA>(action, params, false)
+  //     return Request.request<GetNewcomerGoodsListRep>(action, params, false)
   //   }
   // `
 }
 
 
 export default function(apiData: ApiDataType) {
-  const { typeList, apiDesc, apiLocation, actionName, enumTypeList } = apiData
+  const { typeList, apiDesc, apiLocation, actionName, enumTypeList, requestType, responseDataInfo } = apiData
   // console.log(typeList)
   // console.log(JSON.stringify(exportTypeDeclaration))
   const ast = parse(``, {
@@ -137,14 +134,14 @@ export default function(apiData: ApiDataType) {
   const body = ast.program.body;
   console.warn(JSON.stringify(body))
   // 创建import语句导入请求方法
-  const functionImport = t.importDeclaration([t.importDefaultSpecifier(t.identifier('Request'))], t.stringLiteral('@/network'))
-  const apiComment = `
-    * ${apiDesc}
-    * yapi: ${apiLocation}
-    * actionName: ${actionName}
-  `
-  t.addComment(functionImport, 'leading', apiComment, false);
-  body.push(functionImport);
+  // const functionImport = t.importDeclaration([t.importDefaultSpecifier(t.identifier('Request'))], t.stringLiteral('@/network'))
+  // const apiComment = `
+  //   * ${apiDesc}
+  //   * yapi: ${apiLocation}
+  //   * actionName: ${actionName}
+  // `
+  // t.addComment(functionImport, 'leading', apiComment, false);
+  // body.push(functionImport);
   // 遍历枚举类列表，创建枚举类代码
   enumTypeList.forEach(item => {
     const exportEnumDeclaration = getExportEnumDeclaration(item)
@@ -156,12 +153,21 @@ export default function(apiData: ApiDataType) {
     body.push(exportTypeDeclaration);
   })
   // 创建入口函数并导出
-  const exportFunc = getExportFunc(apiData)
-  body.push(exportFunc);
-  const output = generate(
+  // const exportFunc = getExportFunc(apiData)
+  // body.push(exportFunc);
+  const typeCode = generate(
     ast
-  );
-  return output.code
-  // console.warn(output)
+  ).code;
+  const finalCode = renderTemplate({
+    linkAddress: apiLocation,
+    title: apiDesc,
+    typeCode, 
+    actionName, 
+    method: 'post',
+    requestTypeName: requestType,
+    responseTypeName: responseDataInfo.typeName,
+  })
+  console.warn(finalCode)
+  return finalCode;
   // 构造请求方法调用代码
 }
