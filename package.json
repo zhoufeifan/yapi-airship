@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "rollup --config rollup.config.js",
-    "dev": "rollup --config rollup.config.js -w"
+    "dev": "rollup --config rollup.config.js -w",
+    "prepare": "husky install"
   },
   "author": "",
   "license": "ISC",
@@ -23,7 +24,8 @@
     "rollup": "^2.68.0",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "tslib": "^2.3.1",
-    "typescript": "^4.3.5"
+    "typescript": "^4.3.5",
+    "husky": "^8.0.0"
   },
   "dependencies": {
     "@babel/generator": "^7.14.8",
@@ -31,7 +33,20 @@
     "@babel/traverse": "^7.14.8",
     "@babel/types": "^7.14.8",
     "@rollup/plugin-replace": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.4.0"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "prettier --write",
+      "eslint",
+      "git add"
+    ]
   }
 }

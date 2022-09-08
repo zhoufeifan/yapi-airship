@@ -1,22 +1,14 @@
 interface configType {
-  linkAddress: string,
-  title: string,
-  typeCode: string,
-  actionName: string,
-  method: string,
-  requestTypeName: string,
-  responseTypeName: string,
+  linkAddress: string;
+  title: string;
+  typeCode: string;
+  actionName: string;
+  method: string;
+  requestTypeName: string;
+  responseTypeName: string;
 }
-export const renderTemplate = (config: configType)=>{
-  const {
-    linkAddress, 
-    title, 
-    typeCode, 
-    actionName, 
-    method,
-    requestTypeName,
-    responseTypeName,
-  } = config;
+export const renderTemplate = (config: configType) => {
+  const { linkAddress, title, typeCode, actionName, method, requestTypeName, responseTypeName } = config;
 
   const code = `
   /**
@@ -34,8 +26,6 @@ export const renderTemplate = (config: configType)=>{
       method: "${method}",
       params,
     });
-  }`
+  }`;
   return code;
-}
-
-
+};
