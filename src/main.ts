@@ -1,5 +1,6 @@
 import { fetchData, getHeadCodeToUpperCase, getApiId, getApiBasicInfo } from './utils';
-import mockData from './mockData';
+import { transformStringToData, getTypeModalByData } from './data2type';
+import { mockData1, mockData2 } from './mockData';
 import { FieldDataType, ParamsRowDataType, TypeListItem, ObjectType, EnumTypeItem } from './types';
 import transform2code from './transform2code';
 import { insertGenerateButton, insertSetParamsButton } from './element';
@@ -90,16 +91,33 @@ function getTypeItem(data: ParamsRowDataType, keyName: string, requiredList = ['
 
 // 获取返回值的数据类型信息
 function getResponseDataInfo(actionName: string) {
-  const { properties } = JSON.parse(pageData.res_body);
-  const data = properties.data as ParamsRowDataType;
-  console.warn(data);
-  const { type, isArray } = getTypeItem(data, `${getHeadCodeToUpperCase(actionName)}ResponseType`, data.required);
+  let typeName = '';
+  let isArray = false;
+  const keyName = `${getHeadCodeToUpperCase(actionName)}ResponseType`;
+  // json 格式的字符串
+  try {
+    const { properties } = JSON.parse(pageData.res_body);
+    const data = properties.data as ParamsRowDataType;
+    console.warn(data);
+    const result = getTypeItem(data, keyName, data.required);
+    typeName = result.type;
+    isArray = result.isArray;
+  } catch (e) {
+    // 解析非json 格式的字符串
+    const formData = transformStringToData(pageData.res_body);
+    const result = getTypeModalByData(formData.data || formData, keyName, typeList);
+    typeName = result.type;
+    isArray = result.isArray;
+    typeList = result.typeList;
+  }
+
   return {
-    typeName: type,
+    typeName,
     isArray,
   };
 }
 
+// 根据数据生成相应的ts代码
 function generateCode() {
   const { actionName, apiDesc, method } = getApiBasicInfo(pageData);
   const requestType = getRequestType(actionName);
@@ -125,50 +143,37 @@ function lintCode(code: string) {
   });
 }
 
+function doWork(data: any) {
+  pageData = data;
+  typeList = [];
+  enumTypeList = [];
+  const code = generateCode();
+  navigator.clipboard
+    .writeText(code)
+    .then(() => {
+      alert('代码已经复制到粘贴板上');
+    })
+    .catch(e => {
+      alert(e);
+    });
+}
+
 // todo 页面挂载后再执行,尝试在onload里
 
 setTimeout(() => {
   const generateButton = insertGenerateButton();
   generateButton.addEventListener('click', () => {
-    // mockData
-    // pageData = mockData;
-    // typeList = [];
-    // enumTypeList = [];
-    // const code = generateCode();
-    // navigator.clipboard.writeText(code).then(()=>{
-    //   alert('代码已经复制到粘贴板上')
-    // }).catch(e=>{
-    //   alert(e)
-    // })
-
+    doWork(mockData1);
     // 从url上拿取apiId
-    const apiId = getApiId(window.location.href);
-
-    apiId &&
-      fetchData(apiId)
-        .then(({ errcode, errmsg, data }) => {
-          if (errcode !== 0) throw errmsg;
-          pageData = data;
-          typeList = [];
-          enumTypeList = [];
-          const code = generateCode();
-          navigator.clipboard
-            .writeText(code)
-            .then(() => {
-              alert('代码已经复制到粘贴板上');
-            })
-            .catch(e => {
-              alert(e);
-            });
-        })
-        .catch(msg => {
-          alert(msg);
-        });
+    // const apiId = getApiId(window.location.href);
+    // apiId &&
+    //   fetchData(apiId)
+    //     .then(({ errcode, errmsg, data }) => {
+    //       if (errcode !== 0) throw errmsg;
+    //       doWork(data);
+    //     })
+    //     .catch(msg => {
+    //       alert(msg);
+    //     });
   });
-
-  // const setParamsButton = insertSetParamsButton();
-  // setParamsButton.addEventListener('click', () => {
-  //   actionName = prompt("请输入接口名称（英文）") || '';
-  //   alert('参数设置成功，可以生成API代码了~')
-  // })
 }, 1000);

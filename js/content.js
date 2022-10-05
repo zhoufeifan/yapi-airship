@@ -1,23 +1,8 @@
-function fetchData(id) {
-  return fetch(`${window.location.origin}/api/interface/get?id=${id}`).then(
-    function (response) {
-      return response.json();
-    }
-  );
-}
 // 首字母转大写
 function getHeadCodeToUpperCase(codes) {
   return codes.replace(/(^)([a-z])/g, code => {
     return code.toUpperCase();
   });
-}
-// 获取url上的参数
-function getApiId(url) {
-  const result = url.match(/\/api\/(\d+)/);
-  if (result) {
-    return result[1];
-  }
-  return '';
 }
 // pageData.title.replace(/(^[a-zA-Z.0-9]+)\((.+)\)/g, function (_: never, action: string, apiDesc: string) {
 //   result.action = action;
@@ -41,6 +26,117 @@ function getApiBasicInfo(pageData) {
   console.log(result);
   return result;
 }
+// 判断是否为引用类型
+function isObject$1(obj) {
+  return typeof obj === 'object' && obj != null;
+}
+
+// 将带注释的（非标准json格式的字符串）转换为对象格式的数据
+function transformStringToData(str) {
+  const commentMap = Object.create(null);
+  const rawArray = str.split('\n');
+  const pureStringArray = rawArray.map(item => {
+    let commentText = '';
+    item = item
+      .trim()
+      .replace(/\/\/.*/g, text => {
+        commentText = text;
+        return '';
+      })
+      .trim();
+    if (commentText) {
+      commentMap[item] = commentText;
+    }
+    return item;
+  });
+  const data = JSON.parse(pureStringArray.join(''));
+  return data || {};
+}
+// 根据对象的数据模型，生成字段类型的数据描述字段
+function getTypeModalByData(value, keyName, typeList) {
+  let isArray = false;
+  let type = '';
+  // 数组类型的数据
+  if (Array.isArray(value)) {
+    isArray = true;
+    // 取第一项数据做验证即可
+    const res = getTypeModalByData(value[0], keyName, typeList);
+    type = res.type;
+  }
+  // 对象类型
+  else if (isObject$1(value)) {
+    const items = Object.entries(value).map(([key, value]) => {
+      const res = getTypeModalByData(value, key, typeList);
+      return {
+        name: key,
+        type: res.type,
+        isArray: res.isArray,
+        required: false,
+      };
+    });
+    const typeName = `${getHeadCodeToUpperCase(keyName)}Type`;
+    // 生成类型列表项
+    typeList.push({
+      typeName,
+      items,
+    });
+    type = typeName;
+  }
+  // 普通类型
+  else {
+    type = typeof value;
+  }
+  return {
+    isArray,
+    type,
+    typeList,
+  };
+}
+
+const mockData1 = {
+  query_path: {
+    path: '/api/schedule/joinGroup',
+    params: [],
+  },
+  edit_uid: 0,
+  status: 'undone',
+  type: 'static',
+  req_body_is_json_schema: false,
+  res_body_is_json_schema: false,
+  api_opened: false,
+  index: 0,
+  tag: [],
+  _id: 204670,
+  method: 'GET',
+  catid: 20023,
+  title: '加入日程群聊',
+  path: '/api/schedule/joinGroup',
+  project_id: 179,
+  req_params: [],
+  res_body_type: 'json',
+  req_query: [
+    {
+      required: '1',
+      _id: '6172324124c2583c3196e829',
+      name: 'scheduleId',
+      example: '1231231',
+      desc: '日程id',
+    },
+  ],
+  req_body_other:
+    '{"type":"object","title":"empty object","properties":{"calendarId":{"type":"number","description":"日程ID"},"targetDate":{"type":"string","description":"日程日期"}},"required":["calendarId","targetDate"]}',
+  req_headers: [],
+  req_body_form: [],
+  desc: '',
+  markdown: '',
+  res_body:
+    '{\n    "code":0, // 状态码。0表示成功，其他表示错误\n    "msg":"", // 状态信息\n    "data":{ // 接口返回数据\n        "groupIdEnc": "xxxxxxx", // 加密群id\n        "groupName":"吃饭群", // 群名称\n        "groupNamePy":"chi fan qun", // 群名称拼音\n        "avatar":"http........png", // 群头像url\n        "tinyAvatar":"http.....png", // 缩略头像链接\n        "bulletin":"群公告：好好学习，天天向上", // 群公告\n        "bulletinUpdateUid": 1551665155012, // 群公告更新用户id，可空\n        "bulletinUpdateTs": 1551665155012, // 群公告更新时间，可空\n        "ownerAtAll": 1, // 开启只有群主能@所有人，0-不开启，1-开启\n        "ownerAddUser": 0, // 开启只有群主能添加用户，0-不开启，1-开启\n        "ownerEdit": 1, // 开启只有群主能编辑群信息，0-不开启，1-开启\n        "top":1, // 置顶设置:0-不置顶，1-置顶\n        "silence":0, // 免打扰设置:0-不免，1-免\n        "status":0, // 状态：0-正常，1-解散\n        "type": 1, // 群组类型，1-普通群，2-项目组\n        "users":[{\n            "userId":20000001, // 用户id\n            "nickName":"李一", // 群昵称，可空\n            "nickNamePy":"li yi", // 群昵称拼音，可空\n            "status":1 // 用户状态：0-正常，1-退群，2-踢出\n        },{\n            "userId":20000001, // 用户id\n            "nickName":"", // 群昵称，可空\n            "nickNamePy":"", // 群昵称拼音，可空\n            "status":1 // 用户状态：0-正常，1-退群，2-踢出\n        }]\n    }\n}',
+  uid: 2060,
+  add_time: 1628132769,
+  up_time: 1634873921,
+  __v: 0,
+  username: '姬帅',
+};
 
 function getAugmentedNamespace(n) {
   if (n.__esModule) return n;
@@ -45584,7 +45680,7 @@ function insertGenerateButton() {
   const button = document.createElement('button');
   button.className = 'ant-btn ant-btn-primary generate-api-code-btn';
   button.innerText = '生成api代码';
-  document.getElementById('yapi')?.appendChild(button);
+  document.getElementById('app')?.appendChild(button);
   return button;
 }
 // export function insertForm() {
@@ -45705,19 +45801,33 @@ function getTypeItem(data, keyName, requiredList = ['']) {
 }
 // 获取返回值的数据类型信息
 function getResponseDataInfo(actionName) {
-  const { properties } = JSON.parse(pageData.res_body);
-  const data = properties.data;
-  console.warn(data);
-  const { type, isArray } = getTypeItem(
-    data,
-    `${getHeadCodeToUpperCase(actionName)}ResponseType`,
-    data.required
-  );
+  let typeName = '';
+  let isArray = false;
+  const keyName = `${getHeadCodeToUpperCase(actionName)}ResponseType`;
+  // json 格式的字符串
+  try {
+    const { properties } = JSON.parse(pageData.res_body);
+    const data = properties.data;
+    console.warn(data);
+    const result = getTypeItem(data, keyName, data.required);
+    typeName = result.type;
+    isArray = result.isArray;
+  } catch (e) {
+    debugger;
+    const aa = transformStringToData(pageData.res_body);
+    const result = getTypeModalByData(aa.data || aa, keyName, typeList);
+    typeName = result.type;
+    isArray = result.isArray;
+    typeList = result.typeList;
+    // console.warn('aaaa', resultData);
+    // 解析非json 格式的字符串
+  }
   return {
-    typeName: type,
+    typeName,
     isArray,
   };
 }
+// 根据数据生成相应的ts代码
 function generateCode() {
   const { actionName, apiDesc, method } = getApiBasicInfo(pageData);
   const requestType = getRequestType(actionName);
@@ -45741,46 +45851,35 @@ function lintCode(code) {
     return ` ${res}`;
   });
 }
+function doWork(data) {
+  pageData = data;
+  typeList = [];
+  enumTypeList = [];
+  const code = generateCode();
+  navigator.clipboard
+    .writeText(code)
+    .then(() => {
+      alert('代码已经复制到粘贴板上');
+    })
+    .catch(e => {
+      alert(e);
+    });
+}
 // todo 页面挂载后再执行,尝试在onload里
 setTimeout(() => {
   const generateButton = insertGenerateButton();
   generateButton.addEventListener('click', () => {
-    // mockData
-    // pageData = mockData;
-    // typeList = [];
-    // enumTypeList = [];
-    // const code = generateCode();
-    // navigator.clipboard.writeText(code).then(()=>{
-    //   alert('代码已经复制到粘贴板上')
-    // }).catch(e=>{
-    //   alert(e)
-    // })
+    doWork(mockData1);
     // 从url上拿取apiId
-    const apiId = getApiId(window.location.href);
-    apiId &&
-      fetchData(apiId)
-        .then(({ errcode, errmsg, data }) => {
-          if (errcode !== 0) throw errmsg;
-          pageData = data;
-          typeList = [];
-          enumTypeList = [];
-          const code = generateCode();
-          navigator.clipboard
-            .writeText(code)
-            .then(() => {
-              alert('代码已经复制到粘贴板上');
-            })
-            .catch(e => {
-              alert(e);
-            });
-        })
-        .catch(msg => {
-          alert(msg);
-        });
+    // const apiId = getApiId(window.location.href);
+    // apiId &&
+    //   fetchData(apiId)
+    //     .then(({ errcode, errmsg, data }) => {
+    //       if (errcode !== 0) throw errmsg;
+    //       doWork(data);
+    //     })
+    //     .catch(msg => {
+    //       alert(msg);
+    //     });
   });
-  // const setParamsButton = insertSetParamsButton();
-  // setParamsButton.addEventListener('click', () => {
-  //   actionName = prompt("请输入接口名称（英文）") || '';
-  //   alert('参数设置成功，可以生成API代码了~')
-  // })
 }, 1000);

@@ -2,27 +2,16 @@
   "name": "yapi-airship",
   "description": "基于yapi的接口代码自动化生成工具",
   "version": "0.0.0",
-  "permissions": [
-    "declarativeContent"
-  ],
+  "permissions": ["declarativeContent"],
   "content_scripts": [
     {
-      "matches": [
-        "https://api.weizhipin.com/*"
-      ],
-      "js": [
-        "js/content.js"
-      ],
-      "css": [
-        "css/index.css"
-      ]
+      "matches": ["<all_urls>", "https://api.weizhipin.com/*"],
+      "js": ["js/content.js"],
+      "css": ["css/index.css"]
     }
   ],
   "background": {
-    "scripts": [
-      "js/background.js",
-      "js/hot-reload.js"
-    ],
+    "scripts": ["js/background.js", "js/hot-reload.js"],
     "persistent": false
   },
   "page_action": {

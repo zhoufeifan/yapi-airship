@@ -44,3 +44,8 @@ export function getApiBasicInfo(pageData: any) {
   console.log(result);
   return result;
 }
+
+// 判断是否为引用类型
+export function isObject(obj: any) {
+  return typeof obj === 'object' && obj != null;
+}

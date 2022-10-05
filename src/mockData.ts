@@ -1,50 +1,102 @@
-export default {
-  "__v": 0,
-  "_id": 107463,
-  "add_time": 1598845659,
-  "catid": 24141,
-  "desc": "<p>locallife.goods.new.detail.basic(新商品详情页-商品基本信息)</p>\n",
-  "markdown": "locallife.goods.new.detail.basic(新商品详情页-商品基本信息)",
-  "method": "POST",
-  "path": "/api",
-  "project_id": 3271,
-  "req_body_other": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"token\":{\"type\":\"string\",\"description\":\"token\"},\"action\":{\"type\":\"string\",\"description\":\"action\"},\"skuId\":{\"type\":\"string\",\"description\":\"商品skuId\"},\"spuId\":{\"type\":\"string\",\"description\":\"spuId\"},\"cityCode\":{\"type\":\"string\",\"description\":\"城市编码\"},\"referrerId\":{\"type\":\"integer\",\"description\":\"推客id\"},\"firstSkuId\":{\"type\":\"string\",\"description\":\"排序后首个商品\"},\"fromMyIntegration\":{\"type\":\"boolean\",\"description\":\"是否来自我的积分页（默认false）\"}},\"required\":[\"action\",\"cityCode\"]}",
-  "req_body_type": "json",
-  "res_body": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"code\":{\"type\":\"string\"},\"msg\":{\"type\":\"string\"},\"data\":{\"type\":\"object\",\"properties\":{\"goodsName\":{\"type\":\"string\",\"description\":\"商品名称\"},\"goodsType\":{\"type\":\"integer\",\"description\":\"商品类型：1-普通商品 2-通兑卡\"},\"goodStatus\":{\"type\":\"integer\",\"description\":\"商品状态：1-预售 2-在售 3-售罄\"},\"extendType\":{\"type\":\"integer\",\"description\":\"推广类型：1-直购 2-分销\"},\"salePrice\":{\"type\":\"string\",\"description\":\"售价\"},\"originalPrice\":{\"type\":\"string\",\"description\":\"原价\"},\"directPrice\":{\"type\":\"string\",\"description\":\"赚取金额\"},\"couponPrice\":{\"type\":\"string\",\"description\":\"券后价\"},\"tags\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"标签\"},\"goodsMediaList\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"mediaUrl\":{\"type\":\"string\",\"description\":\"图片URL\"},\"mediaPlace\":{\"type\":\"integer\",\"description\":\"图片展示位置 1:主图 2:详情页封面图 3:其他图\"}},\"required\":[]},\"description\":\"商品图片列表\"},\"canRefund\":{\"type\":\"boolean\",\"description\":\"是否可退款\"},\"saleInfo\":{\"type\":\"object\",\"properties\":{\"subscribeNum\":{\"type\":\"number\",\"description\":\"预售商品关注人数\"},\"payNum\":{\"type\":\"number\",\"description\":\"下单人数\"},\"refererNum\":{\"type\":\"number\",\"description\":\"推广人数\"}},\"description\":\"售卖信息（下单人数、推广人数、预约人数等）\",\"required\":[]},\"posterUrl\":{\"type\":\"string\",\"description\":\"分销海报url，非分销商品时=null\"},\"systemTime\":{\"type\":\"number\",\"description\":\"系统当前时间戳\"},\"startSaleTime\":{\"type\":\"number\",\"description\":\"开售时间\"},\"exchangeStartTime\":{\"type\":\"number\",\"description\":\"兑换开始时间\"},\"exchangeEndTime\":{\"type\":\"number\",\"description\":\"兑换结束时间\"},\"createTime\":{\"type\":\"number\",\"description\":\"项目新增时间\"},\"newUserFlag\":{\"type\":\"number\",\"description\":\"是否新人专享商品，1-是，0-否\"},\"newUserPrice\":{\"type\":\"number\",\"description\":\"新人价\"},\"effectDate\":{\"type\":\"string\",\"description\":\"有效期\"},\"times\":{\"type\":\"integer\",\"description\":\"兑换次数\"},\"waistNumber\":{\"type\":\"integer\",\"description\":\"腰封人数：第一版替换下单人数与推广人数\"},\"waistNumberType\":{\"type\":\"integer\",\"description\":\"腰封文案：1-xxx人已下单，2-xx人推广\"},\"referrerName\":{\"type\":\"string\",\"description\":\"推客昵称\"},\"referrerHeadPortrait\":{\"type\":\"string\",\"description\":\"推客头像\"},\"referrerText\":{\"type\":\"string\",\"description\":\"推客推广文案\"},\"referrerLevelEquityTips\":{\"type\":\"string\",\"description\":\"推客等级权益Tips\\t\"},\"openCityActivity\":{\"type\":\"string\",\"description\":\"开城活动\"},\"labels\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"labelName\":{\"type\":\"string\",\"description\":\"标签名称\"},\"guid\":{\"type\":\"string\",\"description\":\"标签id\"},\"picUrl\":{\"type\":\"string\",\"description\":\"图片链接\"},\"jumpUrl\":{\"type\":\"string\",\"description\":\"跳转链接\"}},\"description\":\"标签对象\",\"required\":[]},\"description\":\"特殊标签列表\"},\"sameGroupGoodsList\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"skuId\":{\"type\":\"string\",\"description\":\"商品Id\"},\"title\":{\"type\":\"string\",\"description\":\"标题\"}},\"required\":[]}},\"integralValue\":{\"type\":\"number\",\"description\":\"积分值\"},\"fromMyIntegration\":{\"type\":\"boolean\",\"description\":\"是否来自我的积分页(是-true 否-false)\"},\"promotionText\":{\"type\":\"string\",\"description\":\"优惠文案\"},\"hasCoupon\":{\"type\":\"string\",\"description\":\" 是否有优惠券\"},\"promoInfo\":{\"type\":\"object\",\"properties\":{\"activityId\":{\"type\":\"string\",\"description\":\"活动id\"},\"activityType\":{\"type\":\"number\",\"description\":\"活动类型，1-立减活动，2-一口价，3-新人活动\"},\"finalDiscountsPrice\":{\"type\":\"string\",\"description\":\"最终优惠价格(用户实际支付价格)\"},\"activityDeductionAmount\":{\"type\":\"string\",\"description\":\"活动扣减价格\"},\"couponDeductionAmount\":{\"type\":\"string\",\"description\":\"优惠券扣减价格\"},\"frontendActivityName\":{\"type\":\"string\",\"description\":\"C端活动名称\"},\"activityPictUrl\":{\"type\":\"string\",\"description\":\"活动展示图\"},\"activityIconPictUrl\":{\"type\":\"string\",\"description\":\"活动icon展示图\"},\"activityPageUrl\":{\"type\":\"string\",\"description\":\"活动落地页URL\"},\"activityFloatingLayerIconUrl\":{\"type\":\"string\",\"description\":\"活动浮层图\"},\"couponBizType\":{\"type\":\"number\",\"description\":\"1-普通优惠券，2-积分兑换优惠券\"},\"hasCoupon\":{\"type\":\"boolean\",\"description\":\"是否有券，Boolean\"},\"userGoodsLimitNum\":{\"type\":\"number\",\"description\":\"用户商品限购数量\"}},\"description\":\"优惠信息\",\"required\":[\"activityId\",\"activityType\",\"finalDiscountsPrice\",\"activityDeductionAmount\",\"frontendActivityName\",\"activityIconPictUrl\",\"hasCoupon\"]},\"finalGoodsPrice\":{\"type\":\"string\",\"description\":\"商品最终价\"},\"bannerInfo\":{\"type\":\"object\",\"properties\":{\"carouselTime\":{\"type\":\"integer\",\"description\":\"轮播时间（单位毫秒）\"},\"autoCarousel\":{\"type\":\"boolean\",\"description\":\"自动轮播\"},\"enableCarousel\":{\"type\":\"boolean\",\"description\":\"支持轮播\"},\"specialType\":{\"type\":\"integer\",\"description\":\"1: 左右 2: 上下 3: 3D1 4: 3D2\"},\"picList\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"jumpUrl\":{\"type\":\"string\",\"description\":\"跳转链接\"},\"imgUrl\":{\"type\":\"string\",\"description\":\"图片地址\"}},\"required\":[]},\"description\":\"图片\"}},\"required\":[]}},\"required\":[\"finalGoodsPrice\"]}},\"required\":[]}",
-  "res_body_type": "json",
-  "service": "AppLocalGoodsService",
-  "title": "locallife.goods.new.detail.basic(商品基本信息-无登录态)",
-  "uid": 8661,
-  "up_time": 1648450846,
-  "index": 0,
-  "api_opened": false,
-  "res_body_is_json_schema": true,
-  "req_body_form": [
-    
-  ],
-  "req_body_is_json_schema": true,
-  "req_params": [
-    
-  ],
-  "req_headers": [
-    {
-      "_id": "62415d1edcc61908ef41a8a0",
-      "value": "application/json",
-      "name": "Content-Type",
-      "required": "1"
-    }
-  ],
-  "req_query": [
-    
-  ],
-  "query_path": {
-    "path": "/api",
-    "params": [
-      
-    ]
+export const mockData1 = {
+  query_path: {
+    path: '/api/schedule/joinGroup',
+    params: [],
   },
-  "type": "static",
-  "status": "undone",
-  "edit_uid": 0,
-  "username": "闵晓龙"
-}
+  edit_uid: 0,
+  status: 'undone',
+  type: 'static',
+  req_body_is_json_schema: false,
+  res_body_is_json_schema: false,
+  api_opened: false,
+  index: 0,
+  tag: [],
+  _id: 204670,
+  method: 'GET',
+  catid: 20023,
+  title: '加入日程群聊',
+  path: '/api/schedule/joinGroup',
+  project_id: 179,
+  req_params: [],
+  res_body_type: 'json',
+  req_query: [
+    {
+      required: '1',
+      _id: '6172324124c2583c3196e829',
+      name: 'scheduleId',
+      example: '1231231',
+      desc: '日程id',
+    },
+  ],
+  req_body_other: '{"type":"object","title":"empty object","properties":{"calendarId":{"type":"number","description":"日程ID"},"targetDate":{"type":"string","description":"日程日期"}},"required":["calendarId","targetDate"]}',
+  req_headers: [],
+  req_body_form: [],
+  desc: '',
+  markdown: '',
+  res_body:
+    '{\n    "code":0, // 状态码。0表示成功，其他表示错误\n    "msg":"", // 状态信息\n    "data":{ // 接口返回数据\n        "groupIdEnc": "xxxxxxx", // 加密群id\n        "groupName":"吃饭群", // 群名称\n        "groupNamePy":"chi fan qun", // 群名称拼音\n        "avatar":"http........png", // 群头像url\n        "tinyAvatar":"http.....png", // 缩略头像链接\n        "bulletin":"群公告：好好学习，天天向上", // 群公告\n        "bulletinUpdateUid": 1551665155012, // 群公告更新用户id，可空\n        "bulletinUpdateTs": 1551665155012, // 群公告更新时间，可空\n        "ownerAtAll": 1, // 开启只有群主能@所有人，0-不开启，1-开启\n        "ownerAddUser": 0, // 开启只有群主能添加用户，0-不开启，1-开启\n        "ownerEdit": 1, // 开启只有群主能编辑群信息，0-不开启，1-开启\n        "top":1, // 置顶设置:0-不置顶，1-置顶\n        "silence":0, // 免打扰设置:0-不免，1-免\n        "status":0, // 状态：0-正常，1-解散\n        "type": 1, // 群组类型，1-普通群，2-项目组\n        "users":[{\n            "userId":20000001, // 用户id\n            "nickName":"李一", // 群昵称，可空\n            "nickNamePy":"li yi", // 群昵称拼音，可空\n            "status":1 // 用户状态：0-正常，1-退群，2-踢出\n        },{\n            "userId":20000001, // 用户id\n            "nickName":"", // 群昵称，可空\n            "nickNamePy":"", // 群昵称拼音，可空\n            "status":1 // 用户状态：0-正常，1-退群，2-踢出\n        }]\n    }\n}',
+  uid: 2060,
+  add_time: 1628132769,
+  up_time: 1634873921,
+  __v: 0,
+  username: '姬帅',
+};
+
+export const mockData2 = {
+  query_path: {
+    path: '/api/calendar/test',
+    params: [],
+  },
+  edit_uid: 0,
+  status: 'done',
+  type: 'static',
+  req_body_is_json_schema: true,
+  res_body_is_json_schema: true,
+  api_opened: false,
+  index: 0,
+  tag: [],
+  _id: 422171,
+  method: 'POST',
+  catid: 20023,
+  title: '代码自动生成测试',
+  path: '/api/calendar/test',
+  project_id: 179,
+  req_params: [],
+  res_body_type: 'json',
+  uid: 6443,
+  add_time: 1662176048,
+  up_time: 1662553289,
+  req_query: [],
+  req_headers: [
+    {
+      required: '1',
+      _id: '63188cc9b2e15d2206a7f520',
+      name: 'Content-Type',
+      value: 'application/json',
+    },
+  ],
+  req_body_form: [
+    {
+      required: '1',
+      _id: '63188cc9b2e15d2206a7f522',
+      name: 'calendarId',
+      type: 'text',
+    },
+    {
+      required: '1',
+      _id: '63188cc9b2e15d2206a7f521',
+      name: 'targetDate',
+      type: 'text',
+      example: '',
+      desc: '',
+    },
+  ],
+  __v: 0,
+  desc: '',
+  markdown: '',
+  req_body_type: 'json',
+  res_body:
+    '{"$schema":"http://json-schema.org/draft-04/schema#","type":"object","properties":{"code":{"type":"number","description":"状态码","mock":{"mock":"@string"}},"msg":{"type":"string","description":"错误信息","mock":{"mock":"@string"}},"data":{"type":"object","properties":{"version":{"type":"number","description":"版本号","mock":{"mock":"@lower"}},"subVersion":{"type":"number","description":"子版本号","mock":{"mock":"@natural"}},"hasMore":{"type":"number","description":"是否有更多","mock":{"mock":"@natural"}},"extraData":{"type":"object","properties":{"type":{"type":"string","description":"类型"},"value":{"type":"string","description":"数值"}},"description":"额外属性","required":["type","value"]},"status":{"type":"string","description":"状态, success-成功，pending-待定，error-错误","enum":["success","pending","error"]},"userList":{"type":"array","items":{"type":"object","properties":{"name":{"type":"string","description":"姓名"},"age":{"type":"string"}},"required":["name","age"],"description":"用户项"},"description":"用户列表"}},"description":"返回数据","required":["extraData","status"]}},"required":["code","msg","data"]}',
+  req_body_other: '{"type":"object","title":"empty object","properties":{"calendarId":{"type":"number","description":"日程ID"},"targetDate":{"type":"string","description":"日程日期"}},"required":["calendarId","targetDate"]}',
+  username: '周非凡',
+};

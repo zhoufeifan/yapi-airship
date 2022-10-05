@@ -1,19 +1,18 @@
 export function insertGenerateButton() {
-  const button = document.createElement('button')
+  const button = document.createElement('button');
   button.className = 'ant-btn ant-btn-primary generate-api-code-btn';
-  button.innerText = '生成api代码'
-  document.getElementById('yapi')?.appendChild(button)
+  button.innerText = '生成api代码';
+  document.getElementById('app')?.appendChild(button);
   return button;
 }
 
 export function insertSetParamsButton() {
-  const button = document.createElement('button')
+  const button = document.createElement('button');
   button.className = 'ant-btn set-params-btn';
-  button.innerText = '设置参数'
-  document.getElementById('yapi')?.appendChild(button)
+  button.innerText = '设置参数';
+  document.getElementById('yapi')?.appendChild(button);
   return button;
 }
-
 
 // export function insertForm() {
 //   const formContainer = document.createElement('div');
