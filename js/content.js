@@ -45813,14 +45813,16 @@ function getResponseDataInfo(actionName) {
     typeName = result.type;
     isArray = result.isArray;
   } catch (e) {
-    debugger;
-    const aa = transformStringToData(pageData.res_body);
-    const result = getTypeModalByData(aa.data || aa, keyName, typeList);
+    // 解析非json 格式的字符串
+    const formData = transformStringToData(pageData.res_body);
+    const result = getTypeModalByData(
+      formData.data || formData,
+      keyName,
+      typeList
+    );
     typeName = result.type;
     isArray = result.isArray;
     typeList = result.typeList;
-    // console.warn('aaaa', resultData);
-    // 解析非json 格式的字符串
   }
   return {
     typeName,

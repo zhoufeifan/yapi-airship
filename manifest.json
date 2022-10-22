@@ -11,12 +11,11 @@
     }
   ],
   "background": {
-    "scripts": ["js/background.js", "js/hot-reload.js"],
-    "persistent": false
+    "service_worker": "js/background.js"
   },
-  "page_action": {
+  "action": {
     "default_title": "测试工具",
     "default_icon": "asserts/icon.png"
   },
-  "manifest_version": 2
+  "manifest_version": 3
 }
