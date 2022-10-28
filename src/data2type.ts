@@ -18,7 +18,9 @@ export function transformStringToData(str: string) {
     }
     return item;
   });
-  const data = JSON.parse(pureStringArray.join(''));
+  const jsonStr = pureStringArray.join('');
+  console.log(jsonStr);
+  const data = JSON.parse(jsonStr);
   return data || {};
 }
 

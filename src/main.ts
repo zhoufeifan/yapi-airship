@@ -1,7 +1,7 @@
 import { fetchData, getHeadCodeToUpperCase, getApiId, getApiBasicInfo } from './utils';
 import { transformStringToData, getTypeModalByData } from './data2type';
 import { mockData1, mockData2 } from './mockData';
-import { FieldDataType, ParamsRowDataType, TypeListItem, ObjectType, EnumTypeItem } from './types';
+import { FieldDataType, ParamsRowDataType, TypeListItem, ObjectType, EnumTypeItem, QueryItemType } from './types';
 import transform2code from './transform2code';
 import { insertGenerateButton, insertSetParamsButton } from './element';
 
@@ -9,8 +9,8 @@ let pageData: any = null;
 let typeList: TypeListItem[] = [];
 let enumTypeList: EnumTypeItem[] = [];
 
-// 获取入参信息
-function getRequestType(actionName: string): string {
+// 获取Json格式的入参信息
+function getRequestTypeByJson(actionName: string): string {
   const { properties, required: requiredList } = JSON.parse(pageData.req_body_other) as ParamsRowDataType;
   const items: any = [];
 
@@ -18,6 +18,25 @@ function getRequestType(actionName: string): string {
     const item = getTypeItem(data, key, requiredList);
     items.push(item);
   });
+  console.warn(JSON.stringify(items));
+  if (!items.length) return '';
+  const typeName = `${getHeadCodeToUpperCase(actionName)}ParamsType`;
+  typeList.push({
+    typeName,
+    items,
+  });
+  return typeName;
+}
+
+// 获取Query格式的入参信息
+function getRequestTypeByQuery(actionName: string): string {
+  const queryList: QueryItemType[] = pageData.req_query || [];
+  const items = queryList.map(item => ({
+    description: item.desc,
+    name: item.name,
+    type: 'string',
+    required: item.required === '1',
+  }));
   console.warn(JSON.stringify(items));
   if (!items.length) return '';
   const typeName = `${getHeadCodeToUpperCase(actionName)}ParamsType`;
@@ -101,7 +120,7 @@ function getResponseDataInfo(actionName: string) {
     console.warn(data);
     const result = getTypeItem(data, keyName, data.required);
     typeName = result.type;
-    isArray = result.isArray;
+    isArray = !!result.isArray;
   } catch (e) {
     // 解析非json 格式的字符串
     const formData = transformStringToData(pageData.res_body);
@@ -120,7 +139,7 @@ function getResponseDataInfo(actionName: string) {
 // 根据数据生成相应的ts代码
 function generateCode() {
   const { actionName, apiDesc, method } = getApiBasicInfo(pageData);
-  const requestType = getRequestType(actionName);
+  const requestType = method === 'post' && pageData.req_body_other ? getRequestTypeByJson(actionName) : getRequestTypeByQuery(actionName);
   const resultData = {
     actionName,
     apiDesc,
@@ -163,17 +182,17 @@ function doWork(data: any) {
 setTimeout(() => {
   const generateButton = insertGenerateButton();
   generateButton.addEventListener('click', () => {
-    doWork(mockData1);
+    // doWork(mockData1);
     // 从url上拿取apiId
-    // const apiId = getApiId(window.location.href);
-    // apiId &&
-    //   fetchData(apiId)
-    //     .then(({ errcode, errmsg, data }) => {
-    //       if (errcode !== 0) throw errmsg;
-    //       doWork(data);
-    //     })
-    //     .catch(msg => {
-    //       alert(msg);
-    //     });
+    const apiId = getApiId(window.location.href);
+    apiId &&
+      fetchData(apiId)
+        .then(({ errcode, errmsg, data }) => {
+          if (errcode !== 0) throw errmsg;
+          doWork(data);
+        })
+        .catch(msg => {
+          alert(msg);
+        });
   });
 }, 1000);

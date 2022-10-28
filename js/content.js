@@ -1,8 +1,23 @@
+function fetchData(id) {
+  return fetch(`${window.location.origin}/api/interface/get?id=${id}`).then(
+    function (response) {
+      return response.json();
+    }
+  );
+}
 // 首字母转大写
 function getHeadCodeToUpperCase(codes) {
   return codes.replace(/(^)([a-z])/g, code => {
     return code.toUpperCase();
   });
+}
+// 获取url上的参数
+function getApiId(url) {
+  const result = url.match(/\/api\/(\d+)/);
+  if (result) {
+    return result[1];
+  }
+  return '';
 }
 // pageData.title.replace(/(^[a-zA-Z.0-9]+)\((.+)\)/g, function (_: never, action: string, apiDesc: string) {
 //   result.action = action;
@@ -49,7 +64,9 @@ function transformStringToData(str) {
     }
     return item;
   });
-  const data = JSON.parse(pureStringArray.join(''));
+  const jsonStr = pureStringArray.join('');
+  console.log(jsonStr);
+  const data = JSON.parse(jsonStr);
   return data || {};
 }
 // 根据对象的数据模型，生成字段类型的数据描述字段
@@ -92,51 +109,6 @@ function getTypeModalByData(value, keyName, typeList) {
     typeList,
   };
 }
-
-const mockData1 = {
-  query_path: {
-    path: '/api/schedule/joinGroup',
-    params: [],
-  },
-  edit_uid: 0,
-  status: 'undone',
-  type: 'static',
-  req_body_is_json_schema: false,
-  res_body_is_json_schema: false,
-  api_opened: false,
-  index: 0,
-  tag: [],
-  _id: 204670,
-  method: 'GET',
-  catid: 20023,
-  title: '加入日程群聊',
-  path: '/api/schedule/joinGroup',
-  project_id: 179,
-  req_params: [],
-  res_body_type: 'json',
-  req_query: [
-    {
-      required: '1',
-      _id: '6172324124c2583c3196e829',
-      name: 'scheduleId',
-      example: '1231231',
-      desc: '日程id',
-    },
-  ],
-  req_body_other:
-    '{"type":"object","title":"empty object","properties":{"calendarId":{"type":"number","description":"日程ID"},"targetDate":{"type":"string","description":"日程日期"}},"required":["calendarId","targetDate"]}',
-  req_headers: [],
-  req_body_form: [],
-  desc: '',
-  markdown: '',
-  res_body:
-    '{\n    "code":0, // 状态码。0表示成功，其他表示错误\n    "msg":"", // 状态信息\n    "data":{ // 接口返回数据\n        "groupIdEnc": "xxxxxxx", // 加密群id\n        "groupName":"吃饭群", // 群名称\n        "groupNamePy":"chi fan qun", // 群名称拼音\n        "avatar":"http........png", // 群头像url\n        "tinyAvatar":"http.....png", // 缩略头像链接\n        "bulletin":"群公告：好好学习，天天向上", // 群公告\n        "bulletinUpdateUid": 1551665155012, // 群公告更新用户id，可空\n        "bulletinUpdateTs": 1551665155012, // 群公告更新时间，可空\n        "ownerAtAll": 1, // 开启只有群主能@所有人，0-不开启，1-开启\n        "ownerAddUser": 0, // 开启只有群主能添加用户，0-不开启，1-开启\n        "ownerEdit": 1, // 开启只有群主能编辑群信息，0-不开启，1-开启\n        "top":1, // 置顶设置:0-不置顶，1-置顶\n        "silence":0, // 免打扰设置:0-不免，1-免\n        "status":0, // 状态：0-正常，1-解散\n        "type": 1, // 群组类型，1-普通群，2-项目组\n        "users":[{\n            "userId":20000001, // 用户id\n            "nickName":"李一", // 群昵称，可空\n            "nickNamePy":"li yi", // 群昵称拼音，可空\n            "status":1 // 用户状态：0-正常，1-退群，2-踢出\n        },{\n            "userId":20000001, // 用户id\n            "nickName":"", // 群昵称，可空\n            "nickNamePy":"", // 群昵称拼音，可空\n            "status":1 // 用户状态：0-正常，1-退群，2-踢出\n        }]\n    }\n}',
-  uid: 2060,
-  add_time: 1628132769,
-  up_time: 1634873921,
-  __v: 0,
-  username: '姬帅',
-};
 
 function getAugmentedNamespace(n) {
   if (n.__esModule) return n;
@@ -45680,7 +45652,7 @@ function insertGenerateButton() {
   const button = document.createElement('button');
   button.className = 'ant-btn ant-btn-primary generate-api-code-btn';
   button.innerText = '生成api代码';
-  document.getElementById('app')?.appendChild(button);
+  document.getElementById('yapi')?.appendChild(button);
   return button;
 }
 // export function insertForm() {
@@ -45712,8 +45684,8 @@ function insertGenerateButton() {
 let pageData = null;
 let typeList = [];
 let enumTypeList = [];
-// 获取入参信息
-function getRequestType(actionName) {
+// 获取Json格式的入参信息
+function getRequestTypeByJson(actionName) {
   const { properties, required: requiredList } = JSON.parse(
     pageData.req_body_other
   );
@@ -45722,6 +45694,24 @@ function getRequestType(actionName) {
     const item = getTypeItem(data, key, requiredList);
     items.push(item);
   });
+  console.warn(JSON.stringify(items));
+  if (!items.length) return '';
+  const typeName = `${getHeadCodeToUpperCase(actionName)}ParamsType`;
+  typeList.push({
+    typeName,
+    items,
+  });
+  return typeName;
+}
+// 获取Query格式的入参信息
+function getRequestTypeByQuery(actionName) {
+  const queryList = pageData.req_query || [];
+  const items = queryList.map(item => ({
+    description: item.desc,
+    name: item.name,
+    type: 'string',
+    required: item.required === '1',
+  }));
   console.warn(JSON.stringify(items));
   if (!items.length) return '';
   const typeName = `${getHeadCodeToUpperCase(actionName)}ParamsType`;
@@ -45811,7 +45801,7 @@ function getResponseDataInfo(actionName) {
     console.warn(data);
     const result = getTypeItem(data, keyName, data.required);
     typeName = result.type;
-    isArray = result.isArray;
+    isArray = !!result.isArray;
   } catch (e) {
     // 解析非json 格式的字符串
     const formData = transformStringToData(pageData.res_body);
@@ -45832,7 +45822,10 @@ function getResponseDataInfo(actionName) {
 // 根据数据生成相应的ts代码
 function generateCode() {
   const { actionName, apiDesc, method } = getApiBasicInfo(pageData);
-  const requestType = getRequestType(actionName);
+  const requestType =
+    method === 'post' && pageData.req_body_other
+      ? getRequestTypeByJson(actionName)
+      : getRequestTypeByQuery(actionName);
   const resultData = {
     actionName,
     apiDesc,
@@ -45871,17 +45864,17 @@ function doWork(data) {
 setTimeout(() => {
   const generateButton = insertGenerateButton();
   generateButton.addEventListener('click', () => {
-    doWork(mockData1);
+    // doWork(mockData1);
     // 从url上拿取apiId
-    // const apiId = getApiId(window.location.href);
-    // apiId &&
-    //   fetchData(apiId)
-    //     .then(({ errcode, errmsg, data }) => {
-    //       if (errcode !== 0) throw errmsg;
-    //       doWork(data);
-    //     })
-    //     .catch(msg => {
-    //       alert(msg);
-    //     });
+    const apiId = getApiId(window.location.href);
+    apiId &&
+      fetchData(apiId)
+        .then(({ errcode, errmsg, data }) => {
+          if (errcode !== 0) throw errmsg;
+          doWork(data);
+        })
+        .catch(msg => {
+          alert(msg);
+        });
   });
 }, 1000);

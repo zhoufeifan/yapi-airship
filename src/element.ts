@@ -2,7 +2,7 @@ export function insertGenerateButton() {
   const button = document.createElement('button');
   button.className = 'ant-btn ant-btn-primary generate-api-code-btn';
   button.innerText = '生成api代码';
-  document.getElementById('app')?.appendChild(button);
+  document.getElementById('yapi')?.appendChild(button);
   return button;
 }
 

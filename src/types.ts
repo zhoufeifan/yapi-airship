@@ -9,8 +9,14 @@ export type FieldDataType = {
   type: string; // 数据类型
   description?: string; // 数据含义
   required: boolean; // 是否必须
-  isArray: boolean; // 是否是数组
+  isArray?: boolean; // 是否是数组
   enum?: string[]; // 枚举类信息
+};
+
+export type QueryItemType = {
+  desc: string; // 字段说明
+  name: string; // 字段名称
+  required: '1' | '0'; // 是否必填，1-必填，0-非必填
 };
 
 export type ObjectType = {
