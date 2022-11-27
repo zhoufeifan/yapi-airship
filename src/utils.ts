@@ -36,7 +36,7 @@ function convertPathToActionName(path: string) {
 export function getApiBasicInfo(pageData: any) {
   const { title, path, method = '' } = pageData;
   const result = {
-    actionName: convertPathToActionName(path),
+    actionName: convertPathToActionName(path.replace('/api', '')),
     apiDesc: title,
     method: method.toLowerCase(),
   };

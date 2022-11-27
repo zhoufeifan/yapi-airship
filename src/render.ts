@@ -6,9 +6,10 @@ interface configType {
   method: string;
   requestTypeName: string;
   responseTypeName: string;
+  isArrayType: boolean;
 }
 export const renderTemplate = (config: configType) => {
-  const { linkAddress, title, typeCode, actionName, method, requestTypeName, responseTypeName } = config;
+  const { linkAddress, title, typeCode, actionName, method, requestTypeName, responseTypeName, isArrayType } = config;
 
   const code = `
   /**
@@ -21,7 +22,7 @@ export const renderTemplate = (config: configType) => {
   ${typeCode}
 
   export function JBG_${actionName}(params: ${requestTypeName}) {
-    return baseRequest<${responseTypeName}>({
+    return baseRequest<${isArrayType ? `${responseTypeName}[]` : responseTypeName}>({
       api: "_${actionName}",
       method: "${method}",
       params,

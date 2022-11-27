@@ -112,7 +112,7 @@ function getTypeItem(data: ParamsRowDataType, keyName: string, requiredList = ['
 function getResponseDataInfo(actionName: string) {
   let typeName = '';
   let isArray = false;
-  const keyName = `${getHeadCodeToUpperCase(actionName)}ResponseType`;
+  const keyName = `${getHeadCodeToUpperCase(actionName)}Response`;
   // json 格式的字符串
   try {
     const { properties } = JSON.parse(pageData.res_body);
@@ -182,7 +182,7 @@ function doWork(data: any) {
 setTimeout(() => {
   const generateButton = insertGenerateButton();
   generateButton.addEventListener('click', () => {
-    // doWork(mockData1);
+    // doWork(mockData2);
     // 从url上拿取apiId
     const apiId = getApiId(window.location.href);
     apiId &&

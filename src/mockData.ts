@@ -56,7 +56,7 @@ export const mockData2 = {
   index: 0,
   tag: [],
   _id: 422171,
-  method: 'POST',
+  method: 'GET',
   catid: 20023,
   title: '代码自动生成测试',
   path: '/api/calendar/test',

@@ -82,6 +82,7 @@ interface ApiDataType {
   functionName: string;
   apiDesc: string;
   apiLocation: string;
+  method: string;
 }
 
 // 构造 给业务层调用的 export 方法
@@ -115,7 +116,7 @@ function getExportFunc(apiData: ApiDataType) {
 }
 
 export default function (apiData: ApiDataType) {
-  const { typeList, apiDesc, apiLocation, actionName, enumTypeList, requestType, responseDataInfo } = apiData;
+  const { typeList, apiDesc, apiLocation, actionName, enumTypeList, requestType, responseDataInfo, method } = apiData;
   // console.log(typeList)
   // console.log(JSON.stringify(exportTypeDeclaration))
   const ast = parse(``, {
@@ -152,9 +153,10 @@ export default function (apiData: ApiDataType) {
     title: apiDesc,
     typeCode,
     actionName,
-    method: 'post',
+    method,
     requestTypeName: requestType,
     responseTypeName: responseDataInfo.typeName,
+    isArrayType: responseDataInfo.isArray,
   });
   console.warn(finalCode);
   return finalCode;

@@ -33,7 +33,7 @@ function convertPathToActionName(path) {
 function getApiBasicInfo(pageData) {
   const { title, path, method = '' } = pageData;
   const result = {
-    actionName: convertPathToActionName(path),
+    actionName: convertPathToActionName(path.replace('/api', '')),
     apiDesc: title,
     method: method.toLowerCase(),
   };
@@ -45491,6 +45491,7 @@ const renderTemplate = config => {
     method,
     requestTypeName,
     responseTypeName,
+    isArrayType,
   } = config;
   const code = `
   /**
@@ -45503,7 +45504,9 @@ const renderTemplate = config => {
   ${typeCode}
 
   export function JBG_${actionName}(params: ${requestTypeName}) {
-    return baseRequest<${responseTypeName}>({
+    return baseRequest<${
+      isArrayType ? `${responseTypeName}[]` : responseTypeName
+    }>({
       api: "_${actionName}",
       method: "${method}",
       params,
@@ -45602,6 +45605,7 @@ function transform2code(apiData) {
     enumTypeList,
     requestType,
     responseDataInfo,
+    method,
   } = apiData;
   // console.log(typeList)
   // console.log(JSON.stringify(exportTypeDeclaration))
@@ -45639,9 +45643,10 @@ function transform2code(apiData) {
     title: apiDesc,
     typeCode,
     actionName,
-    method: 'post',
+    method,
     requestTypeName: requestType,
     responseTypeName: responseDataInfo.typeName,
+    isArrayType: responseDataInfo.isArray,
   });
   console.warn(finalCode);
   return finalCode;
@@ -45793,7 +45798,7 @@ function getTypeItem(data, keyName, requiredList = ['']) {
 function getResponseDataInfo(actionName) {
   let typeName = '';
   let isArray = false;
-  const keyName = `${getHeadCodeToUpperCase(actionName)}ResponseType`;
+  const keyName = `${getHeadCodeToUpperCase(actionName)}Response`;
   // json 格式的字符串
   try {
     const { properties } = JSON.parse(pageData.res_body);
@@ -45864,7 +45869,7 @@ function doWork(data) {
 setTimeout(() => {
   const generateButton = insertGenerateButton();
   generateButton.addEventListener('click', () => {
-    // doWork(mockData1);
+    // doWork(mockData2);
     // 从url上拿取apiId
     const apiId = getApiId(window.location.href);
     apiId &&
